@@ -31,3 +31,6 @@
     <div class="wrapper">
 
     <?php include 'sidebar.php'; ?>
+
+    <!-- Page Content  -->
+    <div id="content">

@@ -12,49 +12,27 @@
  * file that was distributed with this source code.
  */
 
-
 $route->get('/', 'Instant\Controller\HomeController@index');
-
-/* // /hello
-$route->get('/hello', 'Instant\Controller\HelloWorldController@index');
 
 $route->group('/admin', function()
 {
     // /admin/
-    $this->get('/', 'Instant\Controller\AdminController@admin');
+    $this->get('/', 'Instant\Controller\AdminController@settings');
 
-    // /admin/settings
-    $this->get('/settings', 'Instant\Controller\AdminController@settings');
+    // /admin/update-password
+    $this->get('/update-password', 'Instant\Controller\AdminController@updatePassword');
 
-    // Nested group
-    $this->group('/users', function()
-    {
-        // /admin/users
-        $this->get('/', 'Instant\Controller\AdminController@users');
+    // /admin/remove-user
+    $this->get('/remove-user', 'Instant\Controller\AdminController@removeUser');
 
-        // /admin/users/add
-        $this->get('/add', 'Instant\Controller\AdminController@addUser');
-    });
+    // /admin/add-user
+    $this->get('/add-user', 'Instant\Controller\AdminController@addUser');
 
     // Anything else
     $this->any('/*', function(){
         pre("Page ( {$this->app->request->path} ) Not Found", 6);
     });
 });
-
-// /person
-$route->get('/person', 'Instant\Controller\PersonController@getJsonPerson');
-
-$route->get('pages/{title}?',
-function($title){
-    if($title){
-        $page = new PageController();
-        $page->getPage($title);
-    }else{
-        $page = new PageController();
-        $page->getListPages('pages');
-    }
-}); */
 
 // Anything else
 $route->any('/*', function(){

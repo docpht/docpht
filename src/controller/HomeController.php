@@ -27,7 +27,7 @@ class HomeController extends BaseController
 	public function index()
 	{
 		$this->view->show('partial/head.php', ['PageTitle' => 'Doc PHT']);
-		$this->view->show('Home.php');
+		$this->view->show('home.php');
 		$this->view->show('partial/footer.php');
 	}
 
