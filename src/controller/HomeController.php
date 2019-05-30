@@ -12,7 +12,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Instant\Controller;
+namespace DocPHT\Controller;
 
 use Instant\Core\Controller\BaseController;
 

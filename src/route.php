@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This file is part of the Instant MVC micro-framework project.
+ * This file is part of the DocPHT MVC micro-framework project.
  * 
- * @package     Instant MVC micro-framework
+ * @package     DocPHT MVC micro-framework
  * @author      Valentino Pesce 
  * @link        https://github.com/kenlog
  * @copyright   2019 (c) Valentino Pesce <valentino@iltuobrand.it>
@@ -12,21 +12,21 @@
  * file that was distributed with this source code.
  */
 
-$route->get('/', 'Instant\Controller\HomeController@index');
+$route->get('/', 'DocPHT\Controller\HomeController@index');
 
 $route->group('/admin', function()
 {
     // /admin/
-    $this->get('/', 'Instant\Controller\AdminController@settings');
+    $this->get('/', 'DocPHT\Controller\AdminController@settings');
 
     // /admin/update-password
-    $this->get('/update-password', 'Instant\Controller\AdminController@updatePassword');
+    $this->get('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
 
     // /admin/remove-user
-    $this->get('/remove-user', 'Instant\Controller\AdminController@removeUser');
+    $this->get('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 
     // /admin/add-user
-    $this->get('/add-user', 'Instant\Controller\AdminController@addUser');
+    $this->get('/add-user', 'DocPHT\Controller\AdminController@addUser');
 
     // Anything else
     $this->any('/*', function(){

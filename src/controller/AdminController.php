@@ -12,9 +12,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Instant\Controller;
+namespace DocPHT\Controller;
 
-//use Instant\Model\Admin;
+//use DocPHT\Model\Admin;
 use Instant\Core\Controller\BaseController;
 
 class AdminController extends BaseController

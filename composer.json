@@ -1,12 +1,17 @@
 {
-    "name": "kenlog/instant-mvc",
-    "description": "Instant MVC micro-framework",
+    "name": "kenlog/doc-pht",
+    "type": "project",
+    "description": "Clipboard generator for code snippets",
     "license": "MIT",
     "authors": [
         {
             "name": "Valentino Pesce",
             "email": "valentino@iltuobrand.it",
-            "homepage": "https://iltuobrand.it",
+            "role": "Developer"
+        },
+        {
+            "name": "Craig Crosby",
+            "email": "creecros@gmail.com",
             "role": "Developer"
         }
     ],
@@ -17,15 +22,17 @@
         "symfony/property-access": "^4.2",
         "bocharsky-bw/arrayzy": "^0.6.1",
         "phpunit/phpunit": "^8.1",
-        "symfony/translation": "^4.3"
+        "symfony/translation": "^4.3",
+        "nette/forms": "^3.0",
+        "emojione/emojione": "^4.5"
     },
     "autoload": {
         "psr-4": {
-          "Instant\\":"src/"
+          "":"src/"
         }
     },
     "autoload-dev": {
-        "psr-4": { "Instant\\": "src/tests/" }
+        "psr-4": { "": "tests/" }
     },
     "config": {
     	"optimize-autoloader": true
