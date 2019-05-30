@@ -1,0 +1,35 @@
+{
+    "name": "kenlog/instant-mvc",
+    "description": "Instant MVC micro-framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Valentino Pesce",
+            "email": "valentino@iltuobrand.it",
+            "homepage": "https://iltuobrand.it",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "nezamy/route": "^1.2",
+        "symfony/serializer": "^4.2",
+        "symfony/property-access": "^4.2",
+        "bocharsky-bw/arrayzy": "^0.6.1",
+        "phpunit/phpunit": "^8.1",
+        "symfony/translation": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "Instant\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { "Instant\\": "src/tests/" }
+    },
+    "config": {
+    	"optimize-autoloader": true
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
