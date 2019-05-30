@@ -1,12 +1,11 @@
 <?php
 
 /**
- * This file is part of the DocPHT MVC micro-framework project.
+ * This file is part of the DocPHT project.
  * 
- * @package     DocPHT MVC micro-framework
- * @author      Valentino Pesce 
- * @link        https://github.com/kenlog
- * @copyright   2019 (c) Valentino Pesce <valentino@iltuobrand.it>
+ * @author Valentino Pesce
+ * @copyright (c) Valentino Pesce <valentino@iltuobrand.it>
+ * @copyright (c) Craig Crosby <creecros@gmail.com>
  * 
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
