@@ -55,4 +55,18 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function createHome()
+	{
+		$this->view->show('partial/head.php', ['PageTitle' => 'Create Home']);
+		$this->view->show('admin/create_home.php');
+		$this->view->show('partial/footer.php');
+	}
+
+	public function translations()
+	{
+		$this->view->show('partial/head.php', ['PageTitle' => 'Translations']);
+		$this->view->show('admin/translations.php');
+		$this->view->show('partial/footer.php');
+	}
+
 }

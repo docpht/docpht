@@ -27,6 +27,12 @@ $route->group('/admin', function()
     // /admin/add-user
     $this->get('/add-user', 'DocPHT\Controller\AdminController@addUser');
 
+    // /admin/create-home
+    $this->get('/create-home', 'DocPHT\Controller\AdminController@createHome');
+
+    // /admin/translations
+    $this->get('/translations', 'DocPHT\Controller\AdminController@translations');
+
     // Anything else
     $this->any('/*', function(){
         pre("Page ( {$this->app->request->path} ) Not Found", 6);
