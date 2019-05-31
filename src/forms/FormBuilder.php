@@ -53,21 +53,21 @@ class FormBuilder
 		}
     }
     
-    public function createForm()
-    {
-        $form = new Form;
+	public function createForm()
+	{
+		$form = new Form;
 		$form->onRender[] = [$this, 'makeBootstrap4'];
 
 		return $form;
 	}
 	
 	public function formSuccess(Form $form, \stdClass $values): void
-    {
+	{
 		// ...
 	}
 	
 	public function formError(Form $form, \stdClass $values): void
-    {
+	{
 		// ...
-    }
+	}
 }
