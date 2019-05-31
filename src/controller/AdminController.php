@@ -14,7 +14,10 @@
 namespace DocPHT\Controller;
 
 //use DocPHT\Model\Admin;
+use Nette\Forms\Form;
+use Nette\Utils\Html;
 use Instant\Core\Controller\BaseController;
+
 
 class AdminController extends BaseController
 {
@@ -34,10 +37,66 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function makeBootstrap4(Form $form)
+	{
+		$renderer = $form->getRenderer();
+		$renderer->wrappers['controls']['container'] = null;
+		$renderer->wrappers['pair']['container'] = 'div class="form-group"';
+		$renderer->wrappers['pair']['.error'] = 'has-danger';
+		$renderer->wrappers['control']['container'] = 'div class=col';
+		$renderer->wrappers['label']['container'] = 'div class="col col-form-label font-weight-bold"';
+		$renderer->wrappers['control']['description'] = 'span class=form-text';
+		$renderer->wrappers['control']['errorcontainer'] = 'span class=form-error';
+
+		foreach ($form->getControls() as $control) {
+			$type = $control->getOption('type');
+			if ($type === 'button') {
+				$control->getControlPrototype()->addClass(empty($usedPrimary) ? 'btn btn-secondary btn-block' : 'btn btn-primary');
+				$usedPrimary = true;
+
+			} elseif (in_array($type, ['text', 'textarea', 'select'], true)) {
+				$control->getControlPrototype()->addClass('form-control selectpicker');
+
+			} elseif ($type === 'file') {
+				$control->getControlPrototype()->addClass('form-control-file');
+
+			} elseif (in_array($type, ['checkbox', 'radio'], true)) {
+				if ($control instanceof Nette\Forms\Controls\Checkbox) {
+					$control->getLabelPrototype()->addClass('form-check-label');
+				} else {
+					$control->getItemLabelPrototype()->addClass('form-check-label');
+				}
+				$control->getControlPrototype()->addClass('form-check-input');
+				$control->getSeparatorPrototype()->setName('div')->addClass('form-check');
+			}
+		}
+	}
+
 	public function updatePassword()
 	{
+
+		$form = new Form;
+		$form->onRender[] = [$this, 'makeBootstrap4'];
+
+		$form->addGroup('Personal data')
+			->setOption('description', 'We value');
+
+		$form->addText('name', 'Your name:')
+			->setRequired('Enter your name');
+
+		$form->addSubmit('submit', 'Send');
+
+		$form->setDefaults([
+			'name' => 'Vale',
+		]);
+
+		if ($form->isSuccess()) {
+			echo '<h2>Form was submitted and successfully validated</h2>';
+			var_dump($form->getValues());
+		}
+
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
-        $this->view->show('admin/update_password.php');
+        $this->view->show('admin/update_password.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
 
