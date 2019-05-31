@@ -14,18 +14,19 @@
 namespace DocPHT\Controller;
 
 //use DocPHT\Model\Admin;
-use Nette\Forms\Form;
-use Nette\Utils\Html;
+use DocPHT\Form\FormBuilder;
 use Instant\Core\Controller\BaseController;
 
 
 class AdminController extends BaseController
 {
 	private $modelAdmin;
+	private $form;
     
 	public function __construct()
 	{
 		parent::__construct();
+		$this->form = new FormBuilder();
 		//$this->modelAdmin = new Admin();
 	}
 			
@@ -37,62 +38,25 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
-	public function makeBootstrap4(Form $form)
-	{
-		$renderer = $form->getRenderer();
-		$renderer->wrappers['controls']['container'] = null;
-		$renderer->wrappers['pair']['container'] = 'div class="form-group"';
-		$renderer->wrappers['pair']['.error'] = 'has-danger';
-		$renderer->wrappers['control']['container'] = 'div class=col';
-		$renderer->wrappers['label']['container'] = 'div class="col col-form-label font-weight-bold"';
-		$renderer->wrappers['control']['description'] = 'span class=form-text';
-		$renderer->wrappers['control']['errorcontainer'] = 'span class=form-error';
-
-		foreach ($form->getControls() as $control) {
-			$type = $control->getOption('type');
-			if ($type === 'button') {
-				$control->getControlPrototype()->addClass(empty($usedPrimary) ? 'btn btn-secondary btn-block' : 'btn btn-primary');
-				$usedPrimary = true;
-
-			} elseif (in_array($type, ['text', 'textarea', 'select'], true)) {
-				$control->getControlPrototype()->addClass('form-control selectpicker');
-
-			} elseif ($type === 'file') {
-				$control->getControlPrototype()->addClass('form-control-file');
-
-			} elseif (in_array($type, ['checkbox', 'radio'], true)) {
-				if ($control instanceof Nette\Forms\Controls\Checkbox) {
-					$control->getLabelPrototype()->addClass('form-check-label');
-				} else {
-					$control->getItemLabelPrototype()->addClass('form-check-label');
-				}
-				$control->getControlPrototype()->addClass('form-check-input');
-				$control->getSeparatorPrototype()->setName('div')->addClass('form-check');
-			}
-		}
-	}
+	
 
 	public function updatePassword()
 	{
-
-		$form = new Form;
-		$form->onRender[] = [$this, 'makeBootstrap4'];
-
+		$form = $this->form->createForm();
+		
 		$form->addGroup('Personal data')
-			->setOption('description', 'We value');
+			->setOption('description', 'Test');
 
 		$form->addText('name', 'Your name:')
 			->setRequired('Enter your name');
 
 		$form->addSubmit('submit', 'Send');
-
-		$form->setDefaults([
-			'name' => 'Vale',
-		]);
-
+		
 		if ($form->isSuccess()) {
-			echo '<h2>Form was submitted and successfully validated</h2>';
-			var_dump($form->getValues());
+			$values = $form->getValues();
+			$this->form->formSuccess($form, $values);
+		} else {
+			$this->form->formError($form, $values);
 		}
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
