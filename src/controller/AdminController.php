@@ -49,12 +49,8 @@ class AdminController extends BaseController
 			->setRequired('Enter your name');
 
 		$form->addSubmit('submit', 'Send');
-		
-		if ($form->isSuccess()) {
-			$this->form->formSuccess($form, $form->getValues());
-		} else {
-			$this->form->formError($form, $form->getValues());
-		}
+		$form->onSuccess[] = [$this->form, 'formSuccess'];
+		$form->onError[] = [$this->form, 'formError'];
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
         $this->view->show('admin/update_password.php', ['form' => $form]);

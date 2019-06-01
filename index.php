@@ -1,5 +1,7 @@
 <?php ini_set('display_errors', 1);
 
+use Tracy\Debugger;
+
 /**
  * This file is part of the DocPHT project.
  * 
@@ -18,6 +20,8 @@ if (!file_exists('src/config/config.php')) {
 } elseif (file_exists($autoload)) {
 require $autoload;
 require 'src/config/config.php';
+
+Debugger::enable();
 
 $app            = System\App::instance();
 $app->request   = System\Request::instance();

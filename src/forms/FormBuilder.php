@@ -63,11 +63,13 @@ class FormBuilder
 	
 	public function formSuccess(Form $form, \stdClass $values): void
 	{
-		// ...
+		Dumper::dump($form->getValues(), [Dumper::COLLAPSE => false]);
+		exit;
 	}
 	
 	public function formError(Form $form, \stdClass $values): void
 	{
-		// ...
+		Dumper::dump($form->getValues(), [Dumper::COLLAPSE => false]);
+		exit;
 	}
 }
