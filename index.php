@@ -21,7 +21,7 @@ if (!file_exists('src/config/config.php')) {
 require $autoload;
 require 'src/config/config.php';
 
-Debugger::enable();
+Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
 
 $app            = System\App::instance();
 $app->request   = System\Request::instance();
