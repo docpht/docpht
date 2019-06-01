@@ -23,6 +23,11 @@ require 'src/config/config.php';
 
 Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
 
+$loader = new Nette\Loaders\RobotLoader;
+$loader->addDirectory(__DIR__ . '/src');
+$loader->setTempDirectory(__DIR__ . '/temp');
+$loader->register();
+
 $app            = System\App::instance();
 $app->request   = System\Request::instance();
 $app->route     = System\Route::instance($app->request);

@@ -53,11 +53,11 @@ class AdminController extends BaseController
 		$form->onSuccess[] = [$this->form, 'formSuccess'];
 		$form->onError[] = [$this->form, 'formError'];
 
-		Dumper::dump($form, [Dumper::COLLAPSE => false]);
-		exit;
-
+		/* Dumper::dump($form, [Dumper::COLLAPSE => false]);
+		exit; */
+		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
-        $this->view->show('admin/update_password.php', ['form' => $form]);
+		$this->view->show('admin/update_password.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
 
