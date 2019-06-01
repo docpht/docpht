@@ -38,8 +38,6 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
-	
-
 	public function updatePassword()
 	{
 		$form = $this->form->createForm();

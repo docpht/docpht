@@ -13,7 +13,9 @@
 
 $autoload = 'vendor/autoload.php';
 
-if (file_exists($autoload)) {
+if (!file_exists('src/config/config.php')) {
+    echo '<p>Set the configuration file in the config/ folder, delete the extension example, and set your data.</p>';
+} elseif (file_exists($autoload)) {
 require $autoload;
 require 'src/config/config.php';
 
