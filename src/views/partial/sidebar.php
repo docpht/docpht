@@ -1,7 +1,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header text-center">
-               <a href="index.php"><h3><?= TITLE ?> <i class="fa fa-code" aria-hidden="true"></i></h3></a> 
+               <a href="<?= BASE_URL ?>"><h3><?= TITLE ?> <i class="fa fa-code" aria-hidden="true"></i></h3></a> 
             
             <?php 
                 if (isset($_SESSION['Active'])) {
