@@ -37,13 +37,13 @@ class UpdatePasswordForm extends MakeupForm
 	}
 	
 	public function doSubmitForm($form)
-    {
-        $values = $form->getValues();
+	{
+		$values = $form->getValues();
 
-        if ($form->isSuccess()) {
+		if ($form->isSuccess()) {
             # code...
-        } else {
+		} else {
             # code...
-        }
-    }
+		}
+	}
 }
