@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form action="" method="post" name="Login_Form" class="form-signin">
+    <form action="login" method="post" name="Login_Form" class="form-signin">
         <a href="<?= BASE_URL ?>"><h1 class="form-signin-heading">DocPHT <i class="fa fa-code" aria-hidden="true"></i></h1></a>
         <label for="inputUsername" class="sr-only">Username</label>
         <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
