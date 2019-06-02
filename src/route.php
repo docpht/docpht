@@ -26,15 +26,17 @@ if (isset($_SESSION['Active'])) {
         // /admin/update-password
         $this->get_post('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
 
-        // /admin/remove-user
-        $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
+        if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) {
+             // /admin/remove-user
+            $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 
-        // /admin/add-user
-        $this->get_post('/add-user', 'DocPHT\Controller\AdminController@addUser');
+            // /admin/add-user
+            $this->get_post('/add-user', 'DocPHT\Controller\AdminController@addUser');
 
-        // /admin/create-home
-        $this->get_post('/create-home', 'DocPHT\Controller\AdminController@createHome');
-
+            // /admin/create-home
+            $this->get_post('/create-home', 'DocPHT\Controller\AdminController@createHome');
+        }
+        
         // /admin/translations
         $this->get_post('/translations', 'DocPHT\Controller\AdminController@translations');
 
