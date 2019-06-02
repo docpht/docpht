@@ -35,11 +35,11 @@ class UpdatePasswordForm extends MakeupForm
 			$values = $form->getValues();
 			if (isset($values)) {
 				$good = 'Form was submitted and successfully validated';
-				header('Location:'.BASE_URL.'admin/?good='.urlencode($good));
+				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
 			} else {
 				$bad = 'The form was not sent!';
-				header('Location:'.BASE_URL.'admin/?bad='.urlencode($bad));
+				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
 			}
 		}
