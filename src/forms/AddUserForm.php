@@ -66,7 +66,11 @@ class AddUserForm extends MakeupForm
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
-            if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword'] && !in_array($values['username'], $usernames)) {
+            if (in_array($values['username'], $usernames)) {
+                $bad = 'This username '.$values['username'].' is in use!';
+                header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
+				exit;
+            } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
                 array_push($users, ['Username' => $values['username'], 'Password' => password_hash($values['password'], PASSWORD_DEFAULT), 'Language' => $values['translations'] ]);
                 file_put_contents('src/config/users.json',json_encode($users));
                 $good = 'User created successfully.';
