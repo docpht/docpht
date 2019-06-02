@@ -13,7 +13,7 @@
 
 namespace DocPHT\Controller;
 
-use DocPHT\Overrides\Controller\BaseController;
+use Instant\Core\Controller\BaseController;
 
 class HomeController extends BaseController
 {

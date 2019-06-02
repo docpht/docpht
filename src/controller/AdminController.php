@@ -16,7 +16,7 @@ namespace DocPHT\Controller;
 //use DocPHT\Model\Admin;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
-use DocPHT\Overrides\Controller\BaseController;
+use Instant\Core\Controller\BaseController;
 
 
 class AdminController extends BaseController
