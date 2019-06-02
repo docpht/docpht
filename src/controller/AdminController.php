@@ -15,19 +15,19 @@ namespace DocPHT\Controller;
 
 //use DocPHT\Model\Admin;
 use Tracy\Dumper;
-use DocPHT\Form\FormBuilder;
+use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;
 
 
 class AdminController extends BaseController
 {
 	private $modelAdmin;
-	private $form;
+	private $updatePasswordForm;
     
 	public function __construct()
 	{
 		parent::__construct();
-		$this->form = new FormBuilder();
+		$this->updatePasswordForm = new UpdatePasswordForm();
 		//$this->modelAdmin = new Admin();
 	}
 			
@@ -41,17 +41,7 @@ class AdminController extends BaseController
 
 	public function updatePassword()
 	{
-		$form = $this->form->createForm();
-		
-		$form->addGroup('Personal data')
-			->setOption('description', 'Test');
-
-		$form->addText('name', 'Your name:')
-			->setRequired('Enter your name');
-
-		$form->addSubmit('submit', 'Send');
-		$form->onSuccess[] = [$this->form, 'formSuccess'];
-		$form->onError[] = [$this->form, 'formError'];
+		$form = $this->updatePasswordForm->create();
 
 		/* Dumper::dump($form, [Dumper::COLLAPSE => false]);
 		exit; */

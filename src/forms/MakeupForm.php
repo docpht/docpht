@@ -13,13 +13,12 @@
 
 namespace DocPHT\Form;
 
-use Tracy\Dumper;
 use Nette\Forms\Form;
-use Nette\Utils\Html;
 
-class FormBuilder
+class MakeupForm
 {
-    public function makeBootstrap4(Form $form)
+
+    public function bootstrap4(Form $form)
 	{
 		$renderer = $form->getRenderer();
 		$renderer->wrappers['controls']['container'] = null;
@@ -53,24 +52,4 @@ class FormBuilder
 			}
 		}
     }
-    
-	public function createForm()
-	{
-		$form = new Form;
-		$form->onRender[] = [$this, 'makeBootstrap4'];
-
-		return $form;
-	}
-	
-	public function formSuccess(Form $form, \stdClass $values): void
-	{
-		Dumper::dump($form->getValues(), [Dumper::COLLAPSE => false]);
-		exit;
-	}
-	
-	public function formError(Form $form, \stdClass $values): void
-	{
-		Dumper::dump($form->getValues(), [Dumper::COLLAPSE => false]);
-		exit;
-	}
 }
