@@ -27,8 +27,6 @@ class LoginController extends BaseController
 	{
         $users = json_decode(file_get_contents(realpath('src/config/users.json')), true);
 
-        session_start();
-
         if (isset($_SESSION['Username'])) {
             header("Location:".BASE_URL);
             exit;
@@ -68,4 +66,11 @@ class LoginController extends BaseController
         } 
 	}
 
+    public function logout()
+    { 
+        session_destroy();
+      
+        header("Location:".BASE_URL);
+        exit;
+    }
 }
