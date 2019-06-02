@@ -19,19 +19,19 @@ $route->group('/admin', function()
     $this->get('/', 'DocPHT\Controller\AdminController@settings');
 
     // /admin/update-password
-    $this->get('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
+    $this->get_post('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
 
     // /admin/remove-user
-    $this->get('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
+    $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 
     // /admin/add-user
-    $this->get('/add-user', 'DocPHT\Controller\AdminController@addUser');
+    $this->get_post('/add-user', 'DocPHT\Controller\AdminController@addUser');
 
     // /admin/create-home
-    $this->get('/create-home', 'DocPHT\Controller\AdminController@createHome');
+    $this->get_post('/create-home', 'DocPHT\Controller\AdminController@createHome');
 
     // /admin/translations
-    $this->get('/translations', 'DocPHT\Controller\AdminController@translations');
+    $this->get_post('/translations', 'DocPHT\Controller\AdminController@translations');
 
     // Anything else
     $this->any('/*', function(){
