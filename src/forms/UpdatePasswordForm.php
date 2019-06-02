@@ -73,10 +73,9 @@ class UpdatePasswordForm extends MakeupForm
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
 			} else {
-				/* $bad = 'The form was not sent!';
+				$bad = 'Sorry something didn\'t work!';
 				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit; */
-				var_dump($values);
+				exit;
 			}
 		}
 		
