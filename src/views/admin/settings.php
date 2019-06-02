@@ -26,13 +26,13 @@
             <?php if (isset($_GET['good'])): ?>
                <div class="alert alert-success alert-dismissible">
                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <a href="index.php?p=admin" class="close" role="button">&times;</a>
+                    <a href="admin" class="close" role="button">&times;</a>
                     <?= $_GET['good'];  ?>
                 </div>
             <?php elseif (isset($_GET['bad'])): ?>
                 <div class="alert alert-danger alert-dismissible">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                    <a href="index.php?p=admin" class="close" role="button">&times;</a>
+                    <a href="admin" class="close" role="button">&times;</a>
                     <?= $_GET['bad'];  ?>
                 </div>
             <?php else: ?>

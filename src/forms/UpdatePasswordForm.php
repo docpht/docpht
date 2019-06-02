@@ -13,7 +13,6 @@
 
 namespace DocPHT\Form;
 
-use Tracy\Dumper;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 
@@ -33,9 +32,16 @@ class UpdatePasswordForm extends MakeupForm
 		$form->addSubmit('submit', 'Send');
 
 		if ($form->isSuccess()) {
-            echo '<h2>Form was submitted and successfully validated</h2>';
-			Dumper::dump($form->getValues(), [Dumper::COLLAPSE => false]);
-			exit;
+			$values = $form->getValues();
+			if (isset($values)) {
+				$good = 'Form was submitted and successfully validated';
+				header('Location:'.BASE_URL.'admin/?good='.urlencode($good));
+				exit;
+			} else {
+				$bad = 'The form was not sent!';
+				header('Location:'.BASE_URL.'admin/?bad='.urlencode($bad));
+				exit;
+			}
 		}
 		
 		return $form;
