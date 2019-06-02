@@ -14,7 +14,6 @@
 namespace DocPHT\Controller;
 
 //use DocPHT\Model\Admin;
-use Tracy\Dumper;
 use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;
 
@@ -42,9 +41,6 @@ class AdminController extends BaseController
 	public function updatePassword()
 	{
 		$form = $this->updatePasswordForm->create();
-
-		/* Dumper::dump($form, [Dumper::COLLAPSE => false]);
-		exit; */
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
 		$this->view->show('admin/update_password.php', ['form' => $form]);
