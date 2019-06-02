@@ -14,6 +14,7 @@
 namespace DocPHT\Controller;
 
 //use DocPHT\Model\Admin;
+use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;
 
@@ -22,11 +23,13 @@ class AdminController extends BaseController
 {
 	private $modelAdmin;
 	private $updatePasswordForm;
+	private $AddUserForm;
     
 	public function __construct()
 	{
 		parent::__construct();
 		$this->updatePasswordForm = new UpdatePasswordForm();
+		$this->AddUserForm = new AddUserForm();
 		//$this->modelAdmin = new Admin();
 	}
 			
@@ -56,8 +59,10 @@ class AdminController extends BaseController
 		
 	public function addUser()
 	{
+		$form = $this->AddUserForm->create();
+
 		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
-		$this->view->show('admin/add_user.php');
+		$this->view->show('admin/add_user.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
 
