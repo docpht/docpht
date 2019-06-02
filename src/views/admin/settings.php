@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <?php //if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/remove-user" class="text-white">
@@ -73,9 +73,9 @@
                         </a>
                     </div>
                 </div>
-                <?php //endif ?>
+                <?php endif ?>
 
-                <?php //if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/add-user" class="text-white">
@@ -91,9 +91,9 @@
                         </a>
                     </div>
                 </div>
-                <?php //endif ?>
+                <?php endif ?>
 
-                <?php //if (file_exists('data/doc-pht/home.json') && isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (file_exists('data/doc-pht/home.json') && isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
                     <div class="col-md-4 grid-margin mb-4">
                         <div class="card bg-docpht d-flex align-items-left">
                             <a href="admin/create-home" class="text-white">
@@ -109,7 +109,7 @@
                             </a>
                         </div>
                     </div>
-                <?php //endif ?>
+                <?php endif ?>
 
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
