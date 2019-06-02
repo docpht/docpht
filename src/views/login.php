@@ -36,7 +36,7 @@
         <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label class="login-remember">
-                <input type="checkbox" value="remember-me">Remember me
+                <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
         <button name="Submit" value="Login" class="btn btn-md btn-secondary btn-block" type="submit">Log in</button>

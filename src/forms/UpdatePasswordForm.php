@@ -62,8 +62,6 @@ class UpdatePasswordForm extends MakeupForm
 			->addRule($form::EQUAL, 'Passwords do not match!', $form['newpassword'])
 			->setRequired('Confirm password');
 
-		$form->addProtection('Security token has expired, please submit the form again');
-
 		$form->addSubmit('submit','Update user password');
 
 		if ($form->isSuccess()) {
