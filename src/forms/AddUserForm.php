@@ -28,7 +28,7 @@ class AddUserForm extends MakeupForm
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup('Create User')
+        $form->addGroup('Add user')
             ->setOption('description', 'Enter a new username and password for the account.');
 
         $form->addText('username', 'Enter Username:')
@@ -62,7 +62,7 @@ class AddUserForm extends MakeupForm
             ->setHtmlAttribute('data-live-search','true')
             ->setRequired('Select an option');
 
-        $form->addSubmit('submit','Create new user');
+        $form->addSubmit('submit','Add new user');
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
