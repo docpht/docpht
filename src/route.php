@@ -13,6 +13,8 @@
 
 $route->get('/', 'DocPHT\Controller\HomeController@index');
 
+$route->get_post('/login', 'DocPHT\Controller\LoginController@index');
+
 $route->group('/admin', function()
 {
     // /admin/

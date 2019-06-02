@@ -22,12 +22,12 @@
                         </li>';
                 }
                 if (isset($_SESSION['Active'])) {
-                    echo '<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="'.$t->trans('Create new').'">
+                    echo '<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Create new">
                     <a href="create" id="sk-newPage" class="btn btn-outline-secondary btn-sm" role="button"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
                     </li>';
                 }
                 if (isset($_SESSION['Active'])) {
-                    echo '<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="'.$t->trans('Settings').'">
+                    echo '<li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Settings">
                     <a href="admin" id="sk-admin" class="btn btn-outline-secondary btn-sm" role="button"><i class="fa fa-cog" aria-hidden="true"></i></a>
                     </li>';
                 }
