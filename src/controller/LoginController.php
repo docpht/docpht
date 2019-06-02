@@ -13,7 +13,7 @@
 
 namespace DocPHT\Controller;
 
-use Instant\Core\Controller\BaseController;
+use DocPHT\Overrides\Controller\BaseController;
 
 class LoginController extends BaseController
 {
