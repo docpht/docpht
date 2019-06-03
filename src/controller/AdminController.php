@@ -43,7 +43,7 @@ class AdminController extends BaseController
 
 	public function updatePassword()
 	{
-		$form = $this->updatePasswordForm->create();
+		$form = $this->updatePasswordForm->create($this->modelAdmin);
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
 		$this->view->show('admin/update_password.php', ['form' => $form]);

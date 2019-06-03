@@ -18,15 +18,8 @@ use Nette\Utils\Html;
 
 class UpdatePasswordForm extends MakeupForm
 {
-	public function create()
+	public function create($adminModel)
 	{
-		$users = json_decode(file_get_contents(realpath('src/config/users.json')), true);
-		$usernames = [];
-
-		foreach ($users as $user) { array_push($usernames,$user['Username']); }
-
-		$key = array_search($_SESSION['Username'],$usernames);
-
 		$form = new Form;
 		$form->onRender[] = [$this, 'bootstrap4'];
 
@@ -66,9 +59,8 @@ class UpdatePasswordForm extends MakeupForm
 
 		if ($form->isSuccess()) {
 			$values = $form->getValues();
-			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && password_verify($values['oldpassword'], $users[$key]['Password'])) {
-				$users[$key]['Password'] = password_hash($values['newpassword'], PASSWORD_DEFAULT);
-				file_put_contents('src/config/users.json',json_encode($users));
+			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
+				$adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
 				$good = 'User password updated successfully.';
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

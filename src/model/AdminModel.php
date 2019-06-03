@@ -68,7 +68,7 @@ class Admin extends AbstractModel
         $data = $this->connect();
         $key = array_search($username, array_column($data, 'Username'));
         
-        return password_verify($data[$key]['password'], $password);
+        return password_verify($password, $data[$key]['Password']);
     }
     
     /**
@@ -102,7 +102,7 @@ class Admin extends AbstractModel
         $data = $this->connect();
         $key = array_search($username, array_column($data, 'Username'));
         
-        $data[$key]['translation'] = $translation;
+        $data[$key]['Language'] = $translation;
         
         return $this->disconnect(self::USERS, $data);
     }
