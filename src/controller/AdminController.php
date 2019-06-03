@@ -13,7 +13,7 @@
 
 namespace DocPHT\Controller;
 
-//use DocPHT\Model\Admin;
+// use DocPHT\Model\Admin;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;

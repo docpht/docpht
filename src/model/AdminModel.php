@@ -18,7 +18,7 @@ use Instant\Core\Model\AbstractModel;
 
 class Admin extends AbstractModel
 {
-    const DB = 'config/users.json';
+    const USERS = 'config/users.json';
     
     /**
      * connect
@@ -28,12 +28,12 @@ class Admin extends AbstractModel
      */
     public function connect()
     {
-		if(!file_exists(self::DB))
+		if(!file_exists(self::USERS))
 		{
-		    file_put_contents(self::DB,[]);
+		    file_put_contents(self::USERS,[]);
 		} 
 		
-		return json_decode(file_get_contents(self::DB),true);
+		return json_decode(file_get_contents(self::USERS),true);
     }
 
     /**
@@ -52,7 +52,7 @@ class Admin extends AbstractModel
             'Language' => $data['translations']
             );
             
-        return $this->disconnect(self::DB, $data);
+        return $this->disconnect(self::USERS, $data);
     }
     
     /**
@@ -86,7 +86,7 @@ class Admin extends AbstractModel
         
         $data[$key]['Password'] = password_hash($password, PASSWORD_DEFAULT);
         
-        return $this->disconnect(self::DB, $data);
+        return $this->disconnect(self::USERS, $data);
     }
 
     /**
@@ -104,7 +104,7 @@ class Admin extends AbstractModel
         
         $data[$key]['translation'] = $translation;
         
-        return $this->disconnect(self::DB, $data);
+        return $this->disconnect(self::USERS, $data);
     }
     
     /**
@@ -120,7 +120,7 @@ class Admin extends AbstractModel
 
         array_splice($data, $userindex, 1); 
         
-        return $this->disconnect(self::DB, $data);
+        return $this->disconnect(self::USERS, $data);
     }
 
     /**
