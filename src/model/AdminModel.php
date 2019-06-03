@@ -124,6 +124,32 @@ class Admin extends AbstractModel
     }
 
     /**
+     * userExists
+     *
+     * @param  string $user
+     * 
+     * @return boolean
+     */
+    public function userExists($user)
+    {
+        return in_array($user, $this->getUsernames());
+    }
+
+    /**
+     * getUsernames
+     *
+     * @return array
+     */
+    public function getUsernames()
+    {
+        $data = $this->connect();
+
+        $usernames = array_column($data, 'username');
+        
+        return $usernames;
+    }
+
+    /**
      * disconnect
      *
      * @param  string $path
