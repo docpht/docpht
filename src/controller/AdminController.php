@@ -59,7 +59,7 @@ class AdminController extends BaseController
 		
 	public function addUser()
 	{
-		$form = $this->AddUserForm->create();
+		$form = $this->AddUserForm->create($this->modelAdmin);
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
 		$this->view->show('admin/add_user.php', ['form' => $form]);

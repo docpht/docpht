@@ -20,10 +20,8 @@ use DocPHT\Model\Admin;
 class AddUserForm extends MakeupForm
 {
     
-    public function create()
+    public function create($adminModel)
     {
-        $this->modelAdmin = new Admin();
-        
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
@@ -65,12 +63,12 @@ class AddUserForm extends MakeupForm
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
-            if (in_array($values['username'], $this->modelAdmin->getUsernames())) {
+            if (in_array($values['username'], $adminModel->getUsernames())) {
                 $bad = 'This username '.$values['username'].' is in use!';
                 header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
-                $this->modelAdmin->create($values);
+                $adminModel->create($values);
                 $good = 'User created successfully.';
                 header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
