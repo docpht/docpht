@@ -23,9 +23,10 @@
  * getFilename($id)
  * getPageData($id)
  * putPageData($id, $data)
- * addPageData($id, $key, $v1 = '', $v2 = '', $v3 = '', $v4 = '')
- * modifyPageData($id, $key, $index, $v1 = '', $v2 = '', $v3 = '', $v4 = '')
- * insertPageData($id, $index, $before_or_after, $key, $v1 = '', $v2 = '', $v3 = '', $v4 = '')
+ * addPageData($id, $array)
+ * modifyPageData($id, $index, $array)
+ * removePageData($id, $index)
+ * insertPageData($id, $index, $before_or_after, $array)
  * remove($id)
  * disconnect($data)
  */
