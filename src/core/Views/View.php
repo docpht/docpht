@@ -38,6 +38,8 @@ class View
 				} 
 			} 
 		} elseif (file_exists('src/translations/'.LANGUAGE.'.php')) {
+			$t = new Translator(LANGUAGE);
+			$t->addLoader('array', new ArrayLoader());
 			include 'src/translations/'.LANGUAGE.'.php';
 		} else {
 			echo "Make sure that the config.php file is present in the config folder and that the language code is entered.";
