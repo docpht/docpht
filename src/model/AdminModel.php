@@ -18,7 +18,7 @@ use Instant\Core\Model\AbstractModel;
 
 class Admin extends AbstractModel
 {
-    const USERS = 'config/users.json';
+    const USERS = 'src/config/users.json';
     
     /**
      * connect
@@ -39,17 +39,17 @@ class Admin extends AbstractModel
     /**
      * create
      *
-     * @param  array $data
+     * @param  array $values
      *
      * @return array
      */
-    public function create($data)
+    public function create($values)
     {
         $data = $this->connect();
         $data[] = array(
-            'Username' => $data['username'],
-            'Password' => $data['password'],
-            'Language' => $data['translations']
+            'Username' => $values['username'],
+            'Password' => password_hash($values['password'], PASSWORD_DEFAULT),
+            'Language' => $values['translations']
             );
             
         return $this->disconnect(self::USERS, $data);
@@ -66,7 +66,7 @@ class Admin extends AbstractModel
     public function verifyPassword($username, $password)
     {
         $data = $this->connect();
-        $key = array_search($username, array_column($data, 'username'));
+        $key = array_search($username, array_column($data, 'Username'));
         
         return password_verify($data[$key]['password'], $password);
     }
@@ -82,7 +82,7 @@ class Admin extends AbstractModel
     public function updatePassword($username, $password)
     {
         $data = $this->connect();
-        $key = array_search($username, array_column($data, 'username'));
+        $key = array_search($username, array_column($data, 'Username'));
         
         $data[$key]['Password'] = password_hash($password, PASSWORD_DEFAULT);
         
@@ -100,7 +100,7 @@ class Admin extends AbstractModel
     public function updateTrans($username, $translation)
     {
         $data = $this->connect();
-        $key = array_search($username, array_column($data, 'username'));
+        $key = array_search($username, array_column($data, 'Username'));
         
         $data[$key]['translation'] = $translation;
         
@@ -144,7 +144,7 @@ class Admin extends AbstractModel
     {
         $data = $this->connect();
 
-        $usernames = array_column($data, 'username');
+        $usernames = array_column($data, 'Username');
         
         return $usernames;
     }

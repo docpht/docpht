@@ -15,16 +15,15 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Model\Admin;
 
 class AddUserForm extends MakeupForm
 {
+    
     public function create()
     {
-        $users = json_decode(file_get_contents(realpath('src/config/users.json')), true);
-        $usernames = [];
-
-        foreach ($users as $user) { array_push($usernames,$user['Username']); }
-
+        $this->modelAdmin = new Admin();
+        
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
@@ -66,13 +65,12 @@ class AddUserForm extends MakeupForm
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
-            if (in_array($values['username'], $usernames)) {
+            if (in_array($values['username'], $this->modelAdmin->getUsernames())) {
                 $bad = 'This username '.$values['username'].' is in use!';
                 header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
-                array_push($users, ['Username' => $values['username'], 'Password' => password_hash($values['password'], PASSWORD_DEFAULT), 'Language' => $values['translations'] ]);
-                file_put_contents('src/config/users.json',json_encode($users));
+                $this->modelAdmin->create($values);
                 $good = 'User created successfully.';
                 header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

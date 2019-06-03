@@ -13,7 +13,7 @@
 
 namespace DocPHT\Controller;
 
-// use DocPHT\Model\Admin;
+use DocPHT\Model\Admin;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;
@@ -30,7 +30,7 @@ class AdminController extends BaseController
 		parent::__construct();
 		$this->updatePasswordForm = new UpdatePasswordForm();
 		$this->AddUserForm = new AddUserForm();
-		//$this->modelAdmin = new Admin();
+		$this->modelAdmin = new Admin();
 	}
 			
 	public function settings()
