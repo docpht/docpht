@@ -27,6 +27,7 @@ if (isset($_SESSION['Active'])) {
         $this->get_post('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
 
         if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) {
+            error_log($_SESSION['Username'],0);error_log(ADMIN,0);
              // /admin/remove-user
             $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 

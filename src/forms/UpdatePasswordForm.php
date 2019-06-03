@@ -26,7 +26,7 @@ class UpdatePasswordForm extends MakeupForm
 		$form->addGroup('Update Password for: ' . $_SESSION['Username'])
 			->setOption('description', 'Enter a new password for the account.');
 
-			$form->addPassword('oldpassword', 'Confirm current password:')
+		$form->addPassword('oldpassword', 'Confirm current password:')
 			->setHtmlAttribute('placeholder', 'Enter current password')
 			->setHtmlAttribute('autocomplete','off')
 			->setAttribute('onmousedown',"this.type='text'")

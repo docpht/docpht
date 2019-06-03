@@ -16,12 +16,14 @@ namespace DocPHT\Controller;
 use DocPHT\Model\Admin;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
+use DocPHT\Form\RemoveUserForm;
 use Instant\Core\Controller\BaseController;
 
 
 class AdminController extends BaseController
 {
 	private $modelAdmin;
+	private $removeUserForm;
 	private $updatePasswordForm;
 	private $AddUserForm;
     
@@ -29,6 +31,7 @@ class AdminController extends BaseController
 	{
 		parent::__construct();
 		$this->updatePasswordForm = new UpdatePasswordForm();
+		$this->removeUserForm = new RemoveUserForm();
 		$this->AddUserForm = new AddUserForm();
 		$this->modelAdmin = new Admin();
 	}
@@ -52,8 +55,10 @@ class AdminController extends BaseController
 
 	public function removeUser()
 	{
+		$form = $this->removeUserForm->create($this->modelAdmin);
+		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Remove User']);
-		$this->view->show('admin/remove_user.php');
+		$this->view->show('admin/remove_user.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
 		
