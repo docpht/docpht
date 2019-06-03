@@ -108,6 +108,21 @@ class Admin extends AbstractModel
     }
     
     /**
+     * getUserTrans
+     *
+     * @param  string $username
+     * 
+     * @return string
+     */
+    public function getUserTrans($username)
+    {
+        $data = $this->connect();
+        $key = array_search($username, array_column($data, 'Username'));
+        
+        return $data[$key]['Language'];
+    }
+    
+    /**
      * removeUser
      *
      * @param  string $userindex

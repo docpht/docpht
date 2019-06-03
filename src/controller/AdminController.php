@@ -17,6 +17,7 @@ use DocPHT\Model\Admin;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
 use DocPHT\Form\RemoveUserForm;
+use DocPHT\Form\TranslationsForm;
 use Instant\Core\Controller\BaseController;
 
 
@@ -25,20 +26,21 @@ class AdminController extends BaseController
 	private $modelAdmin;
 	private $removeUserForm;
 	private $updatePasswordForm;
-	private $AddUserForm;
+	private $translationsForm;
+	private $addUserForm;
     
 	public function __construct()
 	{
 		parent::__construct();
 		$this->updatePasswordForm = new UpdatePasswordForm();
 		$this->removeUserForm = new RemoveUserForm();
-		$this->AddUserForm = new AddUserForm();
+		$this->addUserForm = new AddUserForm();
+		$this->translationsForm = new TranslationsForm();
 		$this->modelAdmin = new Admin();
 	}
 			
 	public function settings()
 	{
-		//$data = $this->modelAdmin->getData();
 		$this->view->show('partial/head.php',['PageTitle' => 'Admin']);
 		$this->view->show('admin/settings.php');
 		$this->view->show('partial/footer.php');
@@ -64,7 +66,7 @@ class AdminController extends BaseController
 		
 	public function addUser()
 	{
-		$form = $this->AddUserForm->create($this->modelAdmin);
+		$form = $this->addUserForm->create($this->modelAdmin);
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
 		$this->view->show('admin/add_user.php', ['form' => $form]);
@@ -80,8 +82,10 @@ class AdminController extends BaseController
 
 	public function translations()
 	{
+		$form = $this->translationsForm->create($this->modelAdmin);
+
 		$this->view->show('partial/head.php', ['PageTitle' => 'Translations']);
-		$this->view->show('admin/translations.php');
+		$this->view->show('admin/translations.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
 
