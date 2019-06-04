@@ -36,7 +36,7 @@ class AdminController extends BaseController
 		$this->removeUserForm = new RemoveUserForm();
 		$this->addUserForm = new AddUserForm();
 		$this->translationsForm = new TranslationsForm();
-		$this->modelAdmin = new Admin();
+		$this->adminModel = new AdminModel();
 	}
 			
 	public function settings()
@@ -48,7 +48,7 @@ class AdminController extends BaseController
 
 	public function updatePassword()
 	{
-		$form = $this->updatePasswordForm->create($this->modelAdmin);
+		$form = $this->updatePasswordForm->create($this->adminModel);
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
 		$this->view->show('admin/update_password.php', ['form' => $form]);
@@ -57,7 +57,7 @@ class AdminController extends BaseController
 
 	public function removeUser()
 	{
-		$form = $this->removeUserForm->create($this->modelAdmin);
+		$form = $this->removeUserForm->create($this->adminModel);
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Remove User']);
 		$this->view->show('admin/remove_user.php', ['form' => $form]);
@@ -66,7 +66,7 @@ class AdminController extends BaseController
 		
 	public function addUser()
 	{
-		$form = $this->addUserForm->create($this->modelAdmin);
+		$form = $this->addUserForm->create($this->adminModel);
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
 		$this->view->show('admin/add_user.php', ['form' => $form]);
@@ -82,7 +82,7 @@ class AdminController extends BaseController
 
 	public function translations()
 	{
-		$form = $this->translationsForm->create($this->modelAdmin);
+		$form = $this->translationsForm->create($this->adminModel);
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Translations']);
 		$this->view->show('admin/translations.php', ['form' => $form]);

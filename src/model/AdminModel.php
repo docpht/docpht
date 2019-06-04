@@ -16,7 +16,7 @@ namespace DocPHT\Model;
 use Instant\Core\Model\AbstractModel;
 
 
-class Admin extends AbstractModel
+class AdminModel extends AbstractModel
 {
     const USERS = 'src/config/users.json';
     

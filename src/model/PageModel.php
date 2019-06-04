@@ -35,7 +35,7 @@ namespace DocPHT\Model;
 use Instant\Core\Model\AbstractModel;
 
 
-class Pages extends AbstractModel
+class PageModel extends AbstractModel
 {
     const DB = 'data/pages.json';
     
