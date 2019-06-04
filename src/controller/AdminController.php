@@ -13,8 +13,8 @@
 
 namespace DocPHT\Controller;
 
-use DocPHT\Form\AddUserForm;
 use DocPHT\Core\Translator\T;
+use DocPHT\Form\AddUserForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;

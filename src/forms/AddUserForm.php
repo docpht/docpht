@@ -13,10 +13,10 @@
 
 namespace DocPHT\Form;
 
+use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use DocPHT\Model\AdminModel;
-use DocPHT\Core\Translator\T;
 
 class AddUserForm extends MakeupForm
 {
