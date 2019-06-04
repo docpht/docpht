@@ -13,6 +13,7 @@
 
 namespace DocPHT\Controller;
 
+use DocPHT\Core\Translator\T;
 use Instant\Core\Controller\BaseController;
 
 class LoginController extends BaseController
@@ -57,7 +58,7 @@ class LoginController extends BaseController
                 }  else {
                     $error = '<div class="container"><div class="alert alert-danger alert-dismissible mt-4" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    Warning! The data entered is incorrect.
+                                    '.T::trans('Warning! The data entered is incorrect.').'
                              </div></div>';
                 }
             }
