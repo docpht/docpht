@@ -13,6 +13,7 @@
 
 namespace DocPHT\Form;
 
+use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use DocPHT\Model\AdminModel;
@@ -31,27 +32,27 @@ class TranslationsForm extends MakeupForm
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup('Update translations for: ' . $_SESSION['Username']);
+        $form->addGroup(T::trans('Update translations for: ') . $_SESSION['Username']);
             
         $translations = json_decode(file_get_contents(realpath('src/translations/code-translations.json')), true);
-        $form->addSelect('translations','Language:', $translations)
-        	->setPrompt('Select an option')
+        $form->addSelect('translations',T::trans('Language:'), $translations)
+        	->setPrompt(T::trans('Select an option'))
         	->setHtmlAttribute('data-live-search','true')
         	->setDefaultValue($this->adminModel->getUserTrans($_SESSION['Username']))
-        	->setRequired('Select an option');
+        	->setRequired(T::trans('Select an option'));
             error_log($this->adminModel->getUserTrans($_SESSION['Username']),0);
         
-        $form->addSubmit('submit', 'Update user translation');
+        $form->addSubmit('submit', T::trans('Update user translation'));
         
         if ($form->isSuccess()) {
             $values = $form->getValues();
             if (isset($_SESSION['Username']) && isset($values['translations'])) {
                 $this->adminModel->updateTrans($_SESSION['Username'], $values['translations']);
-				$good = 'Successful language change.';
+				$good = T::trans('Successful language change.');
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
             } else {
-				$bad = 'Sorry something didn\'t work!';
+				$bad = T::trans('Sorry something didn\'t work!');
 				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
             }

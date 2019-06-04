@@ -105,8 +105,8 @@
         'Create new topic' => 'Crea un nuovo argomento',
         'Hide or show the sidebar' => 'Nasconde o mostra la barra laterale',
         'Go back' => 'Torna indietro',
-        'Login' => 'Accesso',
-        'Logout' => 'Disconnettersi',
+        'Login' => 'Accedi',
+        'Logout' => 'Esci',
         'Version management' => 'Gestione della versione',
         'Version' => 'Versione',
         'Select a version' => 'Seleziona una versione',
@@ -128,4 +128,6 @@
         'Name' => 'Nome',
         'Add image from file' => 'Aggiungi immagine dal file',
         'Add image from url' => 'Aggiungi immagine da url',
+        'Update Password' => 'Aggiorna password',
+        'Select a user' => 'Seleziona un utente',
     ], 'it_IT');   

@@ -13,6 +13,7 @@
 
 namespace DocPHT\Form;
 
+use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use DocPHT\Model\AdminModel;
@@ -32,15 +33,15 @@ class RemoveUserForm extends MakeupForm
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup('Remove a user')
-        	->setOption('description', 'Select username for removal.');
+        $form->addGroup(T::trans('Remove a user'))
+        	->setOption('description', T::trans('Select username for removal.'));
         
-        $form->addSelect('user','Remove a user:', $this->adminModel->getUsernames())
-        	->setPrompt('Select a user')
+        $form->addSelect('user',T::trans('Remove a user:'), $this->adminModel->getUsernames())
+        	->setPrompt(T::trans('Select a user'))
         	->setHtmlAttribute('data-live-search','true')
-        	->setRequired('Select a user');
+        	->setRequired(T::trans('Select a user'));
         
-        $form->addSubmit('submit', 'Remove user')->setAttribute('onclick','return confirmationRemoval()');
+        $form->addSubmit('submit', T::trans('Remove user'))->setAttribute('onclick','return confirmationRemoval()');
         
         $success = '';
         
@@ -48,11 +49,11 @@ class RemoveUserForm extends MakeupForm
             $values = $form->getValues();
             if (isset($values['user'])) {
                 $this->adminModel->removeUser($values['user']);
-				$good = 'User password updated successfully.';
+				$good = T::trans('User password updated successfully.');
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
             } else {
-				$bad = 'Sorry something didn\'t work!';
+				$bad = T::trans('Sorry something didn\'t work!');
 				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
             }

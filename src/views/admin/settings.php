@@ -48,8 +48,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-lock fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white">Change my password</h6>
-                                        <p class="mt-2 text-white card-text"><small>Your account</small></p>
+                                        <h6 class="text-white"><?= $t->trans('Change my password'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Your account'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-user-times fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white">Remove User</h6>
-                                        <p class="mt-2 text-white card-text"><small>User list</small></p>
+                                        <h6 class="text-white"><?= $t->trans('Remove User'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('User list'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
@@ -83,8 +83,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-user-plus fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white">Create a user</h6>
-                                        <p class="mt-2 text-white card-text"><small>New account</small></p>
+                                        <h6 class="text-white"><?= $t->trans('Create a user'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('New account'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
@@ -101,8 +101,8 @@
                                     <div class="d-flex flex-row align-items-left">
                                             <i class="fa fa-home fa-3x" aria-hidden="true"></i>
                                         <div class="ml-3">
-                                            <h6 class="text-white">Create home page</h6>
-                                            <p class="mt-2 text-white card-text"><small>Presentation page</small></p>
+                                            <h6 class="text-white"><?= $t->trans('Create home page'); ?></h6>
+                                            <p class="mt-2 text-white card-text"><small><?= $t->trans('Presentation page'); ?></small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -118,8 +118,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-language fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white">Select language</h6>
-                                        <p class="mt-2 text-white card-text"><small>Translations</small></p>
+                                        <h6 class="text-white"><?= $t->trans('Select language'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Translations'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
@@ -134,8 +134,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-bolt fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white">Keyboard shortcuts</h6>
-                                        <p class="mt-2 text-white card-text"><small>Quick access</small></p>
+                                        <h6 class="text-white"><?= $t->trans('Keyboard shortcuts'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Quick access'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                    <h4 class="modal-title">Available shortcuts</h4>
+                    <h4 class="modal-title"><?= $t->trans('Available shortcuts'); ?></h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     
@@ -163,50 +163,50 @@
                     <table class="table table-borderless">
                         <thead>
                         <tr>
-                            <th>Combination</th>
+                            <th><?= $t->trans('Combination'); ?></th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td><code>ctrl+alt+p</code></td>
-                            <td>Create new topic</td>
+                            <td><?= $t->trans('Create new topic'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+s</code></td>
-                            <td>Hide or show the sidebar</td>
+                            <td><?= $t->trans('Hide or show the sidebar'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+k</code></td>
-                            <td>Search</td>
+                            <td><?= $t->trans('Search'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+z</code></td>
-                            <td>Go back</td>
+                            <td><?= $t->trans('Go back'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+enter</code></td>
-                            <td>Login</td>
+                            <td><?= $t->trans('Login'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+o</code></td>
-                            <td>Logout</td>
+                            <td><?= $t->trans('Logout'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+a</code></td>
-                            <td>Settings</td>
+                            <td><?= $t->trans('Settings'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+e</code></td>
-                            <td>Add new item to the page</td>
+                            <td><?= $t->trans('Add new item to the page'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+u</code></td>
-                            <td>Update the current page</td>
+                            <td><?= $t->trans('Update the current page'); ?></td>
                         </tr>
                         <tr>
                             <td><code>ctrl+alt+d</code></td>
-                            <td>Delete the current page</td>
+                            <td><?= $t->trans('Delete the current page'); ?></td>
                         </tr>
                         </tbody>
                     </table>

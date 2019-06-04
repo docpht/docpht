@@ -13,6 +13,7 @@
 
 namespace DocPHT\Form;
 
+use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use DocPHT\Model\AdminModel;
@@ -32,49 +33,49 @@ class UpdatePasswordForm extends MakeupForm
 		$form = new Form;
 		$form->onRender[] = [$this, 'bootstrap4'];
 
-		$form->addGroup('Update Password for: ' . $_SESSION['Username'])
-			->setOption('description', 'Enter a new password for the account.');
+		$form->addGroup(T::trans('Update Password for: ') . $_SESSION['Username'])
+			->setOption('description', T::trans('Enter a new password for the account.'));
 
-		$form->addPassword('oldpassword', 'Confirm current password:')
-			->setHtmlAttribute('placeholder', 'Enter current password')
+		$form->addPassword('oldpassword', T::trans('Confirm current password:'))
+			->setHtmlAttribute('placeholder', T::trans('Enter current password'))
 			->setHtmlAttribute('autocomplete','off')
 			->setAttribute('onmousedown',"this.type='text'")
 			->setAttribute('onmouseup',"this.type='password'")
 			->setAttribute('onmousemove',"this.type='password'")
-			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
-			->setRequired('Enter password');
+			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
+			->setRequired(T::trans('Enter password'));
 			
-		$form->addPassword('newpassword', 'Enter new password:')
-			->setHtmlAttribute('placeholder', 'Enter new password')
+		$form->addPassword('newpassword', T::trans('Enter new password:'))
+			->setHtmlAttribute('placeholder', T::trans('Enter new password'))
 			->setHtmlAttribute('autocomplete','off')
 			->setAttribute('onmousedown',"this.type='text'")
 			->setAttribute('onmouseup',"this.type='password'")
 			->setAttribute('onmousemove',"this.type='password'")
-			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
-			->addRule(Form::MIN_LENGTH, 'The password must be at least 6 characters long', 6)
-			->setRequired('Confirm password');
+			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
+			->addRule(Form::MIN_LENGTH, T::trans('The password must be at least 6 characters long'), 6)
+			->setRequired(T::trans('Confirm password'));
 			
-		$form->addPassword('confirmpassword', 'Confirm new password:')
-			->setHtmlAttribute('placeholder', 'Confirm password')
+		$form->addPassword('confirmpassword', T::trans('Confirm new password:'))
+			->setHtmlAttribute('placeholder', T::trans('Confirm password'))
 			->setHtmlAttribute('autocomplete','off')
 			->setAttribute('onmousedown',"this.type='text'")
 			->setAttribute('onmouseup',"this.type='password'")
 			->setAttribute('onmousemove',"this.type='password'")
-			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
-			->addRule($form::EQUAL, 'Passwords do not match!', $form['newpassword'])
-			->setRequired('Confirm password');
+			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
+			->addRule($form::EQUAL, T::trans('Passwords do not match!'), $form['newpassword'])
+			->setRequired(T::trans('Confirm password'));
 
-		$form->addSubmit('submit','Update user password');
+		$form->addSubmit('submit',T::trans('Update user password'));
 
 		if ($form->isSuccess()) {
 			$values = $form->getValues();
 			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $this->adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
 				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
-				$good = 'User password updated successfully.';
+				$good = T::trans('User password updated successfully.');
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
 			} else {
-				$bad = 'Sorry something didn\'t work!';
+				$bad = T::trans('Sorry something didn\'t work!');
 				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
 			}
