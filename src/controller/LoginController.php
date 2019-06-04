@@ -15,18 +15,21 @@ namespace DocPHT\Controller;
 
 use DocPHT\Core\Translator\T;
 use Instant\Core\Controller\BaseController;
+use DocPHT\Model\AdminModel;
 
 class LoginController extends BaseController
 {
+    private $adminModel;
     
 	public function __construct()
 	{
-		parent::__construct();
+        parent::__construct();
+        $this->adminModel = new AdminModel();
 	}
     
 	public function index()
 	{
-        $users = json_decode(file_get_contents(realpath('src/config/users.json')), true);
+        $users = $this->adminModel->getUsers();
 
         if (isset($_SESSION['Username'])) {
             header("Location:".BASE_URL);
