@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /**
  * This file is part of the DocPHT project.
@@ -11,31 +11,51 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../lib/functions.php';
-require __DIR__.'/../lib/Model.php';
+namespace DocPHT\Form;
 
 use Nette\Forms\Form;
+use Nette\Utils\Html;
+use DocPHT\Lib\DocBuilder;
+use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
 
-$db = new DocData;
-$docBuilder = new DocBuilder();
+class RemoveSectionForm extends MakeupForm
+{
+    private $pageModel;
+    private $doc;
+    
+	public function __construct()
+	{
+		$this->pageModel = new PageModel();
+		$this->doc = new DocBuilder();
+	}
+    
+    public function create()
+    {
 
-$aPath = $_SESSION['update_path'];
-$id = $db->getId($aPath);
 
-if(isset($_GET['id'])) {
-    $rowIndex = intval($_GET['id']);
-}
-
-if ($db->getPageData($id)[$rowIndex]['key'] == 'image' || $db->getPageData($id)[$rowIndex]['key'] == 'codeFile') { unlink('data/' . $db->getPageData($id)[$rowIndex]['v1']); }
-
-$db->removePageData($id, $rowIndex);
-
-if(isset($id)) {
-    $docBuilder->buildPhpPage($id);
-    header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
-    exit;
-} else {
-    echo '<p class="text-center text-success">'.T::trans("Sorry something didn't work!").'</p>'; 
+        $uPath = $_SESSION['update_path'];
+        $id = $this->pageModel->getId($uPath);
+        
+        if(isset($_GET['id'])) {
+            $rowIndex = intval($_GET['id']);
+        }
+        
+        if ($this->pageModel->getPageData($id)[$rowIndex]['key'] == 'image' || $this->pageModel->getPageData($id)[$rowIndex]['key'] == 'codeFile') { 
+            unlink('data/' . $this->pageModel->getPageData($id)[$rowIndex]['v1']); 
+            
+        }
+        
+        $this->pageModel->removePageData($id, $rowIndex);
+        
+        if(isset($id)) {
+            $this->doc->buildPhpPage($id);
+            header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+            exit;
+        } else {
+    		$bad = T::trans('Sorry something didn\'t work!');
+    		header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+    		exit;
+        }
+    }
 }
