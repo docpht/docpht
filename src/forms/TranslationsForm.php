@@ -47,7 +47,7 @@ class TranslationsForm extends MakeupForm
             $values = $form->getValues();
             if (isset($_SESSION['Username']) && isset($values['translations'])) {
                 $this->adminModel->updateTrans($_SESSION['Username'], $values['translations']);
-				$good = 'User password updated successfully.';
+				$good = 'Successful language change.';
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;
             } else {
