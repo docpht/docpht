@@ -19,7 +19,7 @@ use DocPHT\Lib\DocBuilder;
 use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
 
-class AddSectionForm extends MakeupForm
+class CreatePageForm extends MakeupForm
 {
     private $pageModel;
     private $doc;
