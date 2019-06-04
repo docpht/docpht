@@ -22,6 +22,7 @@ use DocPHT\Core\Translator\T;
 class AddSectionForm extends MakeupForm
 {
     private $pageModel;
+    private $doc;
     
 	public function __construct()
 	{
