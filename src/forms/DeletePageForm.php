@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * This file is part of the DocPHT project.
@@ -11,58 +11,72 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../lib/functions.php';
-require __DIR__.'/../lib/Model.php';
+namespace DocPHT\Form;
 
-    $db = new DocData;
-    $docBuilder = new DocBuilder();
+use Nette\Forms\Form;
+use Nette\Utils\Html;
+use DocPHT\Lib\DocBuilder;
+use DocPHT\Model\PageModel;
+use DocPHT\Core\Translator\T;
 
-    $aPath = $_SESSION['update_path'];
-    $id = $db->getId($aPath);
-    $data = $db->getPageData($id);
+class AddSectionForm extends MakeupForm
+{
+    private $pageModel;
 
-    foreach ($data as $fields) {
-        if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { (file_exists('data/' . $fields['v1'])) ? unlink('data/' . $fields['v1']) : NULL; }
-    }
-
-
-    (file_exists($db->getPhpPath($id))) ? unlink($db->getPhpPath($id)) : NULL;
-    (file_exists($db->getJsonPath($id))) ? unlink($db->getJsonPath($id)) : NULL;
-
-    if (isset($_SESSION['Active']) && isset($_SESSION['update_path'])) {
-    $aPath = $_SESSION['update_path'];
-        if ($_SESSION['update_path'] == 'data/doc-pht/home.php') {
-            $zippedVersionPath = 'data/doc-pht/';
-            $filePattern = 'home_*.zip';
-        } else {
-        	$zippedVersionPath = 'data' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 3) . '/';
-            $filePattern = pathinfo($aPath, PATHINFO_FILENAME ) . '_*.zip';
+	public function __construct()
+	{
+		$this->pageModel = new PageModel();
+	}
+    
+    public function delete()
+    {
+        $uPath = $_SESSION['update_path'];
+        $id = $this->pageModel->getId($uPath);
+        $data = $this->pageModel->getPageData($id);
+    
+        foreach ($data as $fields) {
+            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { (file_exists('data/' . $fields['v1'])) ? unlink('data/' . $fields['v1']) : NULL; }
+        }
+    
+    
+        (file_exists($this->pageModel->getPhpPath($id))) ? unlink($this->pageModel->getPhpPath($id)) : NULL;
+        (file_exists($this->pageModel->getJsonPath($id))) ? unlink($this->pageModel->getJsonPath($id)) : NULL;
+    
+        if (isset($_SESSION['Active']) && isset($_SESSION['update_path'])) {
+        $uPath = $_SESSION['update_path'];
+            if ($_SESSION['update_path'] == 'data/doc-pht/home.php') {
+                $zippedVersionPath = 'data/doc-pht/';
+                $filePattern = 'home_*.zip';
+            } else {
+            	$zippedVersionPath = 'data' . substr(pathinfo($uPath, PATHINFO_DIRNAME ), 3) . '/';
+                $filePattern = pathinfo($uPath, PATHINFO_FILENAME ) . '_*.zip';
+            }
+        }
+        
+        $dir = 'src/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 4);
+        $indatadir = 'data/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 4);
+        
+        foreach (glob($zippedVersionPath . $filePattern) as $file) {
+            (file_exists($file)) ? unlink($file) : NULL;
+        }
+        
+        if (folderEmpty($dir)) {
+            rmdir($dir);
+        }
+        
+        if (folderEmpty($indatadir)) {
+            rmdir($indatadir);
+        }
+    
+        function folderEmpty($dir) {
+            if (!is_readable($dir)) return NULL; 
+            return (count(scandir($dir)) == 2);
+        }
+        
+        
+        if (!file_exists($uPath)) {
+            $this->pageModel->remove($id);
+            header("Location: index.php");
         }
     }
-    
-    $dir = 'src/'.substr(pathinfo($aPath, PATHINFO_DIRNAME), 4);
-    $indatadir = 'data/'.substr(pathinfo($aPath, PATHINFO_DIRNAME), 4);
-    
-    foreach (glob($zippedVersionPath . $filePattern) as $file) {
-        (file_exists($file)) ? unlink($file) : NULL;
-    }
-    
-    if (folderEmpty($dir)) {
-        rmdir($dir);
-    }
-    
-    if (folderEmpty($indatadir)) {
-        rmdir($indatadir);
-    }
-
-    function folderEmpty($dir) {
-        if (!is_readable($dir)) return NULL; 
-        return (count(scandir($dir)) == 2);
-    }
-    
-    
-    if (!file_exists($aPath)) {
-        $db->remove($id);
-        header("Location: index.php");
-    }
+}
