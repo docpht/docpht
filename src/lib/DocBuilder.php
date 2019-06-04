@@ -501,6 +501,11 @@ class DocBuilder {
        return $out;
     }
 
+    /**
+     * listCodeLanguages
+     *
+     * @return array
+     */
     public function listCodeLanguages()
     {
         $json = '
