@@ -24,22 +24,22 @@
     <link rel="stylesheet" href="public/assets/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/assets/css/doc-pht.css">
-    <title>Log in</title>
+    <title><?= $t->trans('Login'); ?></title>
 </head>
 <body>
 <div class="login-container">
     <form action="login" method="post" name="Login_Form" class="form-signin">
         <a href="<?= BASE_URL ?>"><h1 class="form-signin-heading">DocPHT <i class="fa fa-code" aria-hidden="true"></i></h1></a>
-        <label for="inputUsername" class="sr-only">Username</label>
+        <label for="inputUsername" class="sr-only"><?= $t->trans('Username'); ?></label>
         <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only"><?= $t->trans('Password'); ?></label>
         <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label class="login-remember">
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> <?= $t->trans('Remember me'); ?>
             </label>
         </div>
-        <button name="Submit" value="Login" class="btn btn-md btn-secondary btn-block" type="submit">Log in</button>
+        <button name="Submit" value="Login" class="btn btn-md btn-secondary btn-block" type="submit"><?= $t->trans('Login'); ?></button>
     </form>
 </div>
 

@@ -164,7 +164,7 @@
                         <thead>
                         <tr>
                             <th><?= $t->trans('Combination'); ?></th>
-                            <th>Action</th>
+                            <th><?= $t->trans('Action'); ?></th>
                         </tr>
                         </thead>
                         <tbody>
