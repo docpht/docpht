@@ -14,6 +14,7 @@
 
 namespace Instant\Core\Views;
 
+use DocPHT\Model\AdminModel;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 
@@ -22,12 +23,9 @@ class View
 	public function show($file, $data = null)
 	{
 		if (isset($_SESSION['Active'])) {
-			$users = json_decode(file_get_contents(realpath('src/config/users.json')), true);
-			$usernames = [];
-			foreach ($users as $user) { array_push($usernames,$user['Username']); }
-			$currentUser = array_search($_SESSION['Username'],$usernames);
-			$userLanguage = $users[$currentUser]['Language'];
-	
+			$adminModel = new AdminModel();
+            $userLanguage = $adminModel->getUserTrans($_SESSION['Username']);
+
 			if (isset($userLanguage)) {
 				$t = new Translator($userLanguage);
 				$t->addLoader('array', new ArrayLoader());
