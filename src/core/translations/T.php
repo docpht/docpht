@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the DocPHT project.
+ * 
+ * @author Valentino Pesce
+ * @copyright (c) Valentino Pesce <valentino@iltuobrand.it>
+ * @copyright (c) Craig Crosby <creecros@gmail.com>
+ * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DocPHT\Core\Translator;
 
 use DocPHT\Model\AdminModel;
@@ -8,6 +19,14 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 
 class T
 {
+    /**
+     * Trans static method for string translations
+     *
+     * @param  string $string
+     * @param  array $array
+     *
+     * @return string
+     */
     public static function trans($string, $array = null) 
     {
         if (isset($_SESSION['Active'])) {
