@@ -13,12 +13,6 @@
 
 $route->get('/', 'DocPHT\Controller\HomeController@index');
 
-$route->get('/{topic}/{filename}', function($topic, $filename){
-    /* $page = new PageController();
-    $page->getPage($topic, $filename); */
-    echo $topic .' '. $filename;
-});
-
 $route->get_post('/login', 'DocPHT\Controller\LoginController@index');
 
 if (isset($_SESSION['Active'])) {
@@ -52,6 +46,12 @@ if (isset($_SESSION['Active'])) {
         });
     });
 }
+
+$route->get('/{topic}/{filename}', function($topic, $filename){
+    /* $page = new PageController();
+    $page->getPage($topic, $filename); */
+    echo $topic .' '. $filename;
+});
 
 // Anything else
 $route->any('/*', function(){
