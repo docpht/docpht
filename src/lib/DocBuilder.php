@@ -500,6 +500,28 @@ class DocBuilder {
        $out = '$html->linkButton'."('{$src}','{$val}','{$trg}'), \n";
        return $out;
     }
+    
+    /**
+     * getOptions
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return [
+        'title' => $t->trans('Add title'),
+        'description' => $t->trans('Add description'),
+    	'pathAdd'  => $t->trans('Add path'),
+    	'codeInline' => $t->trans('Add code inline'),
+    	'codeFile' => $t->trans('Add code from file'),
+    	'blockquote' => $t->trans('Add blockquote'),
+    	'image' => $t->trans('Add image from file'),
+    	'imageURL' => $t->trans('Add image from url'),
+    	'markdown' => $t->trans('Add markdown'),
+    	'linkButton' => $t->trans('Add link button')
+    	];
+    }
+
 
     /**
      * listCodeLanguages
