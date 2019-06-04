@@ -39,7 +39,7 @@ class AdminController extends BaseController
 			
 	public function settings()
 	{
-		$this->view->show('partial/head.php',['PageTitle' => 'Admin']);
+		$this->view->show('partial/head.php',['PageTitle' => T::trans('Admin')]);
 		$this->view->show('admin/settings.php');
 		$this->view->show('partial/footer.php');
 	}
@@ -48,7 +48,7 @@ class AdminController extends BaseController
 	{
 		$form = $this->updatePasswordForm->create();
 		
-		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update Password')]);
 		$this->view->show('admin/update_password.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
@@ -57,7 +57,7 @@ class AdminController extends BaseController
 	{
 		$form = $this->removeUserForm->create();
 		
-		$this->view->show('partial/head.php', ['PageTitle' => 'Remove User']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Remove User')]);
 		$this->view->show('admin/remove_user.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
@@ -73,7 +73,7 @@ class AdminController extends BaseController
 
 	public function createHome()
 	{
-		$this->view->show('partial/head.php', ['PageTitle' => 'Create Home']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create Home')]);
 		$this->view->show('admin/create_home.php');
 		$this->view->show('partial/footer.php');
 	}
@@ -82,7 +82,7 @@ class AdminController extends BaseController
 	{
 		$form = $this->translationsForm->create();
 
-		$this->view->show('partial/head.php', ['PageTitle' => 'Translations']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Translations')]);
 		$this->view->show('admin/translations.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
