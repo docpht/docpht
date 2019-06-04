@@ -23,7 +23,7 @@ use Instant\Core\Controller\BaseController;
 
 class AdminController extends BaseController
 {
-	private $modelAdmin;
+	private $adminModel;
 	private $removeUserForm;
 	private $updatePasswordForm;
 	private $translationsForm;
