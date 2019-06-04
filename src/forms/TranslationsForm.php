@@ -15,10 +15,18 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Model\AdminModel;
 
 class TranslationsForm extends MakeupForm
 {
-	public function create($adminModel)
+    private $adminModel;
+    
+	public function __construct()
+	{
+		$this->adminModel = new AdminModel();
+    }
+    
+	public function create()
 	{
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
@@ -29,16 +37,16 @@ class TranslationsForm extends MakeupForm
         $form->addSelect('translations','Language:', $translations)
         	->setPrompt('Select an option')
         	->setHtmlAttribute('data-live-search','true')
-        	->setDefaultValue($adminModel->getUserTrans($_SESSION['Username']))
+        	->setDefaultValue($this->adminModel->getUserTrans($_SESSION['Username']))
         	->setRequired('Select an option');
-            error_log($adminModel->getUserTrans($_SESSION['Username']),0);
+            error_log($this->adminModel->getUserTrans($_SESSION['Username']),0);
         
         $form->addSubmit('submit', 'Update user translation');
         
         if ($form->isSuccess()) {
             $values = $form->getValues();
             if (isset($_SESSION['Username']) && isset($values['translations'])) {
-                $adminModel->updateTrans($_SESSION['Username'], $values['translations']);
+                $this->adminModel->updateTrans($_SESSION['Username'], $values['translations']);
 				$good = 'User password updated successfully.';
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

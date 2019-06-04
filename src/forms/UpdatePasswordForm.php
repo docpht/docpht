@@ -15,10 +15,19 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Model\AdminModel;
 
 class UpdatePasswordForm extends MakeupForm
 {
-	public function create($adminModel)
+	
+	private $adminModel;
+    
+	public function __construct()
+	{
+		$this->adminModel = new AdminModel();
+	}
+
+	public function create()
 	{
 		$form = new Form;
 		$form->onRender[] = [$this, 'bootstrap4'];
@@ -59,8 +68,8 @@ class UpdatePasswordForm extends MakeupForm
 
 		if ($form->isSuccess()) {
 			$values = $form->getValues();
-			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
-				$adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
+			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $this->adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
+				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
 				$good = 'User password updated successfully.';
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

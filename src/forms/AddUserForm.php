@@ -15,11 +15,18 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Model\AdminModel;
 
 class AddUserForm extends MakeupForm
 {
+    private $adminModel;
     
-    public function create($adminModel)
+	public function __construct()
+	{
+		$this->adminModel = new AdminModel();
+	}
+    
+    public function create()
     {
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
@@ -62,12 +69,12 @@ class AddUserForm extends MakeupForm
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
-            if (in_array($values['username'], $adminModel->getUsernames())) {
+            if (in_array($values['username'], $this->adminModel->getUsernames())) {
                 $bad = 'This username '.$values['username'].' is in use!';
                 header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
 				exit;
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
-                $adminModel->create($values);
+                $this->adminModel->create($values);
                 $good = 'User created successfully.';
                 header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

@@ -15,10 +15,19 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Model\AdminModel;
 
 class RemoveUserForm extends MakeupForm
 {
-	public function create($adminModel)
+
+	private $adminModel;
+    
+	public function __construct()
+	{
+		$this->adminModel = new AdminModel();
+	}
+
+	public function create()
 	{
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
@@ -26,7 +35,7 @@ class RemoveUserForm extends MakeupForm
         $form->addGroup('Remove a user')
         	->setOption('description', 'Select username for removal.');
         
-        $form->addSelect('user','Remove a user:', $adminModel->getUsernames())
+        $form->addSelect('user','Remove a user:', $this->adminModel->getUsernames())
         	->setPrompt('Select a user')
         	->setHtmlAttribute('data-live-search','true')
         	->setRequired('Select a user');
@@ -38,7 +47,7 @@ class RemoveUserForm extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
             if (isset($values['user'])) {
-                $adminModel->removeUser($values['user']);
+                $this->adminModel->removeUser($values['user']);
 				$good = 'User password updated successfully.';
 				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
 				exit;

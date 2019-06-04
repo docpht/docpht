@@ -13,7 +13,6 @@
 
 namespace DocPHT\Controller;
 
-use DocPHT\Model\AdminModel;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Form\UpdatePasswordForm;
 use DocPHT\Form\RemoveUserForm;
@@ -23,7 +22,6 @@ use Instant\Core\Controller\BaseController;
 
 class AdminController extends BaseController
 {
-	private $adminModel;
 	private $removeUserForm;
 	private $updatePasswordForm;
 	private $translationsForm;
@@ -36,7 +34,6 @@ class AdminController extends BaseController
 		$this->removeUserForm = new RemoveUserForm();
 		$this->addUserForm = new AddUserForm();
 		$this->translationsForm = new TranslationsForm();
-		$this->adminModel = new AdminModel();
 	}
 			
 	public function settings()
@@ -48,7 +45,7 @@ class AdminController extends BaseController
 
 	public function updatePassword()
 	{
-		$form = $this->updatePasswordForm->create($this->adminModel);
+		$form = $this->updatePasswordForm->create();
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Update Password']);
 		$this->view->show('admin/update_password.php', ['form' => $form]);
@@ -57,7 +54,7 @@ class AdminController extends BaseController
 
 	public function removeUser()
 	{
-		$form = $this->removeUserForm->create($this->adminModel);
+		$form = $this->removeUserForm->create();
 		
 		$this->view->show('partial/head.php', ['PageTitle' => 'Remove User']);
 		$this->view->show('admin/remove_user.php', ['form' => $form]);
@@ -66,7 +63,7 @@ class AdminController extends BaseController
 		
 	public function addUser()
 	{
-		$form = $this->addUserForm->create($this->adminModel);
+		$form = $this->addUserForm->create();
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
 		$this->view->show('admin/add_user.php', ['form' => $form]);
@@ -82,7 +79,7 @@ class AdminController extends BaseController
 
 	public function translations()
 	{
-		$form = $this->translationsForm->create($this->adminModel);
+		$form = $this->translationsForm->create();
 
 		$this->view->show('partial/head.php', ['PageTitle' => 'Translations']);
 		$this->view->show('admin/translations.php', ['form' => $form]);
