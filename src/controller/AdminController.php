@@ -14,9 +14,10 @@
 namespace DocPHT\Controller;
 
 use DocPHT\Form\AddUserForm;
-use DocPHT\Form\UpdatePasswordForm;
+use DocPHT\Core\Translator\T;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
+use DocPHT\Form\UpdatePasswordForm;
 use Instant\Core\Controller\BaseController;
 
 
@@ -65,7 +66,7 @@ class AdminController extends BaseController
 	{
 		$form = $this->addUserForm->create();
 
-		$this->view->show('partial/head.php', ['PageTitle' => 'Add user']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add user')]);
 		$this->view->show('admin/add_user.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
