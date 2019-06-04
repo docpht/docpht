@@ -16,6 +16,7 @@ require __DIR__.'/../lib/functions.php';
 require __DIR__.'/../lib/Model.php';
 
 use Nette\Forms\Form;
+use DocPHT\Core\Translator\T;
 
 $db = new DocData;
 $docBuilder = new DocBuilder();
@@ -60,41 +61,41 @@ $languages = json_decode(file_get_contents(realpath('data/doc-pht/code-array.jso
 $form = new Form;
 $form->onRender[] = 'makeBootstrap4';
 
-$form->addGroup($t->trans('Create new topic'));
+$form->addGroup(T::trans('Create new topic'));
 
-$form->addText('topic', $t->trans('Topic'))
-	->setHtmlAttribute('placeholder', $t->trans('Enter topic'))
+$form->addText('topic', T::trans('Topic'))
+	->setHtmlAttribute('placeholder', T::trans('Enter topic'))
 	->setAttribute('autofocus')
-	->setRequired($t->trans('Enter topic'));
+	->setRequired(T::trans('Enter topic'));
 	
-$form->addText('description', $t->trans('Description'))
-	->setHtmlAttribute('placeholder', $t->trans('Enter description'))
-	->setRequired($t->trans('Enter description'));
+$form->addText('description', T::trans('Description'))
+	->setHtmlAttribute('placeholder', T::trans('Enter description'))
+	->setRequired(T::trans('Enter description'));
 	
-$form->addText('mainfilename', $t->trans('Filename'))
-	->setHtmlAttribute('placeholder', $t->trans('Enter filename'))
-    ->setRequired($t->trans('Enter filename'));
+$form->addText('mainfilename', T::trans('Filename'))
+	->setHtmlAttribute('placeholder', T::trans('Enter filename'))
+    ->setRequired(T::trans('Enter filename'));
 
 $options = [
-    'title' => $t->trans('Add title'),
-    'description' => $t->trans('Add description'),
-	'path'  => $t->trans('Add path'),
-	'codeInline' => $t->trans('Add code inline'),
-	'codeFile' => $t->trans('Add code from file'),
-	'blockquote' => $t->trans('Add blockquote'),
-	'image' => $t->trans('Add image from file'),
-	'imageURL' => $t->trans('Add image from url'),
-	'markdown' => $t->trans('Add markdown'),
-	'linkButton' => $t->trans('Add link button')
+    'title' => T::trans('Add title'),
+    'description' => T::trans('Add description'),
+	'path'  => T::trans('Add path'),
+	'codeInline' => T::trans('Add code inline'),
+	'codeFile' => T::trans('Add code from file'),
+	'blockquote' => T::trans('Add blockquote'),
+	'image' => T::trans('Add image from file'),
+	'imageURL' => T::trans('Add image from url'),
+	'markdown' => T::trans('Add markdown'),
+	'linkButton' => T::trans('Add link button')
 ];
 
-$form->addSelect('options',$t->trans('Options:'), $options)
-	->setPrompt($t->trans('Select an option'))
+$form->addSelect('options',T::trans('Options:'), $options)
+	->setPrompt(T::trans('Select an option'))
 	->setHtmlAttribute('data-live-search','true')
-	->setRequired($t->trans('Select an option'));
+	->setRequired(T::trans('Select an option'));
 	
-$form->addSelect('language', $t->trans('Language:'), $languages)
-	->setPrompt($t->trans('Select an option'))
+$form->addSelect('language', T::trans('Language:'), $languages)
+	->setPrompt(T::trans('Select an option'))
 	->setDefaultValue('Markup')
 	->setHtmlAttribute('data-live-search','true');
 
@@ -103,22 +104,22 @@ $form->addUpload('file', 'File:')
     ->addRule(Form::MIME_TYPE, 'File must be JPEG, PNG, GIF or Plain Text.', ['image/jpeg','image/gif','image/png','text/plain'])
 	->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 10 mb.', 10 * 1024 * 1024 /* size in MB */);
 
-$form->addTextArea('option_content', $t->trans('Option Content'))
-	->setHtmlAttribute('placeholder', $t->trans('Enter content'))
+$form->addTextArea('option_content', T::trans('Option Content'))
+	->setHtmlAttribute('placeholder', T::trans('Enter content'))
 	->setHtmlAttribute('data-parent', 'options')
 	->setAttribute('data-autoresize');
 
-$form->addTextArea('names', $t->trans('Name'))
+$form->addTextArea('names', T::trans('Name'))
     ->setHtmlAttribute('data-parent', 'options')
     ->setAttribute('data-autoresize');
 
-$form->addCheckbox('trgs', $t->trans('Open in New Window?'))
+$form->addCheckbox('trgs', T::trans('Open in New Window?'))
     ->setHtmlAttribute('data-parent', 'options')
     ->setAttribute('data-autoresize');
 
-$form->addProtection($t->trans('Security token has expired, please submit the form again'));
+$form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
-$form->addSubmit('submit', $t->trans('Create'));
+$form->addSubmit('submit', T::trans('Create'));
 
 $success = '';
 
@@ -140,11 +141,11 @@ if ($form->isSuccess()) {
     	    
     	    $docBuilder->buildPhpPage($id);
     	    
-			echo '<p class="text-center text-success">'.$t->trans("Creation of %filename% in %topic% successfully!", ['%filename%' => $values['mainfilename'], '%topic%' => $values['topic']] ).'</p>';
+			echo '<p class="text-center text-success">'.T::trans("Creation of %filename% in %topic% successfully!", ['%filename%' => $values['mainfilename'], '%topic%' => $values['topic']] ).'</p>';
             header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
 			exit;
 	    } else {
-	        echo '<p class="text-center text-success">'.$t->trans("Sorry something didn't work!").'</p>'; 
+	        echo '<p class="text-center text-success">'.T::trans("Sorry something didn't work!").'</p>'; 
 	    }
 	}
 }

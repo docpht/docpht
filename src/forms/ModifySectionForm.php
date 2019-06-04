@@ -69,34 +69,34 @@ $languages = json_decode(file_get_contents(realpath('data/doc-pht/code-array.jso
 $form = new Form;
 $form->onRender[] = 'makeBootstrap4';
 
-$form->addGroup($t->trans('Create new notes'));
+$form->addGroup(T::trans('Create new notes'));
 
 $options = [
-    'title' => $t->trans('Add title'),
-    'description' => $t->trans('Add description'),
-	'pathAdd'  => $t->trans('Add path'),
-	'codeInline' => $t->trans('Add code inline'),
-	'codeFile' => $t->trans('Add code from file'),
-	'blockquote' => $t->trans('Add blockquote'),
-	'image' => $t->trans('Add image from file'),
-	'imageURL' => $t->trans('Add image from url'),
-	'markdown' => $t->trans('Add markdown'),
-	'linkButton' => $t->trans('Add link button')
+    'title' => T::trans('Add title'),
+    'description' => T::trans('Add description'),
+	'pathAdd'  => T::trans('Add path'),
+	'codeInline' => T::trans('Add code inline'),
+	'codeFile' => T::trans('Add code from file'),
+	'blockquote' => T::trans('Add blockquote'),
+	'image' => T::trans('Add image from file'),
+	'imageURL' => T::trans('Add image from url'),
+	'markdown' => T::trans('Add markdown'),
+	'linkButton' => T::trans('Add link button')
 ];
 
 if ($jsonArray[$rowIndex]['key'] != 'addButton') {
     
-    $form->addSelect('options', $t->trans('Options:'), $options)
-    	->setPrompt($t->trans('Select an option'))
+    $form->addSelect('options', T::trans('Options:'), $options)
+    	->setPrompt(T::trans('Select an option'))
     	->setHtmlAttribute('data-live-search','true')
     	->setDefaultValue($jsonArray[$rowIndex]['key'])
-    	->setRequired($t->trans('Select an option'));
+    	->setRequired(T::trans('Select an option'));
     	
     
-    $form->addSelect('language', $t->trans('Language:'), $languages)
-    	->setPrompt($t->trans('Select an option'))
+    $form->addSelect('language', T::trans('Language:'), $languages)
+    	->setPrompt(T::trans('Select an option'))
     	->setHtmlAttribute('data-live-search','true')
-    	->setRequired($t->trans('Select an option'));
+    	->setRequired(T::trans('Select an option'));
     	
     if ($jsonArray[$rowIndex]['key'] == 'codeInline' || $jsonArray[$rowIndex]['key'] == 'codeFile') {
         $form['language']->setDefaultValue($jsonArray[$rowIndex]['v2']); 
@@ -109,7 +109,7 @@ if ($jsonArray[$rowIndex]['key'] != 'addButton') {
         ->addRule(Form::MIME_TYPE, 'File must be JPEG, PNG, GIF or Plain Text.', ['image/jpeg','image/gif','image/png','text/plain'])
 		->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 10 mb.', 10 * 1024 * 1024 /* size in MB */);
     	
-    $form->addTextArea('option_content', $t->trans('Option Content'))
+    $form->addTextArea('option_content', T::trans('Option Content'))
         ->setHtmlAttribute('data-parent', 'options')
         ->setAttribute('data-autoresize'); 
     	
@@ -131,21 +131,21 @@ if ($jsonArray[$rowIndex]['key'] != 'addButton') {
         $trg = false; 
     }
         
-        $form->addTextArea('names', $t->trans('Name'))
+        $form->addTextArea('names', T::trans('Name'))
             ->setHtmlAttribute('data-parent', 'options'.$index)
             ->setAttribute('data-autoresize')
         	->setDefaultValue($name);
         	
-        $form->addCheckbox('trgs', $t->trans('Open in New Window?'))
+        $form->addCheckbox('trgs', T::trans('Open in New Window?'))
             ->setHtmlAttribute('data-parent', 'options')
             ->setAttribute('data-autoresize')
         	->setDefaultValue($trg);
 	
 } 
 
-$form->addProtection($t->trans('Security token has expired, please submit the form again'));
+$form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
-$form->addSubmit('submit', $t->trans('Modify'));
+$form->addSubmit('submit', T::trans('Modify'));
 
 $success = '';
 
@@ -169,7 +169,7 @@ if ($form->isSuccess()) {
             header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
 			exit;
 	    } else {
-	        echo '<p class="text-center text-success">'.$t->trans("Sorry something didn't work!").'</p>'; 
+	        echo '<p class="text-center text-success">'.T::trans("Sorry something didn't work!").'</p>'; 
 	    }
 	}   
 }

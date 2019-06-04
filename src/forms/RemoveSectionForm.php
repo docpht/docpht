@@ -16,6 +16,7 @@ require __DIR__.'/../lib/functions.php';
 require __DIR__.'/../lib/Model.php';
 
 use Nette\Forms\Form;
+use DocPHT\Core\Translator\T;
 
 $db = new DocData;
 $docBuilder = new DocBuilder();
@@ -36,5 +37,5 @@ if(isset($id)) {
     header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
     exit;
 } else {
-    echo '<p class="text-center text-success">'.$t->trans("Sorry something didn't work!").'</p>'; 
+    echo '<p class="text-center text-success">'.T::trans("Sorry something didn't work!").'</p>'; 
 }

@@ -16,6 +16,7 @@ require __DIR__.'/../lib/functions.php';
 require __DIR__.'/../lib/Model.php';
 
 use Nette\Forms\Form;
+use DocPHT\Core\Translator\T;
 
 $db = new DocData;
 $docBuilder = new DocBuilder();
@@ -67,28 +68,28 @@ $languages = json_decode(file_get_contents(realpath('data/doc-pht/code-array.jso
 $form = new Form;
 $form->onRender[] = 'makeBootstrap4';
 
-$form->addGroup($t->trans('Update the current page'));
+$form->addGroup(T::trans('Update the current page'));
 
 $options = [
-    'title' => $t->trans('Add title'),
-    'description' => $t->trans('Add description'),
-	'pathAdd'  => $t->trans('Add path'),
-	'codeInline' => $t->trans('Add code inline'),
-	'codeFile' => $t->trans('Add code from file'),
-	'blockquote' => $t->trans('Add blockquote'),
-	'image' => $t->trans('Add image from file'),
-	'imageURL' => $t->trans('Add image from url'),
-	'markdown' => $t->trans('Add markdown'),
-	'linkButton' => $t->trans('Add link button')
+    'title' => T::trans('Add title'),
+    'description' => T::trans('Add description'),
+	'pathAdd'  => T::trans('Add path'),
+	'codeInline' => T::trans('Add code inline'),
+	'codeFile' => T::trans('Add code from file'),
+	'blockquote' => T::trans('Add blockquote'),
+	'image' => T::trans('Add image from file'),
+	'imageURL' => T::trans('Add image from url'),
+	'markdown' => T::trans('Add markdown'),
+	'linkButton' => T::trans('Add link button')
 ];
 
 foreach ($jsonArray as $fields) {
     
-        $form->addSelect('options'.$index, $t->trans('Options:'), $options)
-        	->setPrompt($t->trans('Select an option'))
+        $form->addSelect('options'.$index, T::trans('Options:'), $options)
+        	->setPrompt(T::trans('Select an option'))
         	->setHtmlAttribute('data-live-search','true')
         	->setDefaultValue($fields['key'])
-        	->setRequired($t->trans('Select an option'));
+        	->setRequired(T::trans('Select an option'));
         	
         if ($fields['key'] == 'codeInline' || $fields['key'] == 'codeFile') { 
             $lang = $fields['v2']; 
@@ -96,11 +97,11 @@ foreach ($jsonArray as $fields) {
             $lang = 'Markup'; 
         }
         
-        $form->addSelect('language'.$index, $t->trans('Language:'), $languages)
-        	->setPrompt($t->trans('Select an option'))
+        $form->addSelect('language'.$index, T::trans('Language:'), $languages)
+        	->setPrompt(T::trans('Select an option'))
         	->setHtmlAttribute('data-live-search','true')
         	->setDefaultValue($lang)
-        	->setRequired($t->trans('Select an option'));
+        	->setRequired(T::trans('Select an option'));
         
         $form->addUpload('file'.$index, 'File:')
             ->setRequired(false)
@@ -109,7 +110,7 @@ foreach ($jsonArray as $fields) {
         	
         if (isset($fields['v1']) && $fields['key'] != 'image') { $oc = $fields['v1']; } else { $oc = $fields['v2']; }
         
-        $form->addTextArea('option_content'.$index, $t->trans('Option Content'))
+        $form->addTextArea('option_content'.$index, T::trans('Option Content'))
             ->setHtmlAttribute('data-parent', 'options'.$index)
             ->setAttribute('data-autoresize')
         	->setDefaultValue($oc); 
@@ -132,12 +133,12 @@ foreach ($jsonArray as $fields) {
             $trg = false; 
         }
     
-        $form->addTextArea('names'.$index, $t->trans('Name'))
+        $form->addTextArea('names'.$index, T::trans('Name'))
             ->setHtmlAttribute('data-parent', 'options'.$index)
             ->setAttribute('data-autoresize')
         	->setDefaultValue($name);
         	
-        $form->addCheckbox('trgs'.$index, $t->trans('Open in New Window?'))
+        $form->addCheckbox('trgs'.$index, T::trans('Open in New Window?'))
             ->setHtmlAttribute('data-parent', 'options'.$index)
             ->setAttribute('data-autoresize')
         	->setDefaultValue($trg);
@@ -147,9 +148,9 @@ $index++;
 }
 
 
-$form->addProtection($t->trans('Security token has expired, please submit the form again'));
+$form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
-$form->addSubmit('submit', $t->trans('Update'));
+$form->addSubmit('submit', T::trans('Update'));
 
 $success = '';
 
