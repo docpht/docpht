@@ -369,7 +369,7 @@ class DocBuilder {
      */
     public function path($val,$ext)
     {
-       $out = '$html->path'."('src/{$val}.{$ext}'), \n";
+       $out = '$html->path'."('pages/{$val}.{$ext}'), \n";
        return $out; 
     }
 

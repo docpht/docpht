@@ -93,7 +93,7 @@ class PageModel extends AbstractModel
         $id = uniqid();
         $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
-		$phpPath = 'src/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
+		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
         $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
         
         $data[] = array(
