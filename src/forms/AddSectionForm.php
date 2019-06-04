@@ -13,10 +13,11 @@
 
 namespace DocPHT\Form;
 
-use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Lib\DocBuilder;
 use DocPHT\Model\PageModel;
+use DocPHT\Core\Translator\T;
 
 class AddSectionForm extends MakeupForm
 {

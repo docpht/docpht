@@ -13,6 +13,8 @@
 
 namespace DocPHT\Lib;
 
+use DocPHT\Core\Translator\T;
+
 class DocBuilder {
     
     /**
@@ -509,16 +511,16 @@ class DocBuilder {
     public function getOptions()
     {
         return [
-        'title' => $t->trans('Add title'),
-        'description' => $t->trans('Add description'),
-    	'pathAdd'  => $t->trans('Add path'),
-    	'codeInline' => $t->trans('Add code inline'),
-    	'codeFile' => $t->trans('Add code from file'),
-    	'blockquote' => $t->trans('Add blockquote'),
-    	'image' => $t->trans('Add image from file'),
-    	'imageURL' => $t->trans('Add image from url'),
-    	'markdown' => $t->trans('Add markdown'),
-    	'linkButton' => $t->trans('Add link button')
+        'title' => T::trans('Add title'),
+        'description' => T::trans('Add description'),
+    	'pathAdd'  => T::trans('Add path'),
+    	'codeInline' => T::trans('Add code inline'),
+    	'codeFile' => T::trans('Add code from file'),
+    	'blockquote' => T::trans('Add blockquote'),
+    	'image' => T::trans('Add image from file'),
+    	'imageURL' => T::trans('Add image from url'),
+    	'markdown' => T::trans('Add markdown'),
+    	'linkButton' => T::trans('Add link button')
     	];
     }
 
