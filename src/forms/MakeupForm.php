@@ -21,9 +21,9 @@ use DocPHT\Core\Translator\T;
 
 class MakeupForm
 {
-    public $pageModel;
-    public $adminModel;
-    public $doc;
+    protected $pageModel;
+    protected $adminModel;
+    protected $doc;
     
 	public function __construct()
 	{
