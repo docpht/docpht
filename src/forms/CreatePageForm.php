@@ -15,21 +15,11 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
-use DocPHT\Lib\DocBuilder;
-use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
 
 class CreatePageForm extends MakeupForm
 {
-    private $pageModel;
-    private $doc;
-    
-	public function __construct()
-	{
-		$this->pageModel = new PageModel();
-		$this->doc = new DocBuilder();
-	}
-    
+
     public function create()
     {
 

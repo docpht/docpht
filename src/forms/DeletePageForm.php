@@ -15,19 +15,11 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
-use DocPHT\Lib\DocBuilder;
-use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
 
 class DeletePageForm extends MakeupForm
 {
-    private $pageModel;
 
-	public function __construct()
-	{
-		$this->pageModel = new PageModel();
-	}
-    
     public function delete()
     {
         $uPath = $_SESSION['update_path'];

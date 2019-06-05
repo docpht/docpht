@@ -16,17 +16,10 @@ namespace DocPHT\Form;
 use DocPHT\Core\Translator\T;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
-use DocPHT\Model\AdminModel;
 
 class TranslationsForm extends MakeupForm
 {
-    private $adminModel;
-    
-	public function __construct()
-	{
-		$this->adminModel = new AdminModel();
-    }
-    
+
 	public function create()
 	{
         $form = new Form;

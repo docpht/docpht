@@ -14,10 +14,24 @@
 namespace DocPHT\Form;
 
 use Nette\Forms\Form;
+use DocPHT\Lib\DocBuilder;
+use DocPHT\Model\PageModel;
+use DocPHT\Model\AdminModel;
+use DocPHT\Core\Translator\T;
 
 class MakeupForm
 {
-
+    public $pageModel;
+    public $adminModel;
+    public $doc;
+    
+	public function __construct()
+	{
+		$this->pageModel = new PageModel();
+		$this->adminModel = new AdminModel();
+		$this->doc = new DocBuilder();
+	}
+	
     public function bootstrap4(Form $form)
 	{
 		$renderer = $form->getRenderer();
