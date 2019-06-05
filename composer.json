@@ -24,6 +24,7 @@
         "phpunit/phpunit": "^8.1",
         "symfony/translation": "^4.3",
         "nette/forms": "^3.0",
+        "erusev/parsedown":"^1.7",
         "emojione/emojione": "^4.5",
         "tracy/tracy": "^2.6",
         "nette/robot-loader": "^3.2"

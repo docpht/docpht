@@ -36,4 +36,12 @@ class FormPageController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function getPage($topic, $filename)
+	{	
+		$this->view->show('partial/head.php', ['PageTitle' => $topic .' '. $filename]);
+		$page = require_once('pages/'.$topic.'/'.$filename.'.php');
+		$this->view->show('page/page.php', ['values' => $values]);
+		$this->view->show('partial/footer.php');
+	}
+
 }
