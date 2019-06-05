@@ -55,8 +55,14 @@ if (isset($_SESSION['Active'])) {
 }
 
 $route->get_post('/{topic}/{filename}', function($topic, $filename){
-    $page = new FormPageController();
-    $page->getPage($topic, $filename);
+    $page = 'pages/'.$topic.'/'.$filename.'.php';
+    if (file_exists($page)) {
+        $page = new FormPageController();
+        $page->getPage($topic, $filename);
+    } else {
+        $error = new ErrorPageController();
+        $error->getPage();
+    }
 });
 
 // Anything else
