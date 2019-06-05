@@ -16,64 +16,8 @@ namespace DocPHT\Lib;
 use DocPHT\Core\Translator\T;
 use DocPHT\Model\PageModel;
 
-class DocBuilder {
-    
-    /**
-     * valuesSwitch
-     *
-     * @param  resource $values
-     * @param  string $file_path
-     *
-     * @return string
-     */
-    public function valuesSwitch($values, $file_path)
-    {
-        if (isset($values['options'])) {
-            switch ($values['options']) {
-                case 'title':
-					$option = $this->title($values['option_content'],$values['option_content']);
-                    break;
-                case 'description':
-					$option = $this->description($values['option_content']);
-                    break;
-                case 'path':
-					$option = $this->pathAdd($values['option_content']);
-                    break;
-                case 'pathAdd':
-					$option = $this->pathAdd($values['option_content']);
-                    break;
-                case 'codeInline':
-					$option = $this->codeInline($values['option_content'],$values['language']);
-                    break;
-                case 'codeFile':
-					$option = $this->codeFile(substr($file_path, 5), $values['language']);
-                    break;
-                case 'blockquote':
-					$option = $this->blockquote($values['option_content']);
-                    break;
-                case 'image':
-					$option = $this->image(substr($file_path, 5), $values['option_content']);
-                    break;
-                case 'imageURL':
-					$option = $this->imageURL($values['option_content'], $values['names']);
-                    break;
-                case 'linkButton':
-					$option = $this->linkButton($values['option_content'], $values['names'], $values['trgs']);
-                    break;
-                case 'markdown':
-					$option = $this->markdown($values['option_content']);
-                    break;
-                case 'addButton':
-                    $option = '$html->addButton(),'."\n";
-                    break;
-                default:
-                    $option = '';
-                    break;
-            }
-        } else { $option = ''; }
-        
-        return $option;
-    }
+class DocBuilder 
+{
     
     /**
      * jsonSwitch
