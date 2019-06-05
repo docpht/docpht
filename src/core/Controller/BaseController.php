@@ -24,11 +24,13 @@ use DocPHT\Form\UpdatePasswordForm;
 
 class BaseController
 {
-	public $view;
-	public $removeUserForm;
-	public $updatePasswordForm;
-	public $translationsForm;
-	public $addUserForm;
+	protected $view;
+	protected $removeUserForm;
+	protected $updatePasswordForm;
+	protected $translationsForm;
+	protected $addUserForm;
+	protected $createPageForm;
+	protected $adminModel;
 	
 	public function __construct()
 	{
