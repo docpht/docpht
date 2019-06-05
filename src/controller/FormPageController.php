@@ -13,24 +13,25 @@
 
 namespace DocPHT\Controller;
 
-use Instant\Core\Controller\BaseController;
+use DocPHT\Core\Translator\T;
 use DocPHT\Form\CreatePageForm;
+use Instant\Core\Controller\BaseController;
 
 class FormPageController extends BaseController
 {
-	private $createPage;
+	private $createPageForm;
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->createPage = new CreatePageForm();
+		$this->createPageForm = new CreatePageForm();
 	}
     
 	public function getCreatePageForm()
 	{
-		$form = $this->createPage->create();
+		$form = $this->createPageForm->create();
 
-		$this->view->show('partial/head.php', ['PageTitle' => 'Doc PHT']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create new')]);
 		$this->view->show('form-page/create_page.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
