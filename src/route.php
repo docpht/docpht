@@ -50,7 +50,7 @@ if (isset($_SESSION['Active'])) {
     });
 }
 
-$route->get('/{topic}/{filename}', function($topic, $filename){
+$route->get_post('/{topic}/{filename}', function($topic, $filename){
     /* $page = new PageController();
     $page->getPage($topic, $filename); */
     echo $topic .' '. $filename;
