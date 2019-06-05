@@ -42,7 +42,7 @@ class MakeupForm
 				$control->getControlPrototype()->addClass('form-control-file');
 
 			} elseif (in_array($type, ['checkbox', 'radio'], true)) {
-				if ($control instanceof Nette\Forms\Controls\Checkbox) {
+				if ($control instanceof \Nette\Forms\Controls\Checkbox) {
 					$control->getLabelPrototype()->addClass('form-check-label');
 				} else {
 					$control->getItemLabelPrototype()->addClass('form-check-label');

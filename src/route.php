@@ -16,6 +16,9 @@ $route->get('/', 'DocPHT\Controller\HomeController@index');
 $route->get_post('/login', 'DocPHT\Controller\LoginController@index');
 
 if (isset($_SESSION['Active'])) {
+
+    $route->get('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
+
     $route->get('/logout', 'DocPHT\Controller\LoginController@logout');
     
     $route->group('/admin', function()

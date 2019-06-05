@@ -82,8 +82,6 @@ class CreatePageForm extends MakeupForm
             ->setHtmlAttribute('data-parent', 'options')
             ->setAttribute('data-autoresize');
         
-        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
-        
         $form->addSubmit('submit', T::trans('Create'));
         
         $success = '';
