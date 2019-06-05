@@ -27,7 +27,7 @@ class SortSectionForm extends MakeupForm
         $uPath = $_SESSION['update_path'];
         $id = $this->pageModel->getId($uPath);
 
-        $data = $db->getPageData($id);
+        $data = $this->pageModel->getPageData($id);
         
         if(isset($_GET['o']) && isset($_GET['n'])) {
             $rowIndex = intval($_GET['o']);
@@ -39,15 +39,15 @@ class SortSectionForm extends MakeupForm
             $moveData = $data[$rowIndex];
             array_splice($data, $rowIndex, 1);
             array_splice($data, $newIndex, 0, array($moveData));
-            $db->putPageData($id, $data);
+            $this->pageModel->putPageData($id, $data);
         
             if (!empty($data)) {
-                $docBuilder->buildPhpPage($id);
-                header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
+                $this->doc->buildPhpPage($id);
+                header('location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
         		exit;
             }
         } else {
-            header('location:index.php?p='.$db->getFilename($id).'&f='.$db->getTopic($id));
+            header('location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
             exit;
         }
     }
