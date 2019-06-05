@@ -13,30 +13,13 @@
 
 namespace DocPHT\Controller;
 
-use DocPHT\Core\Translator\T;
-use DocPHT\Form\AddUserForm;
-use DocPHT\Form\RemoveUserForm;
-use DocPHT\Form\TranslationsForm;
-use DocPHT\Form\UpdatePasswordForm;
+
 use Instant\Core\Controller\BaseController;
 
 
 class AdminController extends BaseController
 {
-	private $removeUserForm;
-	private $updatePasswordForm;
-	private $translationsForm;
-	private $addUserForm;
-    
-	public function __construct()
-	{
-		parent::__construct();
-		$this->updatePasswordForm = new UpdatePasswordForm();
-		$this->removeUserForm = new RemoveUserForm();
-		$this->addUserForm = new AddUserForm();
-		$this->translationsForm = new TranslationsForm();
-	}
-			
+
 	public function settings()
 	{
 		$this->view->show('partial/head.php',['PageTitle' => T::trans('Admin')]);
