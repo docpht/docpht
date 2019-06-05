@@ -16,7 +16,7 @@ use DocPHT\Controller\ErrorPageController;
 
 $route->get('/', 'DocPHT\Controller\HomeController@index');
 
-$route->get_post('/login', 'DocPHT\Controller\LoginController@index');
+$route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 
 if (isset($_SESSION['Active'])) {
 

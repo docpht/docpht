@@ -19,7 +19,7 @@ use Instant\Core\Controller\BaseController;
 class LoginController extends BaseController
 {
     
-	public function index()
+	public function login()
 	{
         $users = $this->adminModel->getUsers();
 
