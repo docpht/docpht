@@ -1,6 +1,7 @@
 <?php
 
 use DocPHT\Controller\FormPageController;
+use DocPHT\Controller\ErrorPageController;
 
 /**
  * This file is part of the DocPHT project.
@@ -47,7 +48,8 @@ if (isset($_SESSION['Active'])) {
 
         // Anything else
         $this->any('/*', function(){
-            pre("Page ( {$this->app->request->path} ) Not Found", 6);
+            $error = new ErrorPageController();
+            $error->getPage();
         });
     });
 }
@@ -59,5 +61,6 @@ $route->get_post('/{topic}/{filename}', function($topic, $filename){
 
 // Anything else
 $route->any('/*', function(){
-    pre("Page ( {$this->app->request->path} ) Not Found", 6);
+    $error = new ErrorPageController();
+    $error->getPage();
 });
