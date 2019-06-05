@@ -99,7 +99,7 @@ class PageModel
         {
             $count = 0;
             while (in_array( ($slug . '-' . ++$count ), $data));
-            ($count > 0) ? $slug = $slug . '-' . $count : $slug;
+            ($count > 0) ? $slug = $slug . '-' . $count : NULL;
         }   
         
         $data[] = array(
