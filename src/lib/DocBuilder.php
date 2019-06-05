@@ -13,12 +13,18 @@
 
 namespace DocPHT\Lib;
 
-use DocPHT\Core\Translator\T;
 use DocPHT\Model\PageModel;
+use DocPHT\Core\Translator\T;
 
 class DocBuilder 
 {
     
+    protected $pageModel;
+
+	public function __construct()
+	{
+		$this->pageModel = new PageModel();
+	}
     /**
      * jsonSwitch
      *
@@ -153,9 +159,9 @@ class DocBuilder
      */
     public function buildPhpPage($id)
     {
-        $db = new PageModel();
-        $data = $db->getPageData($id);
-        $path = $db->getPhpPath($id);
+        $this->pageModel = new PageModel();
+        $data = $this->pageModel->getPageData($id);
+        $path = $this->pageModel->getPhpPath($id);
         $anchors = [];
         $values = [];
         
