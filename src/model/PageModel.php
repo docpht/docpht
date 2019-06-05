@@ -95,15 +95,17 @@ class PageModel
 		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
         $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
 
-		foreach($data as $value){
-			$slugs[] = $value['pages']['slug'];
-        }
-
-        if(in_array($slug, $slugs))
-        {
-            $count = 0;
-            while(in_array(($slug . '-' . ++$count ), $slugs));
-            $slug = $slug . '-' . $count;
+        if ($data > 0) {
+            foreach($data as $value){
+                $slugs[] = $value['pages']['slug'];
+            }
+    
+            if(in_array($slug, $slugs))
+            {
+                $count = 0;
+                while(in_array(($slug . '-' . ++$count ), $slugs));
+                $slug = $slug . '-' . $count;
+            }
         }   
 
         $data[] = array(

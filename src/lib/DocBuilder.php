@@ -175,7 +175,7 @@ class DocBuilder
 			
         $file = "<?php\n\n"
                 ."use DocPHT\Lib\DocPHT;\n\n"
-                .'$_SESSION'."['update_path'] = '".$path."';\n\n"
+                .'$_SESSION'."['slug'] = '".$path."';\n\n"
                 .'$html = new DocPHT(['.implode(',',$anchors)."]);\n"
                 .'$values'." = [\n".implode('', $values).'$html->addButton(),'."\n"."];";
         
