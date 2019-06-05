@@ -14,6 +14,7 @@
 namespace DocPHT\Lib;
 
 use DocPHT\Core\Translator\T;
+use DocPHT\Model\PageModel;
 
 class DocBuilder {
     
@@ -208,7 +209,7 @@ class DocBuilder {
      */
     public function buildPhpPage($id)
     {
-        $db = new DocData;
+        $db = new PageModel();
         $data = $db->getPageData($id);
         $path = $db->getPhpPath($id);
         $anchors = [];
