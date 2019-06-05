@@ -17,6 +17,7 @@
  * connectPageData($path)
  * create($topic, $filename)
  * getPhpPath($id)
+ * getSlug($id)
  * getJsonPath($id)
  * getId($path)
  * getTopic($id)
@@ -88,14 +89,23 @@ class PageModel
     {
         $data = $this->connect();
         $id = uniqid();
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
         $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
 		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
         $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
         
+        if(in_array($slug, $data))
+        {
+            $count = 0;
+            while (in_array( ($slug . '-' . ++$count ), $data));
+            $slug = $slug . '-' . $count;
+        }   
+        
         $data[] = array(
             'pages' => [
                     'id' => $id,
+                    'slug' => $slug,
                     'topic' => $topic,
                     'filename' => $filename,
                     'phppath' => $phpPath,
@@ -120,6 +130,21 @@ class PageModel
         $key = array_search($id, array_column($data, 'id'));
 
         return $data[$key]['pages']['phppath'];
+    }
+    
+    /**
+     * getSlug
+     *
+     * @param  string $id
+     *
+     * @return string
+     */
+    public function getSlug($id)
+    {
+        $data = $this->connect();
+        $key = array_search($id, array_column($data, 'id'));
+
+        return $data[$key]['pages']['slug'];
     }
     
     /**
