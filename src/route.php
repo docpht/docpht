@@ -1,5 +1,7 @@
 <?php
 
+use DocPHT\Controller\FormPageController;
+
 /**
  * This file is part of the DocPHT project.
  * 
@@ -51,9 +53,8 @@ if (isset($_SESSION['Active'])) {
 }
 
 $route->get_post('/{topic}/{filename}', function($topic, $filename){
-    /* $page = new PageController();
-    $page->getPage($topic, $filename); */
-    echo $topic .' '. $filename;
+    $page = new FormPageController();
+    $page->getPage($topic, $filename);
 });
 
 // Anything else

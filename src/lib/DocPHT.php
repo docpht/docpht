@@ -13,6 +13,7 @@
 
 namespace DocPHT\Lib;
 
+use Parsedown;
 use Emojione\Client;
 use Emojione\Ruleset;
 
