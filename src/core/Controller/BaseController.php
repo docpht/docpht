@@ -14,12 +14,13 @@
 
 namespace Instant\Core\Controller;
 
-use DocPHT\Core\Translator\T;
 use DocPHT\Form\AddUserForm;
+use DocPHT\Model\AdminModel;
+use Instant\Core\Views\View;
+use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;
-use Instant\Core\Views\View;
 
 class BaseController
 {
@@ -36,6 +37,8 @@ class BaseController
 		$this->removeUserForm = new RemoveUserForm();
 		$this->addUserForm = new AddUserForm();
 		$this->translationsForm = new TranslationsForm();
+		$this->createPageForm = new CreatePageForm();
+		$this->adminModel = new AdminModel();
 	}
 
 }

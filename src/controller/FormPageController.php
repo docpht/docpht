@@ -14,19 +14,11 @@
 namespace DocPHT\Controller;
 
 use DocPHT\Core\Translator\T;
-use DocPHT\Form\CreatePageForm;
 use Instant\Core\Controller\BaseController;
 
 class FormPageController extends BaseController
 {
-	private $createPageForm;
-	
-	public function __construct()
-	{
-		parent::__construct();
-		$this->createPageForm = new CreatePageForm();
-	}
-    
+
 	public function getCreatePageForm()
 	{
 		$form = $this->createPageForm->create();

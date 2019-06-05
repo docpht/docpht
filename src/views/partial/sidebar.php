@@ -5,7 +5,7 @@
             
             <?php 
                 if (isset($_SESSION['Active'])) {
-                    echo '<small>Welcome&nbsp'.$_SESSION['Username'].'</small>';
+                    echo '<small>'.$t->trans('Welcome&nbsp').$_SESSION['Username'].'</small>';
                 }
             ?>    
             </div>

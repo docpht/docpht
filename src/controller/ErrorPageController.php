@@ -13,19 +13,15 @@
 
 namespace DocPHT\Controller;
 
+use DocPHT\Core\Translator\T;
 use Instant\Core\Controller\BaseController;
 
 class ErrorPageController extends BaseController
-{
-    
-	public function __construct()
-	{
-		parent::__construct();
-	}
-    
+{ 
+	
 	public function getPage()
 	{
-		$this->view->show('partial/head.php', ['PageTitle' => 'Page not found']);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Page not found')]);
 		$this->view->show('error_page.php');
 		$this->view->show('partial/footer.php');
 	}

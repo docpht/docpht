@@ -51,7 +51,7 @@
         'or' => 'oppure',
         'Warning! The data entered is incorrect.' => 'Avvertimento! I dati inseriti non sono corretti.',
         'Creates a password hash' => 'Crea un hash della password',
-        'Welcome' => 'Benvenuto',
+        'Welcome&nbsp' => 'Benvenuto&nbsp',
         'Add user' => 'Aggiungi utente',
         'Enter a new username and password for the account.' => 'Inserisci un nuovo nome utente e password per l\'account.',
         'Enter Username:' => 'Inserire il nome utente:',
@@ -130,4 +130,5 @@
         'Add image from url' => 'Aggiungi immagine da url',
         'Update Password' => 'Aggiorna password',
         'Select a user' => 'Seleziona un utente',
+        'Page not found' => 'Pagina non trovata',
     ], 'it_IT');   
