@@ -105,11 +105,11 @@ class CreatePageForm extends MakeupForm
             	    $this->doc->buildPhpPage($id);
             	    
         			echo '<p class="text-center text-success">'.T::trans("Creation of %filename% in %topic% successfully!", ['%filename%' => $values['mainfilename'], '%topic%' => $values['topic']] ).'</p>';
-                    header('Location:'.$this->pageModel->getFilename($id).'/'.$this->pageModel->getTopic($id));
+                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
     				$bad = T::trans('Sorry something didn\'t work!');
-    				header('Location:'.$this->pageModel->getFilename($id).'/'.$this->pageModel->getTopic($id));
+    				header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
     				exit;
         	    }
         	}
