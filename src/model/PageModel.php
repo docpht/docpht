@@ -94,14 +94,18 @@ class PageModel
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
 		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
         $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
-        
-        if(in_array($slug, $data))
+
+		foreach($data as $value){
+			$slugs[] = $value['pages']['slug'];
+        }
+
+        if(in_array($slug, $slugs))
         {
             $count = 0;
-            while (in_array( ($slug . '-' . ++$count ), $data));
-            ($count > 0) ? $slug = $slug . '-' . $count : NULL;
+            while(in_array(($slug . '-' . ++$count ), $slugs));
+            $slug = $slug . '-' . $count;
         }   
-        
+
         $data[] = array(
             'pages' => [
                     'id' => $id,
