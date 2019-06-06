@@ -91,8 +91,6 @@ class PageModel
         $id = uniqid();
         $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
-		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
-        $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
 
         if (!is_null($data)) {
@@ -107,7 +105,10 @@ class PageModel
                 $slug = $slug . '-' . $count;
             }
         }   
-
+        
+		$phpPath = 'pages/'.$slug.'.php';
+        $jsonPath = 'data/'.$slug.'.json';
+        
         $data[] = array(
             'pages' => [
                     'id' => $id,
