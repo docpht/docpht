@@ -21,9 +21,20 @@ $route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 
 if (isset($_SESSION['Active'])) {
 
-    $route->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
-
     $route->get('/logout', 'DocPHT\Controller\LoginController@logout');
+
+    // /page
+    $route->group('/page', function()
+    {
+        // /page/create
+        $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
+        
+        // Anything else
+        $this->any('/*', function(){
+            $error = new ErrorPageController();
+            $error->getPage();
+        });
+    });
     
     $route->group('/admin', function()
     {
@@ -60,6 +71,11 @@ if (isset($_SESSION['Active'])) {
     });
     
     $route->any('/admin/*', function(){
+        $login = new LoginController();
+        $login->login();
+    });
+    
+    $route->any('/page/*', function(){
         $login = new LoginController();
         $login->login();
     });
