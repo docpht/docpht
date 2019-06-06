@@ -19,6 +19,8 @@
  * getPhpPath($id)
  * getSlug($id)
  * getJsonPath($id)
+ * getAllFromKey($key)
+ * getAllIndexed()
  * getId($path)
  * getTopic($id)
  * getFilename($id)
