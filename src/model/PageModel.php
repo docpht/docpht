@@ -94,9 +94,8 @@ class PageModel
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
 
         if (!is_null($data)) {
-            foreach($data as $value){
-                $slugs[] = $value['pages']['slug'];
-            }
+            
+            $slugs = $this->getAllFromKey('slug');
     
             if(in_array($slug, $slugs))
             {
@@ -167,6 +166,24 @@ class PageModel
         $key = array_search($id, array_column($data, 'id'));
         
         return $data[$key]['pages']['jsonpath'];
+    }    
+    
+    /**
+     * getAllFromKey
+     * 
+     * @param string $key
+     * 
+     * @return array
+     */
+    public function getAllFromKey($key)
+    {
+        $data = $this->connect();
+        
+        foreach($data as $value){
+            $array[] = $value['pages'][$key];
+        } 
+        
+        return $array;
     }
     
     /**
