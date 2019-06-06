@@ -2,6 +2,7 @@
 
 use DocPHT\Controller\FormPageController;
 use DocPHT\Controller\ErrorPageController;
+use DocPHT\Controller\LoginController;
 
 /**
  * This file is part of the DocPHT project.
@@ -51,6 +52,16 @@ if (isset($_SESSION['Active'])) {
             $error = new ErrorPageController();
             $error->getPage();
         });
+    });
+} else {
+    $route->any('/admin', function(){
+        $login = new LoginController();
+        $login->login();
+    });
+    
+    $route->any('/admin/*', function(){
+        $login = new LoginController();
+        $login->login();
     });
 }
 
