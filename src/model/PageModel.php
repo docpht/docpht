@@ -89,20 +89,20 @@ class PageModel
     {
         $data = $this->connect();
         $id = uniqid();
-        $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
         $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
 		$phpPath = 'pages/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.php';
         $jsonPath = 'data/'.strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) )).'/'.$filename.'.json';
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
 
-        if ($data > 0) {
+        if (!is_null($data)) {
             foreach($data as $value){
                 $slugs[] = $value['pages']['slug'];
             }
     
             if(in_array($slug, $slugs))
             {
-                $count = 0;
+                $count = 1;
                 while(in_array(($slug . '-' . ++$count ), $slugs));
                 $slug = $slug . '-' . $count;
             }
