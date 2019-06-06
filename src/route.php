@@ -22,19 +22,6 @@ $route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 if (isset($_SESSION['Active'])) {
 
     $route->get('/logout', 'DocPHT\Controller\LoginController@logout');
-
-    // /page
-    $route->group('/page', function()
-    {
-        // /page/create
-        $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
-        
-        // Anything else
-        $this->any('/*', function(){
-            $error = new ErrorPageController();
-            $error->getPage();
-        });
-    });
     
     $route->group('/admin', function()
     {
@@ -74,22 +61,38 @@ if (isset($_SESSION['Active'])) {
         $login = new LoginController();
         $login->login();
     });
-    
-    $route->any('/page/*', function(){
-        $login = new LoginController();
-        $login->login();
-    });
 }
 
-$route->get_post('/{topic}/{filename}', function($topic, $filename){
-    $page = 'pages/'.$topic.'/'.$filename.'.php';
-    if (file_exists($page)) {
-        $page = new FormPageController();
-        $page->getPage($topic, $filename);
+// /page
+$route->group('/page', function()
+{
+    // /page/topic/filename
+    $this->get_post('/{topic}/{filename}', function($topic, $filename){
+        $page = 'pages/'.$topic.'/'.$filename.'.php';
+        if (file_exists($page)) {
+            $page = new FormPageController();
+            $page->getPage($topic, $filename);
+        } else {
+            $error = new ErrorPageController();
+            $error->getPage();
+        }
+    });
+
+    if (isset($_SESSION['Active'])) {
+        // /page/create
+        $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
     } else {
+        $this->any('/page/*', function(){
+            $login = new LoginController();
+            $login->login();
+        });
+    }
+    
+    // Anything else
+    $this->any('/*', function(){
         $error = new ErrorPageController();
         $error->getPage();
-    }
+    });
 });
 
 // Anything else
