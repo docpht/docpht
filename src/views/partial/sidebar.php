@@ -53,6 +53,61 @@
                 }
             ?>
                 <!-- Navigation -->
+            <?php 
+
+                function dirPage($dir) {
+                    $contents = array();
+                    foreach (scandir($dir) as $node) {
+                        if ($node == '.' || $node == '..' || $node == '.gitignore') continue;
+                        if (is_dir($dir . '/' . $node)) {
+                            $contents[$node] = dirPage($dir . '/' . $node);
+                        } else {
+                            $contents[] = $node;
+                        }
+                    }
+                
+                    return $contents;
+                }
+                
+                $url = "$_SERVER[REQUEST_URI]";
+                $parse = parse_url($url)['path'];
+                $explode = explode('/', $parse);
+                $page = array_reverse($explode)[0];
+                $topic = array_reverse($explode)[1];
+
+                if (file_exists('pages')) {
+                    $menu = dirPage("pages");
+                    if ($menu) {
+                        echo '<li>';
+                        foreach ($menu as $key => $folders) {
+                            $key_replace = str_replace('-', ' ', $key);
+                            if (isset($topic) && $topic === $key) {
+                                $active = 'menu-active';
+                                $show = 'show';
+                            } else {
+                                $active = ''; 
+                                $show = '';
+                            }
+                            echo '<a href="#'.$key.'-nav" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($key_replace) .'</a>';
+                            echo '<ul class="collapse list-unstyled '.$show.' " id="'.$key.'-nav">';
+                        foreach ($folders as $file) {
+                            $filename = pathinfo($file, PATHINFO_FILENAME); 
+                            $file_replace = str_replace('-', ' ', $filename);
+                            $link = 'page/'.$key.'/'.$filename;
+                            if (isset($page) && $page === $filename and isset($topic) && $topic === $key) {
+                                $active = 'class="menu-active"';
+                            } else {
+                                $active = ''; 
+                            }
+                            echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($file_replace).'</a></li>';
+                        } 
+                            echo '</ul>';
+                        }
+                        echo '<li>';
+                    }
+                }
+            ?>
+            
             </ul>
             
             
