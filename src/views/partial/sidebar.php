@@ -55,52 +55,40 @@
                 <!-- Navigation -->
             <?php 
 
-                function dirPage($dir) {
-                    $contents = array();
-                    foreach (scandir($dir) as $node) {
-                        if ($node == '.' || $node == '..' || $node == '.gitignore') continue;
-                        if (is_dir($dir . '/' . $node)) {
-                            $contents[$node] = dirPage($dir . '/' . $node);
-                        } else {
-                            $contents[] = $node;
-                        }
-                    }
-                
-                    return $contents;
-                }
+
+                $pages = $this->pageModel->getAllIndexed();
                 
                 $url = "$_SERVER[REQUEST_URI]";
                 $parse = parse_url($url)['path'];
                 $explode = explode('/', $parse);
-                $page = array_reverse($explode)[0];
-                $topic = array_reverse($explode)[1];
+                $filenameURL = array_reverse($explode)[0];
+                $topicURL = array_reverse($explode)[1];
 
-                if (file_exists('pages')) {
-                    $menu = dirPage("pages");
-                    if ($menu) {
+                if (!is_null($pages)) {
+                    if ($pages) {
                         echo '<li>';
-                        foreach ($menu as $key => $folders) {
-                            $key_replace = str_replace('-', ' ', $key);
-                            if (isset($topic) && $topic === $key) {
+                        foreach($pages as $page){
+                            $topicTitle = str_replace('-', ' ', $page['topic']);
+                            if (isset($topicURL) && $topicURL === $page['topic']) {
                                 $active = 'menu-active';
                                 $show = 'show';
                             } else {
                                 $active = ''; 
                                 $show = '';
                             }
-                            echo '<a href="#'.$key.'-nav" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($key_replace) .'</a>';
-                            echo '<ul class="collapse list-unstyled '.$show.' " id="'.$key.'-nav">';
-                        foreach ($folders as $file) {
-                            $filename = pathinfo($file, PATHINFO_FILENAME); 
-                            $file_replace = str_replace('-', ' ', $filename);
-                            $link = 'page/'.$key.'/'.$filename;
-                            if (isset($page) && $page === $filename and isset($topic) && $topic === $key) {
+                            echo '<a href="#'.$page['topic'].'-side-navigation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($topicTitle) .'</a>';
+                            echo '<ul class="collapse list-unstyled '.$show.' " id="'.$page['topic'].'-side-navigation">';
+
+                            $filename = $page['filename']; 
+                            $filenameTitle = str_replace('-', ' ', $page['filename']);
+                            $link = 'page/'.$page['topic'].'/'.$page['filename'];
+                            if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
                                 $active = 'class="menu-active"';
                             } else {
                                 $active = ''; 
                             }
-                            echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($file_replace).'</a></li>';
-                        } 
+                            echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
+
                             echo '</ul>';
                         }
                         echo '<li>';

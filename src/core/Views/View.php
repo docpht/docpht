@@ -17,9 +17,17 @@ namespace Instant\Core\Views;
 use DocPHT\Model\AdminModel;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use DocPHT\Model\PageModel;
 
 class View 
 {
+	protected $pageModel;
+
+	public function __construct()
+	{
+		$this->pageModel = new PageModel();
+	}
+
 	public function show($file, $data = null)
 	{
 		if (isset($_SESSION['Active'])) {
@@ -48,7 +56,7 @@ class View
 		{
 			extract($data);
 		}
-
+		$this->pageModel;
 		include 'src/views/'.$file;
 	}
 }
