@@ -104,6 +104,7 @@ class PageModel
                 $count = 1;
                 while(in_array(($slug . '-' . ++$count ), $slugs));
                 $slug = $slug . '-' . $count;
+                $filename = $filename . '-' . $count;
             }
         }   
         
