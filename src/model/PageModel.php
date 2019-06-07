@@ -175,24 +175,26 @@ class PageModel
      * 
      * @param string $key
      * 
-     * @return array
+     * @return array bool
      */
     public function getAllFromKey($key)
     {
         $data = $this->connect();
-        
-        foreach($data as $value){
-            $array[] = $value['pages'][$key];
-        } 
-        
-        return $array;
+        if (!is_null($data)) {
+            foreach($data as $value){
+                $array[] = $value['pages'][$key];
+            } 
+            return $array;
+        } else {
+            return false;
+        }
     }
     
     /**
      * getAllIndexed
      * 
      * 
-     * @return array
+     * @return array bool
      */
     public function getAllIndexed()
     {
@@ -210,6 +212,8 @@ class PageModel
             }
 
             return $array;
+        } else {
+            return false;
         }
     }
     
