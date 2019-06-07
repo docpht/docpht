@@ -135,7 +135,7 @@ class PageModel
     public function getPhpPath($id)
     {
         $data = $this->connect();
-        $key = array_search($id, array_column($data, 'id'));
+        $key = $this->findKey($data, $id);
 
         return $data[$key]['pages']['phppath'];
     }
@@ -150,7 +150,7 @@ class PageModel
     public function getSlug($id)
     {
         $data = $this->connect();
-        $key = array_search($id, array_column($data, 'id'));
+        $key = $this->findKey($data, $id);
 
         return $data[$key]['pages']['slug'];
     }
@@ -165,7 +165,7 @@ class PageModel
     public function getJsonPath($id)
     {
         $data = $this->connect();
-        $key = array_search($id, array_column($data, 'id'));
+        $key = $this->findKey($data, $id);
         
         return $data[$key]['pages']['jsonpath'];
     }    
@@ -237,7 +237,7 @@ class PageModel
     public function getTopic($id)
     {
         $data = $this->connect();
-        $key = array_search($id, array_column($data, 'id'));
+        $key = $this->findKey($data, $id);
         
         return $data[$key]['pages']['topic'];
     }
@@ -252,7 +252,7 @@ class PageModel
     public function getFilename($id)
     {
         $data = $this->connect();
-        $key = array_search($id, array_column($data, 'id'));
+        $key = $this->findKey($data, $id);
         
         return $data[$key]['pages']['filename'];
     }
