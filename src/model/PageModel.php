@@ -197,19 +197,20 @@ class PageModel
     public function getAllIndexed()
     {
         $data = $this->connect();
-        
-        foreach($data as $value){
-            $array[] = array(
-                'id' => $value['pages']['id'], 
-                'slug' => $value['pages']['slug'], 
-                'topic' => $value['pages']['topic'], 
-                'filename' => $value['pages']['filename'], 
-                'phppath' => $value['pages']['phppath'], 
-                'jsonpath' => $value['pages']['jsonpath']
-                );
-        } 
-        
-        return $array;
+        if (!is_null($data)) {
+            foreach($data as $value){
+                $array[] = array(
+                    'id' => $value['pages']['id'], 
+                    'slug' => $value['pages']['slug'], 
+                    'topic' => $value['pages']['topic'], 
+                    'filename' => $value['pages']['filename'], 
+                    'phppath' => $value['pages']['phppath'], 
+                    'jsonpath' => $value['pages']['jsonpath']
+                    );
+            }
+
+            return $array;
+        }
     }
     
     /**
