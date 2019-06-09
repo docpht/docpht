@@ -111,6 +111,34 @@ class PageModel
 		$phpPath = 'pages/'.$slug.'.php';
         $jsonPath = 'data/'.$slug.'.json';
         
+        $topicString = $this->getTopicString($topic);
+        $topicStringId = $this->getPageIdByTopic($topic);
+
+        /* if ($topicString) {
+            $data[] = array(
+                'children' => [
+                    'slug' => $slug,
+                    'filename' => $filename,
+                    'phppath' => $phpPath,
+                    'jsonpath' => $jsonPath
+            ]);
+        } else {
+             $data[] = array(
+            'pages' => [
+                    'id' => $id,
+                    'slug' => $slug,
+                    'topic' => $topic,
+                    'filename' => $filename,
+                    'phppath' => $phpPath,
+                    'jsonpath' => $jsonPath,
+                    'children' => [
+                        'slug' => 'test/otherpage',
+                        'filename' => 'otherpage',
+                        'phppath' => 'pages/test/otherpage.php',
+                        'jsonpath' => 'data/test/otherpage.json'
+                ]
+            ]);
+        } */
         $data[] = array(
             'pages' => [
                     'id' => $id,
@@ -118,12 +146,54 @@ class PageModel
                     'topic' => $topic,
                     'filename' => $filename,
                     'phppath' => $phpPath,
-                    'jsonpath' => $jsonPath
+                    'jsonpath' => $jsonPath,
+                    'children' => [
+                        'slug' => 'test/otherpage',
+                        'filename' => 'otherpage',
+                        'phppath' => 'pages/test/otherpage.php',
+                        'jsonpath' => 'data/test/otherpage.json'
+                ]
             ]);
-            
+
         $this->disconnect(self::DB, $data);
         
 		return $id;
+    }
+
+    /**
+     * getPageIdByTopic
+     *
+     * @param  string $topic
+     *
+     * @return int|bool
+     */
+    public function getPageIdByTopic($topic)
+    {
+        $data = $this->connect();
+        $key = $this->findKey($data,$topic);
+        if (!is_null($key)) {
+            return $data[$key]['pages']['id'];
+        } else {
+            return false;
+        } 
+    }
+
+    /**
+     * getTopicString
+     *
+     * @param  string $topic
+     *
+     * @return string|bool
+     */
+    public function getTopicString($topic)
+    {
+        $data = $this->connect();
+        $key = $this->findKey($data,$topic);
+        if (!is_null($key)) {
+            return $data[$key]['pages']['topic'];
+        } else {
+            return false;
+        } 
     }
     
     /**
@@ -202,15 +272,10 @@ class PageModel
         $data = $this->connect();
         if (!is_null($data)) {
             foreach($data as $value){
-                $array[] = array(
-                    'id' => $value['pages']['id'], 
-                    'slug' => $value['pages']['slug'], 
-                    'topic' => $value['pages']['topic'], 
-                    'filename' => $value['pages']['filename'], 
-                    'phppath' => $value['pages']['phppath'], 
-                    'jsonpath' => $value['pages']['jsonpath']
-                    );
+                foreach ($value as $value) {
+                    $array[] =  $value;
             }
+        }
 
             return $array;
         } else {
