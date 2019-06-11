@@ -78,16 +78,7 @@
                         }
                     echo '<a href="#'.$topic.'-side-navigation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($topicTitle) .'</a>';
                     echo '<ul class="collapse list-unstyled '.$show.' " id="'.$topic.'-side-navigation">';
-                    //$filename = $page['filename']; 
-                    //$filenameTitle = str_replace('-', ' ', $page['filename']);
-                    //$link = 'page/'.$page['topic'].'/'.$page['filename'];
-                    /*if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
-                        $active = 'class="menu-active"';
-                    } else {
-                        $active = ''; 
-                    }
-                    echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';*/
-                    
+
                     $pages = $this->pageModel->getPagesByTopic($topic);
 
                     if (!empty($pages)) {
