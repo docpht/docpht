@@ -92,7 +92,6 @@
 
                     if (!empty($pages)) {
                         foreach($pages as $page) {
-                            error_log($page['filename'],0);
                             if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
                                 $active = 'class="menu-active"';
                             } else {
