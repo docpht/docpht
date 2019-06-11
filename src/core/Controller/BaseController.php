@@ -17,12 +17,12 @@ namespace Instant\Core\Controller;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Model\AdminModel;
 use Instant\Core\Views\View;
+use DocPHT\Form\AddSectionForm;
 use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;
-use DocPHT\Form\AddSectionForm;
-use DocPHT\Core\Error;
+use Plasticbrain\FlashMessages\FlashMessages;
 
 class BaseController
 {
@@ -34,7 +34,7 @@ class BaseController
 	protected $createPageForm;
 	protected $adminModel;
 	protected $addSectionPageForm;
-	protected $error;
+	protected $msg;
 	
 	public function __construct()
 	{
@@ -46,7 +46,7 @@ class BaseController
 		$this->createPageForm = new CreatePageForm();
 		$this->adminModel = new AdminModel();
 		$this->addSectionPageForm = new AddSectionForm();
-		$this->error = new Error();
+		$this->msg = new FlashMessages();
 	}
 
 }
