@@ -14,10 +14,11 @@
 
 namespace Instant\Core\Views;
 
+use DocPHT\Core\Error;
+use DocPHT\Model\PageModel;
 use DocPHT\Model\AdminModel;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
-use DocPHT\Model\PageModel;
 
 class View 
 {
@@ -26,6 +27,7 @@ class View
 	public function __construct()
 	{
 		$this->pageModel = new PageModel();
+		$this->error = new Error();
 	}
 
 	public function show($file, $data = null)
@@ -57,6 +59,7 @@ class View
 			extract($data);
 		}
 		$this->pageModel;
+		$this->error;
 		include 'src/views/'.$file;
 	}
 }
