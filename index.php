@@ -16,7 +16,7 @@ use Tracy\Debugger;
 $autoload = 'vendor/autoload.php';
 
 if (!file_exists('src/config/config.php')) {
-    echo '<p>Set the configuration file in the config/ folder, delete the extension example, and set your data.</p>';
+    include 'start/config.php';
 } elseif (file_exists($autoload)) {
 require $autoload;
 
@@ -41,5 +41,5 @@ include 'src/route.php';
 
 $route->end();
 } else {
-    echo '<p>Install composer dependencies, run: <code style="background: #eee;padding: 5px;color: #9c3eb9;">composer install</code></p>';
+    include 'start/composer.php';
 }
