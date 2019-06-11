@@ -135,4 +135,5 @@
         'Update Password' => 'Aggiorna password',
         'Select a user' => 'Seleziona un utente',
         'Page not found' => 'Pagina non trovata',
+        'No files added for uploading' => 'Nessun file aggiunto per il caricamento',
     ], 'it_IT');   

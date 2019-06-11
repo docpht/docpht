@@ -15,15 +15,18 @@ namespace DocPHT\Lib;
 
 use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
+use Plasticbrain\FlashMessages\FlashMessages;
 
 class DocBuilder 
 {
     
     protected $pageModel;
+    protected $msg;
 
 	public function __construct()
 	{
-		$this->pageModel = new PageModel();
+        $this->pageModel = new PageModel();
+        $this->msg = new FlashMessages();
 	}
     /**
      * jsonSwitch
@@ -378,9 +381,14 @@ class DocBuilder
      */
     public function codeFile($src,$lan)
     {
-       $src = addcslashes($src,"\'");
-       $out = '$html->codeFile'."('{$lan}','{$src}'), \n";
-       return $out; 
+        if (!empty($src)) {
+            $src = addcslashes($src,"\'");
+            $out = '$html->codeFile'."('{$lan}','{$src}'), \n";
+            return $out;
+        } else {
+            $this->msg->error(T::trans('No files added for uploading'),$_SERVER['HTTP_REFERER']);
+        }
+        
     }
     
     /**
