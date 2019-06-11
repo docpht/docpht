@@ -22,7 +22,7 @@ class DeletePageForm extends MakeupForm
 
     public function delete()
     {
-        $uPath = $_SESSION['update_path'];
+        $uPath = $_SESSION['slug'];
         $id = $this->pageModel->getId($uPath);
         $data = $this->pageModel->getPageData($id);
     

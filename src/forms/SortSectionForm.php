@@ -22,9 +22,7 @@ class SortSectionForm extends MakeupForm
 
     public function create()
     {
-
-
-        $uPath = $_SESSION['update_path'];
+        $uPath = $_SESSION['slug'];
         $id = $this->pageModel->getId($uPath);
 
         $data = $this->pageModel->getPageData($id);

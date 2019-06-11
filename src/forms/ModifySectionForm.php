@@ -23,7 +23,7 @@ class ModifySectionForm extends MakeupForm
     public function create()
     {
 
-        $uPath = $_SESSION['update_path'];
+        $uPath = $_SESSION['slug'];
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 

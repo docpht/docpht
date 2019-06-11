@@ -252,7 +252,7 @@ class DocPHT {
         if (isset($_SESSION['Active'])) {
             return '<tr><td class="handle-disabled"></td><td><ul class="list-inline text-left mt-4">
                     <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="Add">
-                        <a href="index.php?p=add" id="sk-add" class="btn btn-outline-success btn-sm" role="button">
+                        <a href="page/add-section" id="sk-add" class="btn btn-outline-success btn-sm" role="button">
                             <i class="fa fa-plus-square" aria-hidden="true"></i>
                         </a>
                     </li>

@@ -21,6 +21,7 @@ use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;
+use DocPHT\Form\AddSectionForm;
 
 class BaseController
 {
@@ -31,6 +32,7 @@ class BaseController
 	protected $addUserForm;
 	protected $createPageForm;
 	protected $adminModel;
+	protected $addSectionPageForm;
 	
 	public function __construct()
 	{
@@ -41,6 +43,7 @@ class BaseController
 		$this->translationsForm = new TranslationsForm();
 		$this->createPageForm = new CreatePageForm();
 		$this->adminModel = new AdminModel();
+		$this->addSectionPageForm = new AddSectionForm();
 	}
 
 }

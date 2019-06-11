@@ -36,4 +36,13 @@ class FormPageController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function getAddSectionForm()
+	{
+		$form = $this->addSectionPageForm->create();
+
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add section')]);
+		$this->view->show('form-page/add_section.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
 }

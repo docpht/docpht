@@ -23,7 +23,7 @@ class AddSectionForm extends MakeupForm
     public function create()
     {
 
-        $uPath = $_SESSION['update_path'];
+        $uPath = $_SESSION['slug'];
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
@@ -64,8 +64,6 @@ class AddSectionForm extends MakeupForm
         
         $form->addSubmit('submit', T::trans('Add'));
         
-        
-        $success = '';
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
@@ -76,22 +74,20 @@ class AddSectionForm extends MakeupForm
         	    
                 $file = $values['file'];
                 $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
-                
-        		$folder = substr(pathinfo($uPath, PATHINFO_DIRNAME ), 4);
-        		$filename = pathinfo($uPath, PATHINFO_FILENAME );
         		
         	    if(isset($id)) {
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray($values, $file_path));
             	    $this->doc->buildPhpPage($id);
-                    header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
     				$bad = T::trans('Sorry something didn\'t work!');
-    				header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+    				header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
     				exit;
         	    }
         	}
         }
+        
         return $form;
     }
 }

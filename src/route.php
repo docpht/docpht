@@ -81,6 +81,7 @@ $route->group('/page', function()
     if (isset($_SESSION['Active'])) {
         // /page/create
         $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
+        $this->get_post('/add-section', 'DocPHT\Controller\FormPageController@getAddSectionForm');
     } else {
         $this->any('/page/*', function(){
             $login = new LoginController();

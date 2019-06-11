@@ -74,8 +74,6 @@ class CreatePageForm extends MakeupForm
         
         $form->addSubmit('submit', T::trans('Create'));
         
-        $success = '';
-        
         if ($form->isSuccess()) {
             $values = $form->getValues();
         
@@ -93,8 +91,7 @@ class CreatePageForm extends MakeupForm
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray($values, $file_path));
             	    
             	    $this->doc->buildPhpPage($id);
-            	    
-        			echo '<p class="text-center text-success">'.T::trans("Creation of %filename% in %topic% successfully!", ['%filename%' => $values['mainfilename'], '%topic%' => $values['topic']] ).'</p>';
+        
                     header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {

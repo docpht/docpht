@@ -22,8 +22,7 @@ class InsertSectionForm extends MakeupForm
 
     public function create()
     {
-
-        $uPath = $_SESSION['update_path'];
+        $uPath = $_SESSION['slug'];
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
@@ -69,8 +68,6 @@ class InsertSectionForm extends MakeupForm
         $form->addProtection(T::trans('Security token has expired, please submit the form again'));
         
         $form->addSubmit('submit', T::trans('Add'));
-        
-        $success = '';
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
