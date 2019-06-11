@@ -18,9 +18,6 @@
     "require": {
         "php": "^7.2",
         "nezamy/route": "^1.2",
-        "symfony/serializer": "^4.2",
-        "symfony/property-access": "^4.2",
-        "bocharsky-bw/arrayzy": "^0.6.1",
         "phpunit/phpunit": "^8.1",
         "symfony/translation": "^4.3",
         "nette/forms": "^3.0",
