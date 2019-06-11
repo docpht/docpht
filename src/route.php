@@ -84,7 +84,7 @@ $route->group('/page', function()
         // /page/add-section
         $this->get_post('/add-section', 'DocPHT\Controller\FormPageController@getAddSectionForm');
     } else {
-        $this->any('/page/*', function(){
+        $this->any('/*', function(){
             $login = new LoginController();
             $login->login();
         });

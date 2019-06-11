@@ -42,8 +42,8 @@ class LoginController extends BaseController
 
                         $_SESSION['Active'] = true;
 
-                        if (isset($_SESSION['url'])) {
-                            header("Location:/?BackURL=".$_SESSION['url']);
+                        if (isset($_SERVER['HTTP_REFERER'])) {
+                            header("Location:".$_SERVER['HTTP_REFERER']);
                             exit;
                         } else {
                             header("Location:".BASE_URL);
