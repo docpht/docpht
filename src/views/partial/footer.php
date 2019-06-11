@@ -1,4 +1,14 @@
             
+            <?php if (isset($_SESSION['Active'])): ?>
+            <ul class="list-inline text-left mt-4 ml-3">
+                <li class="list-inline-item">
+                    <button type="button" id="sk-goback" class="btn btn-outline-secondary btn-sm" onclick="goBack()">
+                        <i class="fa fa-undo" aria-hidden="true"></i>
+                    </button>
+                </li>
+            </ul>
+            <?php endif ?>
+
             <footer class="footer">
                 <div class="card shadow-sm">
                     <div class="card-body">
