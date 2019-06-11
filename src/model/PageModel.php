@@ -120,10 +120,49 @@ class PageModel
                     'phppath' => $phpPath,
                     'jsonpath' => $jsonPath
             ]);
-            
+
         $this->disconnect(self::DB, $data);
         
 		return $id;
+    }
+
+    /**
+     * getPagesByTopic
+     *
+     * @param  string $topic
+     *
+     * @return array|bool
+     */
+    public function getPagesByTopic($topic)
+    {
+        $data = $this->connect();
+        if (!is_null($data)) {
+            foreach($data as $value){
+                if($value['pages']['topic'] === $topic) {
+                  $array[] = $value['pages'];  
+                }
+            } 
+            return $array;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * getUniqTopics
+     * 
+     * @return array|bool
+     */
+    public function getUniqTopics()
+    {
+        $data = $this->connect();
+        $array = $this->getAllFromKey('topic');
+        if (is_array($array) && !is_null($array)) {
+            $array = array_unique($array);
+            return $array;
+        } else {
+            return false;
+        } 
     }
     
     /**
@@ -202,15 +241,10 @@ class PageModel
         $data = $this->connect();
         if (!is_null($data)) {
             foreach($data as $value){
-                $array[] = array(
-                    'id' => $value['pages']['id'], 
-                    'slug' => $value['pages']['slug'], 
-                    'topic' => $value['pages']['topic'], 
-                    'filename' => $value['pages']['filename'], 
-                    'phppath' => $value['pages']['phppath'], 
-                    'jsonpath' => $value['pages']['jsonpath']
-                    );
+                foreach ($value as $value) {
+                    $array[] =  $value;
             }
+        }
 
             return $array;
         } else {
