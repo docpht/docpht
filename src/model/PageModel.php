@@ -157,8 +157,8 @@ class PageModel
     {
         $data = $this->connect();
         $array = $this->getAllFromKey('topic');
-        $array = array_unique($array);
-        if (!is_null($array)) {
+        if (is_array($array) && !is_null($array)) {
+            $array = array_unique($array);
             return $array;
         } else {
             return false;
