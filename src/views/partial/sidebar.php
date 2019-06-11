@@ -56,7 +56,7 @@
 <?php 
 
 
-        $pages = $this->pageModel->getAllIndexed();
+        $topics = $this->pageModel->getUniqTopics();
                 
         $url = "$_SERVER[REQUEST_URI]";
         $parse = parse_url($url)['path'];
@@ -64,40 +64,45 @@
         $filenameURL = array_reverse($explode)[0];
         $topicURL = array_reverse($explode)[1];
 
-        if (!is_null($pages)) {
-            if (!empty($pages)) {
+        if (!is_null($topics)) {
+            if (!empty($topics)) {
                 echo '<li>';
-                foreach ($pages as $page) {
-                    $topicTitle = str_replace('-', ' ', $page['topic']);
-                        if (isset($topicURL) && $topicURL === $page['topic']) {
+                foreach ($topics as $topic) {
+                    $topicTitle = str_replace('-', ' ', $topic);
+                        if (isset($topicURL) && $topicURL === $topic) {
                         $active = 'menu-active';
                             $show = 'show';
                         } else {
                             $active = ''; 
                             $show = '';
                         }
-                    echo '<a href="#'.$page['topic'].'-side-navigation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($topicTitle) .'</a>';
-                    echo '<ul class="collapse list-unstyled '.$show.' " id="'.$page['topic'].'-side-navigation">';
-                    $filename = $page['filename']; 
-                    $filenameTitle = str_replace('-', ' ', $page['filename']);
-                    $link = 'page/'.$page['topic'].'/'.$page['filename'];
-                    if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
+                    echo '<a href="#'.$topic.'-side-navigation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($topicTitle) .'</a>';
+                    echo '<ul class="collapse list-unstyled '.$show.' " id="'.$topic.'-side-navigation">';
+                    //$filename = $page['filename']; 
+                    //$filenameTitle = str_replace('-', ' ', $page['filename']);
+                    //$link = 'page/'.$page['topic'].'/'.$page['filename'];
+                    /*if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
                         $active = 'class="menu-active"';
                     } else {
                         $active = ''; 
                     }
-                    echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
+                    echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';*/
+                    
+                    $pages = $this->pageModel->getPagesByTopic($topic);
 
-                    if (!empty($page['children'])) {
-                        if (isset($filenameURL) && $filenameURL === $page['children']['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
-                            $active = 'class="menu-active"';
-                        } else {
-                            $active = ''; 
+                    if (!empty($pages)) {
+                        foreach($pages as $page) {
+                            error_log($page['filename'],0);
+                            if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
+                                $active = 'class="menu-active"';
+                            } else {
+                                $active = ''; 
+                            }
+                            $filename = $page['filename']; 
+                            $filenameTitle = str_replace('-', ' ', $page['filename']);
+                            $link = 'page/'.$page['slug'];
+                            echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
                         }
-                        $filename = $page['children']['filename']; 
-                        $filenameTitle = str_replace('-', ' ', $page['children']['filename']);
-                        $link = 'page/'.$page['children']['slug'];
-                        echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
                     }
 
                     echo '</ul>';

@@ -111,34 +111,6 @@ class PageModel
 		$phpPath = 'pages/'.$slug.'.php';
         $jsonPath = 'data/'.$slug.'.json';
         
-        $topicString = $this->getTopicString($topic);
-        $topicStringId = $this->getPageIdByTopic($topic);
-
-        /* if ($topicString) {
-            $data[] = array(
-                'children' => [
-                    'slug' => $slug,
-                    'filename' => $filename,
-                    'phppath' => $phpPath,
-                    'jsonpath' => $jsonPath
-            ]);
-        } else {
-             $data[] = array(
-            'pages' => [
-                    'id' => $id,
-                    'slug' => $slug,
-                    'topic' => $topic,
-                    'filename' => $filename,
-                    'phppath' => $phpPath,
-                    'jsonpath' => $jsonPath,
-                    'children' => [
-                        'slug' => 'test/otherpage',
-                        'filename' => 'otherpage',
-                        'phppath' => 'pages/test/otherpage.php',
-                        'jsonpath' => 'data/test/otherpage.json'
-                ]
-            ]);
-        } */
         $data[] = array(
             'pages' => [
                     'id' => $id,
@@ -146,13 +118,7 @@ class PageModel
                     'topic' => $topic,
                     'filename' => $filename,
                     'phppath' => $phpPath,
-                    'jsonpath' => $jsonPath,
-                    'children' => [
-                        'slug' => 'test/otherpage',
-                        'filename' => 'otherpage',
-                        'phppath' => 'pages/test/otherpage.php',
-                        'jsonpath' => 'data/test/otherpage.json'
-                ]
+                    'jsonpath' => $jsonPath
             ]);
 
         $this->disconnect(self::DB, $data);
@@ -161,36 +127,39 @@ class PageModel
     }
 
     /**
-     * getPageIdByTopic
+     * getPagesByTopic
      *
      * @param  string $topic
      *
-     * @return int|bool
+     * @return array|bool
      */
-    public function getPageIdByTopic($topic)
+    public function getPagesByTopic($topic)
     {
         $data = $this->connect();
-        $key = $this->findKey($data,$topic);
-        if (!is_null($key)) {
-            return $data[$key]['pages']['id'];
+        if (!is_null($data)) {
+            foreach($data as $value){
+                if($value['pages']['topic'] === $topic) {
+                  $array[] = $value['pages'];  
+                }
+            } 
+            return $array;
         } else {
             return false;
-        } 
+        }
     }
 
     /**
-     * getTopicString
-     *
-     * @param  string $topic
-     *
-     * @return string|bool
+     * getUniqTopics
+     * 
+     * @return array|bool
      */
-    public function getTopicString($topic)
+    public function getUniqTopics()
     {
         $data = $this->connect();
-        $key = $this->findKey($data,$topic);
-        if (!is_null($key)) {
-            return $data[$key]['pages']['topic'];
+        $array = $this->getAllFromKey('topic');
+        $array = array_unique($array);
+        if (!is_null($array)) {
+            return $array;
         } else {
             return false;
         } 
