@@ -217,7 +217,7 @@ class DocBuilder
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
-            $file_path = 'data' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 3) . '/' . uniqid() . '_' . $file_name;
+            $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . uniqid() . '_' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
         } else {
@@ -252,7 +252,7 @@ class DocBuilder
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
-            $file_path = 'data' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 3) . '/' . $file_name;
+            $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
         } else {
