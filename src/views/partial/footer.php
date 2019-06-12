@@ -14,8 +14,8 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="#" class="text-muted" target="_blank">DocPHT</a>. All rights reserved.</span>
-                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted">Valentino Pesce <i class="fa fa-code-fork" aria-hidden="true"></i> Craig Crosby</span>
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="https://docpht.org" class="text-muted" target="_blank">DocPHT</a>. All rights reserved.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted"><a href="https://github.com/kenlog" target="_blank">Valentino Pesce</a> <i class="fa fa-code-fork" aria-hidden="true"></i> <a href="https://github.com/creecros" target="_blank">Craig Crosby</a></span>
                         </div>
                     </div>    
                 </div>        

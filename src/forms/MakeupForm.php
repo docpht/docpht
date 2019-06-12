@@ -18,18 +18,21 @@ use DocPHT\Lib\DocBuilder;
 use DocPHT\Model\PageModel;
 use DocPHT\Model\AdminModel;
 use DocPHT\Core\Translator\T;
+use Plasticbrain\FlashMessages\FlashMessages;
 
 class MakeupForm
 {
     protected $pageModel;
     protected $adminModel;
-    protected $doc;
+	protected $doc;
+	protected $msg;
     
 	public function __construct()
 	{
 		$this->pageModel = new PageModel();
 		$this->adminModel = new AdminModel();
 		$this->doc = new DocBuilder();
+		$this->msg = new FlashMessages();
 	}
 	
     public function bootstrap4(Form $form)

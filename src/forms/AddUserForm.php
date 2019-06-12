@@ -69,13 +69,9 @@ class AddUserForm extends MakeupForm
 				exit;
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
                 $this->adminModel->create($values);
-                $good = T::trans('User created successfully.');
-                header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
-				exit;
+                $this->msg->success(T::trans('User created successfully.'),BASE_URL.'admin');
             } else {
-                $bad = T::trans('Sorry something didn\'t work!');
-                header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit;
+                $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');
             }
             $form->setValues([], TRUE);
         }

@@ -41,13 +41,9 @@ class TranslationsForm extends MakeupForm
             $values = $form->getValues();
             if (isset($_SESSION['Username']) && isset($values['translations'])) {
                 $this->adminModel->updateTrans($_SESSION['Username'], $values['translations']);
-				$good = T::trans('Successful language change.');
-				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
-				exit;
+                $this->msg->success(T::trans('Successful language change.'),BASE_URL.'admin');
             } else {
-				$bad = T::trans('Sorry something didn\'t work!');
-				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit;
+                $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');
             }
             
         }        

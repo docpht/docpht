@@ -41,13 +41,9 @@ class RemoveUserForm extends MakeupForm
             $values = $form->getValues();
             if (isset($values['user'])) {
                 $this->adminModel->removeUser($values['user']);
-				$good = T::trans('User password updated successfully.');
-				header('Location:'.BASE_URL.'admin/?good='.utf8_encode(urlencode($good)));
-				exit;
+				$this->msg->success(T::trans('User successfully deleted'),BASE_URL.'admin');
             } else {
-				$bad = T::trans('Sorry something didn\'t work!');
-				header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit;
+				$this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');
             }
             
         }
