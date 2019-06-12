@@ -162,7 +162,6 @@ class DocBuilder
      */
     public function buildPhpPage($id)
     {
-        $this->pageModel = new PageModel();
         $data = $this->pageModel->getPageData($id);
         $path = $this->pageModel->getPhpPath($id);
         $anchors = [];
