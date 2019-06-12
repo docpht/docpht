@@ -12,7 +12,7 @@
  */
 ?>
 
-<div class="container">
+
     <div class="jumbotron text-center">
             <b>404</b>
             <h1><?= $t->trans('I\'m sorry, friend!'); ?></h1> 
@@ -24,5 +24,5 @@
             <p><a href="<?= BASE_URL ?>"><?= $t->trans('Don\'t despair, you can always click here'); ?></a></p>
             <small><b><?= $t->trans('With sympathy from DocPHT'); ?> <i class="fa fa-code" aria-hidden="true"></i></b></small>
     </div>
-</div>
+
 

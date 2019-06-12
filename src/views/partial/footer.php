@@ -1,4 +1,5 @@
             
+            </div> <!-- end container -->
             <?php if (isset($_SESSION['Active'])): ?>
             <ul class="list-inline text-left mt-4 ml-3">
                 <li class="list-inline-item">

@@ -34,9 +34,8 @@
 
     <!-- Page Content  -->
     <div id="content">
-    
+    <div class="container-fluid">
+        
     <?php if($this->msg->display()) : ?>
-    <div class="container">
         <?php echo $this->msg->display(); ?>
-    </div>
     <?php endif; ?>
