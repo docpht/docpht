@@ -81,14 +81,16 @@ class CreatePageForm extends MakeupForm
         	    
         	    $id = $this->pageModel->create($values['topic'],$values['mainfilename']);
         	    
-                $file = $values['file'];
-                $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
         	    
         	    if(isset($id)) {
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'title', 'option_content' => $values['topic']), $file_path));
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'description', 'option_content' => $values['description']), $file_path));
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'pathAdd', 'option_content' => $values['mainfilename']), $file_path));
+            	    $file = $values['file'];
+                    $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray($values, $file_path));
+            	    
+                    
             	    
             	    $this->doc->buildPhpPage($id);
         

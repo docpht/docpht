@@ -120,7 +120,9 @@ class PageModel
                     'phppath' => $phpPath,
                     'jsonpath' => $jsonPath
             ]);
-
+            
+            
+        $this->connectPageData($id);
         $this->disconnect(self::DB, $data);
         
 		return $id;
