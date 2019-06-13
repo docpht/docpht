@@ -79,8 +79,8 @@ class CreatePageForm extends MakeupForm
         
         	if (isset($values['topic']) && isset($values['mainfilename'])) {
         	    
-        	    $id = $this->pageModel->create($values['topic'],$values['mainfilename']);
-        	
+                $id = $this->pageModel->create($values['topic'],$values['mainfilename']);
+                
         	    if(isset($id)) {
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'title', 'option_content' => $values['topic'])));
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'description', 'option_content' => $values['description'])));
@@ -94,9 +94,7 @@ class CreatePageForm extends MakeupForm
                     header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
-    				$bad = T::trans('Sorry something didn\'t work!');
-    				header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
-    				exit;
+                    $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'page/create');
         	    }
         	}
         }

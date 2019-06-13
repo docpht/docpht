@@ -71,16 +71,14 @@ class AddSectionForm extends MakeupForm
         	    
                 $file = $values['file'];
                 $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
-        		
+                
         	    if(isset($id)) {
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray($values, $file_path));
             	    $this->doc->buildPhpPage($id);
                     header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
-    				$bad = T::trans('Sorry something didn\'t work!');
-    				header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
-    				exit;
+    				$this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'page/add-section');
         	    }
         	}
         }
