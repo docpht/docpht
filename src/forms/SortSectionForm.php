@@ -43,7 +43,7 @@ class SortSectionForm extends MakeupForm
         		exit;
             }
         } else {
-            header('location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+            header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
             exit;
         }
     }

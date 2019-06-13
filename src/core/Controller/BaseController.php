@@ -24,6 +24,11 @@ use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
 use DocPHT\Form\UpdatePageForm;
+use DocPHT\Form\DeletePageForm;
+use DocPHT\Form\InsertSectionForm;
+use DocPHT\Form\ModifySectionForm;
+use DocPHT\Form\RemoveSectionForm;
+use DocPHT\Form\SortSectionForm;
 
 class BaseController
 {
@@ -36,6 +41,11 @@ class BaseController
 	protected $adminModel;
 	protected $addSectionPageForm;
 	protected $updatePageForm;
+	protected $deletePageForm;
+	protected $insertSectionForm;
+	protected $modifySectionForm;
+	protected $removeSectionForm;
+	protected $sortSectionForm;
 	protected $msg;
 	
 	public function __construct()
@@ -49,6 +59,11 @@ class BaseController
 		$this->adminModel = new AdminModel();
 		$this->addSectionPageForm = new AddSectionForm();
 		$this->updatePageForm = new UpdatePageForm();
+		$this->deletePageForm = new DeletePageForm();
+		$this->insertSectionForm = new InsertSectionForm();
+		$this->modifySectionForm = new ModifySectionForm();
+		$this->removeSectionForm = new RemoveSectionForm();
+		$this->sortSectionForm = new SortSectionForm();
 		$this->msg = new FlashMessages();
 	}
 

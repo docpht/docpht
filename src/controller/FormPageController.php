@@ -23,7 +23,7 @@ class FormPageController extends BaseController
 	{
 		$form = $this->createPageForm->create();
 
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create new')]);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create new page')]);
 		$this->view->show('form-page/create_page.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
@@ -49,9 +49,42 @@ class FormPageController extends BaseController
 	{
 		$form = $this->updatePageForm->create();
 
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update')]);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update page')]);
 		$this->view->show('form-page/update_page.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
+	}
+	
+	public function getInsertSectionForm()
+	{
+		$form = $this->insertSectionForm->create();
+
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Insert section')]);
+		$this->view->show('form-page/insert_section.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+	
+	public function getModifySectionForm()
+	{
+		$form = $this->modifySectionForm->create();
+
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Modify section')]);
+		$this->view->show('form-page/modify_section.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+	
+	public function getRemoveSectionForm()
+	{
+		$form = $this->removeSectionForm->create();
+	}
+	
+	public function getSortSectionForm()
+	{
+		$form = $this->sortSectionForm->create();
+	}
+	
+	public function getDeletePageForm()
+	{
+		$form = $this->deletePageForm->delete();
 	}
 
 }

@@ -85,6 +85,16 @@ $route->group('/page', function()
         $this->get_post('/add-section', 'DocPHT\Controller\FormPageController@getAddSectionForm');
         // /page/update
         $this->get_post('/update', 'DocPHT\Controller\FormPageController@getUpdatePageForm');
+        // /page/insert
+        $this->get_post('/insert', 'DocPHT\Controller\FormPageController@getInsertSectionForm');
+        // /page/modify
+        $this->get_post('/modify', 'DocPHT\Controller\FormPageController@getModifySectionForm');
+        // /page/remove
+        $this->get_post('/remove', 'DocPHT\Controller\FormPageController@getRemoveSectionForm');
+        // /page/sort
+        $this->get_post('/sort', 'DocPHT\Controller\FormPageController@getSortSectionForm');
+        // /page/delete
+        $this->get_post('/delete', 'DocPHT\Controller\FormPageController@getDeletePageForm');
     } else {
         $this->any('/*', function(){
             $login = new LoginController();

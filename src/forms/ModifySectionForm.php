@@ -120,11 +120,11 @@ class ModifySectionForm extends MakeupForm
         	    if(isset($id)) {
             	    $this->pageModel->modifyPageData($id, $rowIndex, $this->doc->valuesToArray($values, $file_path));
             	    $this->doc->buildPhpPage($id);
-                    header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
     				$bad = T::trans('Sorry something didn\'t work!');
-    				header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
     				exit;
         	    }
         	}   

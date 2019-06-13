@@ -39,13 +39,13 @@ class DeletePageForm extends MakeupForm
                 $zippedVersionPath = 'data/doc-pht/';
                 $filePattern = 'home_*.zip';
             } else {
-            	$zippedVersionPath = 'data' . substr(pathinfo($uPath, PATHINFO_DIRNAME ), 3) . '/';
+            	$zippedVersionPath = 'data/' . substr(pathinfo($uPath, PATHINFO_DIRNAME ), 6) . '/';
                 $filePattern = pathinfo($uPath, PATHINFO_FILENAME ) . '_*.zip';
             }
         }
         
-        $dir = 'src/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 4);
-        $indatadir = 'data/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 4);
+        $dir = 'pages/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 6);
+        $indatadir = 'data/'.substr(pathinfo($uPath, PATHINFO_DIRNAME), 6);
         
         foreach (glob($zippedVersionPath . $filePattern) as $file) {
             (file_exists($file)) ? unlink($file) : NULL;

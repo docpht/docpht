@@ -42,19 +42,19 @@ $(document).ready(function () {
 });
 
 function setIndexRemove(x) {
-    x.href = "index.php?p=remove&id=" + x.closest('tr').rowIndex;
+    x.href = "page/remove?id=" + x.closest('tr').rowIndex;
 }
 
 function setIndexModify(x) {
-    x.href = "index.php?p=modify&id=" + x.closest('tr').rowIndex;
+    x.href = "page/modify?id=" + x.closest('tr').rowIndex;
 }
 
 function setIndexInsertA(x) {
-    x.href = "index.php?p=insert&insert=a&id=" + x.closest('tr').rowIndex;
+    x.href = "page/insert?insert=a&id=" + x.closest('tr').rowIndex;
 }
 
 function setIndexInsertB(x) {
-    x.href = "index.php?p=insert&insert=b&id=" + x.closest('tr').rowIndex;
+    x.href = "page/insert?insert=b&id=" + x.closest('tr').rowIndex;
 }
 
 function confirmationRemoval() {
@@ -85,7 +85,7 @@ $('tbody').sortable({
     start: function(event, ui){ $(ui.item).data('startindex', ui.item.index()); },
     update: function(event, ui){ $(ui.item).data('updateindex', ui.item.index()); },
     deactivate: function( event, ui ) {
-        location.href='index.php?p=sort&o=' +  $(ui.item).data().startindex + '&n=' +  $(ui.item).data().updateindex;
+        location.href='page/sort?o=' +  $(ui.item).data().startindex + '&n=' +  $(ui.item).data().updateindex;
     }
 });
 
