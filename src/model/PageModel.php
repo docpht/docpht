@@ -222,7 +222,7 @@ class PageModel
     public function getAllFromKey($key)
     {
         $data = $this->connect();
-        if (!is_null($data)) {
+        if (!is_null($data) && !empty($data)) {
             foreach($data as $value){
                 $array[] = $value['pages'][$key];
             } 
