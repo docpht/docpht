@@ -203,6 +203,37 @@ class DocBuilder
          $length = strlen($needle);
          return (substr($haystack, 0, $length) === $needle);
     }    
+
+    /**
+    * datetimeNow
+    *
+    * @return string
+    */
+    public static function datetimeNow() 
+    {
+      $timeZone = new DateTimeZone(TIMEZONE);
+      $datetime = new DateTime();
+      $datetime->setTimezone($timeZone);
+      return $datetime->format(DATAFORMAT);
+    }
+
+    /**
+     * setFolderPermissions
+     *
+     * @return void
+     */
+    public function setFolderPermissions($folder)
+    {
+        $dirpath = $folder;
+        $dirperm = 0755;
+        $fileperm = 0644; 
+        chmod ($dirpath, $dirperm);
+        $glob = glob($dirpath."/*");
+        foreach($glob as $ch)
+        {
+            $ch = (is_dir($ch)) ? chmod ($ch, $dirperm) : chmod ($ch, $fileperm);
+        }
+    }
     
     /**
      * upload
@@ -217,6 +248,7 @@ class DocBuilder
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
+            $this->setFolderPermissions('data');
             $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . uniqid() . '_' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
@@ -226,18 +258,6 @@ class DocBuilder
         
     }
 
-   /**
-    * datetimeNow
-    *
-    * @return string
-    */
-   public static function datetimeNow() 
-   {
-      $timeZone = new DateTimeZone(TIMEZONE);
-      $datetime = new DateTime();
-      $datetime->setTimezone($timeZone);
-      return $datetime->format(DATAFORMAT);
-    }
     
     /**
      * uploadNoUniqid
@@ -252,6 +272,7 @@ class DocBuilder
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
+            $this->setFolderPermissions('data');
             $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
