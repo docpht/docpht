@@ -51,23 +51,23 @@ class DeletePageForm extends MakeupForm
             (file_exists($file)) ? unlink($file) : NULL;
         }
         
-        if (folderEmpty($dir)) {
+        if ($this->folderEmpty($dir)) {
             rmdir($dir);
         }
         
-        if (folderEmpty($indatadir)) {
+        if ($this->folderEmpty($indatadir)) {
             rmdir($indatadir);
         }
-    
-        function folderEmpty($dir) {
-            if (!is_readable($dir)) return NULL; 
-            return (count(scandir($dir)) == 2);
-        }
-        
         
         if (!file_exists($uPath)) {
             $this->pageModel->remove($id);
-            header("Location: index.php");
+            header("Location: " . BASE_URL);
         }
     }
+
+    function folderEmpty($dir) {
+        if (!is_readable($dir)) return NULL; 
+        return (count(scandir($dir)) == 2);
+    }
+
 }
