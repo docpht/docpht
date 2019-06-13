@@ -45,4 +45,13 @@ class FormPageController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function getUpdatePageForm()
+	{
+		$form = $this->updatePageForm->create();
+
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update')]);
+		$this->view->show('form-page/update_page.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
 }

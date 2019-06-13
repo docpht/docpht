@@ -23,6 +23,7 @@ use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
+use DocPHT\Form\UpdatePageForm;
 
 class BaseController
 {
@@ -34,6 +35,7 @@ class BaseController
 	protected $createPageForm;
 	protected $adminModel;
 	protected $addSectionPageForm;
+	protected $updatePageForm;
 	protected $msg;
 	
 	public function __construct()
@@ -46,6 +48,7 @@ class BaseController
 		$this->createPageForm = new CreatePageForm();
 		$this->adminModel = new AdminModel();
 		$this->addSectionPageForm = new AddSectionForm();
+		$this->updatePageForm = new UpdatePageForm();
 		$this->msg = new FlashMessages();
 	}
 

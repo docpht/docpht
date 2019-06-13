@@ -101,12 +101,7 @@ class UpdatePageForm extends MakeupForm
         	
         }
         
-        
-        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
-        
         $form->addSubmit('submit', T::trans('Update'));
-        
-        $success = '';
         
         if ($form->isSuccess()) {
             $values = $form->getValues();
@@ -145,8 +140,10 @@ class UpdatePageForm extends MakeupForm
                 	    $this->doc->buildPhpPage($id);
             	    }
             }
-            header('Location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+            header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
             exit;
         } 
+
+        return $form;
     }
 }

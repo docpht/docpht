@@ -83,6 +83,8 @@ $route->group('/page', function()
         $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');
         // /page/add-section
         $this->get_post('/add-section', 'DocPHT\Controller\FormPageController@getAddSectionForm');
+        // /page/update
+        $this->get_post('/update', 'DocPHT\Controller\FormPageController@getUpdatePageForm');
     } else {
         $this->any('/*', function(){
             $login = new LoginController();
