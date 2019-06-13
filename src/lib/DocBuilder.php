@@ -94,7 +94,7 @@ class DocBuilder
      *
      * @return array
      */
-    public function valuesToArray($values, $file_path, $self = [])
+    public function valuesToArray($values, $file_path = null, $self = [])
     {
         if (isset($values['options'])) {
             switch ($values['options']) {
