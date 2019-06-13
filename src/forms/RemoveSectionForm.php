@@ -23,9 +23,8 @@ class RemoveSectionForm extends MakeupForm
     public function create()
     {
 
-        $uPath = $_SESSION['slug'];
-        $id = $this->pageModel->getId($uPath);
-        
+        $id = $_SESSION['page_id'];
+
         if(isset($_GET['id'])) {
             $rowIndex = intval($_GET['id']);
         }

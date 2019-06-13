@@ -22,7 +22,8 @@ class InsertSectionForm extends MakeupForm
 
     public function create()
     {
-        $uPath = $_SESSION['slug'];
+        $id = $_SESSION['page_id'];
+        $uPath = $this->pageModel->getPhpPath($id);
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
@@ -73,8 +74,6 @@ class InsertSectionForm extends MakeupForm
             $values = $form->getValues();
             
         	if (isset($values['options']) && isset($values['option_content'])) {
-        	    
-        	    $id = $this->pageModel->getId($uPath);
         	    
                 $file = $values['file'];
                 $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));

@@ -22,8 +22,8 @@ class ModifySectionForm extends MakeupForm
 
     public function create()
     {
-
-        $uPath = $_SESSION['slug'];
+        $id = $_SESSION['page_id'];
+        $uPath = $this->pageModel->getPhpPath($id);
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
