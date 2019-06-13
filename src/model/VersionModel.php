@@ -30,7 +30,7 @@ class VersionModel extends PageModel
         $zipData = new ZipArchive(); 
         if ($zipData->open($file_path) === TRUE) {
 
-            (is_bool($zipData->locateName($this->getPhpPath($id))) === FALSE || is_bool($zipData->locateName($this->getJsonPath($id))) === FALSE) ? $check = FALSE : $check = TRUE; 
+            (is_bool($zipData->locateName($this->getPhpPath($id))) === TRUE || is_bool($zipData->locateName($this->getJsonPath($id))) === TRUE) ? $check = FALSE : $check = TRUE; 
             $zipData->close();
             
             if ($check) { return TRUE; } else { return FALSE; }
