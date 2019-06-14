@@ -39,7 +39,7 @@ class SortSectionForm extends MakeupForm
         
             if (!empty($data)) {
                 $this->doc->buildPhpPage($id);
-                header('location:index.php?p='.$this->pageModel->getFilename($id).'&f='.$this->pageModel->getTopic($id));
+                header('location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         		exit;
             }
         } else {
