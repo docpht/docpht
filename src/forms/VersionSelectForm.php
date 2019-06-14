@@ -26,7 +26,7 @@ class VersionSelectForm extends MakeupForm
             
             if (!empty($versionList)) {
                 $versionSelect = '
-                <div class="container" style="margin-top: 100px;">
+                <div style="margin-top: 100px;">
                   <div class="card bg-light text-dark mb-4 mt-4">
                     <div class="card-body text-center">
                     <p class="card-text">'.T::trans("Version management").'</p>
