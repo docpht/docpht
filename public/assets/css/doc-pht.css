@@ -228,6 +228,10 @@ i.fa.fa-arrows-v.sort {
     box-shadow: 0 0 0px 3px rgba(51, 51, 51, 0.25);
 }
 
+.modal-content table {
+    color: #ffffff
+}
+
 .modal-header {
     border: none;
 }
