@@ -220,6 +220,32 @@ i.fa.fa-arrows-v.sort {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
+.modal-content {
+    background-color: #353b48e3; 
+    color: #ffffff;
+    -webkit-box-shadow: 0 0 0px 3px rgba(51, 51, 51, 0.25);
+    -moz-box-shadow: 0 0 0px 3px rgba(51, 51, 51, 0.25);
+    box-shadow: 0 0 0px 3px rgba(51, 51, 51, 0.25);
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-footer {
+    border: none;
+}
+
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
