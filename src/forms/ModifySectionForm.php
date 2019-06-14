@@ -98,8 +98,6 @@ class ModifySectionForm extends MakeupForm
         } 
 
         $form->addSubmit('submit', T::trans('Modify'));
-        
-        $success = '';
 
         if ($form->isSuccess()) {
             $values = $form->getValues();
@@ -111,9 +109,6 @@ class ModifySectionForm extends MakeupForm
         	    
                 $file = $values['file'];
                 $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
-                
-        		$folder = substr(pathinfo($uPath, PATHINFO_DIRNAME ), 4);
-        		$filename = pathinfo($uPath, PATHINFO_FILENAME );
         		
         	    if(isset($id)) {
             	    $this->pageModel->modifyPageData($id, $rowIndex, $this->doc->valuesToArray($values, $file_path));
@@ -121,9 +116,7 @@ class ModifySectionForm extends MakeupForm
                     header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
-    				$bad = T::trans('Sorry something didn\'t work!');
-                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
-    				exit;
+    				$this->msg->error(T::trans('Sorry something didn\'t work!'));
         	    }
         	}   
         }
