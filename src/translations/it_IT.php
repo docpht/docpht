@@ -138,4 +138,10 @@
         'No files added for uploading' => 'Nessun file aggiunto per il caricamento',
         'Invalid procedure! File not found.' => 'Procedura non valida! File non trovato.',
         'Invalid procedure! File not set.' => 'Procedura non valida! File non impostato.',
+        'Version saved successfully.' => 'Versione salvata correttamente.',
+        'Version import failed, didn\'t match current page.' => 'L\'importazione della versione non è riuscita, non corrisponde alla pagina corrente.',
+        'Version imported successfully.' => 'Versione importata con successo.',
+        'Version import failed.' => 'Importazione della versione fallita.',
+        'Version restored successfully.' => 'Versione ripristinata con successo.',
+        'Version data missing!' => 'Mancano i dati della versione!',
     ], 'it_IT');   
