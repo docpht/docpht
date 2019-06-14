@@ -24,15 +24,14 @@ class RemoveSectionForm extends MakeupForm
     {
 
         $id = $_SESSION['page_id'];
-
+        
         if(isset($_GET['id'])) {
             $rowIndex = intval($_GET['id']);
         }
         
         if ($this->pageModel->getPageData($id)[$rowIndex]['key'] == 'image' || $this->pageModel->getPageData($id)[$rowIndex]['key'] == 'codeFile') { 
             unlink('data/' . $this->pageModel->getPageData($id)[$rowIndex]['v1']); 
-            
-        }
+        } 
         
         $this->pageModel->removePageData($id, $rowIndex);
         
@@ -41,9 +40,7 @@ class RemoveSectionForm extends MakeupForm
             header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
             exit;
         } else {
-    		$bad = T::trans('Sorry something didn\'t work!');
-            header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
-    		exit;
+    		$this->msg->error(T::trans('Sorry something didn\'t work!'));
         }
     }
 }
