@@ -73,31 +73,22 @@ class VersionForms extends MakeupForm
     
     public function export()
     {    
-
         if (isset($_POST['version']) && isset($_SESSION['page_id'])) {
-          $filename = $_POST['version'];
-          if (file_exists($filename)) {
-             
-                    header("Pragma: public");
-                    header("Expires: 0");
-                    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                    header("Cache-Control: private",false);
-                    header("Content-Type: application/zip");
-                    header("Content-Disposition: attachment; filename=\"".basename($filename)."\";");
-                    header("Content-Transfer-Encoding: binary");
-                    
-             
-             ob_clean();
-             ob_end_flush();
-             
-             readfile($filename);
-             $this->msg->success(T::trans('Version downloaded successfully.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
-           }
-           
-          $this->msg->error(T::trans('Invalid procedure! File not found.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
-
+            $filename = $_POST['version'];
+            if (file_exists($filename)) {
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($filename));
+                readfile($filename);
+                exit;
+            }
+            $this->msg->error(T::trans('Invalid procedure! File not found.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
         } else {
-          $this->msg->error(T::trans('Invalid procedure! File not set.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
+            $this->msg->error(T::trans('Invalid procedure! File not set.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
         }
     }
     

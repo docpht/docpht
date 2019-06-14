@@ -136,4 +136,6 @@
         'Select a user' => 'Seleziona un utente',
         'Page not found' => 'Pagina non trovata',
         'No files added for uploading' => 'Nessun file aggiunto per il caricamento',
+        'Invalid procedure! File not found.' => 'Procedura non valida! File non trovato.',
+        'Invalid procedure! File not set.' => 'Procedura non valida! File non impostato.',
     ], 'it_IT');   
