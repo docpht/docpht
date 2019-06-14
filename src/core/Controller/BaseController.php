@@ -29,6 +29,8 @@ use DocPHT\Form\InsertSectionForm;
 use DocPHT\Form\ModifySectionForm;
 use DocPHT\Form\RemoveSectionForm;
 use DocPHT\Form\SortSectionForm;
+use DocPHT\Form\VersionForms;
+use DocPHT\Form\VersionSelectForm;
 
 class BaseController
 {
@@ -47,6 +49,8 @@ class BaseController
 	protected $removeSectionForm;
 	protected $sortSectionForm;
 	protected $msg;
+	protected $versionForms;
+	protected $version;
 	
 	public function __construct()
 	{
@@ -65,6 +69,8 @@ class BaseController
 		$this->removeSectionForm = new RemoveSectionForm();
 		$this->sortSectionForm = new SortSectionForm();
 		$this->msg = new FlashMessages();
+		$this->versionForms = new VersionForms();
+		$this->version = new VersionSelectForm;
 	}
 
 }

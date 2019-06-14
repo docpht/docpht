@@ -27,7 +27,7 @@ class VersionModel extends PageModel
      */
     public function checkVersion($file_path, $id)
     {
-        $zipData = new ZipArchive(); 
+        $zipData = new \ZipArchive(); 
         if ($zipData->open($file_path) === TRUE) {
 
             (is_bool($zipData->locateName($this->getPhpPath($id))) === TRUE || is_bool($zipData->locateName($this->getJsonPath($id))) === TRUE) ? $check = FALSE : $check = TRUE; 
@@ -86,9 +86,27 @@ class VersionModel extends PageModel
             
             return $array;
         } else {
-            return false;
+            return FALSE;
         }
 
+    }
+        
+    /**
+     * deleteVersion
+     *
+     * @param  array $path
+     * 
+     * @return array boolean
+     */
+    public function deleteVersion($path)
+    {
+        if (file_exists($path)) {
+            unlink($path);
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+        
     }
 }
     

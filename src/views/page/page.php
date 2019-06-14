@@ -5,8 +5,21 @@ if (isset($values)) {
         echo $value;
     }
 }
+$versions = $this->version->create();
 
-if (isset($_SESSION['Active'])) {
+if (isset($_SESSION['Active']) && $versions['state'] == 0) {
+    echo '<ul class="list-inline text-right mt-4">
+            '.$versions['value'].'
+            <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans("Update").'">
+                <a href="page/update" id="sk-update" class="btn btn-outline-info btn-sm" role="button"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+            </li>
+            <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans("Delete").'">
+                <button type="button" id="sk-delete" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmDelete">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </li>
+        </ul>';
+} else if (isset($_SESSION['Active']) && $versions['state'] > 0){
     echo '<ul class="list-inline text-right mt-4">
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans("Update").'">
                 <a href="page/update" id="sk-update" class="btn btn-outline-info btn-sm" role="button"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
@@ -17,6 +30,7 @@ if (isset($_SESSION['Active'])) {
                 </button>
             </li>
         </ul>';
+    echo $versions['value'];
 }
 
 ?>

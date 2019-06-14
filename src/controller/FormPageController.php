@@ -86,5 +86,34 @@ class FormPageController extends BaseController
 	{
 		$form = $this->deletePageForm->delete();
 	}
+	
+	public function getImportVersionForm()
+	{
+		$form = $this->versionForms->import();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Import version')]);
+		$this->view->show('form-page/import_version.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+	
+	public function getExportVersionForm()
+	{
+		$form = $this->versionForms->export();
+	}
+	
+	public function getRestoreVersionForm()
+	{
+		$form = $this->versionForms->restore();
+	}
+	
+	public function getDeleteVersionForm()
+	{
+		$form = $this->versionForms->delete();
+	}
+	
+	public function getSaveVersionForm()
+	{
+		$form = $this->versionForms->save();
+	}
 
 }

@@ -211,8 +211,8 @@ class DocBuilder
     */
     public static function datetimeNow() 
     {
-      $timeZone = new DateTimeZone(TIMEZONE);
-      $datetime = new DateTime();
+      $timeZone = new \DateTimeZone(TIMEZONE);
+      $datetime = new \DateTime();
       $datetime->setTimezone($timeZone);
       return $datetime->format(DATAFORMAT);
     }
@@ -292,7 +292,7 @@ class DocBuilder
      */
     public function checkImportVersion($file_path, $aPath)
     {
-        $zipData = new ZipArchive(); 
+        $zipData = new \ZipArchive(); 
         if ($zipData->open($file_path) === TRUE) {
 
             $check = is_bool($zipData->locateName($aPath)); 

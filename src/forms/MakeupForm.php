@@ -16,6 +16,7 @@ namespace DocPHT\Form;
 use Nette\Forms\Form;
 use DocPHT\Lib\DocBuilder;
 use DocPHT\Model\PageModel;
+use DocPHT\Model\VersionModel;
 use DocPHT\Model\AdminModel;
 use DocPHT\Core\Translator\T;
 use Plasticbrain\FlashMessages\FlashMessages;
@@ -24,6 +25,7 @@ class MakeupForm
 {
     protected $pageModel;
     protected $adminModel;
+    protected $versionModel;
 	protected $doc;
 	protected $msg;
     
@@ -31,6 +33,7 @@ class MakeupForm
 	{
 		$this->pageModel = new PageModel();
 		$this->adminModel = new AdminModel();
+		$this->versionModel = new VersionModel();
 		$this->doc = new DocBuilder();
 		$this->msg = new FlashMessages();
 	}
