@@ -65,18 +65,20 @@ class PageModel
     {
         $path = $this->getJsonPath($id);
         
-        if (!file_exists(pathinfo($path, PATHINFO_DIRNAME))) {
-            mkdir(pathinfo($path, PATHINFO_DIRNAME), 0755, true);
+        if (isset($path)) {
+            if (!file_exists(pathinfo($path, PATHINFO_DIRNAME))) {
+                mkdir(pathinfo($path, PATHINFO_DIRNAME), 0755, true);
+            }
+            
+            if(!file_exists($path))
+            {
+                file_put_contents($path,array(
+                    
+                    ));
+            } 
+            
+            return json_decode(file_get_contents(realpath($path)),true);
         }
-        
-		if(!file_exists($path))
-		{
-		    file_put_contents($path,array(
-		        
-		        ));
-		} 
-		
-		return json_decode(file_get_contents(realpath($path)),true);
     }
     
     /**
@@ -98,14 +100,16 @@ class PageModel
         if (!is_null($data)) {
             
             $slugs = $this->getAllFromKey('slug');
-    
-            if(in_array($slug, $slugs))
-            {
-                $count = 1;
-                while(in_array(($slug . '-' . ++$count ), $slugs));
-                $slug = $slug . '-' . $count;
-                $filename = $filename . '-' . $count;
-            }
+
+            if (is_array($slugs)) {
+                if(in_array($slug, $slugs))
+                {
+                    $count = 1;
+                    while(in_array(($slug . '-' . ++$count ), $slugs));
+                    $slug = $slug . '-' . $count;
+                    $filename = $filename . '-' . $count;
+                }
+            };
         }   
         
 		$phpPath = 'pages/'.$slug.'.php';
@@ -209,7 +213,9 @@ class PageModel
         $data = $this->connect();
         $key = $this->findKey($data, $id);
         
-        return $data[$key]['pages']['jsonpath'];
+        if (isset($data[$key])) {
+            return $data[$key]['pages']['jsonpath'];
+        }
     }    
     
     /**
