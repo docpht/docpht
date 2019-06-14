@@ -86,7 +86,7 @@ class ModifySectionForm extends MakeupForm
             }
                 
                 $form->addTextArea('names', T::trans('Name'))
-                    ->setHtmlAttribute('data-parent', 'options'.$index)
+                    ->setHtmlAttribute('data-parent', 'options'.$rowIndex)
                     ->setAttribute('data-autoresize')
                 	->setDefaultValue($name);
                 	
@@ -97,8 +97,6 @@ class ModifySectionForm extends MakeupForm
         	
         } 
 
-        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
-        
         $form->addSubmit('submit', T::trans('Modify'));
         
         $success = '';
