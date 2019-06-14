@@ -78,7 +78,7 @@ class DocPHT {
                             '; foreach ($anchorLinks as $value) {
                                 $title = $client->shortnameToImage(ucfirst(str_replace('-',' ',$value)));
                                 echo '<li class="nav-item">
-                                            <a class="nav-link" href="#'.$value.'">'.$title.'</a>
+                                            <a class="nav-link" href="'.$_SERVER['REQUEST_URI'].'#'.$value.'">'.$title.'</a>
                                       </li>';
                             };
                     echo '</ul></div>
