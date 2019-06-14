@@ -35,7 +35,7 @@ class InsertSectionForm extends MakeupForm
             $b_or_a = $_GET['insert'];
         }
 
-        $form->addGroup(T::trans('Create new notes'));
+        $form->addGroup(T::trans('Add new element'));
         
         $form->addSelect('options', T::trans('Options:'), $options)
         	->setPrompt(T::trans('Select an option'))
@@ -75,9 +75,6 @@ class InsertSectionForm extends MakeupForm
         	    
                 $file = $values['file'];
                 $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
-                
-        		$folder = substr(pathinfo($uPath, PATHINFO_DIRNAME ), 4);
-        		$filename = pathinfo($uPath, PATHINFO_FILENAME );
         		
         	    if(isset($id)) {
             	    $this->pageModel->insertPageData($id, $rowIndex, $b_or_a, $this->doc->valuesToArray($values, $file_path));
@@ -85,9 +82,7 @@ class InsertSectionForm extends MakeupForm
                     header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         			exit;
         	    } else {
-    				$bad = T::trans('Sorry something didn\'t work!');
-                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
-    				exit;
+    				$this->msg->error(T::trans('Sorry something didn\'t work!'));
         	    }
         	}
         }
