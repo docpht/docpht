@@ -24,7 +24,6 @@ class UpdatePageForm extends MakeupForm
     {
 
         $id = $_SESSION['page_id'];
-        $uPath = $this->pageModel->getPhpPath($id);
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
@@ -131,10 +130,7 @@ class UpdatePageForm extends MakeupForm
                 if (isset($page[$x]['v1'])) {
                     $this->doc->removeOldFile($page[$x]['key'], $mapped['options'], 'data/' . $page[$x]['v1']);
                 }
-            
-            		$folder = substr(pathinfo($uPath, PATHINFO_DIRNAME ), 4);
-            		$filename = pathinfo($uPath, PATHINFO_FILENAME );
-            		
+        
             	    if(isset($id)) {
                 	    $this->pageModel->modifyPageData($id, $x, $this->doc->valuesToArray($mapped, $file_path));
                 	    $this->doc->buildPhpPage($id);
@@ -142,7 +138,9 @@ class UpdatePageForm extends MakeupForm
             }
             header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
             exit;
-        } 
+        } elseif (!isset($id)) {
+            $this->msg->error(T::trans('Sorry something didn\'t work!'));
+        }
 
         return $form;
     }
