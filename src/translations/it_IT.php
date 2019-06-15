@@ -150,4 +150,5 @@
         'Add section' => 'Aggiungi sezione',
         'Insert section' => 'Inserisci sezione',
         'Modify section' => 'Modifica sezione',
+        'Create new page' => 'Crea una nuova pagina',
     ], 'it_IT');   

@@ -29,7 +29,7 @@ class CreatePageForm extends MakeupForm
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup(T::trans('Create new topic'));
+        $form->addGroup(T::trans('Create new page'));
         
         $form->addText('topic', T::trans('Topic'))
         	->setHtmlAttribute('placeholder', T::trans('Enter topic'))
