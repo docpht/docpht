@@ -464,12 +464,14 @@ class PageModel
     public function findKey($data, $search)
     {
         $x = 0;
-        foreach ($data as $array) {
-            if ($array['pages']['id'] == $search) $key = $x;
-            $x++;
+        if (isset($data)) {
+            foreach ($data as $array) {
+                if ($array['pages']['id'] == $search) $key = $x;
+                $x++;
+            }
+            
+            return isset($key) ? $key : false;
         }
-        
-        return isset($key) ? $key : false;
     }
 
     /**
