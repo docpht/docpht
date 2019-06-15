@@ -144,4 +144,5 @@
         'Version import failed.' => 'Importazione della versione fallita.',
         'Version restored successfully.' => 'Versione ripristinata con successo.',
         'Version data missing!' => 'Mancano i dati della versione!',
+        'Search term did not produce results' => 'Il termine di ricerca non ha prodotto risultati',
     ], 'it_IT');   

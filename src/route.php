@@ -78,6 +78,9 @@ $route->group('/page', function()
         }
     });
 
+    // /page/search
+    $this->get_post('/search', 'Instant\Core\Controller\BaseController@search');
+
     if (isset($_SESSION['Active'])) {
         // /page/create
         $this->get_post('/create', 'DocPHT\Controller\FormPageController@getCreatePageForm');

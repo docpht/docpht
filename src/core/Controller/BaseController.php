@@ -17,20 +17,22 @@ namespace Instant\Core\Controller;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Model\AdminModel;
 use Instant\Core\Views\View;
+use DocPHT\Core\Translator\T;
+use DocPHT\Form\VersionForms;
 use DocPHT\Form\AddSectionForm;
 use DocPHT\Form\CreatePageForm;
-use DocPHT\Form\RemoveUserForm;
-use DocPHT\Form\TranslationsForm;
-use DocPHT\Form\UpdatePasswordForm;
-use Plasticbrain\FlashMessages\FlashMessages;
-use DocPHT\Form\UpdatePageForm;
 use DocPHT\Form\DeletePageForm;
+use DocPHT\Form\RemoveUserForm;
+use DocPHT\Form\UpdatePageForm;
+use DocPHT\Form\SortSectionForm;
+use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\InsertSectionForm;
 use DocPHT\Form\ModifySectionForm;
 use DocPHT\Form\RemoveSectionForm;
-use DocPHT\Form\SortSectionForm;
-use DocPHT\Form\VersionForms;
 use DocPHT\Form\VersionSelectForm;
+use DocPHT\Form\UpdatePasswordForm;
+use Plasticbrain\FlashMessages\FlashMessages;
+use DocPHT\Form\SearchForm;
 
 class BaseController
 {
@@ -51,6 +53,7 @@ class BaseController
 	protected $msg;
 	protected $versionForms;
 	protected $version;
+	protected $search;
 	
 	public function __construct()
 	{
@@ -71,6 +74,19 @@ class BaseController
 		$this->msg = new FlashMessages();
 		$this->versionForms = new VersionForms();
 		$this->version = new VersionSelectForm;
+		$this->search = new SearchForm();
+	}
+
+	public function search()
+	{
+		$results = $this->search->create();
+		if (isset($results)) {
+			$this->view->show('partial/head.php', ['PageTitle' => T::trans('Search')]);
+			$this->view->show('search_results.php', ['results' => $results]);
+			$this->view->show('partial/footer.php');
+		} else {
+			$this->msg->info(T::trans('Search term did not produce results'),$_SERVER['HTTP_REFERER']);
+		}
 	}
 
 }

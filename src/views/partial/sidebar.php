@@ -38,10 +38,11 @@
                 <li><a href="#search" id="sk-search">Search<i class="fa fa-search" aria-hidden="true"></i></a></li>
             </ul>
 
+            <?php $search = ''; ?>
             <div id="search">
                 <button type="button" class="close">×</button>
-                <form id="form-search" action="index.php?p=search" method="post">
-                    <input type="search" name="search" minlength="5" value="" placeholder="Type the keywords here" autocomplete="off" required />
+                <form id="form-search" action="page/search" method="post">
+                    <input type="search" name="search" minlength="5" value="<?php $search; ?>" placeholder="Type the keywords here" autocomplete="off" required />
                 </form>
             </div>
 
