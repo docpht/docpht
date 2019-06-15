@@ -66,7 +66,7 @@ class InsertSectionForm extends MakeupForm
             ->setHtmlAttribute('data-parent', 'options')
             ->setAttribute('data-autoresize');
         
-        $form->addSubmit('submit', T::trans('Add'));
+        $form->addSubmit('submit', T::trans('Insert'));
 
         if ($form->isSuccess()) {
             $values = $form->getValues();

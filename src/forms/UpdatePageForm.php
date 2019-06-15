@@ -34,7 +34,7 @@ class UpdatePageForm extends MakeupForm
 
         $index = 0;
         
-        $form->addGroup(T::trans('Update the current page'));
+        $form->addGroup(T::trans('Update page'));
         
         foreach ($page as $fields) {
             

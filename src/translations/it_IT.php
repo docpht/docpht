@@ -34,6 +34,7 @@
         'Create' => 'Crea',
         'Add' => 'Aggiungi',
         'Modify' => 'Modifica',
+        'Insert' => 'Inserisci',
         'Insert Before' => 'Inserisci prima',
         'Remove' => 'Rimuovi',
         'Insert After' => 'Inserisci dopo',
@@ -151,4 +152,5 @@
         'Insert section' => 'Inserisci sezione',
         'Modify section' => 'Modifica sezione',
         'Create new page' => 'Crea una nuova pagina',
+        'Update page' => 'Aggiornamento pagina',
     ], 'it_IT');   
