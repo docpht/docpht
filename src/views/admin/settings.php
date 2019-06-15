@@ -169,43 +169,43 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><code>ctrl+alt+p</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+p</span></td>
                             <td><?= $t->trans('Create new topic'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+s</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+s</span></td>
                             <td><?= $t->trans('Hide or show the sidebar'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+k</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+k</span></td>
                             <td><?= $t->trans('Search'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+z</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+z</span></td>
                             <td><?= $t->trans('Go back'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+enter</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+enter</span></td>
                             <td><?= $t->trans('Login'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+o</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+o</span></td>
                             <td><?= $t->trans('Logout'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+a</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+a</span></td>
                             <td><?= $t->trans('Settings'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+e</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+e</span></td>
                             <td><?= $t->trans('Add new item to the page'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+u</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+u</span></td>
                             <td><?= $t->trans('Update the current page'); ?></td>
                         </tr>
                         <tr>
-                            <td><code>ctrl+alt+d</code></td>
+                            <td><span class="badge badge-secondary">ctrl+alt+d</span></td>
                             <td><?= $t->trans('Delete the current page'); ?></td>
                         </tr>
                         </tbody>
