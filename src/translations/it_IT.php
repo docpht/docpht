@@ -128,6 +128,7 @@
         'Search' => 'Ricerca',
         'no match found for ' => 'nessuna corrispondenza trovata per ',
         'Matches found' => 'Corrispondenze trovate',
+        'similarity' => 'somiglianza',
         'Open in New Window?' => 'Apri in una nuova finestra?',
         'Name' => 'Nome',
         'Add image from file' => 'Aggiungi immagine dal file',

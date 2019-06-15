@@ -13,6 +13,8 @@
 
 namespace DocPHT\Form;
 
+use DocPHT\Core\Translator\T;
+
 class SearchForm 
 {
     public function create()
@@ -57,7 +59,7 @@ class SearchForm
                                     <p class="result-subtitle">
                                         '.$value.'
                                     </p>
-                                    <small class="badge badge-success">similarity: '.round($perc, 1).'%</small>
+                                    <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
                                     </a>
                                 </div>
                                 <hr>';

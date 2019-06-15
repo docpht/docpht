@@ -35,14 +35,14 @@
             </ul>
 
             <ul class="nav navbar-nav text-white text-center">
-                <li><a href="#search" id="sk-search">Search<i class="fa fa-search" aria-hidden="true"></i></a></li>
+                <li><a href="#search" id="sk-search"><?= $t->trans('Search'); ?> <i class="fa fa-search" aria-hidden="true"></i></a></li>
             </ul>
 
             <?php $search = ''; ?>
             <div id="search">
                 <button type="button" class="close">×</button>
                 <form id="form-search" action="page/search" method="post">
-                    <input type="search" name="search" minlength="5" value="<?php $search; ?>" placeholder="Type the keywords here" autocomplete="off" required />
+                    <input type="search" name="search" minlength="5" value="<?php $search; ?>" placeholder="<?= $t->trans('Type the keywords here'); ?>" autocomplete="off" required />
                 </form>
             </div>
 
