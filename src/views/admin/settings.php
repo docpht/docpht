@@ -150,7 +150,7 @@
     <!-- Modal keyboard shortcuts -->
     <div class="modal" id="shortcuts">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content shadow">
                 
                     <!-- Modal Header -->
                     <div class="modal-header">

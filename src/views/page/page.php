@@ -38,7 +38,7 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
             <!-- Modal confirm delete -->
             <div class="modal" id="confirmDelete">
                 <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content shadow">
                 
                     <!-- Modal Header -->
                     <div class="modal-header">
