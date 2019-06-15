@@ -40,9 +40,9 @@ class CreatePageForm extends MakeupForm
         	->setHtmlAttribute('placeholder', T::trans('Enter description'))
         	->setRequired(T::trans('Enter description'));
         	
-        $form->addText('mainfilename', T::trans('Filename'))
-        	->setHtmlAttribute('placeholder', T::trans('Enter filename'))
-            ->setRequired(T::trans('Enter filename'));
+        $form->addText('mainfilename', T::trans('Page name'))
+        	->setHtmlAttribute('placeholder', T::trans('Enter page name'))
+            ->setRequired(T::trans('Enter page name'));
         
         $form->addSelect('options',T::trans('Options:'), $options)
         	->setPrompt(T::trans('Select an option'))
