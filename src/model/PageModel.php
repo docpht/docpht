@@ -471,6 +471,25 @@ class PageModel
         
         return isset($key) ? $key : false;
     }
-    
+
+    /**
+     * hideBySlug
+     *
+     * @param  string $slug
+     *
+     * @return string
+     */
+    public function hideBySlug($slug)
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+            $protocol  = "https://";
+        } else {
+            $protocol  = "http://";
+        }
+        
+        if (isset($slug)) {
+            return $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] !== BASE_URL.$slug;
+        }
+    }
     
 }
