@@ -5,6 +5,7 @@
         'Update' => 'Aggiorna',
         'Delete' => 'Elimina',
         'Warning' => 'Avvertimento',
+        'Publish' => 'Pubblica',
         'Confirm delete?' => 'Conferma la cancellazione?',
         'Yes' => 'Si',
         'No' => 'No',

@@ -116,4 +116,9 @@ class FormPageController extends BaseController
 		$form = $this->versionForms->save();
 	}
 
+	public function getPublish()
+	{
+		$this->publishPageForm->publish();
+	}
+
 }

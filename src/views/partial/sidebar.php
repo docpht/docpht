@@ -81,18 +81,25 @@
                     echo '<ul class="collapse list-unstyled '.$show.' " id="'.$topic.'-side-navigation">';
 
                     $pages = $this->pageModel->getPagesByTopic($topic);
-
-                    if (!empty($pages)) {
+ 
+                    if (!empty($pages) ) {
                         foreach($pages as $page) {
                             if (isset($filenameURL) && $filenameURL === $page['filename'] and isset($topicURL) && $topicURL === $page['topic']) {
                                 $active = 'class="menu-active"';
                             } else {
                                 $active = ''; 
                             }
-                            $filename = $page['filename']; 
-                            $filenameTitle = str_replace('-', ' ', $page['filename']);
-                            $link = 'page/'.$page['slug'];
-                            echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
+                            if ($page['published'] === 1) {
+                                $filename = $page['filename']; 
+                                $filenameTitle = str_replace('-', ' ', $page['filename']);
+                                $link = 'page/'.$page['slug'];
+                                echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
+                            } elseif ($page['published'] === 0 && isset($_SESSION['Active'])) {
+                                $filename = $page['filename']; 
+                                $filenameTitle = str_replace('-', ' ', $page['filename']);
+                                $link = 'page/'.$page['slug'];
+                                echo '<li><a href="'.$link.'" '.$active.' >'.ucfirst($filenameTitle).'</a></li>';
+                            }
                         }
                     }
 

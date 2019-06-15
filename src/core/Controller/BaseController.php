@@ -33,6 +33,7 @@ use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
 use DocPHT\Form\SearchForm;
+use DocPHT\Form\PublishPageForm;
 
 class BaseController
 {
@@ -54,6 +55,7 @@ class BaseController
 	protected $versionForms;
 	protected $version;
 	protected $search;
+	protected $publishPageForm;
 	
 	public function __construct()
 	{
@@ -75,6 +77,7 @@ class BaseController
 		$this->versionForms = new VersionForms();
 		$this->version = new VersionSelectForm;
 		$this->search = new SearchForm();
+		$this->publishPageForm = new PublishPageForm();
 	}
 
 	public function search()
