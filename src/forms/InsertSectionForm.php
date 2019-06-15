@@ -35,7 +35,7 @@ class InsertSectionForm extends MakeupForm
             $b_or_a = $_GET['insert'];
         }
 
-        $form->addGroup(T::trans('Add new element'));
+        $form->addGroup(T::trans('Insert section'));
         
         $form->addSelect('options', T::trans('Options:'), $options)
         	->setPrompt(T::trans('Select an option'))

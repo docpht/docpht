@@ -36,7 +36,7 @@ class ModifySectionForm extends MakeupForm
             $rowIndex = $_GET['id'];
         }
 
-        $form->addGroup(T::trans('Create new notes'));
+        $form->addGroup(T::trans('Modify section'));
         
         if ($page[$rowIndex]['key'] != 'addButton') {
             

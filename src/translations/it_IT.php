@@ -23,6 +23,7 @@
         'Add code from file' => 'Aggiungi il codice dal file',
         'Add blockquote' => 'Aggiungi blockquote',
         'Add image' => 'Aggiungi immagine',
+        'Add markdown' => 'Aggiungi markdown',
         'Add link button' => 'Aggiungi pulsante di collegamento',
         'Options:' => 'Opzioni:',
         'Select an option' => 'Seleziona un\'opzione',
@@ -146,4 +147,7 @@
         'Version restored successfully.' => 'Versione ripristinata con successo.',
         'Version data missing!' => 'Mancano i dati della versione!',
         'Search term did not produce results' => 'Il termine di ricerca non ha prodotto risultati',
+        'Add section' => 'Aggiungi sezione',
+        'Insert section' => 'Inserisci sezione',
+        'Modify section' => 'Modifica sezione',
     ], 'it_IT');   

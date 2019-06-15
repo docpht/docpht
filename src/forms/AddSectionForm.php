@@ -29,7 +29,7 @@ class AddSectionForm extends MakeupForm
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup(T::trans('Add new element'));
+        $form->addGroup(T::trans('Add section'));
         
         
         $form->addSelect('options', T::trans('Options:'), $options)
