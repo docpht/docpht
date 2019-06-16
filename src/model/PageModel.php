@@ -504,7 +504,7 @@ class PageModel
     {
         $pages = $this->connect();
         $id = $_SESSION['page_id'];
-        foreach ($pages as $key => $value) {
+        foreach ($pages as $value) {
             if ($value['pages']['id'] === $id) {
                 $published = $value['pages']['published'];
             }

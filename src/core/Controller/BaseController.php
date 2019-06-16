@@ -14,6 +14,8 @@
 
 namespace Instant\Core\Controller;
 
+use DocPHT\Form\SearchForm;
+use DocPHT\Model\PageModel;
 use DocPHT\Form\AddUserForm;
 use DocPHT\Model\AdminModel;
 use Instant\Core\Views\View;
@@ -24,6 +26,7 @@ use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\DeletePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\UpdatePageForm;
+use DocPHT\Form\PublishPageForm;
 use DocPHT\Form\SortSectionForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\InsertSectionForm;
@@ -32,8 +35,6 @@ use DocPHT\Form\RemoveSectionForm;
 use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
-use DocPHT\Form\SearchForm;
-use DocPHT\Form\PublishPageForm;
 
 class BaseController
 {
@@ -56,6 +57,7 @@ class BaseController
 	protected $version;
 	protected $search;
 	protected $publishPageForm;
+	protected $pageModel;
 	
 	public function __construct()
 	{
@@ -78,6 +80,7 @@ class BaseController
 		$this->version = new VersionSelectForm;
 		$this->search = new SearchForm();
 		$this->publishPageForm = new PublishPageForm();
+		$this->pageModel = new PageModel();
 	}
 
 	public function search()
