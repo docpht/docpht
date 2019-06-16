@@ -45,18 +45,21 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     $pages = $this->pageModel->connect();
     $id = $_SESSION['page_id'];
     $lastPage = count($pages);
-    foreach ($pages as $key => $val) { 
+
+    $filertPages = array_filter($pages, function ($var) {
+        return ($var['pages']['published'] ===  1);
+    });
+
+    $reindexedPages = array_values($filertPages);
+
+    foreach ($reindexedPages as $key => $val) { 
         if ($pages[$key]['pages']['id'] === $id && $key < $lastPage - 1) {
-            if ($pages[$key + 1]['pages']['published'] === 1) {
-                $next = $pages[$key + 1]['pages']['slug'];
-                $nextPage = $pages[$key + 1]['pages']['filename'];
-            }
+                $next = $reindexedPages[$key + 1]['pages']['slug'];
+                $nextPage = $reindexedPages[$key + 1]['pages']['filename'];
         }
         if ($pages[$key]['pages']['id'] === $id && $key > 0) {
-            if ($pages[$key - 1]['pages']['published'] === 1) {
-                $prev = $pages[$key - 1]['pages']['slug'];
-                $prevPage = $pages[$key - 1]['pages']['filename'];
-            }
+                $prev = $reindexedPages[$key - 1]['pages']['slug'];
+                $prevPage = $reindexedPages[$key - 1]['pages']['filename'];
         }
     }
 
