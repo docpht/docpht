@@ -495,4 +495,33 @@ class PageModel
         }
     }
     
+    /**
+     * getStatusPublished
+     *
+     * @return string
+     */
+    public function getStatusPublished()
+    {
+        $pages = $this->connect();
+        $id = $_SESSION['page_id'];
+        foreach ($pages as $key => $value) {
+            if ($value['pages']['id'] === $id) {
+                $published = $value['pages']['published'];
+            }
+        }
+
+        if ($published === 1) {
+            $statusPage = [
+                'page' => 'Published',
+                'icon' => 'btn-success'
+            ];
+        } else {
+            $statusPage = [
+                'page' => 'Draft',
+                'icon' => 'btn-outline-success'
+            ];
+        }
+
+        return $statusPage;
+    }
 }
