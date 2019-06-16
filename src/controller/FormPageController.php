@@ -46,7 +46,7 @@ class FormPageController extends BaseController
         } elseif($published === 0 && isset($_SESSION['Active'])) {
             $this->view->show('page/page.php', ['values' => $values]);
         } else {
-			header('Location:'.BASE_URL);
+			header('Location:'.BASE_URL.'login');
         	exit;
 		}
 
