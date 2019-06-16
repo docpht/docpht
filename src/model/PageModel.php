@@ -498,7 +498,7 @@ class PageModel
     /**
      * getStatusPublished
      *
-     * @return string
+     * @return array
      */
     public function getStatusPublished()
     {

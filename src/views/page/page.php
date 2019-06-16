@@ -41,7 +41,45 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo $versions['value'];
 }
 
+
+    $pages = $this->pageModel->connect();
+    $id = $_SESSION['page_id'];
+    $lastPage = count($pages);
+    foreach ($pages as $key => $val) { 
+        if ($pages[$key]['pages']['id'] === $id && $key < $lastPage - 1) {
+            if ($pages[$key + 1]['pages']['published'] === 1) {
+                $next = $pages[$key + 1]['pages']['slug'];
+                $nextPage = $pages[$key + 1]['pages']['filename'];
+            }
+        }
+        if ($pages[$key]['pages']['id'] === $id && $key > 0) {
+            if ($pages[$key - 1]['pages']['published'] === 1) {
+                $prev = $pages[$key - 1]['pages']['slug'];
+                $prevPage = $pages[$key - 1]['pages']['filename'];
+            }
+        }
+    }
+
 ?>
+            
+            <div class="mt-4">
+                    <nav aria-label="pagination">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                            <?php if (isset($prev) && isset($prevPage)): ?>
+                                <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> <?= $prevPage ?></a>
+                            <?php endif; ?>
+                            </li>
+
+                            <li class="page-item">
+                            <?php if (isset($next) && isset($nextPage)): ?>
+                                <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <?php endif; ?>
+                            </li>
+                        </ul>
+                    </nav>
+            </div>
+           
 
             <!-- Modal confirm delete -->
             <div class="modal" id="confirmDelete">
