@@ -513,12 +513,14 @@ class PageModel
         if ($published === 1) {
             $statusPage = [
                 'page' => 'Published',
-                'icon' => 'btn-success'
+                'btn' => 'btn-success',
+                'icon' => 'fa-toggle-on'
             ];
         } else {
             $statusPage = [
                 'page' => 'Draft',
-                'icon' => 'btn-outline-success'
+                'btn' => 'btn-outline-success',
+                'icon' => 'fa-toggle-off'
             ];
         }
 

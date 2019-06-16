@@ -43,14 +43,14 @@ class FormPageController extends BaseController
 
         if ($published === 1) {
 			$this->view->show('page/page.php', ['values' => $values]);
-			$this->view->show('partial/footer.php');
         } elseif($published === 0 && isset($_SESSION['Active'])) {
             $this->view->show('page/page.php', ['values' => $values]);
-			$this->view->show('partial/footer.php');
         } else {
 			header('Location:'.BASE_URL);
         	exit;
 		}
+
+		$this->view->show('partial/footer.php');
 	}
 
 	public function getAddSectionForm()

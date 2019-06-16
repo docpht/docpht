@@ -13,7 +13,7 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo '<ul class="list-inline text-right mt-4">
             '.$versions['value'].'
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($statusPage['page']).'">
-                <a href="page/publish" id="sk-publish" class="btn '.$statusPage['icon'].' btn-sm" role="button"><i class="fa fa-bullhorn" aria-hidden="true"></i></a>
+                <a href="page/publish" id="sk-publish" class="btn '.$statusPage['btn'].' btn-sm" role="button"><i class="fa '.$statusPage['icon'].'" aria-hidden="true"></i></a>
             </li>
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans("Update").'">
                 <a href="page/update" id="sk-update" class="btn btn-outline-info btn-sm" role="button"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
@@ -27,7 +27,7 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
 } else if (isset($_SESSION['Active']) && $versions['state'] > 0){
     echo '<ul class="list-inline text-right mt-4">
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($statusPage['page']).'">
-                <a href="page/publish" id="sk-publish" class="btn '.$statusPage['icon'].' btn-sm" role="button"><i class="fa fa-bullhorn" aria-hidden="true"></i></a>
+                <a href="page/publish" id="sk-publish" class="btn '.$statusPage['btn'].' btn-sm" role="button"><i class="fa '.$statusPage['icon'].'" aria-hidden="true"></i></a>
             </li>
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans("Update").'">
                 <a href="page/update" id="sk-update" class="btn btn-outline-info btn-sm" role="button"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
