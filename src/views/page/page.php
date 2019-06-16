@@ -54,11 +54,11 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     $lastPage = (count($reindexedPages) - 1);
 
     foreach ($reindexedPages as $key => $val) { 
-        if ($pages[$key]['pages']['id'] === $id && $key < $lastPage) {
+        if ($reindexedPages[$key]['pages']['id'] === $id && $key < $lastPage) {
                 $next = $reindexedPages[$key + 1]['pages']['slug'];
                 $nextPage = $reindexedPages[$key + 1]['pages']['filename'];
         }
-        if ($pages[$key]['pages']['id'] === $id && $key > 0) {
+        if ($reindexedPages[$key]['pages']['id'] === $id && $key > 0) {
                 $prev = $reindexedPages[$key - 1]['pages']['slug'];
                 $prevPage = $reindexedPages[$key - 1]['pages']['filename'];
         }
