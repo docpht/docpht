@@ -22,19 +22,30 @@ class PublishPageForm extends MakeupForm
         $id = $_SESSION['page_id'];
         $pages = $this->pageModel->connect();
 
-        foreach ($pages as $val) {
-            if ($val['pages']['id'] === $id) {
+        foreach ($pages as $key => $value) {
 
-                if ($val['pages']['published'] === 0) {
-                    $val['pages']['published'] = $val['pages']['published'] + 1;
+            if ($value['pages']['id'] === $id) {
+                if ($value['pages']['published'] === 0) {
+                    $published = 1;
                 } else {
-                    $val['pages']['published'] = $val['pages']['published'] - 1;
+                    $published = 0;
                 }
-            } 
-            
-            $path = $this->pageModel->getPhpPath($id);
-            $this->pageModel->disconnect('data/pages.json', [$val]);
+                $pages[$key] = array(
+                    'pages' => [
+                        'id' => $value['pages']['id'],
+                        'slug' => $value['pages']['slug'],
+                        'topic' => $value['pages']['topic'],
+                        'filename' => $value['pages']['filename'],
+                        'phppath' => $value['pages']['phppath'],
+                        'jsonpath' => $value['pages']['jsonpath'],
+                        'published' => $published
+                    ]
+                );
+            }
+
+            $this->pageModel->disconnect('data/pages.json', $pages);
         }
+    
         
         header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         exit;
