@@ -57,7 +57,7 @@
 <?php 
 
 
-        $topics = $this->pageModel->getUniqTopics();
+        ($_SESSION['Username'] == ADMIN) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
                 
         $url = "$_SERVER[REQUEST_URI]";
         $parse = parse_url($url)['path'];

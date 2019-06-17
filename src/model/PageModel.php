@@ -171,6 +171,23 @@ class PageModel
             return false;
         } 
     }
+
+    /**
+     * getUniqPublishedTopics
+     * 
+     * @return array|bool
+     */
+    public function getUniqPublishedTopics()
+    {
+        $data = $this->connect();
+        $array = $this->getAllPublishedFromKey('topic');
+        if (is_array($array) && !is_null($array)) {
+            $array = array_unique($array);
+            return $array;
+        } else {
+            return false;
+        } 
+    }
     
     /**
      * getPhpPath
@@ -232,6 +249,26 @@ class PageModel
         if (!is_null($data) && !empty($data)) {
             foreach($data as $value){
                 $array[] = $value['pages'][$key];
+            } 
+            return $array;
+        } else {
+            return false;
+        }
+    }   
+    
+    /**
+     * getAllPublishedFromKey
+     * 
+     * @param string $key
+     * 
+     * @return array bool
+     */
+    public function getAllPublishedFromKey($key)
+    {
+        $data = $this->connect();
+        if (!is_null($data) && !empty($data)) {
+            foreach($data as $value){
+                if($value['pages']['published'] == 1) $array[] = $value['pages'][$key];
             } 
             return $array;
         } else {
