@@ -15,7 +15,7 @@ namespace DocPHT\Form;
 
 use DocPHT\Core\Translator\T;
 
-class SearchForm 
+class SearchForm extends MakeupForm
 {
     public function create()
     {
@@ -51,19 +51,25 @@ class SearchForm
                     
                             if (strlen($value) > 500)
                             $value = substr($value, 0, 100) . '...';
-                            return '<div class="result-preview">
-                                    <a href="page/'.$topic.'/'.$page.'">
-                                    <h3 class="result-title">
-                                        '.ucfirst(str_replace('-',' ', $topic)).' '.str_replace('-',' ',$page).'
-                                    </h3>
-                                    <p class="result-subtitle">
-                                        '.$value.'
-                                    </p>
-                                    <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
-                                    </a>
-                                </div>
-                                <hr>';
-                            break;
+
+                            $pages = $this->pageModel->connect();
+                                foreach ($pages as $val) {
+                                    if ($val['pages']['topic'] == $topic && $val['pages']['filename'] == $page && $val['pages']['published'] === 1) {
+                                    return '<div class="result-preview">
+                                        <a href="page/'.$topic.'/'.$page.'">
+                                        <h3 class="result-title">
+                                            '.ucfirst(str_replace('-',' ', $topic)).' '.str_replace('-',' ',$page).'
+                                        </h3>
+                                        <p class="result-subtitle">
+                                            '.$value.'
+                                        </p>
+                                        <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
+                                        </a>
+                                    </div>
+                                    <hr>';
+                                    break;
+                                }
+                            }
                         }
                     } 
                 }

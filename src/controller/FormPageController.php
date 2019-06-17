@@ -32,7 +32,24 @@ class FormPageController extends BaseController
 	{	
 		$this->view->show('partial/head.php', ['PageTitle' => $topic .' '. $filename]);
 		$page = require_once('pages/'.$topic.'/'.$filename.'.php');
-		$this->view->show('page/page.php', ['values' => $values]);
+
+		$pages = $this->pageModel->connect();
+        $id = $_SESSION['page_id'];
+        foreach ($pages as $value) {
+            if ($value['pages']['id'] === $id) {
+                $published = $value['pages']['published'];
+            }
+        }
+
+        if ($published === 1) {
+			$this->view->show('page/page.php', ['values' => $values]);
+        } elseif($published === 0 && isset($_SESSION['Active'])) {
+            $this->view->show('page/page.php', ['values' => $values]);
+        } else {
+			header('Location:'.BASE_URL.'login');
+        	exit;
+		}
+
 		$this->view->show('partial/footer.php');
 	}
 
@@ -114,6 +131,11 @@ class FormPageController extends BaseController
 	public function getSaveVersionForm()
 	{
 		$form = $this->versionForms->save();
+	}
+
+	public function getPublish()
+	{
+		$this->publishPageForm->publish();
 	}
 
 }

@@ -108,6 +108,8 @@ $route->group('/page', function()
         $this->get_post('/delete-version', 'DocPHT\Controller\FormPageController@getDeleteVersionForm');
         // /page/save-version
         $this->get_post('/save-version', 'DocPHT\Controller\FormPageController@getSaveVersionForm');
+        // /page/publish
+        $this->get_post('/publish', 'DocPHT\Controller\FormPageController@getPublish');
     } else {
         $this->any('/*', function(){
             $login = new LoginController();

@@ -122,7 +122,8 @@ class PageModel
                     'topic' => $topic,
                     'filename' => $filename,
                     'phppath' => $phpPath,
-                    'jsonpath' => $jsonPath
+                    'jsonpath' => $jsonPath,
+                    'published' => 0
             ]);
             
             
@@ -494,4 +495,35 @@ class PageModel
         }
     }
     
+    /**
+     * getStatusPublished
+     *
+     * @return array
+     */
+    public function getStatusPublished()
+    {
+        $pages = $this->connect();
+        $id = $_SESSION['page_id'];
+        foreach ($pages as $value) {
+            if ($value['pages']['id'] === $id) {
+                $published = $value['pages']['published'];
+            }
+        }
+
+        if ($published === 1) {
+            $statusPage = [
+                'page' => 'Published',
+                'btn' => 'btn-success',
+                'icon' => 'fa-toggle-on'
+            ];
+        } else {
+            $statusPage = [
+                'page' => 'Draft',
+                'btn' => 'btn-outline-success',
+                'icon' => 'fa-toggle-off'
+            ];
+        }
+
+        return $statusPage;
+    }
 }
