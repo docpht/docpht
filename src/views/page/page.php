@@ -41,7 +41,53 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo $versions['value'];
 }
 
+(isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
+if (!is_null($topics)) {
+        if (!empty($topics)) {
+            foreach ($topics as $topic) {
+                $pages = $this->pageModel->getPagesByTopic($topic);
+            }
+            if (!empty($pages) ) {
+                    $x = 0;
+                    foreach($pages as $page) {
+                        if ($page['id'] == $_SESSION['page_id']) {
+                            break;
+                        }
+                        $x++;
+                    }
+                    $p = $x - 1;
+                    $n = $x + 1;
+                    $i = count($pages) - 1;
+                    ($p < 0) ? $p = $i : $p = $p;
+                    ($n > $i) ? $n = 0 : $n = $n;
+                    
+                    $prev = $pages[$p]['slug'];
+                    $prevPage = $pages[$p]['filename'];
+                    $next = $pages[$n]['slug'];
+                    $nextPage = $pages[$n]['filename'];
+            }
+        }
+}
 ?>
+
+            <div class="mt4">
+                <nav arialabel="pagination">
+                    <ul class="pagination justifycontentcenter">
+                        <li class="pageitem">
+                        <?php if (isset($prev) && isset($prevPage)): ?>
+                            <a class="pagelink textmuted" href="<?= 'page/'.$prev ?>"><i class="fa faangledoubleleft" ariahidden="true"></i> <?= $prevPage ?></a>
+                        <?php endif; ?>
+                        </li>
+            
+                        <li class="pageitem">
+                        <?php if (isset($next) && isset($nextPage)): ?>
+                            <a class="pagelink textmuted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa faangledoubleright" ariahidden="true"></i></a>
+                        <?php endif; ?>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
             <!-- Modal confirm delete -->
             <div class="modal" id="confirmDelete">
                 <div class="modal-dialog">
