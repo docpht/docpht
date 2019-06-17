@@ -41,50 +41,7 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo $versions['value'];
 }
 
-
-    $pages = $this->pageModel->connect();
-    $id = $_SESSION['page_id'];
-
-    $filertPages = array_filter($pages, function ($var) {
-        return ($var['pages']['published'] ===  1);
-    });
-
-    $reindexedPages = array_values($filertPages);
-
-    $lastPage = (count($reindexedPages) - 1);
-
-    foreach ($reindexedPages as $key => $val) { 
-        if ($reindexedPages[$key]['pages']['id'] === $id && $key < $lastPage) {
-                $next = $reindexedPages[$key + 1]['pages']['slug'];
-                $nextPage = $reindexedPages[$key + 1]['pages']['filename'];
-        }
-        if ($reindexedPages[$key]['pages']['id'] === $id && $key > 0) {
-                $prev = $reindexedPages[$key - 1]['pages']['slug'];
-                $prevPage = $reindexedPages[$key - 1]['pages']['filename'];
-        }
-    }
-
 ?>
-            
-            <div class="mt-4">
-                    <nav aria-label="pagination">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                            <?php if (isset($prev) && isset($prevPage)): ?>
-                                <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" aria-hidden="true"></i> <?= $prevPage ?></a>
-                            <?php endif; ?>
-                            </li>
-
-                            <li class="page-item">
-                            <?php if (isset($next) && isset($nextPage)): ?>
-                                <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                            <?php endif; ?>
-                            </li>
-                        </ul>
-                    </nav>
-            </div>
-           
-
             <!-- Modal confirm delete -->
             <div class="modal" id="confirmDelete">
                 <div class="modal-dialog">
