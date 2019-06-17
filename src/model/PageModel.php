@@ -270,7 +270,7 @@ class PageModel
             foreach($data as $value){
                 if($value['pages']['published'] == 1) $array[] = $value['pages'][$key];
             } 
-            return $array;
+            return (isset($array)) ? $array : false;
         } else {
             return false;
         }
