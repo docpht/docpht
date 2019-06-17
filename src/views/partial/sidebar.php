@@ -80,7 +80,7 @@
                     echo '<a href="#'.$topic.'-side-navigation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle '.$active.' ">'. ucfirst($topicTitle) .'</a>';
                     echo '<ul class="collapse list-unstyled '.$show.' " id="'.$topic.'-side-navigation">';
 
-                    $pages = $this->pageModel->getPagesByTopic($topic);
+                    $pages = $this->pageModel->getPublishedPagesByTopic($topic);
  
                     if (!empty($pages) ) {
                         foreach($pages as $page) {

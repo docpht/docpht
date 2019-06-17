@@ -46,7 +46,7 @@ if (!is_null($topics)) {
         if (!empty($topics)) {
             $allpages = array();
             foreach ($topics as $topic) {
-                $pages = $this->pageModel->getPagesByTopic($topic);
+                $pages = $this->pageModel->getPublishedPagesByTopic($topic);
                 $allpages = array_merge($allpages,$pages);
             }
         }

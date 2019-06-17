@@ -156,6 +156,28 @@ class PageModel
     }
 
     /**
+     * getPublishedPagesByTopic
+     *
+     * @param  string $topic
+     *
+     * @return array|bool
+     */
+    public function getPublishedPagesByTopic($topic)
+    {
+        $data = $this->connect();
+        if (!is_null($data)) {
+            foreach($data as $value){
+                if($value['pages']['topic'] === $topic && $value['pages']['published'] == 1) {
+                  $array[] = $value['pages'];  
+                }
+            } 
+            return (isset($array)) ? $array : false;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * getUniqTopics
      * 
      * @return array|bool
