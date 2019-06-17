@@ -41,32 +41,36 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo $versions['value'];
 }
 
-(isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
+(isset($_SESSION['Active'])) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
 if (!is_null($topics)) {
         if (!empty($topics)) {
+            $allpages = array();
             foreach ($topics as $topic) {
                 $pages = $this->pageModel->getPagesByTopic($topic);
+                $allpages = array_merge($allpages,$pages);
             }
-            if (!empty($pages) ) {
+        }
+        if (!empty($allpages) ) {
                     $x = 0;
-                    foreach($pages as $page) {
+                    $i = 0;
+                    foreach($allpages as $page) {
                         if ($page['id'] == $_SESSION['page_id']) {
-                            break;
+                            $i = $x;
                         }
                         $x++;
                     }
-                    $p = $x - 1;
-                    $n = $x + 1;
-                    $i = count($pages) - 1;
-                    ($p < 0) ? $p = $i : $p = $p;
-                    ($n > $i) ? $n = 0 : $n = $n;
+
+                    $p = $i + 1;
+                    $n = $i - 1;
+
+                    ($p > $x -1) ? $p = 0 : $p = $p;
+                    ($n < 0) ? $n = $x-1 : $n = $n;
                     
-                    $prev = $pages[$p]['slug'];
-                    $prevPage = $pages[$p]['filename'];
-                    $next = $pages[$n]['slug'];
-                    $nextPage = $pages[$n]['filename'];
+                    $prev = $allpages[$p]['slug'];
+                    $prevPage = $allpages[$p]['filename'];
+                    $next = $allpages[$n]['slug'];
+                    $nextPage = $allpages[$n]['filename'];
             }
-        }
 }
 ?>
 
