@@ -62,9 +62,9 @@ if (!is_null($topics)) {
                     ($n > $i) ? $n = 0 : $n = $n;
                     
                     $prev = $pages[$p]['slug'];
-                    $prevPage = $pages[$p]['filename'];
+                    $prevPage = ucfirst(str_replace('-', ' ', $pages[$p]['filename']));
                     $next = $pages[$n]['slug'];
-                    $nextPage = $pages[$n]['filename'];
+                    $nextPage = ucfirst(str_replace('-', ' ', $pages[$n]['filename']));
             }
         }
 }
@@ -72,16 +72,16 @@ if (!is_null($topics)) {
 
             <div class="mt4">
                 <nav arialabel="pagination">
-                    <ul class="pagination justifycontentcenter">
-                        <li class="pageitem">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
                         <?php if (isset($prev) && isset($prevPage)): ?>
-                            <a class="pagelink textmuted" href="<?= 'page/'.$prev ?>"><i class="fa faangledoubleleft" ariahidden="true"></i> <?= $prevPage ?></a>
+                            <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $prevPage ?></a>
                         <?php endif; ?>
                         </li>
             
-                        <li class="pageitem">
+                        <li class="page-item">
                         <?php if (isset($next) && isset($nextPage)): ?>
-                            <a class="pagelink textmuted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa faangledoubleright" ariahidden="true"></i></a>
+                            <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa fa-angle-double-right" ariahidden="true"></i></a>
                         <?php endif; ?>
                         </li>
                     </ul>
