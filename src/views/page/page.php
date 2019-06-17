@@ -85,7 +85,7 @@ if (!is_null($topics)) {
                         
                         <li class="page-item">
                         <?php if (isset($next) && isset($nextPage) && $x > 1 && $x <= 2): ?>
-                            <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $nextPage ?> <i class="fa fa-angle-double-right" ariahidden="true"></i></a>
+                            <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?></a>
                         <?php endif; ?>
                         </li>
             
