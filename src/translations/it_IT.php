@@ -12,6 +12,7 @@
         'No' => 'No',
         'Add new element' => 'Aggiungi un nuovo elemento',
         'Topic' => 'Argomento',
+        'Select a topic' => 'Seleziona un argomento',
         'Enter topic' => 'Inserisci argomento',
         'Description' => 'Descrizione',
         'Enter description' => 'Inserisci descrizione',
