@@ -32,11 +32,12 @@ class CreatePageForm extends MakeupForm
         $form->addGroup(T::trans('Create new page'));
 
         $getTopic = $this->pageModel->getUniqTopics();
-
-        $form->addSelect('selecttopic',T::trans('Select a topic'), array_combine($getTopic,$getTopic))
+        if (is_array($getTopic)) {
+            $form->addSelect('selecttopic',T::trans('Select a topic'), array_combine($getTopic,$getTopic))
         	->setPrompt(T::trans('Select a topic'))
         	->setHtmlAttribute('data-live-search','true')
         	->setRequired(T::trans('Select a topic'));
+        }
         
         $form->addText('topic', T::trans('Topic'))
         	->setHtmlAttribute('placeholder', T::trans('Enter topic'))
