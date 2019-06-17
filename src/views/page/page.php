@@ -78,13 +78,19 @@ if (!is_null($topics)) {
                 <nav arialabel="pagination">
                     <ul class="pagination justify-content-center">
                         <li class="page-item">
-                        <?php if (isset($prev) && isset($prevPage)): ?>
+                        <?php if (isset($prev) && isset($prevPage) && $x > 2): ?>
                             <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $prevPage ?></a>
+                        <?php endif; ?>
+                        </li>
+                        
+                        <li class="page-item">
+                        <?php if (isset($next) && isset($nextPage) && $x >1): ?>
+                            <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $nextPage ?> <i class="fa fa-angle-double-right" ariahidden="true"></i></a>
                         <?php endif; ?>
                         </li>
             
                         <li class="page-item">
-                        <?php if (isset($next) && isset($nextPage)): ?>
+                        <?php if (isset($next) && isset($nextPage) && $x >2): ?>
                             <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa fa-angle-double-right" ariahidden="true"></i></a>
                         <?php endif; ?>
                         </li>
