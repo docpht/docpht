@@ -41,11 +41,13 @@ class CreatePageForm extends MakeupForm
         	
         $dataList = Html::el('datalist id="topicList"');
         
-        foreach ($getTopic as $value) {
-            $dataList->create('option value="'.$value.'"');
+        if (is_array($getTopic)) {
+            foreach ($getTopic as $value) {
+                $dataList->create('option value="'.str_replace('-',' ',$value).'"');
+            }
+            echo $dataList;
         }
-        echo $dataList;
-        	
+        
         $form->addText('description', T::trans('Description'))
         	->setHtmlAttribute('placeholder', T::trans('Enter description'))
         	->setRequired(T::trans('Enter description'));
@@ -87,14 +89,9 @@ class CreatePageForm extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
         
-        	if (isset($values['topic']) or isset($values['selecttopic']) && isset($values['mainfilename'])) {
+        	if (isset($values['topic']) && isset($values['mainfilename'])) {
                 
-                if (isset($values['selecttopic'])) {
-                    $id = $this->pageModel->create($values['selecttopic'],$values['mainfilename']);
-                } else {
-                    $id = $this->pageModel->create($values['topic'],$values['mainfilename']);
-                }
-                
+                $id = $this->pageModel->create($values['topic'],$values['mainfilename']);
                 
         	    if(isset($id)) {
             	    $this->pageModel->addPageData($id, $this->doc->valuesToArray(array('options' => 'title', 'option_content' => $values['mainfilename'])));
