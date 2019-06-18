@@ -15,7 +15,6 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
-use DocPHT\Lib\DataList;
 use DocPHT\Core\Translator\T;
 
 class CreatePageForm extends MakeupForm
