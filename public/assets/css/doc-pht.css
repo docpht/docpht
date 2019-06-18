@@ -195,7 +195,6 @@ i.fa.fa-arrows-v.sort {
 .modal-content {
     background-color: #353b48e3; 
     color: #ffffff;
-    border: 3px solid rgba(255, 255, 255, 0.2)!important;
 }
 
 .modal-content table {
