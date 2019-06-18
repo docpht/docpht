@@ -17,6 +17,8 @@ use DocPHT\Controller\LoginController;
 
 $route->get('/', 'DocPHT\Controller\HomeController@index');
 
+$route->get('/switch-theme', 'Instant\Core\Controller\BaseController@switchTheme');
+
 $route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 
 if (isset($_SESSION['Active'])) {

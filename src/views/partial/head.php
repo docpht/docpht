@@ -14,7 +14,11 @@
     <!-- jQuery-UI CSS -->
     <link rel="stylesheet" href="public/assets/css/jquery-ui.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="public/assets/css/doc-pht.css">
+    <?php
+    $cssFile = (!isset($_COOKIE["switchTheme"])) ? 'light' : $_COOKIE["switchTheme"] ;
+    echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
+    ?>
+    <!-- <link rel="stylesheet" href="public/assets/css/doc-pht.css"> -->
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="public/assets/css/scrollbar.min.css">
     <!-- Lightweight, robust, elegant syntax highlighting -->

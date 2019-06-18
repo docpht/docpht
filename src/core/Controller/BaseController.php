@@ -95,4 +95,15 @@ class BaseController
 		}
 	}
 
+	public function switchTheme()
+    {
+		if (isset($_COOKIE["switchTheme"]) && $_COOKIE["switchTheme"] == 'dark') {
+			setcookie("switchTheme", "light");			
+		} else {
+			setcookie("switchTheme", "dark");
+		}
+        header('Location:'.BASE_URL);
+        exit;
+    }
+
 }
