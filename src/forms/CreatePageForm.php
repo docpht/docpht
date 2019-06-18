@@ -15,14 +15,16 @@ namespace DocPHT\Form;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use DocPHT\Lib\DataList;
 use DocPHT\Core\Translator\T;
 
 class CreatePageForm extends MakeupForm
 {
+    
 
     public function create()
     {
-
+        
         $languages = $this->doc->listCodeLanguages();
         $options = $this->doc->getOptions();
 
@@ -32,16 +34,17 @@ class CreatePageForm extends MakeupForm
         $form->addGroup(T::trans('Create new page'));
 
         $getTopic = $this->pageModel->getUniqTopics();
-        if (is_array($getTopic)) {
-            $form->addSelect('selecttopic',T::trans('Select a topic'), array_combine($getTopic,$getTopic))
-        	->setPrompt(T::trans('Select a topic'))
-        	->setHtmlAttribute('data-live-search','true')
-        	->setRequired(T::trans('Select a topic'));
-        }
-        
+
         $form->addText('topic', T::trans('Topic'))
         	->setHtmlAttribute('placeholder', T::trans('Enter topic'))
-        	->setAttribute('autofocus');
+        	->setAttribute('list', 'topicList');
+        	
+        $dataList = Html::el('datalist id="topicList"');
+        
+        foreach ($getTopic as $value) {
+            $dataList->create('option value="'.$value.'"');
+        }
+        echo $dataList;
         	
         $form->addText('description', T::trans('Description'))
         	->setHtmlAttribute('placeholder', T::trans('Enter description'))
