@@ -37,6 +37,7 @@ class CreatePageForm extends MakeupForm
         $form->addText('topic', T::trans('Topic'))
         	->setHtmlAttribute('placeholder', T::trans('Enter topic'))
             ->setAttribute('list', 'topicList')
+            ->setAttribute('autocomplete', 'off')
             ->setRequired(T::trans('Enter topic'));
         	
         $dataList = Html::el('datalist id="topicList"');
