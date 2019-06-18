@@ -409,8 +409,14 @@ code {
   
 ::selection{background:rgba(113,113,113,0.5);color:#ffffff}::-moz-selection{background:rgba(113,113,113,0.5);color:#ffffff}
 
+.show>.btn-light.dropdown-toggle {
+    color: #353b48;
+    background-color: #e8e8e8;
+    border-color: #d3d9df;
+}
+
 .bootstrap-select>.dropdown-toggle {
-    background-color: #fff;
+    background-color: #f7f7f7;
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
