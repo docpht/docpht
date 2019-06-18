@@ -1,3 +1,15 @@
+
+/*!
+ * This file is part of the DocPHT project.
+ * 
+ * @author Valentino Pesce
+ * @copyright (c) Valentino Pesce <valentino@iltuobrand.it>
+ * @copyright (c) Craig Crosby <creecros@gmail.com>
+ * 
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -11,19 +23,24 @@ $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    $(window).scroll(function() {
-        var height = $(window).scrollTop();
-        if (height > 400) {
-            $('#backToTop').fadeIn();
-        } else {
-            $('#backToTop').fadeOut();
-        }
+    var offset = 300,
+    offset_opacity = 1200,
+    scroll_top_duration = 700,
+    $back_to_top = $('.top');
+    
+    $(window).scroll(function(){
+        ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+            if( $(this).scrollTop() > offset_opacity ) { 
+                $back_to_top.addClass('cd-fade-out');
+            }
     });
-
-    $("#backToTop").click(function(event) {
+    
+    $back_to_top.on('click', function(event){
         event.preventDefault();
-        $("html, body").animate({ scrollTop: 1 }, "slow");
-        return false;
+            $('body,html').animate({
+                scrollTop: 0 ,
+                }, scroll_top_duration
+            );
     });
 
     $('a[href="#search"]').on('click', function(event) {

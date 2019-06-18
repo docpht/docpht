@@ -24,11 +24,9 @@
         </div> <!-- end Page Content  -->
     </div> <!-- end wrapper -->
     
-    <div id="to-top">
-        <a href="#backToTop" id="backToTop" class="topshow">
-            <span><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
-        </a>
-    </div>
+    <a href="#page-top" class="top">
+      <i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
+    </a>
 
     <!-- Nette Forms -->
     <script src="public/assets/js/netteForms.js"></script>

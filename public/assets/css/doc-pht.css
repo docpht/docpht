@@ -69,72 +69,44 @@ i.fa.fa-arrows-v.sort {
     color: #c1c1c1;
 }
 
-#to-top {
-    margin: 0 0px 30px 0px;
-}
-
-#backToTop {
+.top {
+    color: rgba(214, 214, 214, 0.87) !important;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
     position: fixed;
-    left: 50%;
-    bottom: -25px;
-    display: block;
-    width: 50px;
-    height: 50px;
-    z-index: 10000;
-    transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -ms-transition: all 0.4s;
+    overflow: hidden;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+    -moz-transition: opacity .3s 0s, visibility 0s .3s;
+    transition: opacity .3s 0s, visibility 0s .3s;
+    z-index: 11
 }
 
-#backToTop.topshow {
-    bottom: 0;
+.top.cd-is-visible,
+.top.cd-fade-out,
+.no-touch .top:hover {
+    -webkit-transition: opacity .3s 0s, visibility 0s 0s;
+    -moz-transition: opacity .3s 0s, visibility 0s 0s;
+    transition: opacity .3s 0s, visibility 0s 0s
 }
 
-#backToTop span {
-    position: absolute;
-    left: -25px;
-    bottom: -25px;
-    display: block;
-    width: 50px;
-    height: 50px;
-    box-shadow: 0 0 3px 0px #262b33;
-    background: rgba(38, 43, 51, 0.7);
-    text-decoration: none;
-    -webkit-border-radius: 35px;
-    -moz-border-radius: 35px;
-    border-radius: 35px;
-    transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -ms-transition: all 0.4s;
+.top.cd-is-visible {
+    visibility: visible;
+    opacity: 1
 }
 
-#backToTop span:hover {
-    bottom: 5px;
-    background: rgba(38, 43, 51, 0.9);
+.top.cd-fade-out {
+    opacity: 0.7
 }
 
-#backToTop i:before {
-    position: relative;
-    left: 12px;
-    top: 0;
-    display: block;
-    margin: 0;
-    width: 50px;
-    color: #fff;
-    font-size: 27px;
-    -webkit-transition: all 0.6s ease;
-    -moz-transition: all 0.6s ease;
-    -ms-transition: all 0.6s ease;
-    -o-transition: all 0.6s ease;
-    transition: all 0.6s ease;
-}
-
-#backToTop:hover i:before {
-    top: 9px;
+@media (min-width: 768px) {
+    .top {
+        right: 0px;
+        bottom: 60px
+    }
 }
 
 .error {
