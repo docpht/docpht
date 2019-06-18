@@ -46,14 +46,13 @@
                 </form>
             </div>
 
-
             <ul class="list-unstyled components">
             <?php
                 if (SUBTITLE) {
                     echo '<p><b> '.SUBTITLE.' </b></p>';
                 }
             ?>
-                <!-- Navigation -->
+            <!-- Navigation -->
 <?php 
 
 
@@ -134,4 +133,10 @@
             ?>
             </ul>
 
+            <div class="text-center">
+                <a href="" id="" class="btn btn-success btn-sm" role="button"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+            </div>
+
         </nav>
+
+        
