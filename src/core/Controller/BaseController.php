@@ -102,7 +102,7 @@ class BaseController
 		} else {
 			setcookie("switchTheme", "dark");
 		}
-        header('Location:'.BASE_URL);
+        header('Location:'.$_SERVER['HTTP_REFERER']);
         exit;
     }
 
