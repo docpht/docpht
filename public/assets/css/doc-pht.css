@@ -209,6 +209,13 @@ i.fa.fa-arrows-v.sort {
     border: none;
 }
 
+.close:hover {
+    color: #f7f7f7;
+    border-radius: 0 0 0 20px;
+    text-decoration: none;
+    background-color: #13161a;
+}
+
 .close {
     float: right;
     font-size: 1.5rem;
