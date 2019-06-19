@@ -35,9 +35,11 @@
  */
 namespace DocPHT\Model;
 
+
 class PageModel
 {
     const DB = 'data/pages.json';
+    
     
     /**
      * connect

@@ -127,34 +127,7 @@ class VersionForms extends MakeupForm
     public function save()
     {
         $id = $_SESSION['page_id'];
-        $aPath = $this->pageModel->getPhpPath($id);
-        
-        if (isset($id) && $aPath == 'data/doc-pht/home.php') {
-            $jsonPathFinder = 'data/doc-pht/home.json';
-            $zippedVersionPath = 'data/doc-pht/home_' . $this->doc->datetimeNow() . '.zip';
-        } else {
-        	$jsonPathFinder = $this->pageModel->getJsonPath($id);
-        	$zippedVersionPath = 'data/' . $this->pageModel->getSlug($id) . '_' . $this->doc->datetimeNow() . '.zip';
-        }
-        
-        $jsonArray = $this->pageModel->getPageData($id);
-        $getAssets = [];
-        
-        foreach ($jsonArray as $fields) {
-            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { array_push($getAssets, 'data/' . $fields['v1']); }
-        }
-        
-        array_push($getAssets, $aPath);
-        array_push($getAssets, $jsonPathFinder);
-        
-        
-        if (!empty($getAssets)) {
-            $zipData = new \ZipArchive();
-            $zipData->open($zippedVersionPath, \ZipArchive::CREATE);
-            foreach ($getAssets as $file) {
-                $zipData->addFile($file, $file);
-            }
-            $zipData->close();
+        if ($this->versionModel->saveVersion($id)) {
         	$this->msg->success(T::trans('Version saved successfully.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         } else {
             $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));

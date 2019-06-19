@@ -14,6 +14,8 @@
  */
 namespace DocPHT\Model;
 
+use DocPHT\Lib\DocBuilder;
+
 class VersionModel extends PageModel
 {
 
@@ -91,6 +93,67 @@ class VersionModel extends PageModel
 
     }
         
+    /**
+     * saveVersion
+     *
+     * @param  array $id
+     * 
+     * @return array boolean
+     */
+    public function saveVersion($id)
+    {
+        $this->doc = new DocBuilder;
+        $path = $this->getPhpPath($id);
+        if (isset($id)) {
+        	$zippedVersionPath = 'data/' . $this->getSlug($id) . '_' . $this->doc->datetimeNow() . '.zip';
+        } else {
+            die;
+        }
+        
+        $getAssets = $this->getAssets($id);
+
+        if (!empty($getAssets)) {
+            $zipData = new \ZipArchive();
+            $zipData->open($zippedVersionPath, \ZipArchive::CREATE);
+            foreach ($getAssets as $file) {
+                $zipData->addFile($file, $file);
+            }
+            $zipData->close();
+            return true;
+        } else {
+            return false;
+        }
+    }   
+
+    /**
+     * getAssets
+     *
+     * @param  array $id
+     * 
+     * @return array boolean
+     */
+    public function getAssets($id)
+    {
+        $data = $this->getPageData($id);
+        $php = $this->getJsonPath($id);
+        $json = $this->getPhpPath($id);
+        $assets = [];
+        
+        foreach ($data as $fields) {
+            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { array_push($assets, 'data/' . $fields['v1']); }
+        }
+        
+        array_push($assets, $php);
+        array_push($assets, $json);
+        
+        
+        if (!empty($assets)) {
+            return $assets;
+        } else {
+            return false;
+        }
+    }   
+    
     /**
      * deleteVersion
      *
