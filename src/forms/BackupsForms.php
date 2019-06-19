@@ -64,18 +64,17 @@ class BackupsForms extends MakeupForm
     
     public function delete()
     {    
-        error_log($_POST['backup'],0);
         if (isset($_POST['backup'])) {
             ($this->backupsModel->deleteBackup($_POST['backup'])) 
-            ? $this->msg->success(T::trans('Version removed successfully.'),BASE_URL.'admin/backup')
+            ? $this->msg->success(T::trans('Backup removed successfully.'),BASE_URL.'admin/backup')
             : $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin/backup');
         }
     }
     
     public function export()
     {    
-        if (isset($_POST['version']) && isset($_SESSION['page_id'])) {
-            $filename = $_POST['version'];
+        if (isset($_POST['backup'])) {
+            $filename = $_POST['backup'];
             if (file_exists($filename)) {
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream');
@@ -87,9 +86,9 @@ class BackupsForms extends MakeupForm
                 readfile($filename);
                 exit;
             }
-            $this->msg->error(T::trans('Invalid procedure! File not found.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
+            $this->msg->error(T::trans('Invalid procedure! File not found.'),BASE_URL.'admin/backup');
         } else {
-            $this->msg->error(T::trans('Invalid procedure! File not set.'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
+            $this->msg->error(T::trans('Invalid procedure! File not set.'),BASE_URL.'admin/backup');
         }
     }
     
@@ -128,7 +127,7 @@ class BackupsForms extends MakeupForm
     public function save()
     {
         if ($this->backupsModel->createBackup()) {
-			$this->msg->success(T::trans('Version saved successfully.'),BASE_URL.'admin/backup');
+			$this->msg->success(T::trans('Backup saved successfully.'),BASE_URL.'admin/backup');
         } else {
 			$this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin/backup');
         }
