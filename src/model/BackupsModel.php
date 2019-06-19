@@ -110,7 +110,10 @@ class BackupsModel extends PageModel
         
         foreach($pages as $page) {
             ($this->versionModel->getAssets($page['pages']['id']) !== false) ? $asset = $this->versionModel->getAssets($page['pages']['id']) : $asset = '';
+            ($this->versionModel->getVersions($page['pages']['id']) !== false) ? $version = $this->versionModel->getVersions($page['pages']['id']) : $version = [];
+            
             foreach($asset as $a) { array_push($assets, $a); }
+            if(!empty($version))foreach($version as $ver) { array_push($assets, $ver['path']); }
         }
         
         if (!empty($assets)) {
