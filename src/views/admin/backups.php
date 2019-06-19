@@ -39,7 +39,7 @@
                         </select>
                       </div>
                       <?php if (!empty($backupsList)) : ?>
-                        <button type="button" form="rb" class="btn btn-primary mb-2 mr-2 text-light" data-toggle="modal" data-toggle="tooltip" data-placement="bottom" data-target="#confirmRestore" title="<?= $t->trans("Restore backup") ?>" title="<?= $t->trans("Restore backup") ?>">
+                        <button type="button" form="rb" class="btn btn-primary mb-2 mr-2 text-light" role="button" data-toggle="tooltip" data-placement="bottom" data-target="#confirmRestore" title="<?= $t->trans("Restore backup") ?>">
                           <i class="fa fa-window-restore" aria-hidden="true"></i>
                         </button>
                       <?php endif ?> 

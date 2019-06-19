@@ -178,5 +178,5 @@
         'Backup restored successfully.' => 'Backup ripristinato con successo.',
         'Backup data missing!' => 'Mancano i dati di backup!',
         'Backup saved successfully.' => 'Backup salvato con successo.',
-        ''
+        'Backup removed successfully.' => 'Backup rimosso con successo.',
     ], 'it_IT');   
