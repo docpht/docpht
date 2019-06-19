@@ -33,7 +33,7 @@ class BackupsForms extends MakeupForm
             ->addRule(Form::MIME_TYPE, 'Not an zip file.', ['application/zip', 'application/x-compressed', 'application/x-zip-compressed','multipart/x-zip'])
             ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 100 mb.', 100000 * 1024 /* size in Bytes */);
         
-        $form->addSubmit('submit', T::trans('Add'));
+        $form->addSubmit('submit', T::trans('Import'));
         
         
         $success = '';
