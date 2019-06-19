@@ -179,14 +179,14 @@ i.fa.fa-arrows-v.sort {
 }
 
 .alert-success {
-    color: #ffffff;
-    background-color: #21bf06;
+    color: #eee;
+    background-color: #353b48;
     border-color: #21bf06;
 }
 
 .alert-danger {
-    color: #ffffff;
-    background-color: #dc3545;
+    color: #eee;
+    background-color: #353b48;
     border-color: #dc3545;
 }
 
@@ -255,7 +255,6 @@ i.fa.fa-arrows-v.sort {
     color: #f7f7f7;
     border-radius: 0 0 0 20px;
     text-decoration: none;
-    background-color: #13161a;
 }
 
 .close {
