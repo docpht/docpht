@@ -27,6 +27,7 @@
     $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
     echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
     ?>
+    <link rel="stylesheet" href="public/assets/css/switch.css">
     <title><?= $t->trans('Login'); ?></title>
 </head>
 <body>

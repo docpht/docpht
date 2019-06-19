@@ -1,0 +1,135 @@
+/* Original version: https://bootsnipp.com/snippets/xrnNM */
+
+.switch-box{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	max-width: 50px;
+	min-width: 50px;
+	height: 50px;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+
+.toggle-switch{
+  width: 100px;
+  height: 45px;
+  position: relative;
+}
+
+input[type="checkbox"].switch-theme{
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  outline: 0;
+  z-index: 1;
+}
+
+svg.checkbox .outer-ring{
+  stroke-dasharray: 375;
+  stroke-dashoffset: 375;
+  -webkit-animation: resetRing 1s ease-in-out forwards;
+          animation: resetRing 1s ease-in-out forwards;
+}
+
+input[type="checkbox"].switch-theme:checked + svg.checkbox .outer-ring{
+  -webkit-animation: animateRing 1s ease-in-out forwards;
+          animation: animateRing 1s ease-in-out forwards;
+          
+}
+
+input[type="checkbox"].switch-theme:checked + svg.checkbox .is_checked{
+  opacity: 1;
+  -webkit-transform: translateX(0) rotate(0deg);
+          transform: translateX(0) rotate(0deg);
+}
+
+input[type="checkbox"].switch-theme:checked + svg.checkbox .is_unchecked{
+  opacity: 0;
+  -webkit-transform: translateX(-200%) rotate(180deg);
+          transform: translateX(-200%) rotate(180deg);
+}
+
+
+svg.checkbox{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+svg.checkbox .is_checked{
+  -webkit-transition-duration: 5s;
+  -webkit-transition-delay: 4s;
+  transition-duration: 5s;
+  transition-delay: 4s;
+  opacity: 0;
+  fill: yellow;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: translateX(200%) rotate(45deg);
+          transform: translateX(200%) rotate(45deg);
+  -webkit-transition: all 2s;
+  transition: all 2s;
+}
+
+svg.checkbox .is_unchecked{
+  -webkit-transition-duration: 5s;
+  -webkit-transition-delay: 4s;
+  transition-duration: 5s;
+  transition-delay: 4s;
+  opacity: 1;
+  fill: #fff;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: translateX(0) rotate(0deg);
+          transform: translateX(0) rotate(0deg);
+  -webkit-transition: all 2s;
+  transition: all 2s;
+}
+
+@-webkit-keyframes animateRing{
+  to{
+    stroke-dashoffset: 0;
+    stroke: #b0aa28;
+  }
+}
+
+@keyframes animateRing{
+  to{
+    stroke-dashoffset: 0;
+    stroke: #b0aa28;
+  }
+}
+
+@-webkit-keyframes resetRing{
+  to{
+    stroke-dashoffset: 0;
+    stroke: #dddddd;
+  }
+}
+
+@keyframes resetRing{
+  to{
+    stroke-dashoffset: 0;
+    stroke: #dddddd;
+  }
+}
