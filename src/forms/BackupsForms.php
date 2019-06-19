@@ -93,7 +93,7 @@ class BackupsForms extends MakeupForm
     public function restoreMerge()
     {
         $zipData = new \ZipArchive();
-        if (isset($_POST['backup'])) {
+        if (!empty($_POST['backup'])) {
             $zip_file = $_POST['backup'];
             if ($zipData->open($zip_file) === TRUE) {
                 $oldIds = $this->pageModel->getAllFromKey('id');
@@ -124,7 +124,7 @@ class BackupsForms extends MakeupForm
     public function clearRestore()
     {
         $zipData = new \ZipArchive();
-        if (isset($_POST['backup'])) {
+        if (!empty($_POST['backup'])) {
             $zip_file = $_POST['backup'];
             if ($zipData->open($zip_file) === TRUE) {
                 $this->recursiveRemoveDirectory('data');
