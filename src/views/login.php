@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="public/assets/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="public/assets/css/bootstrap.min.css">
     <?php
-    $cssFile = (!isset($_COOKIE["switchTheme"])) ? 'light' : $_COOKIE["switchTheme"] ;
+    $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
     echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
     ?>
     <title><?= $t->trans('Login'); ?></title>

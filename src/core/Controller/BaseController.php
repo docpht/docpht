@@ -97,10 +97,10 @@ class BaseController
 
 	public function switchTheme()
     {
-		if (isset($_COOKIE["switchTheme"]) && $_COOKIE["switchTheme"] == 'dark') {
-			setcookie("switchTheme", "light");			
+		if (isset($_COOKIE["theme"]) && $_COOKIE["theme"] == 'dark') {
+			setcookie("theme", "light");			
 		} else {
-			setcookie("switchTheme", "dark");
+			setcookie("theme", "dark");
 		}
         header('Location:'.$_SERVER['HTTP_REFERER']);
         exit;

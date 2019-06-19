@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="public/assets/css/jquery-ui.min.css">
     <!-- Custom CSS -->
     <?php
-    $cssFile = (!isset($_COOKIE["switchTheme"])) ? 'light' : $_COOKIE["switchTheme"] ;
+    $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
     echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
     ?>
     <!-- <link rel="stylesheet" href="public/assets/css/doc-pht.css"> -->

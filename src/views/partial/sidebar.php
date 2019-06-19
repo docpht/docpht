@@ -133,7 +133,7 @@
             ?>
             </ul>
             <?php 
-            $cssFile = (!isset($_COOKIE["switchTheme"])) ? 'light' : $_COOKIE["switchTheme"] ;
+            $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
             ?>
             <?php if($cssFile == 'dark') : ?>
             <div class="text-center">
