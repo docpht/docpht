@@ -283,6 +283,28 @@ class DocBuilder
     }
     
     /**
+     * uploadBackup
+     *
+     * @param  string $file
+     *
+     * @return resource
+     */
+    public function uploadBackup($file)
+    {
+        if (isset($file) && $file->isOk()) {
+            $file_contents = $file->getContents();
+            $file_name = $file->getName();
+            $this->setFolderPermissions('data');
+            $file_path = 'data/' . $file_name;
+            file_put_contents($file_path, $file_contents);
+            return $file_path;
+        } else {
+            return '';
+        }
+        
+    }
+    
+    /**
      * checkImportVersion
      *
      * @param  string $file

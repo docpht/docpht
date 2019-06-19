@@ -22,18 +22,15 @@ class BackupsForms extends MakeupForm
 
     public function import()
     {
-        $id = $_SESSION['page_id'];
-        $aPath = $this->versionModel->getPhpPath($id);
-
         $form = new Form;
         $form->onRender[] = [$this, 'bootstrap4'];
         
-        $form->addGroup(T::trans('Import a Version Archive'));
+        $form->addGroup(T::trans('Import a Backup Archive'));
         
-        $form->addUpload('version_zip', T::trans('Version Archive:'))
+        $form->addUpload('backup_zip', T::trans('Backup Archive:'))
             ->setRequired(true)
             ->addRule(Form::MIME_TYPE, 'Not an zip file.', ['application/zip', 'application/x-compressed', 'application/x-zip-compressed','multipart/x-zip'])
-            ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 20 mb.', 20000 * 1024 /* size in Bytes */);
+            ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 100 mb.', 100000 * 1024 /* size in Bytes */);
         
         $form->addSubmit('submit', T::trans('Add'));
         
@@ -42,19 +39,19 @@ class BackupsForms extends MakeupForm
         
         if ($form->isSuccess()) {
             $values = $form->getValues();
-            $file = $values['version_zip'];
-            $file_path = $this->doc->uploadNoUniqid($file,$aPath);	
+            $file = $values['backup_zip'];
+            $file_path = $this->doc->uploadBackup($file);	
             
-            if ($this->doc->checkImportVersion($file_path,$aPath) === false) {
+            if ($this->backupsModel->checkBackups($file_path) === false) {
                 (file_exists($file_path)) ? unlink($file_path) : NULL;
-                $this->msg->error(T::trans('Version import failed, didn\'t match current page.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                $this->msg->error(T::trans('Backup import failed, missing data files.'),BASE_URL.'admin/backup');
                 die;
             }
             
             if ($file_path != '') {
-                $this->msg->success(T::trans('Version imported successfully.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                $this->msg->success(T::trans('Backup imported successfully.'),BASE_URL.'admin/backup');
             } else {
-                $this->msg->error(T::trans('Version import failed.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                $this->msg->error(T::trans('Backup import failed.'),BASE_URL.'admin/backup');
             }
         } 
         
