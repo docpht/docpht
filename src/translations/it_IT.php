@@ -131,7 +131,7 @@
         'Update the current page' => 'Aggiorna la pagina corrente',
         'Delete the current page' => 'Cancella la pagina corrente',
         'Type the keywords here' => 'Digita le parole chiavi qui',
-        'Search' => 'Ricerca',
+        'Search' => 'Cerca',
         'no match found for ' => 'nessuna corrispondenza trovata per ',
         'Matches found' => 'Corrispondenze trovate',
         'similarity' => 'somiglianza',
