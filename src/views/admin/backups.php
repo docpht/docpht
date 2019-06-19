@@ -49,21 +49,21 @@
                       <div class="d-flex justify-content-center">
                           <?php if (!empty($backupsList)) : ?>
                             <form id="db" action="admin/delete-backup" method="post">
-                                <input type="hidden" id="dbhidden" name="version">
+                                <input type="hidden" id="dbhidden" name="backup">
                                 <button type="submit" form="db" class="btn btn-danger mr-2 text-light" role="button" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Remove backup") ?>" title="<?= $t->trans("Remove backup") ?>">
                                     <i class="fa fa-remove" aria-hidden="true"></i>
                                 </button>
                             </form>
                           <?php endif ?>
                             <form id="ib" action="admin/import-backup" method="post">
-                                <input type="hidden" id="ibhidden" name="version">
+                                <input type="hidden" id="ibhidden" name="backup">
                                 <button type="submit" form="ib" class="btn btn-secondary mb-2 mr-2" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Import a backup") ?>" title="<?= $t->trans("Import a backup") ?>">
                                 <i class="fa fa-upload" aria-hidden="true"></i>
                                 </button>
                             </form>
                           <?php if (!empty($backupsList)) : ?>
                             <form id="eb" action="admin/export-backup" method="post">
-                                <input type="hidden" id="ebhidden" name="version">
+                                <input type="hidden" id="ebhidden" name="backup">
                                 <button type="submit" form="eb" class="btn btn-secondary mr-2" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Export a backup") ?>" title="<?= $t->trans("Export a backup") ?>">
                                 <i class="fa fa-download" aria-hidden="true"></i>
                                 </button>

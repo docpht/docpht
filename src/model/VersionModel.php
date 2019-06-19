@@ -49,7 +49,7 @@ class VersionModel extends PageModel
      *
      * @param  string $id
      *
-     * @return array
+     * @return array boolean
      */
     public function getVersions($id)
     {

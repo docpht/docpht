@@ -64,10 +64,11 @@ class BackupsForms extends MakeupForm
     
     public function delete()
     {    
-        if (isset($_POST['version']) && isset($_SESSION['page_id'])) {
-            ($this->versionModel->deleteVersion($_POST['version'])) 
-            ? header('Location:'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id'])) 
-            : $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'page/'.$this->pageModel->getTopic($_SESSION['page_id']).'/'.$this->pageModel->getFilename($_SESSION['page_id']));
+        error_log($_POST['backup'],0);
+        if (isset($_POST['backup'])) {
+            ($this->backupsModel->deleteBackup($_POST['backup'])) 
+            ? $this->msg->success(T::trans('Version removed successfully.'),BASE_URL.'admin/backup')
+            : $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin/backup');
         }
     }
     

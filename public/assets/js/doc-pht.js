@@ -275,16 +275,16 @@ if (document.getElementById('rvselect')) {
 
 }
 
-if (document.getElementById('rbselect')) {
+if (document.getElementById('rbbackup')) {
     
-    document.getElementById('ibhidden').value = document.getElementById('rbselect').value;
-    document.getElementById('ebhidden').value = document.getElementById('rbselect').value;  
-    document.getElementById('dbhidden').value = document.getElementById('rbselect').value;  
+    document.getElementById('ibhidden').value = document.getElementById('rbbackup').value;
+    document.getElementById('ebhidden').value = document.getElementById('rbbackup').value;  
+    document.getElementById('dbhidden').value = document.getElementById('rbbackup').value;  
     
-    document.getElementById('rbselect').onchange = function() {
-        document.getElementById('ibhidden').value = document.getElementById('rbselect').value;
-        document.getElementById('ebhidden').value = document.getElementById('rbselect').value;    
-        document.getElementById('dbhidden').value = document.getElementById('rbselect').value;    
+    document.getElementById('rbbackup').onchange = function() {
+        document.getElementById('ibhidden').value = document.getElementById('rbbackup').value;
+        document.getElementById('ebhidden').value = document.getElementById('rbbackup').value;    
+        document.getElementById('dbhidden').value = document.getElementById('rbbackup').value;    
     };  
 
 }
