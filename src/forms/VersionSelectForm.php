@@ -79,7 +79,7 @@ class VersionSelectForm extends MakeupForm
             } else {
                 $versionSave = '
                   <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.T::trans("Save version").'">
-                      <a href="page/save-version" class="btn btn-outline-dark btn-sm" role="button"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                      <a href="page/save-version" class="btn btn-outline-secondary btn-sm" role="button"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
                   </li>';
                   
                 return ['value' => $versionSave, 'state' => 0];    
