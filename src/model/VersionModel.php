@@ -146,7 +146,6 @@ class VersionModel extends PageModel
         array_push($assets, $php);
         array_push($assets, $json);
         
-        
         if (!empty($assets)) {
             return $assets;
         } else {

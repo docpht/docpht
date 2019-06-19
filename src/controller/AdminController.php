@@ -62,6 +62,42 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function backup()
+	{
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Backups')]);
+		$this->view->show('admin/backups.php');
+		$this->view->show('partial/footer.php');
+	}
+
+	public function saveBackup()
+	{
+		$form = $this->backupsForms->save();
+	}
+
+	public function restoreBackup()
+	{
+		$form = $this->backupsForms->restore();
+	}
+
+	public function importBackup()
+	{
+		$form = $this->backupsForms->import();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Import a backup')]);
+		$this->view->show('admin/import_backup.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
+	public function exportBackup()
+	{
+		$form = $this->backupsForms->export();
+	}
+
+	public function deleteBackup()
+	{
+		$form = $this->backupsForms->delete();
+	}
+
 	public function translations()
 	{
 		$form = $this->translationsForm->create();

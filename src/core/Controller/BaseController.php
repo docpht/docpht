@@ -21,6 +21,7 @@ use DocPHT\Model\AdminModel;
 use Instant\Core\Views\View;
 use DocPHT\Core\Translator\T;
 use DocPHT\Form\VersionForms;
+use DocPHT\Form\BackupsForms;
 use DocPHT\Form\AddSectionForm;
 use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\DeletePageForm;
@@ -54,6 +55,7 @@ class BaseController
 	protected $sortSectionForm;
 	protected $msg;
 	protected $versionForms;
+	protected $backupsForms;
 	protected $version;
 	protected $search;
 	protected $publishPageForm;
@@ -77,6 +79,7 @@ class BaseController
 		$this->sortSectionForm = new SortSectionForm();
 		$this->msg = new FlashMessages();
 		$this->versionForms = new VersionForms();
+		$this->backupsForms = new BackupsForms();
 		$this->version = new VersionSelectForm;
 		$this->search = new SearchForm();
 		$this->publishPageForm = new PublishPageForm();

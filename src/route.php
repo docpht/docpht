@@ -42,6 +42,24 @@ if (isset($_SESSION['Active'])) {
 
             // /admin/create-home
             $this->get_post('/create-home', 'DocPHT\Controller\AdminController@createHome');
+            
+            // /admin/backup
+            $this->get_post('/backup', 'DocPHT\Controller\AdminController@backup');
+            
+            // /admin/save-backup
+            $this->get_post('/save-backup', 'DocPHT\Controller\AdminController@saveBackup');
+            
+            // /admin/export-backup
+            $this->get_post('/export-backup', 'DocPHT\Controller\AdminController@exportBackup');
+            
+            // /admin/delete-backup
+            $this->get_post('/delete-backup', 'DocPHT\Controller\AdminController@deleteBackup');
+            
+            // /admin/import-backup
+            $this->get_post('/import-backup', 'DocPHT\Controller\AdminController@importBackup');
+            
+            // /admin/restore-backup
+            $this->get_post('/restore-backup', 'DocPHT\Controller\AdminController@restoreBackup');
         }
         
         // /admin/translations
