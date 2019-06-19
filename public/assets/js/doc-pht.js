@@ -274,3 +274,17 @@ if (document.getElementById('rvselect')) {
     };  
 
 }
+
+if (document.getElementById('rbselect')) {
+    
+    document.getElementById('ibhidden').value = document.getElementById('rbselect').value;
+    document.getElementById('ebhidden').value = document.getElementById('rbselect').value;  
+    document.getElementById('dbhidden').value = document.getElementById('rbselect').value;  
+    
+    document.getElementById('rbselect').onchange = function() {
+        document.getElementById('ibhidden').value = document.getElementById('rbselect').value;
+        document.getElementById('ebhidden').value = document.getElementById('rbselect').value;    
+        document.getElementById('dbhidden').value = document.getElementById('rbselect').value;    
+    };  
+
+}
