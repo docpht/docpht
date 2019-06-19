@@ -16,8 +16,6 @@
 
             <?php $backupsList = $this->backupsModel->getBackups(); ?>
             
-
-                <div style="margin-top: 100px;">
                   <div class="card bg-light text-dark mb-4 mt-4">
                     <div class="card-body text-center">
                     <p class="card-text"><?= $t->trans("Backup management") ?></p>
@@ -87,7 +85,6 @@
                         </div>
                     </div>
                   </div>
-                </div>
 
         <?php endif ?> 
         
