@@ -132,12 +132,24 @@
 
             ?>
             </ul>
-
+            <?php 
+            $cssFile = (!isset($_COOKIE["switchTheme"])) ? 'light' : $_COOKIE["switchTheme"] ;
+            ?>
+            <?php if($cssFile == 'dark') : ?>
             <div class="text-center">
-                <a href="switch-theme" class="btn btn-success btn-sm" role="button">
-                    <i class="fa fa-toggle-on" aria-hidden="true"></i>
+                <a href="switch-theme" class="btn btn-outline-warning btn-sm" role="button">
+                    <i class="fa fa-sun-o" aria-hidden="true"></i>
                 </a>
             </div>
+            <?php else : ?>
+            <div class="text-center">
+                <a href="switch-theme" class="btn btn-secondary btn-sm" role="button">
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <?php endif ?>
+            
 
         </nav>
 
