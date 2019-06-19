@@ -43,13 +43,13 @@ input[type="checkbox"].switch-theme{
 svg.checkbox .outer-ring{
   stroke-dasharray: 375;
   stroke-dashoffset: 375;
-  -webkit-animation: resetRing 1s ease-in-out forwards;
-          animation: resetRing 1s ease-in-out forwards;
+  -webkit-animation: resetRing 0s ease-in-out forwards;
+          animation: resetRing 0s ease-in-out forwards;
 }
 
 input[type="checkbox"].switch-theme:checked + svg.checkbox .outer-ring{
-  -webkit-animation: animateRing 1s ease-in-out forwards;
-          animation: animateRing 1s ease-in-out forwards;
+  -webkit-animation: animateRing 0s ease-in-out forwards;
+          animation: animateRing 0s ease-in-out forwards;
           
 }
 
@@ -77,33 +77,21 @@ svg.checkbox{
 }
 
 svg.checkbox .is_checked{
-  -webkit-transition-duration: 5s;
-  -webkit-transition-delay: 4s;
-  transition-duration: 5s;
-  transition-delay: 4s;
   opacity: 0;
   fill: yellow;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
   -webkit-transform: translateX(200%) rotate(45deg);
           transform: translateX(200%) rotate(45deg);
-  -webkit-transition: all 2s;
-  transition: all 2s;
 }
 
 svg.checkbox .is_unchecked{
-  -webkit-transition-duration: 5s;
-  -webkit-transition-delay: 4s;
-  transition-duration: 5s;
-  transition-delay: 4s;
   opacity: 1;
   fill: #fff;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
   -webkit-transform: translateX(0) rotate(0deg);
           transform: translateX(0) rotate(0deg);
-  -webkit-transition: all 2s;
-  transition: all 2s;
 }
 
 @-webkit-keyframes animateRing{
