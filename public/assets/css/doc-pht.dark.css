@@ -25,7 +25,11 @@ a:focus {
 }
 
 .link {
-    color: #777;
+    color: #eee;
+}
+
+.link:hover {
+    color: #bbb;
 }
 
 textarea {

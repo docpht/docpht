@@ -222,7 +222,7 @@ class DocPHT {
         $client = new Client(new Ruleset());
         $title = $client->shortnameToImage($title);
         $setTarget = ($target) ? 'target="_blank"' : '' ;
-        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><span class="spinner-grow spinner-grow-sm"></span><a href="'.$url.'" '.$setTarget.' class="btn" role="button">'.$title.'</a>'.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
+        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><span class="spinner-grow spinner-grow-sm text-secondary"></span><a href="'.$url.'" '.$setTarget.' class="link" role="button">'.$title.'</a>'.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
     }
 
     /**
