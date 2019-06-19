@@ -52,6 +52,26 @@ class BackupsModel extends PageModel
     }
     
     /**
+     * getZipList
+     *
+     * @param  string $file
+     *
+     * @return array boolean
+     */
+    public function getZipList($file)
+    {
+        $zip = new \ZipArchive(); 
+        if ($zip->open($file) == TRUE) {
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $filename[] = $zip->getNameIndex($i);
+            }
+            return $filename;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * getBackups
      *
      * @param  string $id

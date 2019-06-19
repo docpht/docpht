@@ -91,35 +91,23 @@ class BackupsForms extends MakeupForm
     
     public function restore()
     {
-        if (isset($_POST['version']) && isset($_SESSION['page_id'])) {
-            $id = $_SESSION['page_id'];
-            $versionZip = $_POST['version'];
-            $aPath = $this->pageModel->getPhpPath($id);
-            $jsonPath = $this->pageModel->getJsonPath($id);
-            
-            $jsonArray = $this->pageModel->getPageData($id);
-            
-            foreach ($jsonArray as $fields) {
-                if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { (file_exists('data/' . $fields['v1'])) ? unlink('data/' . $fields['v1']) : NULL; }
-            }
-        
-        
-            unlink($aPath);
-            unlink($jsonPath);
-
-            $zipData = new \ZipArchive();
-        
-            if ($zipData->open($versionZip) === TRUE) {
+        $zipData = new \ZipArchive();
+        if (isset($_POST['backup'])) {
+            $zip_file = $_POST['backup'];
+            if ($zipData->open($zip_file) === TRUE) {
+                $files = $this->backupsModel->getZipList($zip_file);
+                foreach ($files as $file) { if(file_exists($file))unlink($file); }
                 $zipData->extractTo('.');
                 $zipData->close();
-                $this->msg->success(T::trans('Version restored successfully.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
             } else {
-                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
             }
         } else {
-            $this->msg->error(T::trans('Version data missing!'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
         }
     }
+    
     
     public function save()
     {
