@@ -182,6 +182,10 @@ i.fa.fa-arrows-v.sort {
     color: #21bf06
 }
 
+.alert {
+    border: 2px solid transparent;
+}
+
 .alert-success {
     color: #eee;
     background-color: #353b48;
