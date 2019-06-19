@@ -281,6 +281,25 @@ class PageModel
     }   
     
     /**
+     * getAllFromDataKey
+     * 
+     * @param string $key
+     * 
+     * @return array bool
+     */
+    public function getAllFromDataKey($data, $key)
+    {
+        if (!is_null($data) && !empty($data)) {
+            foreach($data as $value){
+                $array[] = $value['pages'][$key];
+            } 
+            return $array;
+        } else {
+            return false;
+        }
+    }   
+    
+    /**
      * getAllPublishedFromKey
      * 
      * @param string $key

@@ -16,6 +16,7 @@ namespace DocPHT\Form;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use DocPHT\Core\Translator\T;
+use DocPHT\Model\PageModel;
 
 class BackupsForms extends MakeupForm
 {
@@ -95,10 +96,22 @@ class BackupsForms extends MakeupForm
         if (isset($_POST['backup'])) {
             $zip_file = $_POST['backup'];
             if ($zipData->open($zip_file) === TRUE) {
+                $oldIds = $this->pageModel->getAllFromKey('id');
+                $new = json_decode(file_get_contents("zip://".$zip_file."#data/pages.json"),true);
+                $newIds = $this->pageModel->getAllFromDataKey($new, 'id');
+                
+                foreach($newIds as $id) {
+                    $pos = array_search($id, $oldIds);
+                    $this->pageModel->remove($id);
+                }
+                
+                $join = array_merge($this->pageModel->connect(), $new); 
+
                 $files = $this->backupsModel->getZipList($zip_file);
                 foreach ($files as $file) { if(file_exists($file))unlink($file); }
                 $zipData->extractTo('.');
                 $zipData->close();
+                $this->pageModel->disconnect(PageModel::DB, $join);
                 $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
             } else {
                 $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
