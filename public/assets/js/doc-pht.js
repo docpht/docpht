@@ -280,11 +280,15 @@ if (document.getElementById('rbbackup')) {
     document.getElementById('ibhidden').value = document.getElementById('rbbackup').value;
     document.getElementById('ebhidden').value = document.getElementById('rbbackup').value;  
     document.getElementById('dbhidden').value = document.getElementById('rbbackup').value;  
+    document.getElementById('rmbhidden').value = document.getElementById('rbbackup').value;  
+    document.getElementById('crbhidden').value = document.getElementById('rbbackup').value;  
     
     document.getElementById('rbbackup').onchange = function() {
         document.getElementById('ibhidden').value = document.getElementById('rbbackup').value;
         document.getElementById('ebhidden').value = document.getElementById('rbbackup').value;    
         document.getElementById('dbhidden').value = document.getElementById('rbbackup').value;    
+        document.getElementById('rmbhidden').value = document.getElementById('rbbackup').value;    
+        document.getElementById('crbhidden').value = document.getElementById('rbbackup').value;    
     };  
 
 }

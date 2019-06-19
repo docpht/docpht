@@ -89,7 +89,7 @@ class BackupsForms extends MakeupForm
         }
     }
     
-    public function restore()
+    public function restoreMerge()
     {
         $zipData = new \ZipArchive();
         if (isset($_POST['backup'])) {
@@ -106,6 +106,38 @@ class BackupsForms extends MakeupForm
         } else {
             $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
         }
+    }
+    
+    public function clearRestore()
+    {
+        $zipData = new \ZipArchive();
+        if (isset($_POST['backup'])) {
+            $zip_file = $_POST['backup'];
+            if ($zipData->open($zip_file) === TRUE) {
+                $this->recursiveRemoveDirectory('data');
+                $this->recursiveRemoveDirectory('pages');
+                $zipData->extractTo('.');
+                $zipData->close();
+                $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
+            } else {
+                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+            }
+        } else {
+            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
+        }
+    }
+    
+    function recursiveRemoveDirectory($directory)
+    {
+        foreach(glob("{$directory}/*") as $file)
+        {
+            if(is_dir($file)) { 
+                $this->recursiveRemoveDirectory($file);
+            } else {
+                if(strpos($file, 'data/DocPHT_Backup_') === false)unlink($file);
+            }
+        }
+        if($directory !== 'data' && $directory !== 'pages')rmdir($directory);
     }
     
     

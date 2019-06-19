@@ -74,9 +74,14 @@ class AdminController extends BaseController
 		$form = $this->backupsForms->save();
 	}
 
-	public function restoreBackup()
+	public function mergeRestoreBackup()
 	{
-		$form = $this->backupsForms->restore();
+		$form = $this->backupsForms->restoreMerge();
+	}
+
+	public function clearRestoreBackup()
+	{
+		$form = $this->backupsForms->clearRestore();
 	}
 
 	public function importBackup()
