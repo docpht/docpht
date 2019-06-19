@@ -47,6 +47,16 @@ textarea {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.50);
 }
 
+.dropdown-item {
+    color: #929292!important;
+    background-color: #262b33
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    text-decoration: none;
+    background-color: #191f27;
+}
+
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
