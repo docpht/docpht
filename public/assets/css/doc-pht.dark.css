@@ -417,11 +417,12 @@ a.github:hover {
 }
 
 blockquote {
-    background: rgb(248, 248, 248);
-    border:2px solid rgba(170,205,78,.5);
+    background: transparent;
+    border: 2px solid rgba(170,205,78,.5);
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
+    color: #fff;
     padding: 10px;
     quotes: "\201C""\201D""\2018""\2019";
 }
