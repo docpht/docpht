@@ -140,6 +140,7 @@
                     </div>
                 </div>
 
+                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/backup" class="text-white">
@@ -155,6 +156,7 @@
                         </a>
                     </div>
                 </div>
+                <?php endif ?>
                 
             </div>
 
