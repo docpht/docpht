@@ -630,11 +630,11 @@ img.emojione {
 
 @keyframes blink {  
     20% { color: #dc3545; }
-    100% { color: #eee; }
+    100% { color: transparent; }
   }
   @-webkit-keyframes blink {
     20% { color: #dc3545; }
-    100% { color: #eee; }
+    100% { color: transparent; }
   }
 .blink {
     -webkit-animation: blink 1s linear infinite;
