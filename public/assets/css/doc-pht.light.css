@@ -627,3 +627,17 @@ img.emojione {
     width: 22px;
     height: auto;
 }
+
+@keyframes blink {  
+    20% { color: #dc3545; }
+    100% { color: #eee; }
+  }
+  @-webkit-keyframes blink {
+    20% { color: #dc3545; }
+    100% { color: #eee; }
+  }
+.blink {
+    -webkit-animation: blink 1s linear infinite;
+    -moz-animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite;
+} 

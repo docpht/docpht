@@ -605,8 +605,8 @@ class PageModel
         } else {
             $statusPage = [
                 'page' => 'Draft',
-                'btn' => 'btn-outline-success',
-                'icon' => 'fa-toggle-off'
+                'btn' => 'btn-outline-danger',
+                'icon' => 'fa-toggle-off blink'
             ];
         }
 
