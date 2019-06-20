@@ -122,7 +122,8 @@ class PageModel
                     'filename' => $filename,
                     'phppath' => $phpPath,
                     'jsonpath' => $jsonPath,
-                    'published' => 0
+                    'published' => 0,
+                    'home' => 0
             ]);
             
             

@@ -54,7 +54,7 @@ class HomePageModel extends PageModel
 
         foreach ($data as $key => $value) {
             if ($value['pages']['id'] === $id) {
-                if($value['pages']['home'] == 0) {
+                if($value['pages']['home'] === 0) {
                     $home = 1;
                     $published = 0;
                 } else {
@@ -98,7 +98,7 @@ class HomePageModel extends PageModel
             }
         }
 
-        if ($home == 1) {
+        if ($home === 1) {
             $array = [
                 'page' => 'Home page',
                 'btn' => 'btn-warning',
