@@ -12,6 +12,8 @@
  */
 ?>
 
+        <?php include 'src/views/partial/sidebar_button.php'; ?>
+
         <?php if (isset($_SESSION['Active'])) : ?>
 
             <?php $backupsList = $this->backupsModel->getBackups(); ?>
