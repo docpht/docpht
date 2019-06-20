@@ -9,9 +9,6 @@
  * 
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- *
- *
  * 
  * connect()
  * connectPageData($path)
@@ -151,7 +148,8 @@ class PageModel
                   $array[] = $value['pages'];  
                 }
             } 
-            return $array;
+            sort($array);
+            return (isset($array)) ? $array : false;
         } else {
             return false;
         }
@@ -173,6 +171,7 @@ class PageModel
                   $array[] = $value['pages'];  
                 }
             } 
+            sort($array);
             return (isset($array)) ? $array : false;
         } else {
             return false;
@@ -190,7 +189,8 @@ class PageModel
         $array = $this->getAllFromKey('topic');
         if (is_array($array) && !is_null($array)) {
             $array = array_unique($array);
-            return $array;
+            sort($array);
+            return (isset($array)) ? $array : false;
         } else {
             return false;
         } 
@@ -207,7 +207,8 @@ class PageModel
         $array = $this->getAllPublishedFromKey('topic');
         if (is_array($array) && !is_null($array)) {
             $array = array_unique($array);
-            return $array;
+            sort($array);
+            return (isset($array)) ? $array : false;
         } else {
             return false;
         } 
