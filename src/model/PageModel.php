@@ -148,7 +148,9 @@ class PageModel
                   $array[] = $value['pages'];  
                 }
             } 
-            sort($array);
+            usort($array, function($a, $b) {
+                return $a['topic'] <=> $b['topic'];
+            });
             return (isset($array)) ? $array : false;
         } else {
             return false;
@@ -171,7 +173,9 @@ class PageModel
                   $array[] = $value['pages'];  
                 }
             } 
-            sort($array);
+            usort($array, function($a, $b) {
+                return $a['pages']['topic'] <=> $b['pages']['topic'];
+            });
             return (isset($array)) ? $array : false;
         } else {
             return false;
