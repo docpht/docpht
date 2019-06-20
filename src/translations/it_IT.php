@@ -180,4 +180,5 @@
         'Backup saved successfully.' => 'Backup salvato con successo.',
         'Backup removed successfully.' => 'Backup rimosso con successo.',
         'There are no backups' => 'Non ci sono backup',
+        'This page is unpublished' => 'Questa pagina non è pubblicata',
     ], 'it_IT');   

@@ -48,6 +48,10 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo $versions['value'];
 }
 
+if(isset($statusPage['alert'])) {
+    echo $statusPage['alert'];
+}
+
 (isset($_SESSION['Active'])) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
 if (!is_null($topics)) {
         if (!empty($topics)) {

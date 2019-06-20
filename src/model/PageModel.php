@@ -32,6 +32,7 @@
  */
 namespace DocPHT\Model;
 
+use DocPHT\Core\Translator\T;
 
 class PageModel
 {
@@ -606,7 +607,8 @@ class PageModel
             $statusPage = [
                 'page' => 'Draft',
                 'btn' => 'btn-outline-danger',
-                'icon' => 'fa-toggle-off blink'
+                'icon' => 'fa-toggle-off blink',
+                'alert' => '<div class="alert alert-secondary text-center" role="alert">'.T::trans('This page is unpublished').'</div>'
             ];
         }
 
