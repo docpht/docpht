@@ -31,7 +31,7 @@ class HomePageModel extends PageModel
         $data = $this->connect();
         if (!is_null($data)) {
             foreach($data as $value){
-                if($value['pages']['home'] == 1) {
+                if($value['pages']['published'] === 1 && $value['pages']['home'] == 1) {
                   $path = $value['pages']['phppath'];  
                   break;
                 }
@@ -54,16 +54,11 @@ class HomePageModel extends PageModel
 
         foreach ($data as $key => $value) {
             if ($value['pages']['id'] === $id) {
-                if($value['pages']['home'] === 0) {
+                if($value['pages']['published'] === 1 && $value['pages']['home'] === 0) {
                     $home = 1;
-                    $published = 0;
                 } else {
                     $home = 0;
-                    $published = $value['pages']['published'];
                 }
-            } else {
-                $home = 0;
-                $published = $value['pages']['published'];
             }
             $pages[$key] = array(
                 'pages' => [
@@ -73,7 +68,7 @@ class HomePageModel extends PageModel
                         'filename' => $value['pages']['filename'],
                         'phppath' => $value['pages']['phppath'],
                         'jsonpath' => $value['pages']['jsonpath'],
-                        'published' => $published,
+                        'published' => $value['pages']['published'],
                         'home' => $home
                 ]
             );
