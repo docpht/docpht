@@ -608,7 +608,7 @@ class PageModel
                 'page' => 'Draft',
                 'btn' => 'btn-outline-danger',
                 'icon' => 'fa-toggle-off blink',
-                'alert' => '<div class="alert alert-secondary text-center" role="alert">'.T::trans('This page is unpublished').'</div>'
+                'alert' => '<div class="alert alert-danger text-center" role="alert">'.T::trans('This page is unpublished').'</div>'
             ];
         }
 
