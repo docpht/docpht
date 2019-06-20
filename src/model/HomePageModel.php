@@ -100,13 +100,13 @@ class HomePageModel extends PageModel
 
         if ($home === 1) {
             $array = [
-                'page' => 'Home page',
+                'page' => 'Unset Home',
                 'btn' => 'btn-warning',
                 'icon' => 'fa-home'
             ];
         } else {
             $array = [
-                'page' => 'Normal page',
+                'page' => 'Set Home',
                 'btn' => 'btn-outline-warning',
                 'icon' => 'fa-home'
             ];
