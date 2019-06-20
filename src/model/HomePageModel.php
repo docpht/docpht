@@ -59,7 +59,7 @@ class HomePageModel extends PageModel
                     $published = 0;
                 } else {
                     $home = 0;
-                    $value['pages']['published'];
+                    $published = $value['pages']['published'];
                 }
             } else {
                 $home = 0;
