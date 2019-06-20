@@ -97,13 +97,15 @@ class HomePageModel extends PageModel
             $array = [
                 'page' => 'Unset Home',
                 'btn' => 'btn-warning',
-                'icon' => 'fa-home'
+                'icon' => 'fa-home',
+                'set' => false
             ];
         } else {
             $array = [
                 'page' => 'Set Home',
                 'btn' => 'btn-outline-warning',
-                'icon' => 'fa-home'
+                'icon' => 'fa-home',
+                'set' => true
             ];
         }
 
