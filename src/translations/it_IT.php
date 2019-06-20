@@ -131,7 +131,7 @@
         'Update the current page' => 'Aggiorna la pagina corrente',
         'Delete the current page' => 'Cancella la pagina corrente',
         'Type the keywords here' => 'Digita le parole chiavi qui',
-        'Search' => 'Ricerca',
+        'Search' => 'Cerca',
         'no match found for ' => 'nessuna corrispondenza trovata per ',
         'Matches found' => 'Corrispondenze trovate',
         'similarity' => 'somiglianza',
@@ -178,5 +178,5 @@
         'Backup restored successfully.' => 'Backup ripristinato con successo.',
         'Backup data missing!' => 'Mancano i dati di backup!',
         'Backup saved successfully.' => 'Backup salvato con successo.',
-        ''
+        'Backup removed successfully.' => 'Backup rimosso con successo.',
     ], 'it_IT');   
