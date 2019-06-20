@@ -179,4 +179,5 @@
         'Backup data missing!' => 'Mancano i dati di backup!',
         'Backup saved successfully.' => 'Backup salvato con successo.',
         'Backup removed successfully.' => 'Backup rimosso con successo.',
+        'There are no backups' => 'Non ci sono backup',
     ], 'it_IT');   

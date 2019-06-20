@@ -13,11 +13,8 @@
 ?>
 
 
-    <div class="mb-4">
-        <button type="button" id="sidebarCollapse" class="btn btn-secondary">
-            <i class="fa fa-align-left"></i>
-        </button>
-    </div>
+    <?php include 'src/views/partial/sidebar_button.php'; ?>
+
     <div class="card">
         <div class="card-body">
 
@@ -151,7 +148,7 @@
                                         <i class="fa fa-database fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
                                         <h6 class="text-white"><?= $t->trans('Backups'); ?></h6>
-                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Backups'); ?></small></p>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Backup management'); ?></small></p>
                                     </div>
                                 </div>
                             </div>

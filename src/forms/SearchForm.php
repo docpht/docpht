@@ -54,7 +54,7 @@ class SearchForm extends MakeupForm
 
                             $pages = $this->pageModel->connect();
                                 foreach ($pages as $val) {
-                                    if ($val['pages']['topic'] == $topic && $val['pages']['filename'] == $page && $val['pages']['published'] === 1) {
+                                    if ($val['pages']['topic'] == $topic && $val['pages']['filename'] == $page && $val['pages']['published'] === 1 or $val['pages']['published'] === 0 && isset($_SESSION['Active'])) {
                                     return '<div class="result-preview">
                                         <a href="page/'.$topic.'/'.$page.'">
                                         <h3 class="result-title">

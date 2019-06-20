@@ -128,24 +128,26 @@ class BackupsModel extends PageModel
         $this->doc = new DocBuilder;
         $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '.zip';
         
-        foreach($pages as $page) {
-            ($this->versionModel->getAssets($page['pages']['id']) !== false) ? $asset = $this->versionModel->getAssets($page['pages']['id']) : $asset = '';
-            ($this->versionModel->getVersions($page['pages']['id']) !== false) ? $version = $this->versionModel->getVersions($page['pages']['id']) : $version = [];
-            
-            foreach($asset as $a) { array_push($assets, $a); }
-            if(!empty($version))foreach($version as $ver) { array_push($assets, $ver['path']); }
-        }
-        
-        if (!empty($assets)) {
-            $zipData = new \ZipArchive();
-            $zipData->open($filename, \ZipArchive::CREATE);
-            foreach ($assets as $file) {
-                $zipData->addFile($file, $file);
+        if (is_array($pages) && count($pages) > 0) {
+            foreach($pages as $page) {
+                ($this->versionModel->getAssets($page['pages']['id']) !== false) ? $asset = $this->versionModel->getAssets($page['pages']['id']) : $asset = '';
+                ($this->versionModel->getVersions($page['pages']['id']) !== false) ? $version = $this->versionModel->getVersions($page['pages']['id']) : $version = [];
+                
+                foreach($asset as $a) { array_push($assets, $a); }
+                if(!empty($version))foreach($version as $ver) { array_push($assets, $ver['path']); }
             }
-            $zipData->close();
-            return true;
-        } else {
-            return false;
+            
+            if (!empty($assets)) {
+                $zipData = new \ZipArchive();
+                $zipData->open($filename, \ZipArchive::CREATE);
+                foreach ($assets as $file) {
+                    $zipData->addFile($file, $file);
+                }
+                $zipData->close();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     
