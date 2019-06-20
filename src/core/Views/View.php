@@ -17,6 +17,7 @@ namespace Instant\Core\Views;
 use DocPHT\Model\PageModel;
 use DocPHT\Model\AdminModel;
 use DocPHT\Model\BackupsModel;
+use DocPHT\Model\HomePageModel;
 use DocPHT\Form\VersionSelectForm;
 use Plasticbrain\FlashMessages\FlashMessages;
 use Symfony\Component\Translation\Translator;
@@ -26,6 +27,7 @@ class View
 {
 	protected $pageModel;
 	protected $backupsModel;
+	protected $homePageModel;
 	protected $version;
 	protected $msg;
 
@@ -33,6 +35,7 @@ class View
 	{
 		$this->pageModel = new PageModel();
 		$this->backupsModel = new BackupsModel();
+		$this->homePageModel = new HomePageModel();
 		$this->version = new VersionSelectForm();
 		$this->msg = new FlashMessages();
 	}

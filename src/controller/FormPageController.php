@@ -138,4 +138,9 @@ class FormPageController extends BaseController
 		$this->publishPageForm->publish();
 	}
 
+	public function setHome()
+	{
+		$this->homePageForm->set();
+	}
+
 }

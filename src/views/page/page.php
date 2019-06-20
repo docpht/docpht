@@ -8,10 +8,14 @@ if (isset($values)) {
 $versions = $this->version->create();
 
 $statusPage = $this->pageModel->getStatusPublished();
+$home = $this->homePageModel->getStatus($_SESSION['page_id']);
 
 if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo '<ul class="list-inline text-right mt-4">
             '.$versions['value'].'
+            <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($home['page']).'">
+                <a href="page/home-set" id="sk-publish" class="btn '.$home['btn'].' btn-sm" role="button"><i class="fa '.$home['icon'].'" aria-hidden="true"></i></a>
+            </li>
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($statusPage['page']).'">
                 <a href="page/publish" id="sk-publish" class="btn '.$statusPage['btn'].' btn-sm" role="button"><i class="fa '.$statusPage['icon'].'" aria-hidden="true"></i></a>
             </li>
@@ -26,6 +30,9 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
         </ul>';
 } else if (isset($_SESSION['Active']) && $versions['state'] > 0){
     echo '<ul class="list-inline text-right mt-4">
+            <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($home['page']).'">
+                <a href="page/home-set" id="sk-publish" class="btn '.$home['btn'].' btn-sm" role="button"><i class="fa '.$home['icon'].'" aria-hidden="true"></i></a>
+            </li>
             <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="'.$t->trans($statusPage['page']).'">
                 <a href="page/publish" id="sk-publish" class="btn '.$statusPage['btn'].' btn-sm" role="button"><i class="fa '.$statusPage['icon'].'" aria-hidden="true"></i></a>
             </li>

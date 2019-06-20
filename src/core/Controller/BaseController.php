@@ -16,8 +16,11 @@ namespace Instant\Core\Controller;
 
 use DocPHT\Form\SearchForm;
 use DocPHT\Model\PageModel;
-use DocPHT\Form\AddUserForm;
+use DocPHT\Model\HomePageModel;
+use DocPHT\Model\VersionModel;
+use DocPHT\Model\BackupsModel;
 use DocPHT\Model\AdminModel;
+use DocPHT\Form\AddUserForm;
 use Instant\Core\Views\View;
 use DocPHT\Core\Translator\T;
 use DocPHT\Form\VersionForms;
@@ -28,6 +31,7 @@ use DocPHT\Form\DeletePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\UpdatePageForm;
 use DocPHT\Form\PublishPageForm;
+use DocPHT\Form\HomePageForm;
 use DocPHT\Form\SortSectionForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\InsertSectionForm;
@@ -59,7 +63,11 @@ class BaseController
 	protected $version;
 	protected $search;
 	protected $publishPageForm;
+	protected $homePageForm;
 	protected $pageModel;
+	protected $homePageModel;
+	protected $backupsModel;
+	protected $versionModel;
 	
 	public function __construct()
 	{
@@ -69,7 +77,6 @@ class BaseController
 		$this->addUserForm = new AddUserForm();
 		$this->translationsForm = new TranslationsForm();
 		$this->createPageForm = new CreatePageForm();
-		$this->adminModel = new AdminModel();
 		$this->addSectionPageForm = new AddSectionForm();
 		$this->updatePageForm = new UpdatePageForm();
 		$this->deletePageForm = new DeletePageForm();
@@ -83,7 +90,12 @@ class BaseController
 		$this->version = new VersionSelectForm;
 		$this->search = new SearchForm();
 		$this->publishPageForm = new PublishPageForm();
+		$this->homePageForm = new HomePageForm();
+		$this->adminModel = new AdminModel();
 		$this->pageModel = new PageModel();
+		$this->homePageModel = new HomePageModel();
+		$this->backupsModel = new BackupsModel();
+		$this->versionModel = new VersionModel();
 	}
 
 	public function search()

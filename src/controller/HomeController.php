@@ -21,8 +21,16 @@ class HomeController extends BaseController
     
 	public function index()
 	{
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Doc PHT')]);
-		$this->view->show('home.php');
+	    $home_page = $this->homePageModel->get();
+	    
+		$this->view->show('partial/head.php', ['PageTitle' => TITLE]);
+        
+		if($home_page !== false) {
+		    $page = require_once($home_page);
+		    $this->view->show('page/page.php', ['values' => $values]);
+		} else {
+		    $this->view->show('home.php');
+		}
 		$this->view->show('partial/footer.php');
 	}
 
