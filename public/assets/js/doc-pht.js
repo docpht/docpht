@@ -41,7 +41,6 @@ $(document).ready(function () {
     
 $(document).ready(function () {
         var sidebar = getCookie('sidebar');
-        console.log(sidebar);
         if (sidebar === 'in') {
             $('#sidebar, #content').toggleClass('active');
             $('.collapse.in').toggleClass('in');
