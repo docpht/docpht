@@ -11,12 +11,18 @@
  * file that was distributed with this source code.
  * 
  * connect()
- * connectPageData($path)
+ * connectPageData($id)
  * create($topic, $filename)
+ * getPagesByTopic($topic)
+ * getPublishedPagesByTopic($topic)
+ * getUniqTopics()
+ * getUniqPublishedTopics()
  * getPhpPath($id)
  * getSlug($id)
  * getJsonPath($id)
  * getAllFromKey($key)
+ * getAllFromDataKey($data, $key)
+ * getAllPublishedFromKey($key)
  * getAllIndexed()
  * getId($path)
  * getTopic($id)
@@ -28,7 +34,10 @@
  * removePageData($id, $index)
  * insertPageData($id, $index, $before_or_after, $array)
  * remove($id)
- * disconnect($data)
+ * disconnect($path, $data)
+ * findKey($data, $search)
+ * hideBySlug($slug)
+ * getStatusPublished()
  */
 namespace DocPHT\Model;
 
@@ -42,7 +51,7 @@ class PageModel
     /**
      * connect
      *
-     *
+     * 
      * @return array
      */
     public function connect()
@@ -58,7 +67,8 @@ class PageModel
     /**
      * connectPageData
      *
-     *
+     * @param  string $id
+     * 
      * @return array
      */
     public function connectPageData($id)
@@ -272,7 +282,7 @@ class PageModel
      * 
      * @param string $key
      * 
-     * @return array bool
+     * @return array|bool
      */
     public function getAllFromKey($key)
     {
@@ -290,9 +300,10 @@ class PageModel
     /**
      * getAllFromDataKey
      * 
+     * @param array $data
      * @param string $key
      * 
-     * @return array bool
+     * @return array|bool
      */
     public function getAllFromDataKey($data, $key)
     {
@@ -311,7 +322,7 @@ class PageModel
      * 
      * @param string $key
      * 
-     * @return array bool
+     * @return array|bool
      */
     public function getAllPublishedFromKey($key)
     {
@@ -330,7 +341,7 @@ class PageModel
      * getAllIndexed
      * 
      * 
-     * @return array bool
+     * @return array|bool
      */
     public function getAllIndexed()
     {
@@ -413,7 +424,7 @@ class PageModel
      * @param  string $id
      * @param  array $data
      *
-     * @return array
+     * @return int|bool
      */
     public function putPageData($id, $data)
     {
@@ -428,7 +439,7 @@ class PageModel
      * @param  string $id
      * @param  array $array
      *
-     * @return array
+     * @return int|bool
      */
     public function addPageData($id, $array)
     {
@@ -451,7 +462,7 @@ class PageModel
      * @param  integer $index
      * @param  array $array
      *
-     * @return array
+     * @return int|bool
      */
     public function modifyPageData($id, $index, $array)
     {
@@ -473,7 +484,7 @@ class PageModel
      * @param  string $id
      * @param  integer $index
      *
-     * @return array
+     * @return int|bool
      */
     public function removePageData($id, $index)
     {
@@ -492,7 +503,7 @@ class PageModel
      * @param  string $before_or_after
      * @param  array $array
      *
-     * @return array
+     * @return int|bool
      */
     public function insertPageData($id, $index, $before_or_after, $array)
     {
@@ -515,7 +526,7 @@ class PageModel
      *
      * @param  string $id
      *
-     * @return string
+     * @return int|bool
      */
     public function remove($id)
     {
@@ -535,7 +546,7 @@ class PageModel
      * @param  string $path
      * @param  array $data
      *
-     * @return array
+     * @return int|bool
      */
     public function disconnect($path, $data)
     {
@@ -547,7 +558,7 @@ class PageModel
      *
      * @param  string $id
      *
-     * @return int bool
+     * @return int|bool
      */
     public function findKey($data, $search)
     {
