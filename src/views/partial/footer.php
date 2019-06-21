@@ -51,6 +51,8 @@
     <script src="public/assets/js/map.shortcut.key.js"></script>
     <!-- Main JavaScript for DOC-PHT -->
     <script src="public/assets/js/doc-pht.js"></script>
+    <!-- js-cookie -->
+    <script src="public/assets/js/jquery.cookie.js"></script>
     <!-- AnchorJS -->
     <script src="public/assets/js/anchor.min.js"></script>
     <script>
