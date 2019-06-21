@@ -111,10 +111,10 @@
             
             </ul>
             
-            
+            <!-- Not sure this should be on the release
             <ul class="list-unstyled CTAs text-center">
             <?php  
-            if (DOWNLOAD) {
+            /*if (DOWNLOAD) {
                echo '
                     <li>
                         <a href="'.DOWNLOAD.'" class="download">Download source</a>
@@ -129,9 +129,9 @@
                      </li>
                      ';
              }
-
+            */
             ?>
-            </ul>
+            </ul> -->
             <?php 
             $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
             ?>
