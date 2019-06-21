@@ -45,7 +45,7 @@ class DocPHT {
     public function title(string $title, string $anchorLinkID = null)
     {
        $client = new Client(new Ruleset());
-       $title = $client->shortnameToImage($title);
+       $title = $client->shortnameToUnicode($title);
        if (isset($anchorLinkID)) {
         return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><h2 class="mt-3 mb-3" id="'.$anchorLinkID.'">'.$title.' '.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</h2></td></tr>';
        } 
@@ -114,7 +114,7 @@ class DocPHT {
     public function description(string $description)
     {
        $client = new Client(new Ruleset());
-       $description = $client->shortnameToImage($description);
+       $description = $client->shortnameToUnicode($description);
        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><p>'.$description.' '.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</p></td></tr>';
     }
 
@@ -128,7 +128,7 @@ class DocPHT {
     public function blockquote(string $blockquote)
     {
        $client = new Client(new Ruleset());
-       $blockquote = $client->shortnameToImage($blockquote);
+       $blockquote = $client->shortnameToUnicode($blockquote);
        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><blockquote>'.$blockquote.' '.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</blockquote></td></tr>';
     }
 
@@ -222,7 +222,7 @@ class DocPHT {
     public function linkButton(string $url, string $title, $target = false)
     {
         $client = new Client(new Ruleset());
-        $title = $client->shortnameToImage($title);
+        $title = $client->shortnameToUnicode($title);
         $setTarget = ($target) ? 'target="_blank"' : '' ;
         return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><span class="spinner-grow spinner-grow-sm text-secondary"></span><a href="'.$url.'" '.$setTarget.' class="link" role="button">'.$title.'</a>'.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
     }
@@ -239,7 +239,7 @@ class DocPHT {
         $Parsedown = new ParsedownCheckbox();
         $client = new Client(new Ruleset());
         $markdown = '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td class="markdown-col">';
-        $markdown .= $client->toImage($Parsedown->text($text));
+        $markdown .= $Parsedown->text($client->shortnameToUnicode($text));
         $markdown .= $this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
         return $markdown;
     }
