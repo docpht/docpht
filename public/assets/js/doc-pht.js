@@ -89,12 +89,7 @@ $(document).ready(function () {
             $(this).removeClass('open');
         }
     });
-
-	if (Cookies.get('hide-sidebar')) {
-        $('#sidebar').addClass('active');
-        $('#content').addClass('active');
-        Cookies.set('hide-sidebar', 'yes');
-	}
+    
 
 });
 
