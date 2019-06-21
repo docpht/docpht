@@ -203,6 +203,24 @@ i.fa.fa-arrows-v.sort {
     background-color: #353b48!important;
 }
 
+.btn-warning {
+    color: #ffffff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    color: #ffffff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+    color: #ffffff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
 .bg-docpht {
     background-color: #353b48!important;
 }
