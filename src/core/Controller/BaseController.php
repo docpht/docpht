@@ -42,7 +42,6 @@ use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
 use DocPHT\Form\UploadLogoForm;
-use DocPHT\Form\UploadFaviconForm;
 
 class BaseController
 {
@@ -73,8 +72,7 @@ class BaseController
 	protected $backupsModel;
 	protected $versionModel;
 	protected $uploadlogo;
-	protected $uploadfav;
-	
+
 	public function __construct()
 	{
 		$this->view = new View();
@@ -104,7 +102,6 @@ class BaseController
 		$this->backupsModel = new BackupsModel();
 		$this->versionModel = new VersionModel();
 		$this->uploadlogo = new UploadLogoForm();
-		$this->uploadfav = new UploadFaviconForm();
 	}
 
 	public function search()

@@ -114,7 +114,7 @@ class AdminController extends BaseController
 
 	public function uploadLogo()
 	{
-		$form = $this->uploadlogo->create();
+		$form = $this->uploadlogo->logo();
 		
 		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add logo')]);
 		$this->view->show('admin/upload_logo.php', ['form' => $form]);
@@ -130,11 +130,19 @@ class AdminController extends BaseController
 	
 	public function uploadFav()
 	{
-		$form = $this->uploadfav->create();
+		$form = $this->uploadlogo->favicon();
 		
 		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add favicon')]);
 		$this->view->show('admin/upload_fav.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 	}
+
+	public function removeFav()
+    {
+		unlink('data/fav.png');
+		header('Location:'.BASE_URL.'admin');
+        exit;
+	}
+
 
 }

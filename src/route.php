@@ -72,6 +72,10 @@ if (isset($_SESSION['Active'])) {
             
             // /admin/upload-fav
             $this->get_post('/upload-fav', 'DocPHT\Controller\AdminController@uploadFav');
+
+            // /admin/remove-fav
+            $this->get_post('/remove-fav', 'DocPHT\Controller\AdminController@removeFav');
+
         }
         
         // /admin/translations
