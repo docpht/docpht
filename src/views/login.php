@@ -29,7 +29,11 @@
     ?>
     <link rel="stylesheet" href="public/assets/css/switch.css">
     <!-- Favicon -->
-    <link id="fav" rel="icon" type="image/png" href="data/fav.png">
+    <?php
+        if (file_exists('data/favicon.png')) {
+            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png">';
+        }
+    ?>
     <title><?= $t->trans('Login'); ?></title>
 </head>
 <body>
