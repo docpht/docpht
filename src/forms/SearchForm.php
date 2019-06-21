@@ -21,9 +21,9 @@ class SearchForm extends MakeupForm
     {
         $searchthis = '';
         $found = [];
-
-        if(!empty($_POST['search'])) {
-            $searchthis = strtolower(trim($_POST["search"]));
+        
+        if(!empty($_POST["search"])) {
+            $searchthis = $this->sanitizing($_POST["search"]);
 
             $json = json_decode(file_get_contents('data/search.json'), TRUE);
                     
@@ -77,5 +77,15 @@ class SearchForm extends MakeupForm
     {
         $exclude = ['doc-pht','pages.json'];
         return ! in_array($file->getFilename(), $exclude);
+    }
+
+    public function sanitizing($data) 
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = strtolower($data);
+        $data = strip_tags($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 }
