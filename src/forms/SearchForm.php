@@ -66,7 +66,7 @@ class SearchForm extends MakeupForm
                     $found = array_column($found, 'content');
                     $found = array_unique($found);
                     
-                    return implode($found);
+                    if(!empty($found)) { return implode($found); }
         } else {
             header('location:'.BASE_URL);
             exit;
