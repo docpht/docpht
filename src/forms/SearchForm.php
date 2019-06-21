@@ -59,6 +59,7 @@ class SearchForm extends MakeupForm
                                 }
                         }
                     }
+                    if(!empty($found))
                     usort($found, "DESC", function($a, $b) {
                         return [$a['perc']] <=> [$b['perc']];
                     });
