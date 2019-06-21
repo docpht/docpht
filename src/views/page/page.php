@@ -1,14 +1,19 @@
 <?php 
 
+$versions = $this->version->create();
+
+$statusPage = $this->pageModel->getStatusPublished();
+$home = $this->homePageModel->getStatus($_SESSION['page_id']);
+
+if(isset($statusPage['alert']) && $home['set']) {
+    echo $statusPage['alert'];
+}
+
 if (isset($values)) {
     foreach ($values as $value) {
         echo $value;
     }
 }
-$versions = $this->version->create();
-
-$statusPage = $this->pageModel->getStatusPublished();
-$home = $this->homePageModel->getStatus($_SESSION['page_id']);
 
 if (isset($_SESSION['Active']) && $versions['state'] == 0) {
     echo '<ul class="list-inline text-right mt-4">
@@ -50,10 +55,6 @@ if (isset($_SESSION['Active']) && $versions['state'] == 0) {
             </li>
         </ul>';
     echo $versions['value'];
-}
-
-if(isset($statusPage['alert']) && $home['set']) {
-    echo $statusPage['alert'];
 }
 
 (isset($_SESSION['Active'])) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
