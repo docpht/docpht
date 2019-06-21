@@ -28,6 +28,8 @@
     echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
     ?>
     <link rel="stylesheet" href="public/assets/css/switch.css">
+    <!-- Favicon -->
+    <link id="fav" rel="icon" type="image/png" href="data/fav.png">
     <title><?= $t->trans('Login'); ?></title>
 </head>
 <body>
