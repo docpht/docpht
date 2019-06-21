@@ -31,7 +31,7 @@ class DocBuilder
     /**
      * jsonSwitch
      *
-     * @param  resource $jsonVals
+     * @param array $jsonVals
      *
      * @return string
      */
@@ -219,6 +219,8 @@ class DocBuilder
 
     /**
      * setFolderPermissions
+     * 
+     * @param  string $needle
      *
      * @return void
      */
@@ -239,17 +241,17 @@ class DocBuilder
      * upload
      *
      * @param  string $file
-     * @param  string $aPath
+     * @param  string $path
      *
-     * @return resource
+     * @return string
      */
-    public function upload($file, $aPath)
+    public function upload($file, $path)
     {
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
             $this->setFolderPermissions('data');
-            $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . uniqid() . '_' . $file_name;
+            $file_path = 'data/' . substr(pathinfo($path, PATHINFO_DIRNAME ), 6) . '/' . uniqid() . '_' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
         } else {
@@ -263,17 +265,17 @@ class DocBuilder
      * uploadNoUniqid
      *
      * @param  string $file
-     * @param  string $aPath
+     * @param  string $path
      *
-     * @return resource
+     * @return string
      */
-    public function uploadNoUniqid($file, $aPath)
+    public function uploadNoUniqid($file, $path)
     {
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $file_name = $file->getName();
             $this->setFolderPermissions('data');
-            $file_path = 'data/' . substr(pathinfo($aPath, PATHINFO_DIRNAME ), 6) . '/' . $file_name;
+            $file_path = 'data/' . substr(pathinfo($path, PATHINFO_DIRNAME ), 6) . '/' . $file_name;
             file_put_contents($file_path, $file_contents);
             return $file_path;
         } else {
@@ -287,7 +289,7 @@ class DocBuilder
      *
      * @param  string $file
      *
-     * @return resource
+     * @return string
      */
     public function uploadBackup($file)
     {
@@ -308,16 +310,16 @@ class DocBuilder
      * checkImportVersion
      *
      * @param  string $file
-     * @param  string $aPath
+     * @param  string $path
      *
-     * @return boolean
+     * @return bool
      */
-    public function checkImportVersion($file_path, $aPath)
+    public function checkImportVersion($file_path, $path)
     {
         $zipData = new \ZipArchive(); 
         if ($zipData->open($file_path) === TRUE) {
 
-            $check = is_bool($zipData->locateName($aPath)); 
+            $check = is_bool($zipData->locateName($path)); 
             $zipData->close();
             
             if ($check) { return false; } else { return true; }
