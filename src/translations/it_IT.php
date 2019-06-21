@@ -183,9 +183,13 @@
         'This page is unpublished' => 'Questa pagina non è pubblicata',
         'Set as homepage' => 'Imposta come homepage',
         'Unset as homepage' => 'Disattivare come homepage',
+        'Customization' => 'Personalizzazione',
+        'Add logo & favicon' => 'Aggiungi logo & favicon',
         'Add logo' => 'Aggiungi logo',
         'File must be PNG' => 'Il file deve essere PNG',
         'For your DocPHT' => 'Per il tuo DocPHT',
         'Maximum file size is 500 kb' => 'La dimensione massima del file è 500 kb',
         'Remove logo' => 'Rimuovi logo',
+        'Add favicon' => 'Aggiungi favicon',
+        'Remove favicon' => 'Rimuovi favicon',
     ], 'it_IT');   

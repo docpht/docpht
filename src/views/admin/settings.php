@@ -166,8 +166,8 @@
                                 <div class="d-flex flex-row align-items-left">
                                         <i class="fa fa-picture-o fa-3x" aria-hidden="true"></i>
                                     <div class="ml-3">
-                                        <h6 class="text-white"><?= $t->trans('Add logo'); ?></h6>
-                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('For your DocPHT'); ?></small></p>
+                                        <h6 class="text-white"><?= $t->trans('Customization'); ?></h6>
+                                        <p class="mt-2 text-white card-text"><small><?= $t->trans('Logo & favicon'); ?></small></p>
                                     </div>
                                 </div>
                             </div>
