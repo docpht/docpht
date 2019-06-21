@@ -29,8 +29,12 @@
     <!-- Stylesheet fro bootstrap select in form -->
     <link rel="stylesheet" href="public/assets/css/bootstrap-select.min.css">
     <!-- Favicon -->
-    <link id="fav" rel="icon" type="image/png" href="data/fav.png">
-
+    <?php
+        if (file_exists('data/favicon.png')) {
+            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png">';
+        }
+    ?>
+    
 </head>
 
 <body>

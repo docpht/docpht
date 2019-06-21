@@ -317,7 +317,7 @@ class DocBuilder
         if (isset($file) && $file->isOk()) {
             $file_contents = $file->getContents();
             $this->setFolderPermissions('data');
-            $file_path = 'data/fav.png';
+            $file_path = 'data/favicon.png';
             file_put_contents($file_path, $file_contents);
             return $file_path;
         } else {

@@ -22,20 +22,20 @@ class UploadLogoForm extends MakeupForm
 
     public function logo()
     {
-        $form = new Form;
-        $form->onRender[] = [$this, 'bootstrap4'];
+        $logoForm = new Form;
+        $logoForm->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup(T::trans('Add logo'));
+        $logoForm->addGroup(T::trans('Add logo'));
         
-        $form->addUpload('file', T::trans('File must be PNG'))
+        $logoForm->addUpload('file', T::trans('File must be PNG'))
             ->setRequired(true)
             ->addRule(Form::MIME_TYPE, T::trans('File must be PNG'), ['image/png'])
         	->addRule(Form::MAX_FILE_SIZE, T::trans('Maximum file size is 500 kb'), 500 * 1024 /* size in Bytes */);
         
-        $form->addSubmit('submit', T::trans('Add'));
+        $logoForm->addSubmit('submit', T::trans('Add'));
 
-        if ($form->isSuccess()) {
-            $values = $form->getValues();
+        if ($logoForm->isSuccess()) {
+            $values = $logoForm->getValues();
             
         	if (isset($values['file'])) {
         	    
@@ -51,29 +51,29 @@ class UploadLogoForm extends MakeupForm
         	}
         }
         
-        return $form;
+        return $logoForm;
     }
     
     public function favicon()
     {
-        $form = new Form;
-        $form->onRender[] = [$this, 'bootstrap4'];
+        $favForm = new Form;
+        $favForm->onRender[] = [$this, 'bootstrap4'];
 
-        $form->addGroup(T::trans('Add logo'));
+        $favForm->addGroup(T::trans('Add favicon'));
         
-        $form->addUpload('file', T::trans('File must be PNG'))
+        $favForm->addUpload('favicon', T::trans('File must be PNG'))
             ->setRequired(true)
             ->addRule(Form::MIME_TYPE, T::trans('File must be PNG'), ['image/png'])
         	->addRule(Form::MAX_FILE_SIZE, T::trans('Maximum file size is 500 kb'), 500 * 1024 /* size in Bytes */);
         
-        $form->addSubmit('submit', T::trans('Add'));
+        $favForm->addSubmit('submit', T::trans('Add'));
 
-        if ($form->isSuccess()) {
-            $values = $form->getValues();
+        if ($favForm->isSuccess()) {
+            $values = $favForm->getValues();
             
-        	if (isset($values['file'])) {
+        	if (isset($values['favicon'])) {
         	    
-                $file = $values['file'];
+                $file = $values['favicon'];
                 
         	    if(isset($file)) {
                     $this->doc->uploadFavDocPHT($file);
@@ -85,7 +85,7 @@ class UploadLogoForm extends MakeupForm
         	}
         }
         
-        return $form;
+        return $favForm;
     }
 
 }
