@@ -121,4 +121,13 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function uploadFav()
+	{
+		$form = $this->uploadfav->create();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add favicon')]);
+		$this->view->show('admin/upload_fav.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
 }
