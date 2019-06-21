@@ -20,6 +20,7 @@ class SearchForm extends MakeupForm
     public function create()
     {
         $searchthis = '';
+        $found = [];
 
         if(!empty($_POST['search'])) {
             $searchthis = strtolower(trim($_POST["search"]));
@@ -39,7 +40,7 @@ class SearchForm extends MakeupForm
                             $pages = $this->pageModel->connect();
                                 foreach ($pages as $val) {
                                     if ($val['pages']['id'] == $id && $val['pages']['published'] === 1 or $val['pages']['published'] === 0 && isset($_SESSION['Active'])) {
-                                    return '<div class="result-preview">
+                                    $found[] =  '<div class="result-preview">
                                         <a href="page/'.$this->pageModel->getSlug($id).'">
                                         <h3 class="result-title">
                                             '.ucfirst(str_replace('-',' ', $this->pageModel->getTopic($id))).' '.str_replace('-',' ',$this->pageModel->getFilename($id)).'
@@ -51,11 +52,13 @@ class SearchForm extends MakeupForm
                                         </a>
                                     </div>
                                     <hr>';
-                                    break;
                                     }
                                 }
                         }
-                    } 
+                    }
+                    $found = array_unique($found);
+                    
+                    return implode($found);
         } else {
             header('location:'.BASE_URL);
             exit;
