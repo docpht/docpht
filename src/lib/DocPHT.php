@@ -14,6 +14,8 @@
 namespace DocPHT\Lib;
 
 use Parsedown;
+use ParsedownCheckbox;
+use ParsedownExtra;
 use Emojione\Client;
 use Emojione\Ruleset;
 use DocPHT\Core\Translator\T;
@@ -234,10 +236,10 @@ class DocPHT {
      */
     public function markdown(string $text)
     {
-        $Parsedown = new Parsedown();
+        $Parsedown = new ParsedownCheckbox();
         $client = new Client(new Ruleset());
         $markdown = '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td class="markdown-col">';
-        $markdown .= $client->shortnameToImage($Parsedown->text($text));
+        $markdown .= $client->toImage($Parsedown->text($text));
         $markdown .= $this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
         return $markdown;
     }

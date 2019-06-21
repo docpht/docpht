@@ -24,7 +24,8 @@
         "emojione/emojione": "^4.5",
         "tracy/tracy": "^2.6",
         "nette/robot-loader": "^3.2",
-        "plasticbrain/php-flash-messages": "^1.0"
+        "plasticbrain/php-flash-messages": "^1.0",
+        "leblanc-simon/parsedown-checkbox": "^0.0.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.1"
