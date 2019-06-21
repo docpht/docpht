@@ -60,8 +60,8 @@ class SearchForm extends MakeupForm
                         }
                     }
                     if(!empty($found))
-                    usort($found, "DESC", function($a, $b) {
-                        return [$a['perc']] <=> [$b['perc']];
+                    usort($found, function($a, $b) {
+                        return [$b['perc']] <=> [$a['perc']];
                     });
                     $found = array_column($found, 'content');
                     $found = array_unique($found);
