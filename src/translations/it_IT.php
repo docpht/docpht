@@ -181,4 +181,6 @@
         'Backup removed successfully.' => 'Backup rimosso con successo.',
         'There are no backups' => 'Non ci sono backup',
         'This page is unpublished' => 'Questa pagina non è pubblicata',
+        'Set as homepage' => 'Imposta come homepage',
+        'Unset as homepage' => 'Disattivare come homepage',
     ], 'it_IT');   
