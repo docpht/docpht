@@ -40,22 +40,29 @@ class SearchForm extends MakeupForm
                             $pages = $this->pageModel->connect();
                                 foreach ($pages as $val) {
                                     if ($val['pages']['id'] == $id && $val['pages']['published'] === 1 or $val['pages']['published'] === 0 && isset($_SESSION['Active'])) {
-                                    $found[] =  '<div class="result-preview">
-                                        <a href="page/'.$this->pageModel->getSlug($id).'">
-                                        <h3 class="result-title">
-                                            '.ucfirst(str_replace('-',' ', $this->pageModel->getTopic($id))).' '.str_replace('-',' ',$this->pageModel->getFilename($id)).'
-                                        </h3>
-                                        <p class="result-subtitle">
-                                            '.$value.'
-                                        </p>
-                                        <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
-                                        </a>
-                                    </div>
-                                    <hr>';
+                                    $found[] =  array(
+                                            'content' => '<div class="result-preview">
+                                                    <a href="page/'.$this->pageModel->getSlug($id).'">
+                                                        <h3 class="result-title">
+                                                            '.ucfirst(str_replace('-',' ', $this->pageModel->getTopic($id))).' '.str_replace('-',' ',$this->pageModel->getFilename($id)).'
+                                                        </h3>
+                                                        <p class="result-subtitle">
+                                                            '.$value.'
+                                                        </p>
+                                                        <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
+                                                    </a>
+                                                </div>
+                                                <hr>',
+                                            'perc' => $perc
+                                        );
                                     }
                                 }
                         }
                     }
+                    usort($found, "DESC", function($a, $b) {
+                        return [$a['perc']] <=> [$b['perc']];
+                    });
+                    $found = array_column($found, 'content');
                     $found = array_unique($found);
                     
                     return implode($found);
