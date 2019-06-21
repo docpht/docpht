@@ -67,6 +67,9 @@ if (isset($_SESSION['Active'])) {
             // /admin/upload-logo
             $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
 
+            // /admin/remove-logo
+            $this->get_post('/remove-logo', 'DocPHT\Controller\AdminController@removeLogo');
+            
             // /admin/upload-fav
             $this->get_post('/upload-fav', 'DocPHT\Controller\AdminController@uploadFav');
         }
