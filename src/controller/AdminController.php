@@ -121,4 +121,11 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function removeLogo()
+    {
+		unlink('data/logo.png');
+		header('Location:'.BASE_URL.'admin');
+        exit;
+    }
+
 }

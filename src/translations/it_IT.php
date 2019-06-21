@@ -187,4 +187,5 @@
         'File must be PNG' => 'Il file deve essere PNG',
         'For your DocPHT' => 'Per il tuo DocPHT',
         'Maximum file size is 500 kb' => 'La dimensione massima del file è 500 kb',
+        'Remove logo' => 'Rimuovi logo',
     ], 'it_IT');   
