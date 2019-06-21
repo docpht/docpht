@@ -183,4 +183,7 @@
         'This page is unpublished' => 'Questa pagina non è pubblicata',
         'Set as homepage' => 'Imposta come homepage',
         'Unset as homepage' => 'Disattivare come homepage',
+        'Add logo' => 'Aggiungi logo',
+        'File must be JPEG, PNG, GIF' => 'Il file deve essere JPEG, PNG, GIF',
+        'For your DocPHT' => 'Per il tuo DocPHT',
     ], 'it_IT');   

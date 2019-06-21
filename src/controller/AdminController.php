@@ -112,4 +112,13 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function uploadLogo()
+	{
+		$form = $this->uploadlogo->create();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add logo')]);
+		$this->view->show('admin/upload_logo.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
 }

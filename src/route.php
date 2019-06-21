@@ -63,6 +63,9 @@ if (isset($_SESSION['Active'])) {
             
             // /admin/mrestore-backup
             $this->get_post('/mrestore-backup', 'DocPHT\Controller\AdminController@mergeRestoreBackup');
+
+            // /admin/upload-logo
+            $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
         }
         
         // /admin/translations

@@ -41,6 +41,7 @@ use DocPHT\Form\RemoveSectionForm;
 use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
+use DocPHT\Form\UploadLogoForm;
 
 class BaseController
 {
@@ -70,6 +71,7 @@ class BaseController
 	protected $homePageModel;
 	protected $backupsModel;
 	protected $versionModel;
+	protected $uploadlogo;
 	
 	public function __construct()
 	{
@@ -99,6 +101,7 @@ class BaseController
 		$this->homePageModel = new HomePageModel();
 		$this->backupsModel = new BackupsModel();
 		$this->versionModel = new VersionModel();
+		$this->uploadlogo = new UploadLogoForm();
 	}
 
 	public function search()

@@ -243,7 +243,7 @@ class DocBuilder
      * @param  string $file
      * @param  string $path
      *
-     * @return string
+     * @return resource
      */
     public function upload($file, $path)
     {
@@ -267,7 +267,7 @@ class DocBuilder
      * @param  string $file
      * @param  string $path
      *
-     * @return string
+     * @return resource
      */
     public function uploadNoUniqid($file, $path)
     {
@@ -283,13 +283,34 @@ class DocBuilder
         }
         
     }
+
+    /**
+     * uploadLogoDocPHT
+     *
+     * @param  string $file
+     *
+     * @return resource
+     */
+    public function uploadLogoDocPHT($file)
+    {
+        if (isset($file) && $file->isOk()) {
+            $file_contents = $file->getContents();
+            $this->setFolderPermissions('data');
+            $file_path = 'data/logo.png';
+            file_put_contents($file_path, $file_contents);
+            return $file_path;
+        } else {
+            return '';
+        }
+        
+    }
     
     /**
      * uploadBackup
      *
      * @param  string $file
      *
-     * @return string
+     * @return resource
      */
     public function uploadBackup($file)
     {

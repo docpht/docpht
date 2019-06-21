@@ -1,8 +1,14 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header text-center">
-               <a href="<?= BASE_URL ?>"><h3><?= TITLE ?> <i class="fa fa-code" aria-hidden="true"></i></h3></a> 
-            
+            <?php 
+                if (file_exists('data/logo.png')) {
+                    echo '<a href="'.BASE_URL.'"><img src="data/logo.png" alt="logo" class="img-fluid"></a>';
+                } else {
+                    echo '<a href="'.BASE_URL.'"><h3><?= TITLE ?> <i class="fa fa-code" aria-hidden="true"></i></h3></a>';
+                }
+            ?>
+            <hr>
             <?php 
                 if (isset($_SESSION['Active'])) {
                     echo '<small><i class="fa fa-user" aria-hidden="true"></i> '.$t->trans('Welcome&nbsp;').$_SESSION['Username'].'</small>';
