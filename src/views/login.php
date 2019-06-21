@@ -33,7 +33,13 @@
 <body>
 <div class="login-container">
     <form action="login" method="post" name="Login_Form" class="form-signin">
-        <a href="<?= BASE_URL ?>"><h1 class="form-signin-heading">DocPHT <i class="fa fa-code" aria-hidden="true"></i></h1></a>
+        <?php 
+            if (file_exists('data/logo.png')) {
+                echo '<a href="'.BASE_URL.'"><img id="logo" src="data/logo.png" alt="logo" class="img-fluid"></a>';
+            } else {
+                echo '<a href="'.BASE_URL.'"><h1>'.TITLE.' <i class="fa fa-code" aria-hidden="true"></i></h3></a>';
+            }
+        ?>
         <label for="inputUsername" class="sr-only"><?= $t->trans('Username'); ?></label>
         <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only"><?= $t->trans('Password'); ?></label>
