@@ -184,6 +184,7 @@
         'Set as homepage' => 'Imposta come homepage',
         'Unset as homepage' => 'Disattivare come homepage',
         'Add logo' => 'Aggiungi logo',
-        'File must be JPEG, PNG, GIF' => 'Il file deve essere JPEG, PNG, GIF',
+        'File must be PNG' => 'Il file deve essere PNG',
         'For your DocPHT' => 'Per il tuo DocPHT',
+        'Maximum file size is 500 kb' => 'La dimensione massima del file è 500 kb',
     ], 'it_IT');   

@@ -27,10 +27,10 @@ class UploadLogoForm extends MakeupForm
 
         $form->addGroup(T::trans('Add logo'));
         
-        $form->addUpload('file', 'File:')
+        $form->addUpload('file', T::trans('File must be PNG'))
             ->setRequired(true)
             ->addRule(Form::MIME_TYPE, T::trans('File must be PNG'), ['image/png'])
-        	->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 500 kb.', 500 * 1024 /* size in Bytes */);
+        	->addRule(Form::MAX_FILE_SIZE, T::trans('Maximum file size is 500 kb'), 500 * 1024 /* size in Bytes */);
         
         $form->addSubmit('submit', T::trans('Add'));
 
