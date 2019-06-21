@@ -135,6 +135,7 @@
             <?php 
             $cssFile = (!isset($_COOKIE["theme"])) ? 'light' : $_COOKIE["theme"] ;
             ?>
+            <div class="sidebar-footer-content">
             <?php if($cssFile == 'dark') : ?>
             <div class="d-flex justify-content-center">
                 <div class="switch-box">
@@ -164,7 +165,7 @@
 
             <?php endif ?>
              
-            
+            </div>
             
 
         </nav>

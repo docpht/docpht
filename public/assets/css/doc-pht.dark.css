@@ -343,6 +343,12 @@ a[aria-expanded="true"] {
     background: #353b48;
 }
 
+.sidebar-footer-content {
+    bottom: 20px;
+    width: 250px;
+    position: fixed;
+}
+
 a[data-toggle="collapse"] {
     position: relative;
 }
