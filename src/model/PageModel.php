@@ -181,12 +181,12 @@ class PageModel
         $data = $this->connect();
         if (!is_null($data)) {
             foreach($data as $value){
-                if($value['pages']['topic'] === $topic && $value['pages']['published'] == 1) {
+                if($value['pages']['topic'] == $topic && $value['pages']['published'] == 1) {
                   $array[] = $value['pages'];  
                 }
             } 
             usort($array, function($a, $b) {
-                return $a['pages']['topic'] <=> $b['pages']['topic'];
+                return $a['topic'] <=> $b['topic'];
             });
             return (isset($array)) ? $array : false;
         } else {
