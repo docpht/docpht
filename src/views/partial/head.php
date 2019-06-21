@@ -31,7 +31,7 @@
     <!-- Favicon -->
     <?php
         if (file_exists('data/favicon.png')) {
-            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png">';
+            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png?'.time().'">';
         }
     ?>
     

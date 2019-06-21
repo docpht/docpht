@@ -31,7 +31,7 @@
     <!-- Favicon -->
     <?php
         if (file_exists('data/favicon.png')) {
-            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png">';
+            echo '<link id="fav" rel="icon" type="image/png" href="data/favicon.png?'.time().'">';
         }
     ?>
     <title><?= $t->trans('Login'); ?></title>
@@ -41,7 +41,7 @@
     <form action="login" method="post" name="Login_Form" class="form-signin">
         <?php 
             if (file_exists('data/logo.png')) {
-                echo '<a href="'.BASE_URL.'"><img id="logo" src="data/logo.png" alt="logo" class="img-fluid"></a>';
+                echo '<a href="'.BASE_URL.'"><img id="logo" src="data/logo.png?'.time().'" alt="logo" class="img-fluid"></a>';
             } else {
                 echo '<a href="'.BASE_URL.'"><h1>'.TITLE.' <i class="fa fa-code" aria-hidden="true"></i></h3></a>';
             }

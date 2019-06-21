@@ -56,10 +56,6 @@
     <script>
         anchors.options.placement = 'left';
         anchors.add('h2');
-        
-        var d = new Date(); 
-        document.getElementById("fav").src = "data/fav.png?ver=" + d.getTime();
-        document.getElementById("logo").src = "data/logo.png?ver=" + d.getTime();
     </script>
 </body>
 
