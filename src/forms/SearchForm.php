@@ -24,29 +24,13 @@ class SearchForm extends MakeupForm
         if(!empty($_POST['search'])) {
             $searchthis = strtolower(trim($_POST["search"]));
 
-        $jsonFile = new \RecursiveDirectoryIterator("data");
-        $jsonFile = new \RecursiveCallbackFilterIterator($jsonFile, [$this, 'filter'] );
-
-            foreach(new \RecursiveIteratorIterator($jsonFile) as $file) {
-                $filetypes = ["json"];
-                $filetype = pathinfo($file, PATHINFO_EXTENSION);
-                if (in_array(strtolower($filetype), $filetypes)) {
-
-                    $string = file_get_contents($file); 
-                    $jsonIterator = new \RecursiveIteratorIterator(
-                    new \RecursiveArrayIterator(json_decode($string, TRUE)),
-                    \RecursiveIteratorIterator::SELF_FIRST);
+            $json = json_decode(file_get_contents('data/search.json'), TRUE);
                     
-                    foreach($jsonIterator as $value)  {
-
-                        if (!is_array($value)) 
+                    foreach($json as $value)  {
+                        $id = $value['id'];
+                        $value = $value['content'];
                         if(!empty($searchthis) && preg_match("#($searchthis)#", strtolower($value)))  {
-                    
-                            $path = explode('/', $file);
-                            $topic = $path[1];
-                            $page = $path[2];
-                            $page = pathinfo($page, PATHINFO_FILENAME); 
-                    
+
                             similar_text($searchthis, $value, $perc);
                     
                             if (strlen($value) > 500)
@@ -54,11 +38,11 @@ class SearchForm extends MakeupForm
 
                             $pages = $this->pageModel->connect();
                                 foreach ($pages as $val) {
-                                    if ($val['pages']['topic'] == $topic && $val['pages']['filename'] == $page && $val['pages']['published'] === 1 or $val['pages']['published'] === 0 && isset($_SESSION['Active'])) {
+                                    if ($val['pages']['id'] == $id && $val['pages']['published'] === 1 or $val['pages']['published'] === 0 && isset($_SESSION['Active'])) {
                                     return '<div class="result-preview">
-                                        <a href="page/'.$topic.'/'.$page.'">
+                                        <a href="page/'.$this->pageModel->getSlug($id).'">
                                         <h3 class="result-title">
-                                            '.ucfirst(str_replace('-',' ', $topic)).' '.str_replace('-',' ',$page).'
+                                            '.ucfirst(str_replace('-',' ', $this->pageModel->getTopic($id))).' '.str_replace('-',' ',$this->pageModel->getFilename($id)).'
                                         </h3>
                                         <p class="result-subtitle">
                                             '.$value.'
@@ -68,13 +52,10 @@ class SearchForm extends MakeupForm
                                     </div>
                                     <hr>';
                                     break;
+                                    }
                                 }
-                            }
                         }
                     } 
-                }
-            }
-
         } else {
             header('location:'.BASE_URL);
             exit;
