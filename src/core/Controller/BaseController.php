@@ -16,6 +16,7 @@ namespace Instant\Core\Controller;
 
 use DocPHT\Form\SearchForm;
 use DocPHT\Model\PageModel;
+use DocPHT\Model\SearchModel;
 use DocPHT\Model\HomePageModel;
 use DocPHT\Model\VersionModel;
 use DocPHT\Model\BackupsModel;
@@ -65,6 +66,7 @@ class BaseController
 	protected $publishPageForm;
 	protected $homePageForm;
 	protected $pageModel;
+	protected $searchModel;
 	protected $homePageModel;
 	protected $backupsModel;
 	protected $versionModel;
@@ -93,6 +95,7 @@ class BaseController
 		$this->homePageForm = new HomePageForm();
 		$this->adminModel = new AdminModel();
 		$this->pageModel = new PageModel();
+		$this->searchModel = new SearchModel();
 		$this->homePageModel = new HomePageModel();
 		$this->backupsModel = new BackupsModel();
 		$this->versionModel = new VersionModel();
@@ -100,6 +103,7 @@ class BaseController
 
 	public function search()
 	{
+	    $this->searchModel->feed();
 		$results = $this->search->create();
 		if (isset($results)) {
 			$this->view->show('partial/head.php', ['PageTitle' => T::trans('Search')]);
