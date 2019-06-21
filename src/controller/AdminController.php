@@ -126,6 +126,15 @@ class AdminController extends BaseController
 		unlink('data/logo.png');
 		header('Location:'.BASE_URL.'admin');
         exit;
-    }
+	}
+	
+	public function uploadFav()
+	{
+		$form = $this->uploadfav->create();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add favicon')]);
+		$this->view->show('admin/upload_fav.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
 
 }

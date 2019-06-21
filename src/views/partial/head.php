@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="public/assets/css/font-awesome.min.css">
     <!-- Stylesheet fro bootstrap select in form -->
     <link rel="stylesheet" href="public/assets/css/bootstrap-select.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data/fav.png">
 
 </head>
 
