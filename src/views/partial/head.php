@@ -41,6 +41,10 @@
 
     <div class="wrapper">
 
+    <div class="progress-container">
+        <div class="progress-bar" id="scrollindicator"></div>
+    </div>
+
     <?php include 'sidebar.php'; ?>
 
     <!-- Page Content  -->
