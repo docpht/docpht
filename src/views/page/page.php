@@ -90,6 +90,7 @@ if (!is_null($topics)) {
 }
 ?>
 
+            <?php if (isset($next) && isset($nextPage) && $x > 1): ?>
             <div class="mt4">
                 <?php if (isset($next) && isset($nextPage) && $x > 1 && $x <= 2): ?>
                 <nav arialabel="pagination">
@@ -120,6 +121,7 @@ if (!is_null($topics)) {
                     </ul>
                 </nav>
             </div>
+            <?php endif; ?>
 
             <!-- Modal confirm delete -->
             <div class="modal" id="confirmDelete">
