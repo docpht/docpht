@@ -114,7 +114,7 @@ class DocPHT {
     public function description(string $description)
     {
        $client = new Client(new Ruleset());
-       $description = $client->shortnameToUnicode($description);
+       $description = $client->shortnameToUnicode(nl2br($description));
        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><p>'.$description.' '.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</p></td></tr>';
     }
 
@@ -128,7 +128,7 @@ class DocPHT {
     public function blockquote(string $blockquote)
     {
        $client = new Client(new Ruleset());
-       $blockquote = $client->shortnameToUnicode($blockquote);
+       $blockquote = $client->shortnameToUnicode(nl2br($blockquote));
        return '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td><blockquote>'.$blockquote.' '.$this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</blockquote></td></tr>';
     }
 
