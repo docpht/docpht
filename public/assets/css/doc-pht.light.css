@@ -33,12 +33,12 @@ textarea {
     bottom: 0;
     z-index: 1000;
     width: 100%;
-    height: 5px;
+    height: 3px;
     background: transparent;
   }
   
 .progress-bar {
-    height: 5px;
+    height: 3px;
     background: rgba(108, 117, 125, 0.5);
     width: 0%;
 }
