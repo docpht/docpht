@@ -469,8 +469,8 @@ a.github:hover {
 }
 
 blockquote {
-    background: transparent;
-    border: 2px solid rgba(170,205,78,.5);
+    background: #25292f;
+    border: 2px solid rgba(33, 150, 243, 0.7);
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
