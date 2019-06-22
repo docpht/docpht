@@ -13,9 +13,7 @@
 
 namespace DocPHT\Lib;
 
-use Parsedown;
 use ParsedownCheckbox;
-use ParsedownExtra;
 use Emojione\Client;
 use Emojione\Ruleset;
 use DocPHT\Core\Translator\T;
