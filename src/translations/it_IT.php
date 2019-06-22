@@ -45,7 +45,7 @@
         'There is a file with the same name!' => 'C\'è un file con lo stesso nome!',
         'Creation of %filename% in %topic% successfully!' => 'Creazione di %filename% in %topic% con successo!',
         'Creation of %topic% and %filename% successfully!' => 'Creazione di %topic% e %filename% con successo!',
-        'Sorry something didn\'t work!' => 'Scusa, qualcosa non ha funziona!',
+        'Sorry something didn\'t work!' => 'Scusa, qualcosa non ha funzionato!',
         'Invalid procedure!' => 'Procedura non valida!',
         'Modification of successful!' => 'Modificato con successo!',
         'Addition successful!' => 'Aggiunta riuscita!',
