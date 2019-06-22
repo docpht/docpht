@@ -107,7 +107,7 @@ textarea {
 }
 
 .page-link:hover {
-    background: transparent;
+    background: #353b48;
     color: #ddd!important;
     border-radius: 0.25rem
 }
