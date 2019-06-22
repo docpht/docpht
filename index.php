@@ -16,7 +16,7 @@ use Tracy\Debugger;
 $autoload = 'vendor/autoload.php';
 
 if (!file_exists('src/config/config.php')) {
-    include 'start/config.php';
+    include 'install/config.php';
 } elseif (file_exists($autoload)) {
 require $autoload;
 
@@ -40,6 +40,4 @@ $route = $app->route;
 include 'src/route.php';
 
 $route->end();
-} else {
-    include 'start/composer.php';
 }
