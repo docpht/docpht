@@ -91,25 +91,32 @@ if (!is_null($topics)) {
 ?>
 
             <div class="mt4">
+                <?php if (isset($next) && isset($nextPage) && $x > 1 && $x <= 2): ?>
                 <nav arialabel="pagination">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                        <?php if (isset($prev) && isset($prevPage) && $x > 2): ?>
-                            <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $prevPage ?></a>
-                        <?php endif; ?>
-                        </li>
+                <?php else: ?>
+                <nav arialabel="pagination d-flex">
+                    <ul class="pagination">
+                <?php endif; ?>
                         
-                        <li class="page-item">
                         <?php if (isset($next) && isset($nextPage) && $x > 1 && $x <= 2): ?>
+                        <li class="page-item">    
                             <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?></a>
-                        <?php endif; ?>
                         </li>
-            
-                        <li class="page-item">
+                        <?php endif; ?>
+                        
+                        <?php if (isset($prev) && isset($prevPage) && $x > 2): ?>
+                        <li class="page-item p-1">
+                            <a class="page-link text-muted" href="<?= 'page/'.$prev ?>"><i class="fa fa-angle-double-left" ariahidden="true"></i> <?= $prevPage ?></a>
+                        </li>
+                        <?php endif; ?>
+                        
                         <?php if (isset($next) && isset($nextPage) && $x >2): ?>
+                        <li class="page-item ml-auto p-1">
                             <a class="page-link text-muted" href="<?= 'page/'.$next ?>"><?= $nextPage ?> <i class="fa fa-angle-double-right" ariahidden="true"></i></a>
-                        <?php endif; ?>
                         </li>
+                        <?php endif; ?>
+                        
                     </ul>
                 </nav>
             </div>
