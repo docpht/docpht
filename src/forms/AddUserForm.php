@@ -54,6 +54,7 @@ class AddUserForm extends MakeupForm
             ->setRequired(T::trans('Confirm password'));
 
         $translations = json_decode(file_get_contents(realpath('src/translations/code-translations.json')), true);
+        asort($translations);
         $form->addSelect('translations',T::trans('Language:'), $translations)
             ->setPrompt(T::trans('Select an option'))
             ->setHtmlAttribute('data-live-search','true')
