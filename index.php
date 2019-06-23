@@ -25,7 +25,7 @@ if (!file_exists($configurationFile)) {
     $files = glob($installFolder.'/*');
     foreach($files as $file){
         if(is_file($file)) {
-            if (is_writable($file)) {
+            if (is_writable('install/config.php')) {
                 unlink($file);
             }
         }
@@ -33,7 +33,7 @@ if (!file_exists($configurationFile)) {
     if (is_dir_empty($installFolder)) {
         rmdir($installFolder);
     } elseif (file_exists($installFolder)) {
-        echo '<b>It is not possible to remove the installation folder automatically, remove the "install" folder manually.</b>';
+        include 'install/error.php';
     }
 } elseif (file_exists($autoload)) {
 require $autoload;
