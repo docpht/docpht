@@ -28,7 +28,11 @@ class RemoveUserForm extends MakeupForm
         $form->addGroup(T::trans('Remove a user'))
         	->setOption('description', T::trans('Select username for removal.'));
         
-        $form->addSelect('user',T::trans('Remove a user:'), $this->adminModel->getUsernames())
+        $filterUsers = array_filter($this->adminModel->getUsernames(), function ($var) {
+            return (strpos($var, 'admin') === false);
+        });
+
+        $form->addSelect('user',T::trans('Remove a user:'), $filterUsers)
         	->setPrompt(T::trans('Select a user'))
         	->setHtmlAttribute('data-live-search','true')
         	->setRequired(T::trans('Select a user'));
