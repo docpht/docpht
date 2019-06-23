@@ -85,7 +85,7 @@ $form->addText('apptitle', 'App title')
 
 $form->addGroup('Enter a password for admin username');
 
-    $form->addPassword('newpassword', 'Enter password')
+    $form->addPassword('password', 'Enter password')
     ->setHtmlAttribute('placeholder', 'Enter password')
     ->setHtmlAttribute('autocomplete','off')
     ->setAttribute('onmousedown',"this.type='text'")
@@ -102,7 +102,7 @@ $form->addPassword('confirmpassword', 'Confirm password')
     ->setAttribute('onmouseup',"this.type='password'")
     ->setAttribute('onmousemove',"this.type='password'")
     ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
-    ->addRule($form::EQUAL, 'Passwords do not match!', $form['newpassword'])
+    ->addRule($form::EQUAL, 'Passwords do not match!', $form['password'])
     ->setRequired('Confirm password');
 
 
@@ -129,9 +129,9 @@ if ($form->isSuccess()) {
         $file = 'src/config/config.php';
         mkdir(pathinfo($file, PATHINFO_DIRNAME), 0755, true);
         file_put_contents($file, $data);
-		if (isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $adminModel->verifyPassword('admin', 'password')) {
-            $adminModel->updatePassword('admin', $values['newpassword']);
-            $adminModel->updateTrans('admin', $values['translations']);
+        $values['username'] = 'admin';
+		if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
+            $adminModel->create($values);
 		}
         header('Location:'.$values['baseurl'].'login');
         exit;
