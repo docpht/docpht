@@ -102,7 +102,7 @@ class ModifySectionForm extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
             
-            if ($page[$rowIndex]['key'] == 'image' || $page[$rowIndex]['key'] == 'codeFile') { unlink('data/' . $page[$rowIndex]['v1']); }
+            if ($page[$rowIndex]['key'] == 'image' || $page[$rowIndex]['key'] == 'codeFile' || $page[$rowIndex]['key'] == 'markdownFile') { unlink('data/' . $page[$rowIndex]['v1']); }
             $this->doc->removeOldFile($page[$rowIndex]['key'], $values['options'], 'data/' . $page[$rowIndex]['v1']);
         
         	if (!empty($values)) {

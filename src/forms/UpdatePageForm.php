@@ -117,9 +117,9 @@ class UpdatePageForm extends MakeupForm
                             );
             
                 
-                if (($page[$x]['key'] == 'image' || $page[$x]['key'] == 'codeFile') && $values['file'.$x]->hasFile()) { unlink('data/' . $page[$x]['v1']); }
+                if (($page[$x]['key'] == 'image' || $page[$x]['key'] == 'codeFile' || $page[$x]['key'] == 'markdownFile') && $values['file'.$x]->hasFile()) { unlink('data/' . $page[$x]['v1']); }
                 
-                if(($mapped['options'] == 'image' || $mapped['options'] == 'codeFile') && $values['file'.$x]->hasFile()) {
+                if(($mapped['options'] == 'image' || $mapped['options'] == 'codeFile' || $mapped['options'] == 'markdownFile') && $values['file'.$x]->hasFile()) {
                     $file = $mapped['file'];
                     $file_path = $this->doc->upload($file, $this->pageModel->getPhpPath($id));
                 } else {
