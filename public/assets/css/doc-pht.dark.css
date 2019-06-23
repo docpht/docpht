@@ -745,3 +745,7 @@ img.emojione {
     -moz-animation: blink 1s linear infinite;
     animation: blink 1s linear infinite;
 } 
+
+td.markdown-col {
+    color: #fff;
+}

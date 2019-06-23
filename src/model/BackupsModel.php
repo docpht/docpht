@@ -125,6 +125,10 @@ class BackupsModel extends PageModel
         $pages = $this->connect();
         $assets = ['data/pages.json'];
         
+        if(file_exists('data/logo.png'))array_push($assets, 'data/logo.png');
+        if(file_exists('data/favicon.png'))array_push($assets, 'data/favicon.png');
+        if(file_exists('data/search.json'))array_push($assets, 'data/search.json');
+        
         $this->doc = new DocBuilder;
         $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '.zip';
         

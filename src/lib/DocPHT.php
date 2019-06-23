@@ -241,7 +241,24 @@ class DocPHT {
         $markdown .= $this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
         return $markdown;
     }
-    
+
+    /**
+     * markdownFile
+     *
+     * @param  string $filePath
+     *
+     * @return string
+     */
+    public function markdownFile(string $filePath)
+    {   
+        $Parsedown = new ParsedownCheckbox();
+        $client = new Client(new Ruleset());
+        $markdown = '<tr>'. ((isset($_SESSION['Active'])) ? '<td class="handle"><i class="fa fa-arrows-v sort"></i></td>' : '') . '<td class="markdown-col">';
+        $markdown .= $Parsedown->text($client->shortnameToUnicode(file_get_contents('data/'.$filePath)));
+        $markdown .= $this->insertBeforeButton().$this->removeButton().$this->modifyButton().$this->insertAfterButton().'</td></tr>';
+        return $markdown;
+    }
+
     /**
      * addButton
      *

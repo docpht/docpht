@@ -29,7 +29,7 @@ class RemoveSectionForm extends MakeupForm
             $rowIndex = intval($_GET['id']);
         }
         
-        if ($this->pageModel->getPageData($id)[$rowIndex]['key'] == 'image' || $this->pageModel->getPageData($id)[$rowIndex]['key'] == 'codeFile') { 
+        if ($this->pageModel->getPageData($id)[$rowIndex]['key'] == 'image' || $this->pageModel->getPageData($id)[$rowIndex]['key'] == 'codeFile' || $this->pageModel->getPageData($id)[$rowIndex]['key'] == 'markdownFile') { 
             unlink('data/' . $this->pageModel->getPageData($id)[$rowIndex]['v1']); 
         } 
         

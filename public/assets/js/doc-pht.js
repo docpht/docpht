@@ -183,6 +183,12 @@ for (var i = 0; i < all_options.length; i++) {
         all_option_content[i].parentNode.parentNode.style.display = "none"; 
         all_name[i].parentNode.parentNode.style.display = "none";
         all_trg[i].parentNode.parentNode.style.display = "none"; 
+    } else if (all_options[i].value == "markdodwnFile") {
+        all_languages[i].parentNode.parentNode.style.display = "none";
+        all_files[i].parentNode.parentNode.style.display = "block"; 
+        all_option_content[i].parentNode.parentNode.style.display = "none"; 
+        all_name[i].parentNode.parentNode.style.display = "none";
+        all_trg[i].parentNode.parentNode.style.display = "none"; 
     } else if (all_options[i].value == "image") {
         all_option_content[i].label.innerHTML = 'Image Name';
         all_languages[i].parentNode.parentNode.style.display = "none";
@@ -251,6 +257,12 @@ document.addEventListener("change", function(){
             all_trg[i].parentNode.parentNode.style.display = "none";
         } else if (all_options[i].value == "codeFile") {
             all_languages[i].parentNode.parentNode.parentNode.style.display = "block";
+            all_files[i].parentNode.parentNode.style.display = "block"; 
+            all_option_content[i].parentNode.parentNode.style.display = "none"; 
+            all_name[i].parentNode.parentNode.style.display = "none";
+            all_trg[i].parentNode.parentNode.style.display = "none";
+        } else if (all_options[i].value == "markdownFile") {
+            all_languages[i].parentNode.parentNode.parentNode.style.display = "none";
             all_files[i].parentNode.parentNode.style.display = "block"; 
             all_option_content[i].parentNode.parentNode.style.display = "none"; 
             all_name[i].parentNode.parentNode.style.display = "none";

@@ -72,6 +72,9 @@ class DocBuilder
                 case 'markdown':
 					$option = $this->markdown($jsonVals['v1']);
                     break;
+                case 'markdownFile':
+					$option = $this->markdownFile($jsonVals['v1']);
+                    break;
                 case 'addButton':
                     $option = '$html->addButton(),'."\n";
                     break;
@@ -128,6 +131,9 @@ class DocBuilder
                 case 'markdown':
 					$option = ['key' => $values['options'], 'v1' => $values['option_content'], 'v2' => '', 'v3' => '', 'v4' => ''];
                     break;
+                case 'markdownFile':
+					$option = ['key' => $values['options'], 'v1' => substr($file_path, 5), 'v2' => '', 'v3' => '', 'v4' => ''];
+                    break;
                 case 'addButton':
                     $option = ['key' => 'addButton', 'v1' => '', 'v2' => '', 'v3' => '', 'v4' => ''];
                     break;
@@ -152,6 +158,7 @@ class DocBuilder
     {
         ($key1 == 'image' && $key2 != 'image') ? (file_exists($path) ? unlink($path) : NULL) : NULL;
         ($key1 == 'codeFile' && $key2 != 'codeFile') ? (file_exists($path) ? unlink($path) : NULL) : NULL;
+        ($key1 == 'markdownFile' && $key2 != 'markdownFile') ? (file_exists($path) ? unlink($path) : NULL) : NULL;
     }
     
     /**
@@ -534,6 +541,25 @@ class DocBuilder
     }
     
     /**
+     * markdownFile
+     *
+     * @param  string $src
+     *
+     * @return resource
+     */
+    public function markdownFile($src)
+    {
+        if (!empty($src)) {
+            $src = addcslashes($src,"\'");
+            $out = '$html->markdownFile'."('{$src}'), \n";
+            return $out;
+        } else {
+            $this->msg->error(T::trans('No files added for uploading'),$_SERVER['HTTP_REFERER']);
+        }
+        
+    }
+    
+    /**
      * linkButton
      *
      * @param  string $src
@@ -565,6 +591,7 @@ class DocBuilder
     	'image' => T::trans('Add image from file'),
     	'imageURL' => T::trans('Add image from url'),
     	'markdown' => T::trans('Add markdown'),
+    	'markdownFile' => T::trans('Add markdown from file'),
     	'linkButton' => T::trans('Add link button')
     	];
     }

@@ -34,7 +34,7 @@ class SearchModel extends PageModel
                     (!empty($page['v2'])) ? array_push($array,$this->add($value['id'], $page['v2'])) : $array;
                     (!empty($page['v3'])) ? array_push($array,$this->add($value['id'], $page['v3'])) : $array;
                     (!empty($page['v4'])) ? array_push($array,$this->add($value['id'], $page['v4'])) : $array;
-                    if($page['key'] === 'codeFile') {
+                    if($page['key'] === 'codeFile' || $page['key'] === 'markdownFile') {
                         (!empty($page['v1'])) ? array_push($array, $this->add($value['id'], file_get_contents('data/'.$page['v1']))) : $array;
                     }
                 }

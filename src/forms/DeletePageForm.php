@@ -27,7 +27,7 @@ class DeletePageForm extends MakeupForm
         $data = $this->pageModel->getPageData($id);
     
         foreach ($data as $fields) {
-            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { (file_exists('data/' . $fields['v1'])) ? unlink('data/' . $fields['v1']) : NULL; }
+            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile' || $fields['key'] == 'markdownFile') { (file_exists('data/' . $fields['v1'])) ? unlink('data/' . $fields['v1']) : NULL; }
         }
     
     

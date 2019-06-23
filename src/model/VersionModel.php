@@ -140,7 +140,7 @@ class VersionModel extends PageModel
         $assets = [];
         
         foreach ($data as $fields) {
-            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile') { array_push($assets, 'data/' . $fields['v1']); }
+            if ($fields['key'] == 'image' || $fields['key'] == 'codeFile' || $fields['key'] == 'markdownFile') { array_push($assets, 'data/' . $fields['v1']); }
         }
         
         array_push($assets, $php);
