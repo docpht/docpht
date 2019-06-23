@@ -1,0 +1,22 @@
+{
+    "name": "leblanc-simon/parsedown-checkbox",
+    "description": "An extension of Parsedown and ParsedownExtra that adds support for checkbox",
+    "keywords": ["markdown", "markdown extra", "parser", "parsedown", "checkbox"],
+    "homepage": "https://github.com/leblanc-simon/parsedown-checkbox",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Leblanc",
+            "email": "contact@leblanc-simon.eu",
+            "homepage": "https://www.leblanc-simon.fr"
+        }
+    ],
+    "require": {
+        "erusev/parsedown-extra": "^0.7.1"
+    },
+    "autoload": {
+        "files": ["ParsedownCheckbox.php"]
+    }
+}
+

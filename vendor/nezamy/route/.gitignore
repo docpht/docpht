@@ -1,0 +1,7 @@
+Thumbs.db
+ehthumbs.db
+.DS_Store
+._*
+.idea
+.idea/vcs.xml
+vendor

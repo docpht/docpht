@@ -4,12 +4,9 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 	die('Install packages using `composer install`');
 }
 
-use Tracy\Dumper;
-use Tracy\Debugger;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
-
-Debugger::enable();
+use DocPHT\Model\AdminModel;
 
 function bootstrap4(Form $form): void
 {
@@ -46,6 +43,7 @@ function bootstrap4(Form $form): void
 		}
 }
 
+$adminModel = new AdminModel();
 
 $form = new Form;
 $form->onRender[] = 'bootstrap4';
@@ -81,9 +79,32 @@ $form->addText('baseurl','Base url')
     ->setValue($actualPath)
     ->setRequired('Required');
 
-$form->addGroup('Administrator account');
-$form->addPassword('password', 'Enter a password')
+$form->addText('apptitle', 'App title')
+    ->setHtmlAttribute('placeholder', 'DocPHT')
     ->setRequired('Required');
+
+$form->addGroup('Enter a password for admin username');
+
+    $form->addPassword('newpassword', 'Enter password')
+    ->setHtmlAttribute('placeholder', 'Enter password')
+    ->setHtmlAttribute('autocomplete','off')
+    ->setAttribute('onmousedown',"this.type='text'")
+    ->setAttribute('onmouseup',"this.type='password'")
+    ->setAttribute('onmousemove',"this.type='password'")
+    ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
+    ->addRule(Form::MIN_LENGTH, 'The password must be at least 6 characters long', 6)
+    ->setRequired('Confirm password');
+    
+$form->addPassword('confirmpassword', 'Confirm password')
+    ->setHtmlAttribute('placeholder', 'Confirm password')
+    ->setHtmlAttribute('autocomplete','off')
+    ->setAttribute('onmousedown',"this.type='text'")
+    ->setAttribute('onmouseup',"this.type='password'")
+    ->setAttribute('onmousemove',"this.type='password'")
+    ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText('Click on the asterisks to show the password'))
+    ->addRule($form::EQUAL, 'Passwords do not match!', $form['newpassword'])
+    ->setRequired('Confirm password');
+
 
 $form->addGroup();
 $form->addSubmit('submit', 'Install');
@@ -93,25 +114,29 @@ if ($form->isSuccess()) {
     
     if (isset($values)) {
         $data = "<?php\n\n"
-            .'define("TITLE", "DocPHT");'."\n"
+            .'define("TITLE", "'.rtrim($values['apptitle']).'");'."\n"
             .'define("ADMIN", "admin");'."\n"
             .'define("DS", DIRECTORY_SEPARATOR);'."\n"
             .'define("BASE_PATH", __DIR__ . DS);'."\n"
-            .'define("SUBTITLE", "Programming");'."\n"
-            .'define("DOWNLOAD", "https://github.com/kenlog");'."\n"
-            .'define("GITHUB", "https://github.com/kenlog");'."\n"
+            .'define("SUBTITLE", "");'."\n"
+            .'define("DOWNLOAD", "");'."\n"
+            .'define("GITHUB", "");'."\n"
             .'define("LANGUAGE","'.$values['translations'].'");'."\n"
             .'define("TIMEZONE","'.$values['timezone'].'");'."\n"
             .'define("DATAFORMAT","'.$values['dataformat'].'");'."\n"
-            .'define("BASE_URL","'.$values['baseurl'].'");'."\n"
+            .'define("BASE_URL","'.rtrim($values['baseurl']).'");'."\n"
         ;
         $file = 'src/config/config.php';
         mkdir(pathinfo($file, PATHINFO_DIRNAME), 0755, true);
         file_put_contents($file, $data);
-        header('Location:'.$values['baseurl']);
+		if (isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $adminModel->verifyPassword('admin', 'password')) {
+            $adminModel->updatePassword('admin', $values['newpassword']);
+            $adminModel->updateTrans('admin', $values['translations']);
+		}
+        header('Location:'.$values['baseurl'].'login');
         exit;
     } else {
-        echo 'Error!';
+        $error = '<div class="alert alert-danger" role="alert">Sorry something didn\'t work!</div>';
     }
 }
 
@@ -121,7 +146,12 @@ if ($form->isSuccess()) {
 <div class="col-sm-6 offset-sm-3 mb-4">
     <div class="card">
         <div class="card-body">
-            <?= $form; ?>
+            <?php
+                if (isset($error)) {
+                    echo $error;
+                }
+                echo $form; 
+            ?>
         </div>
     </div>
 </div>

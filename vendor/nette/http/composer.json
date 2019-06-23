@@ -1,0 +1,42 @@
+{
+	"name": "nette/http",
+	"description": "🌐 Nette Http: abstraction for HTTP request, response and session. Provides careful data sanitization and utility for URL and cookies manipulation.",
+	"keywords": ["nette", "http", "request", "response", "session", "security", "url", "proxy", "cookies"],
+	"homepage": "https://nette.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "David Grudl",
+			"homepage": "https://davidgrudl.com"
+		},
+		{
+			"name": "Nette Community",
+			"homepage": "https://nette.org/contributors"
+		}
+	],
+	"require": {
+		"php": ">=7.1",
+		"nette/utils": "^3.0"
+	},
+	"require-dev": {
+		"nette/di": "^3.0",
+		"nette/tester": "^2.0",
+		"tracy/tracy": "^2.4"
+	},
+	"conflict": {
+		"nette/di": "<3.0"
+	},
+	"suggest": {
+		"ext-fileinfo": "to detect type of uploaded files",
+		"nette/security": "allows use Nette\\Http\\UserStorage"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "3.0-dev"
+		}
+	}
+}
