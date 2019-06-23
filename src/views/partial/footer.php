@@ -25,7 +25,7 @@
     </div> <!-- end wrapper -->
     
     <a href="#page-top" class="top">
-      <i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
+      <i class="fa fa-chevron-circle-up fa-2x" aria-hidden="true"></i>
     </a>
 
     <!-- Nette Forms -->
