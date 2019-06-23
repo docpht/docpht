@@ -15,14 +15,32 @@ use Tracy\Debugger;
 
 $autoload = 'vendor/autoload.php';
 
-if (!file_exists('src/config/config.php')) {
+$configurationFile = 'src/config/config.php';
+
+$installFolder = 'install';
+
+if (!file_exists($configurationFile)) {
     include 'install/config.php';
+} elseif (file_exists($configurationFile) && file_exists($installFolder)) {
+    $files = glob($installFolder.'/*');
+    foreach($files as $file){
+        if(is_file($file)) {
+            if (is_writable($file)) {
+                unlink($file);
+            }
+        }
+    }
+    if (is_dir_empty($installFolder)) {
+        rmdir($installFolder);
+    } elseif (file_exists($installFolder)) {
+        echo '<b>It is not possible to remove the installation folder automatically, remove the "install" folder manually.</b>';
+    }
 } elseif (file_exists($autoload)) {
 require $autoload;
 
 if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 
-require 'src/config/config.php';
+require $configurationFile;
 
 Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
 
@@ -40,4 +58,10 @@ $route = $app->route;
 include 'src/route.php';
 
 $route->end();
+}
+
+function is_dir_empty($dir) 
+{
+    if (!is_readable($dir)) return NULL; 
+    return (count(scandir($dir)) == 2);
 }
