@@ -131,7 +131,7 @@ class BackupsModel extends PageModel
         if(file_exists('data/search.json'))array_push($assets, 'data/search.json');
         
         $this->doc = new DocBuilder;
-        $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '.zip';
+        $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '_'.uniqid().'.zip';
         
         if (is_array($pages) && count($pages) > 0) {
             foreach($pages as $page) {
