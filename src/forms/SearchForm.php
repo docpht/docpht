@@ -55,6 +55,22 @@ class SearchForm extends MakeupForm
                                                 <hr>',
                                             'perc' => $perc
                                         );
+                                    } else if ($val['pages']['id'] == $id && $val['pages']['home'] === 1 && !isset($_SESSION['Active'])) {
+                                    $found[] =  array(
+                                            'content' => '<div class="result-preview">
+                                                    <a href="'.BASE_URL.'">
+                                                        <h3 class="result-title">
+                                                            '.ucfirst(str_replace('-',' ', $this->pageModel->getTopic($id))).' '.str_replace('-',' ',$this->pageModel->getFilename($id)).'
+                                                        </h3>
+                                                        <p class="result-subtitle">
+                                                            '.$value.'
+                                                        </p>
+                                                        <small class="badge badge-success">'.T::trans('similarity').': '.round($perc, 1).'%</small>
+                                                    </a>
+                                                </div>
+                                                <hr>',
+                                            'perc' => $perc
+                                        );
                                     }
                                 }
                         }
