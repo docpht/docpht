@@ -114,6 +114,7 @@ if ($form->isSuccess()) {
     
     if (isset($values)) {
         $data = "<?php\n\n"
+            .'define("DOCPHT_VERSION", "1.0.0");'."\n"
             .'define("TITLE", "'.rtrim($values['apptitle']).'");'."\n"
             .'define("ADMIN", "admin");'."\n"
             .'define("DS", DIRECTORY_SEPARATOR);'."\n"
