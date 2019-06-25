@@ -74,6 +74,7 @@
         'Lost password' => 'Password dimenticata',
         'Send me the email to reset the password' => 'Inviami l\'e-mail per reimpostare la password',
         'I lost my password' => 'Ho perso la mia password',
+        'This email address does not exist!' => 'Questo indirizzo email non esiste!',
         'The password must be at least 6 characters long' => 'La password deve contenere almeno 6 caratteri',
         'Passwords do not match!' => 'Le password non corrispondono!',
         'Add new user' => 'Aggiungi nuovo utente',
