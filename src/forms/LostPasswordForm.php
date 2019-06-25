@@ -13,6 +13,7 @@
 
 namespace DocPHT\Form;
 
+use Latte\Engine;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use Nette\Mail\Message;
@@ -47,12 +48,19 @@ class LostPasswordForm extends MakeupForm
                     $this->adminModel->addToken($values['email'],$token.'&expiry='.$expiry);
                     $getToken = $token.'&expiry='.$expiry;
 
+                    $latte = new \Latte\Engine;
+                    $params = [
+                        'BASE_URL' => BASE_URL,
+                        'title' => 'Lost password',
+                        'content' => 'Click <a href="'.BASE_URL.'recovery/'.$getToken.'">here</a> to reset the password. The link will be valid for one hour.'
+                    ]; 
+
                     $mail = new Message;
                     $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
                         ->addReplyTo(ADMIN)
                         ->addBcc($values['email'])
                         ->setSubject('Reset password '.DOMAIN_NAME.' ')
-                        ->setHtmlBody('Click <a href="'.BASE_URL.'recovery/'.$getToken.'">here</a> to reset the password. The link will be valid for one hour.'); 
+                        ->setHtmlBody($latte->renderToString('src/views/email/recovery_password.latte', $params));
                     $mailer = new SendmailMailer;
                     $mailer->send($mail);
                     

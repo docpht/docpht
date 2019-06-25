@@ -26,7 +26,8 @@
         "nette/robot-loader": "^3.2",
         "plasticbrain/php-flash-messages": "^1.0",
         "leblanc-simon/parsedown-checkbox": "^0.0.4",
-        "nette/mail": "^3.0"
+        "nette/mail": "^3.0",
+        "latte/latte": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.1"
