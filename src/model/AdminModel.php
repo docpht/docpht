@@ -46,7 +46,8 @@ class AdminModel
         $data[] = array(
             'Username' => $values['username'],
             'Password' => password_hash($values['password'], PASSWORD_DEFAULT),
-            'Language' => $values['translations']
+            'Language' => $values['translations'],
+            'Token'    => ''
             );
             
         return $this->disconnect(self::USERS, $data);
@@ -176,6 +177,24 @@ class AdminModel
         $usernames = array_column($data, 'Username');
         
         return $usernames;
+    }
+
+    /**
+     * addToken
+     *
+     * @param  string $username
+     * @param  string $token
+     *
+     * @return string
+     */
+    public function addToken($username, $token)
+    {
+        $data = $this->connect();
+        $key = array_search($username, array_column($data, 'Token'));
+        
+        $data[$key]['Token'] = $token;
+        
+        return $this->disconnect(self::USERS, $data);
     }
 
     /**
