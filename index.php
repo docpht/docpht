@@ -22,15 +22,21 @@ $installFolder = 'install';
 if (!file_exists($configurationFile)) {
     include 'install/config.php';
 } elseif (file_exists($configurationFile) && file_exists($installFolder)) {
+    $files = glob($installFolder.'/partial/*');
+    foreach($files as $file){
+        if(is_file($file)) {
+            unlink($file);
+        }
+    }
     $files = glob($installFolder.'/*');
     foreach($files as $file){
         if(is_file($file)) {
-            if (is_writable('install/config.php')) {
-                unlink($file);
-            }
+            unlink($file);
         }
     }
-    if (is_dir_empty($installFolder)) {
+    if (is_dir_empty($installFolder.'/partial')) {
+        rmdir($installFolder.'/partial');
+    } elseif (is_dir_empty($installFolder)) {
         rmdir($installFolder);
     } elseif (file_exists($installFolder)) {
         include 'install/error.php';

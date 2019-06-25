@@ -133,7 +133,6 @@ if ($form->isSuccess()) {
             .'define("DOMAIN_NAME","'.$_SERVER['HTTP_HOST'].'");'."\n"
         ;
         $file = 'src/config/config.php';
-        mkdir(pathinfo($file, PATHINFO_DIRNAME), 0755, true);
         file_put_contents($file, $data);
         $values['username'] = $values['email'];
 		if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
