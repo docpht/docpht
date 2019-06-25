@@ -190,7 +190,7 @@ class AdminModel
     public function addToken($username, $token)
     {
         $data = $this->connect();
-        $key = array_search($username, array_column($data, 'Token'));
+        $key = array_search($username, array_column($data, 'Username'));
         
         $data[$key]['Token'] = $token;
         
