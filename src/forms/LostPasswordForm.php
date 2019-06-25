@@ -56,7 +56,7 @@ class LostPasswordForm extends MakeupForm
                     $mailer = new SendmailMailer;
                     $mailer->send($mail);
                     
-                    //$this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
+                    $this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
                 }
 			} else {
 				$this->msg->error(T::trans('This email address does not exist!'),BASE_URL);
