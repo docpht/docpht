@@ -42,6 +42,7 @@ use DocPHT\Form\ModifySectionForm;
 use DocPHT\Form\RemoveSectionForm;
 use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
+use DocPHT\Form\RecoveryPasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
 
 class BaseController
@@ -74,6 +75,7 @@ class BaseController
 	protected $versionModel;
 	protected $uploadlogo;
 	protected $lostPassword;
+	protected $recoveryPassword;
 
 	public function __construct()
 	{
@@ -105,6 +107,7 @@ class BaseController
 		$this->versionModel = new VersionModel();
 		$this->uploadlogo = new UploadLogoForm();
 		$this->lostPassword = new LostPasswordForm();
+		$this->recoveryPassword = new RecoveryPasswordForm();
 	}
 
 	public function search()

@@ -50,28 +50,26 @@ class RecoveryPasswordForm extends MakeupForm
 
 		$form->addSubmit('submit',T::trans('Update user password'));
 
+        $username = $this->adminModel->getUsernameFromToken($token);
+        $tokenFromUsername = $this->adminModel->getTokenFromUsername($username);
+        parse_str($token, $get);
+        $expiry = $get['expiry'];
+
+        $currentTime = time();
+        if ($expiry <= $currentTime && $token == $tokenFromUsername) {
+            $this->msg->error(T::trans('Link expired!'),BASE_URL);
+
 		if ($form->isSuccess()) {
             $values = $form->getValues();
-
-            $username = $this->adminModel->getUsernameFromToken($token);
-            $tokenFromUsername = $this->adminModel->getTokenFromUsername($username);
-            parse_str($token, $get);
-            $expiry = $get['expiry'];
-
-            $currentTime = time();
-            if ($expiry <= $currentTime) {
-                $this->msg->error(T::trans('Link expired!'),BASE_URL);
+                
+            if (isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword']) {
+                    $this->adminModel->updatePassword($username, $values['newpassword']);
+                    $this->msg->success(T::trans('User password updated successfully.'),BASE_URL.'login');
             } else {
-                if ($token == $tokenFromUsername) {
-                    if (isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword']) {
-                        $this->adminModel->updatePassword($username, $values['newpassword']);
-                        $this->msg->success(T::trans('User password updated successfully.'),BASE_URL.'login');
-                    }
-                } else {
                     $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL);
                 }
-            }
-		}
+            } 
+        }
 		
 		return $form;
 	}

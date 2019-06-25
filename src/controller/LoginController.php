@@ -77,5 +77,14 @@ class LoginController extends BaseController
 		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Lost password')]);
 		$this->view->show('lost_password.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
+    }
+    
+    public function recoveryPassword($token)
+	{
+        $form = $this->recoveryPassword->create($token);
+        
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Recovery password')]);
+		$this->view->show('lost_password.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
 	}
 }

@@ -23,6 +23,16 @@ if (!isset($_SESSION['Active'])) {
     $route->get_post('/lost-password', 'DocPHT\Controller\LoginController@lostPassword');
 }
 
+$route->get_post('/recovery/?', function($token){
+    if (isset($token)) {
+        $page = new LoginController();
+        $page->recoveryPassword($token);
+    } else {
+        $error = new ErrorPageController();
+        $error->getPage();
+    }
+});
+
 $route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 
 if (isset($_SESSION['Active'])) {
