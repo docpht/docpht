@@ -40,22 +40,20 @@ class LostPasswordForm extends MakeupForm
 			if (isset($values['email'])) {
                 $userExists = $this->adminModel->userExists($values['email']);
                 if ($userExists == 1) {
-                    /* $temporaryPassword = $this->adminModel->randomPassword();
-                    $this->adminModel->updatePassword($values['email'], $temporaryPassword); */
-                    
-                    $date = date('Y-m-d', strtotime("+1 days"));
+
+                    $date = date('Y-m-d H:i', strtotime("+1 hour"));
                     $expiry = strtotime($date);
                     $token = md5(uniqid(rand(), true));
                     $getToken = $this->adminModel->addToken($values['email'],$token.'&expiry='.$expiry);
 
-                    /* $mail = new Message;
+                    $mail = new Message;
                     $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
                         ->addReplyTo(ADMIN)
                         ->addBcc($values['email'])
                         ->setSubject('Reset password '.DOMAIN_NAME.' ')
-                        ->setHtmlBody('Use this temporary password ('.$temporaryPassword.'), <a href="'.BASE_URL.'login">log in</a> and update your password.'); 
+                        ->setHtmlBody('Click <a href="'.BASE_URL.'recovery/'.$getToken.'">here</a> to reset the password. The link will be valid for one hour.'); 
                     $mailer = new SendmailMailer;
-                    $mailer->send($mail); */
+                    $mailer->send($mail);
                     
                     $this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
                 }
