@@ -198,6 +198,36 @@ class AdminModel
     }
 
     /**
+     * getUsernameFromToken
+     *
+     * @param  string $token
+     *
+     * @return string
+     */
+    public function getUsernameFromToken($token)
+    {
+        $data = $this->connect();
+        $key = array_search($token, array_column($data, 'Token'));
+        
+        return $data[$key]['Username'];
+    }
+
+    /**
+     * getTokenFromUsername
+     *
+     * @param  string $username
+     *
+     * @return string
+     */
+    public function getTokenFromUsername($username)
+    {
+        $data = $this->connect();
+        $key = array_search($username, array_column($data, 'Username'));
+        
+        return $data[$key]['Token'];
+    }
+
+    /**
      * disconnect
      *
      * @param  string $path
