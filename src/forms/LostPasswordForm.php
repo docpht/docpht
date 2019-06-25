@@ -46,6 +46,9 @@ class LostPasswordForm extends MakeupForm
                     $token = md5(uniqid(rand(), true));
                     $this->adminModel->addToken($values['email'],$token);
 
+                    $date = date('Y-m-d', strtotime("+1 days"));
+                    $expiry = strtotime($date);
+
                     /* $mail = new Message;
                     $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
                         ->addReplyTo(ADMIN)
