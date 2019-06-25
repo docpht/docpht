@@ -85,7 +85,11 @@ $form->addText('apptitle', 'App title')
 
 $form->addGroup('Enter a password for admin username');
 
-    $form->addPassword('password', 'Enter password')
+$form->addEmail('email', 'Email:') 
+    ->setHtmlAttribute('placeholder', 'Email')
+    ->setRequired('Required');
+
+$form->addPassword('password', 'Enter password')
     ->setHtmlAttribute('placeholder', 'Enter password')
     ->setHtmlAttribute('autocomplete','off')
     ->setAttribute('onmousedown',"this.type='text'")
@@ -116,7 +120,7 @@ if ($form->isSuccess()) {
         $data = "<?php\n\n"
             .'define("DOCPHT_VERSION", "1.0.0");'."\n"
             .'define("TITLE", "'.rtrim($values['apptitle']).'");'."\n"
-            .'define("ADMIN", "admin");'."\n"
+            .'define("ADMIN", "'.rtrim($values['email']).'");'."\n"
             .'define("DS", DIRECTORY_SEPARATOR);'."\n"
             .'define("BASE_PATH", __DIR__ . DS);'."\n"
             .'define("SUBTITLE", "");'."\n"
@@ -126,11 +130,12 @@ if ($form->isSuccess()) {
             .'define("TIMEZONE","'.$values['timezone'].'");'."\n"
             .'define("DATAFORMAT","'.$values['dataformat'].'");'."\n"
             .'define("BASE_URL","'.rtrim($values['baseurl']).'");'."\n"
+            .'define("DOMAIN_NAME","'.$_SERVER['HTTP_HOST'].'");'."\n"
         ;
         $file = 'src/config/config.php';
         mkdir(pathinfo($file, PATHINFO_DIRNAME), 0755, true);
         file_put_contents($file, $data);
-        $values['username'] = 'admin';
+        $values['username'] = $values['email'];
 		if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
             $adminModel->create($values);
 		}

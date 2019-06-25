@@ -69,4 +69,13 @@ class LoginController extends BaseController
         header("Location:".BASE_URL);
         exit;
     }
+
+    public function lostPassword()
+	{
+        $form = $this->lostPassword->sendEmail();
+        
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Lost password')]);
+		$this->view->show('lost_password.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
 }

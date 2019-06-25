@@ -16,24 +16,26 @@ namespace Instant\Core\Controller;
 
 use DocPHT\Form\SearchForm;
 use DocPHT\Model\PageModel;
-use DocPHT\Model\SearchModel;
-use DocPHT\Model\HomePageModel;
-use DocPHT\Model\VersionModel;
-use DocPHT\Model\BackupsModel;
-use DocPHT\Model\AdminModel;
 use DocPHT\Form\AddUserForm;
+use DocPHT\Model\AdminModel;
 use Instant\Core\Views\View;
 use DocPHT\Core\Translator\T;
-use DocPHT\Form\VersionForms;
 use DocPHT\Form\BackupsForms;
+use DocPHT\Form\HomePageForm;
+use DocPHT\Form\VersionForms;
+use DocPHT\Model\SearchModel;
+use DocPHT\Model\BackupsModel;
+use DocPHT\Model\VersionModel;
 use DocPHT\Form\AddSectionForm;
 use DocPHT\Form\CreatePageForm;
 use DocPHT\Form\DeletePageForm;
 use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\UpdatePageForm;
+use DocPHT\Form\UploadLogoForm;
+use DocPHT\Model\HomePageModel;
 use DocPHT\Form\PublishPageForm;
-use DocPHT\Form\HomePageForm;
 use DocPHT\Form\SortSectionForm;
+use DocPHT\Form\LostPasswordForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\InsertSectionForm;
 use DocPHT\Form\ModifySectionForm;
@@ -41,7 +43,6 @@ use DocPHT\Form\RemoveSectionForm;
 use DocPHT\Form\VersionSelectForm;
 use DocPHT\Form\UpdatePasswordForm;
 use Plasticbrain\FlashMessages\FlashMessages;
-use DocPHT\Form\UploadLogoForm;
 
 class BaseController
 {
@@ -72,6 +73,7 @@ class BaseController
 	protected $backupsModel;
 	protected $versionModel;
 	protected $uploadlogo;
+	protected $lostPassword;
 
 	public function __construct()
 	{
@@ -102,6 +104,7 @@ class BaseController
 		$this->backupsModel = new BackupsModel();
 		$this->versionModel = new VersionModel();
 		$this->uploadlogo = new UploadLogoForm();
+		$this->lostPassword = new LostPasswordForm();
 	}
 
 	public function search()

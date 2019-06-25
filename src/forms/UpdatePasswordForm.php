@@ -62,7 +62,7 @@ class UpdatePasswordForm extends MakeupForm
 		if ($form->isSuccess()) {
 			$values = $form->getValues();
 			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $this->adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
-				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);;
+				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
 				$this->msg->success(T::trans('User password updated successfully.'),BASE_URL.'admin');
 			} else {
 				$this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');

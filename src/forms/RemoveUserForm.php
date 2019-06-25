@@ -29,7 +29,7 @@ class RemoveUserForm extends MakeupForm
         	->setOption('description', T::trans('Select username for removal.'));
         
         $filterUsers = array_filter($this->adminModel->getUsernames(), function ($var) {
-            return (strpos($var, 'admin') === false);
+            return (strpos($var, ADMIN) === false);
         });
 
         $form->addSelect('user',T::trans('Remove a user:'), $filterUsers)

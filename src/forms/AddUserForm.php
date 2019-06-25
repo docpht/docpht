@@ -26,12 +26,12 @@ class AddUserForm extends MakeupForm
         $form->onRender[] = [$this, 'bootstrap4'];
 
         $form->addGroup(T::trans('Add user'))
-            ->setOption('description', T::trans('Enter a new username and password for the account.'));
+            ->setOption('description', T::trans('Enter a new email and password for the account.'));
 
-        $form->addText('username', T::trans('Enter Username:'))
-            ->setHtmlAttribute('placeholder', T::trans('Enter username'))
+        $form->addEmail('username', T::trans('Enter email:'))
+            ->setHtmlAttribute('placeholder', T::trans('Enter email'))
             ->setHtmlAttribute('autocomplete','off')
-            ->setRequired(T::trans('Enter username'));
+            ->setRequired(T::trans('Enter email'));
             
         $form->addPassword('password', T::trans('Enter password:'))
             ->setHtmlAttribute('placeholder', T::trans('Enter password'))
