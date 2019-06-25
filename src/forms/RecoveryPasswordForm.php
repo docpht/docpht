@@ -66,7 +66,7 @@ class RecoveryPasswordForm extends MakeupForm
                     
                 if (isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword']) {
                         $this->adminModel->updatePassword($username, $values['newpassword']);
-                        $this->msg->success(T::trans('User password updated successfully.'),BASE_URL.'login');
+                        $this->msg->success(T::trans('User password updated successfully.'),BASE_URL);
                 } else {
                         $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL);
                     }
