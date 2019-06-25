@@ -44,7 +44,8 @@ class LostPasswordForm extends MakeupForm
                     $date = date('Y-m-d H:i', strtotime("+1 hour"));
                     $expiry = strtotime($date);
                     $token = md5(uniqid(rand(), true));
-                    $getToken = $this->adminModel->addToken($values['email'],$token.'&expiry='.$expiry);
+                    $this->adminModel->addToken($values['email'],$token.'&expiry='.$expiry);
+                    $getToken = $token.'&expiry='.$expiry;
 
                     $mail = new Message;
                     $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
@@ -55,7 +56,7 @@ class LostPasswordForm extends MakeupForm
                     $mailer = new SendmailMailer;
                     $mailer->send($mail);
                     
-                    $this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
+                    //$this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
                 }
 			} else {
 				$this->msg->error(T::trans('This email address does not exist!'),BASE_URL);
