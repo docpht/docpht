@@ -89,6 +89,8 @@ if (isset($_SESSION['Active'])) {
 
         }
         
+        $this->get_post('/update-email','DocPHT\Controller\AdminController@updateEmail');
+
         // /admin/translations
         $this->get_post('/translations', 'DocPHT\Controller\AdminController@translations');
 
