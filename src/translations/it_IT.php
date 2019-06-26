@@ -28,6 +28,7 @@
         'Add blockquote' => 'Aggiungi blockquote',
         'Add image' => 'Aggiungi immagine',
         'Add markdown' => 'Aggiungi markdown',
+        'Add markdown from file' => 'Aggiungi markdown dal file',
         'Add link button' => 'Aggiungi pulsante di collegamento',
         'Options:' => 'Opzioni:',
         'Select an option' => 'Seleziona un\'opzione',
