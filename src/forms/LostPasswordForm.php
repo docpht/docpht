@@ -37,10 +37,8 @@ class LostPasswordForm extends MakeupForm
         
         if ($form->isSuccess()) {
             $values = $form->getValues();
-        
-			if (isset($values['email'])) {
-                $userExists = $this->adminModel->userExists($values['email']);
-                if ($userExists == 1) {
+            $userExists = $this->adminModel->userExists($values['email']);
+			if (isset($values['email']) && $userExists == true) {
 
                     $date = date('Y-m-d H:i', strtotime("+1 hour"));
                     $expiry = strtotime($date);
@@ -66,8 +64,8 @@ class LostPasswordForm extends MakeupForm
                     $mailer->send($mail);
                     
                     $this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
-                }
-			} else {
+
+			} elseif ($userExists == false) {
 				$this->msg->error(T::trans('This email address does not exist!'),BASE_URL);
 			}
 		}
