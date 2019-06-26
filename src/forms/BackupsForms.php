@@ -90,6 +90,14 @@ class BackupsForms extends MakeupForm
         }
     }
     
+    public function filter($files)
+    {
+        $exclude = 'data/users.json';
+        $key = array_search($exclude, $files);
+        unset($files[$key]);
+        return $files;
+    }
+    
     public function restoreMerge()
     {
         $zipData = new \ZipArchive();
@@ -107,9 +115,9 @@ class BackupsForms extends MakeupForm
                 
                 $join = array_merge($this->pageModel->connect(), $new); 
 
-                $files = $this->backupsModel->getZipList($zip_file);
-                foreach ($files as $file) { if(file_exists($file))unlink($file); }
-                $zipData->extractTo('.');
+                $files = $this->filter($this->backupsModel->getZipList($zip_file));
+                foreach ($files as $file) { if(file_exists($file))unlink($file); } 
+                $zipData->extractTo('.', $files);
                 $zipData->close();
                 $this->pageModel->disconnect(PageModel::DB, $join);
                 $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
@@ -129,7 +137,8 @@ class BackupsForms extends MakeupForm
             if ($zipData->open($zip_file) === TRUE) {
                 $this->recursiveRemoveDirectory('data');
                 $this->recursiveRemoveDirectory('pages');
-                $zipData->extractTo('.');
+                $files = $this->filter($this->backupsModel->getZipList($zip_file));
+                $zipData->extractTo('.', $files);
                 $zipData->close();
                 $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
             } else {
@@ -139,6 +148,25 @@ class BackupsForms extends MakeupForm
             $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
         }
     }
+    
+    public function restoreUsers()
+    {
+        $zipData = new \ZipArchive();
+        if (!empty($_POST['backup'])) {
+            $zip_file = $_POST['backup'];
+            if ($zipData->open($zip_file) === TRUE) {
+                if(file_exists('data/users.json'))unlink('data/users.json');
+                $zipData->extractTo('.', 'data/users.json');
+                $zipData->close();
+                $this->msg->success(T::trans('Users restored successfully.'),BASE_URL.'admin/backup');
+            } else {
+                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+            }
+        } else {
+            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
+        }
+    }
+    
     
     function recursiveRemoveDirectory($directory)
     {
