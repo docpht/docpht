@@ -52,7 +52,8 @@ class LostPasswordForm extends MakeupForm
                     $params = [
                         'BASE_URL' => BASE_URL,
                         'title' => 'Lost password',
-                        'content' => 'Click <a href="'.BASE_URL.'recovery/'.$getToken.'">here</a> to reset the password. The link will be valid for one hour.'
+                        'link' =>  $getToken,
+                        'content' => 'to reset the password. The link will be valid for one hour.'
                     ]; 
 
                     $mail = new Message;
