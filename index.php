@@ -19,28 +19,46 @@ $configurationFile = 'src/config/config.php';
 
 $installFolder = 'install';
 
-if (!file_exists($configurationFile)) {
-    include 'install/config.php';
-} elseif (file_exists($configurationFile) && file_exists($installFolder)) {
+if (file_exists($configurationFile) && file_exists($installFolder)) {
     $files = glob($installFolder.'/partial/*');
     foreach($files as $file){
         if(is_file($file)) {
             unlink($file);
         }
+        if (is_dir_empty($installFolder.'/partial')) 
+         rmdir($installFolder.'/partial');
     }
     $files = glob($installFolder.'/*');
     foreach($files as $file){
         if(is_file($file)) {
             unlink($file);
         }
+        if (is_dir_empty($installFolder)) 
+         rmdir($installFolder);
     }
-    if (is_dir_empty($installFolder.'/partial')) {
-        rmdir($installFolder.'/partial');
-    } elseif (is_dir_empty($installFolder)) {
-        rmdir($installFolder);
-    } elseif (file_exists($installFolder)) {
+    sleep(1);
+    if (file_exists($installFolder.'/partial') && file_exists($installFolder)) {
         include 'install/error.php';
+    } 
+} elseif (!file_exists($configurationFile) && !file_exists($installFolder)) {
+    mkdir($installFolder, 0755, true);
+    mkdir($installFolder.'/partial', 0755, true);
+    $files = glob('temp/_install/partial/*');
+    foreach($files as $file){
+        if(is_file($file)) {
+            error_log($file,0);
+            copy($file, $installFolder . "/partial/" . pathinfo($file,PATHINFO_BASENAME));
+        }
     }
+    $files = glob('temp/_install/*');
+    foreach($files as $file){
+        if(is_file($file)) {
+            copy($file, $installFolder . "/" . pathinfo($file,PATHINFO_BASENAME));
+        }
+    }    
+    include 'install/config.php';
+} elseif (!file_exists($configurationFile)) {
+    include 'install/config.php';
 } elseif (file_exists($autoload)) {
 require $autoload;
 
