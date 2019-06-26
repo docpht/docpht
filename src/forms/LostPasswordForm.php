@@ -61,9 +61,10 @@ class LostPasswordForm extends MakeupForm
                     if (SMTPMAILER == true) {
                         $mailer = new \Nette\Mail\SmtpMailer([
                             'host' => SMTPHOST,
+                            'port' => SMTPPORT,
                             'username' => SMTPUSERNAME,
                             'password' => SMTPPASSWORD,
-                            'secure' => 'ssl',
+                            'secure' => SMTPENCRYPT,
                         ]);
                         $mailer->send($mail);
                     } else {
