@@ -88,6 +88,24 @@ class AdminModel
     }
 
     /**
+     * updateEmail
+     *
+     * @param  string $username
+     * @param  string $email
+     *
+     * @return string
+     */
+    public function updateEmail($username, $email)
+    {
+        $data = $this->connect();
+        $key = array_search($username, array_column($data, 'Username'));
+        
+        $data[$key]['Username'] = $email;
+        
+        return $this->disconnect(self::USERS, $data);
+    }
+
+    /**
      * randomPassword
      *
      * @return string

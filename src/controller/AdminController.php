@@ -37,6 +37,15 @@ class AdminController extends BaseController
 		$this->view->show('partial/footer.php');
 	}
 
+	public function updateEmail()
+	{
+		$form = $this->updateEmailForm->create();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update Email')]);
+		$this->view->show('admin/update_email.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
+	}
+
 	public function removeUser()
 	{
 		$form = $this->removeUserForm->create();
