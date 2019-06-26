@@ -52,7 +52,7 @@ class LostPasswordForm extends MakeupForm
                     $params = [
                         'BASE_URL' => BASE_URL,
                         'title' => 'Lost password',
-                        'link' =>  $getToken,
+                        'token' =>  $getToken,
                         'content' => 'to reset the password. The link will be valid for one hour.'
                     ]; 
 
