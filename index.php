@@ -43,14 +43,14 @@ if (file_exists($configurationFile) && file_exists($installFolder)) {
 } elseif (!file_exists($configurationFile) && !file_exists($installFolder)) {
     mkdir($installFolder, 0755, true);
     mkdir($installFolder.'/partial', 0755, true);
-    $files = glob('temp/_install/partial/*');
+    $files = glob('temp/install/partial/*');
     foreach($files as $file){
         if(is_file($file)) {
             error_log($file,0);
             copy($file, $installFolder . "/partial/" . pathinfo($file,PATHINFO_BASENAME));
         }
     }
-    $files = glob('temp/_install/*');
+    $files = glob('temp/install/*');
     foreach($files as $file){
         if(is_file($file)) {
             copy($file, $installFolder . "/" . pathinfo($file,PATHINFO_BASENAME));
