@@ -40,17 +40,14 @@ class LostPasswordForm extends MakeupForm
             $userExists = $this->adminModel->userExists($values['email']);
 			if (isset($values['email']) && $userExists == true) {
 
-                    $date = date('Y-m-d H:i', strtotime("+1 hour"));
-                    $expiry = strtotime($date);
-                    $token = md5(uniqid(rand(), true));
-                    $this->adminModel->addToken($values['email'],$token.'&expiry='.$expiry);
-                    $getToken = $token.'&expiry='.$expiry;
+                    $token = $this->adminModel->createTimedToken('1');
+                    $this->adminModel->addToken($values['email'],$token);
 
                     $latte = new \Latte\Engine;
                     $params = [
                         'BASE_URL' => BASE_URL,
                         'title' => 'Lost password',
-                        'token' =>  $getToken,
+                        'token' =>  $token,
                         'content' => 'to reset the password. The link will be valid for one hour.'
                     ]; 
 

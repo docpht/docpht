@@ -180,6 +180,22 @@ class AdminModel
     }
 
     /**
+     * createTimedToken
+     *
+     * @param  string $hour
+     *
+     * @return string
+     */
+    public function createTimedToken(string $hour)
+    {
+        $date = date('Y-m-d H:i', strtotime("+".$hour." hour"));
+        $expiry = strtotime($date);
+        $token = md5(uniqid(rand(), true));
+
+        return $token.'&expiry='.$expiry;
+    }
+
+    /**
      * addToken
      *
      * @param  string $username
