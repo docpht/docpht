@@ -17,6 +17,7 @@ use Latte\Engine;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
 use Nette\Mail\Message;
+use Nette\Mail\SmtpMailer;
 use DocPHT\Core\Translator\T;
 use Nette\Mail\SendmailMailer;
 
@@ -57,8 +58,18 @@ class LostPasswordForm extends MakeupForm
                         ->addBcc($values['email'])
                         ->setSubject('Reset password '.DOMAIN_NAME.' ')
                         ->setHtmlBody($latte->renderToString('src/views/email/recovery_password.latte', $params));
-                    $mailer = new SendmailMailer;
-                    $mailer->send($mail);
+                    if (SMTPMAILER == true) {
+                        $mailer = new \Nette\Mail\SmtpMailer([
+                            'host' => SMTPHOST,
+                            'username' => SMTPUSERNAME,
+                            'password' => SMTPPASSWORD,
+                            'secure' => 'ssl',
+                        ]);
+                        $mailer->send($mail);
+                    } else {
+                        $mailer = new SendmailMailer;
+                        $mailer->send($mail);
+                    }
                     
                     $this->msg->success('Email successfully sent to '.$values['email'].'',BASE_URL);
 

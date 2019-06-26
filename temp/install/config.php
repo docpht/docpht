@@ -141,6 +141,10 @@ if ($form->isSuccess()) {
             .'define("DATAFORMAT","'.$values['dataformat'].'");'."\n"
             .'define("BASE_URL","'.rtrim($values['baseurl']).'");'."\n"
             .'define("DOMAIN_NAME","'.$_SERVER['HTTP_HOST'].'");'."\n"
+            .'define("SMTPMAILER",false)'."\n"
+            .'define("SMTPHOST","")'."\n"
+            .'define("SMTPUSERNAME","")'."\n"
+            .'define("SMTPPASSWORD","")'."\n"
         ;
         $file = 'src/config/config.php';
         file_put_contents($file, $data);
