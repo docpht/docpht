@@ -87,7 +87,7 @@ class AdminController extends BaseController
 	{
 		$form = $this->backupsForms->restoreOptions();
 		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Restore Options')]);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Restore options')]);
 		$this->view->show('admin/restore_options.php', ['form' => $form]);
 		$this->view->show('partial/footer.php');
 
