@@ -83,14 +83,14 @@ class AdminController extends BaseController
 		$form = $this->backupsForms->save();
 	}
 
-	public function mergeRestoreBackup()
+	public function restoreOptions()
 	{
-		$form = $this->backupsForms->restoreMerge();
-	}
+		$form = $this->backupsForms->restoreOptions();
+		
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Restore Options')]);
+		$this->view->show('admin/restore_options.php', ['form' => $form]);
+		$this->view->show('partial/footer.php');
 
-	public function clearRestoreBackup()
-	{
-		$form = $this->backupsForms->clearRestore();
 	}
 
 	public function importBackup()

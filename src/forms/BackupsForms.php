@@ -21,6 +21,65 @@ use DocPHT\Model\PageModel;
 class BackupsForms extends MakeupForm
 {
 
+    public function restoreOptions()
+    {
+        if (isset($_POST['backup'])){ 
+            error_log($_POST['backup'],0);
+            $tmp = 'temp/'.uniqid();
+            file_put_contents($tmp,$_POST['backup']);
+        }
+        
+        $form = new Form;
+        $form->onRender[] = [$this, 'bootstrap4'];
+        
+        $form->addGroup(T::trans('Restore from backup'));
+        
+        $options = [
+            'crestore' => T::trans('Clear current pages and restore from backup'),
+            'mrestore' => T::trans('Merge pages from backup with current pages'),
+            'urestore' => T::trans('Restore users from backup'),
+            ];
+        
+        $form->addRadioList('restore_option', T::trans('Restore options:'), $options)
+        	->setRequired(true);
+        	
+        $form->addSubmit('submit', T::trans('Restore'));
+        
+        
+        $success = '';
+        
+        if ($form->isSuccess()) {
+            $values = $form->getValues();
+            $option = $values['restore_option'];
+            $backup = file_get_contents('temp/bvar');
+            unlink($tmp);
+            
+            switch ($option) {
+                case 'crestore':
+                    $procedure = $this->clearRestore($backup);
+                    break;
+                case 'mrestore':
+                    $procedure = $this->restoreMerge($backup);
+                    break;
+                case 'urestore':
+                    $procedure = $this->restoreUsers($backup);
+                    break;
+                case 'default':
+                    break;
+                
+            }
+            
+            if ($procedure) {
+                $this->msg->success(T::trans('Restored successfully.'),BASE_URL.'admin/backup');
+            } else {
+                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+            }
+
+        } 
+        return $form;
+        
+    }
+
     public function import()
     {
         $form = new Form;
@@ -98,11 +157,10 @@ class BackupsForms extends MakeupForm
         return $files;
     }
     
-    public function restoreMerge()
+    public function restoreMerge($zip_file)
     {
         $zipData = new \ZipArchive();
-        if (!empty($_POST['backup'])) {
-            $zip_file = $_POST['backup'];
+        if (!empty($zip_file)) {
             if ($zipData->open($zip_file) === TRUE) {
                 $oldIds = $this->pageModel->getAllFromKey('id');
                 $new = json_decode(file_get_contents("zip://".$zip_file."#data/pages.json"),true);
@@ -120,50 +178,51 @@ class BackupsForms extends MakeupForm
                 $zipData->extractTo('.', $files);
                 $zipData->close();
                 $this->pageModel->disconnect(PageModel::DB, $join);
-                $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
+                
+                return true;
             } else {
-                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+                return false;
             }
         } else {
-            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
+            return false;
         }
     }
     
-    public function clearRestore()
+    public function clearRestore($zip_file)
     {
         $zipData = new \ZipArchive();
-        if (!empty($_POST['backup'])) {
-            $zip_file = $_POST['backup'];
+        if (!empty($zip_file)) {
             if ($zipData->open($zip_file) === TRUE) {
                 $this->recursiveRemoveDirectory('data');
                 $this->recursiveRemoveDirectory('pages');
                 $files = $this->filter($this->backupsModel->getZipList($zip_file));
                 $zipData->extractTo('.', $files);
                 $zipData->close();
-                $this->msg->success(T::trans('Backup restored successfully.'),BASE_URL.'admin/backup');
+                
+                return true;
             } else {
-                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+                return false;
             }
         } else {
-            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
+            return false;
         }
     }
     
-    public function restoreUsers()
+    public function restoreUsers($zip_file)
     {
         $zipData = new \ZipArchive();
-        if (!empty($_POST['backup'])) {
-            $zip_file = $_POST['backup'];
+        if (!empty($zip_file)) {
             if ($zipData->open($zip_file) === TRUE) {
                 if(file_exists('data/users.json'))unlink('data/users.json');
                 $zipData->extractTo('.', 'data/users.json');
                 $zipData->close();
-                $this->msg->success(T::trans('Users restored successfully.'),BASE_URL.'admin/backup');
+                
+                return true;
             } else {
-                $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'admin/backup');
+                return false;
             }
         } else {
-            $this->msg->error(T::trans('Backup data missing!'),BASE_URL.'admin/backup');
+            return false;
         }
     }
     

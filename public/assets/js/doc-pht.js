@@ -338,7 +338,6 @@ if (document.getElementById('rbbackup')) {
         document.getElementById('ebhidden').value = document.getElementById('rbbackup').value;    
         document.getElementById('dbhidden').value = document.getElementById('rbbackup').value;    
         document.getElementById('rmbhidden').value = document.getElementById('rbbackup').value;    
-        document.getElementById('crbhidden').value = document.getElementById('rbbackup').value;    
     };  
 
 }

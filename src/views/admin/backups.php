@@ -41,7 +41,7 @@
                         </select>
                       </div>
                       <?php if (!empty($backupsList)) : ?>
-                        <button type="button" form="rb" class="btn btn-primary mb-2 mr-2 text-light" role="button" data-toggle="modal" data-placement="bottom" data-target="#confirmRestore" title="<?= $t->trans("Restore backup") ?>">
+                        <button type="submit" form="rmb" class="btn btn-primary mb-2 mr-2 text-light" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Restore from backup") ?>">
                           <i class="fa fa-window-restore" aria-hidden="true"></i>
                         </button>
                       <?php endif ?> 
@@ -49,12 +49,8 @@
                       </form>
 
                     <?php if (!empty($backupsList)) : ?>
-                      <form id="rmb" action="admin/mrestore-backup" method="post" class="d-flex">
+                      <form id="rmb" action="admin/restore-options" method="post" class="d-flex">
                       <input type="hidden" id="rmbhidden" name="backup">
-                      </form>
-                      
-                      <form id="crb" action="admin/crestore-backup" method="post" class="d-flex">
-                      <input type="hidden" id="crbhidden" name="backup">
                       </form>
                     <?php endif ?>
                     
@@ -89,30 +85,3 @@
                   </div>
 
         <?php endif ?> 
-        
-            <!-- Modal confirm delete -->
-            <div class="modal" id="confirmRestore">
-                <div class="modal-dialog">
-                <div class="modal-content shadow">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                    <h4 class="modal-title"><?= $t->trans('Question?'); ?></h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                    <?= $t->trans('How would you like to restore?'); ?>
-                    </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                    <button type="submit" form="rmb" class="btn btn-primary" title="<?= $t->trans("Restore & merge backup") ?>"><?= $t->trans("Restore & merge backup") ?></button>
-                    <button type="submit" form="crb" class="btn btn-secondary" title="<?= $t->trans("Clear & restore backup") ?>"><?= $t->trans("Clear & restore backup") ?></button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><?= $t->trans('Do not do anything'); ?></button>
-                    </div>
-                    
-                </div>
-                </div>
-            </div>

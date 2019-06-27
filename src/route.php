@@ -72,11 +72,8 @@ if (isset($_SESSION['Active'])) {
             // /admin/import-backup
             $this->get_post('/import-backup', 'DocPHT\Controller\AdminController@importBackup');
             
-            // /admin/crestore-backup
-            $this->get_post('/crestore-backup', 'DocPHT\Controller\AdminController@clearRestoreBackup');
-            
-            // /admin/mrestore-backup
-            $this->get_post('/mrestore-backup', 'DocPHT\Controller\AdminController@mergeRestoreBackup');
+            // /admin/restore-options
+            $this->get_post('/restore-options', 'DocPHT\Controller\AdminController@restoreOptions');
 
             // /admin/upload-logo
             $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
