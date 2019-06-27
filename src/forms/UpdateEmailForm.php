@@ -36,7 +36,8 @@ class UpdateEmailForm extends MakeupForm
 		if ($form->isSuccess()) {
             $values = $form->getValues();
             if ($_SESSION['Username'] == ADMIN) {
-                $this->msg->error(T::trans('Hi admin, update your email in the config.php file.'),BASE_URL.'admin');
+				$this->adminModel->updateEmail($_SESSION['Username'], $values['newemail']);
+                $this->msg->info(T::trans('Hi administrator, email updated correctly. Now you need to update your email also in the config.php file manually.'),BASE_URL.'admin');
             } elseif (isset($_SESSION['Username']) && isset($values['newemail'])) {
 				$this->adminModel->updateEmail($_SESSION['Username'], $values['newemail']);
 				$this->msg->success(T::trans('Email updated successfully.'),BASE_URL.'admin');
