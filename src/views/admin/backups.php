@@ -49,35 +49,35 @@
                       </form>
 
                     <?php if (!empty($backupsList)) : ?>
-                      <form id="rmb" action="admin/restore-options" method="post" class="d-flex">
+                      <form id="rmb" action="admin/backup/restore-options" method="post" class="d-flex">
                       <input type="hidden" id="rmbhidden" name="backup">
                       </form>
                     <?php endif ?>
                     
                       <div class="d-flex justify-content-center">
                           <?php if (!empty($backupsList)) : ?>
-                            <form id="db" action="admin/delete-backup" method="post">
+                            <form id="db" action="admin/backup/delete-backup" method="post">
                                 <input type="hidden" id="dbhidden" name="backup">
                                 <button type="submit" form="db" class="btn btn-danger mr-2 text-light" role="button" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Remove backup") ?>" onclick="return confirmationRemoval()">
                                     <i class="fa fa-remove" aria-hidden="true"></i>
                                 </button>
                             </form>
                           <?php endif ?>
-                            <form id="ib" action="admin/import-backup" method="post">
+                            <form id="ib" action="admin/backup/import-backup" method="post">
                                 <input type="hidden" id="ibhidden" name="backup">
                                 <button type="submit" form="ib" class="btn btn-secondary mb-2 mr-2" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Import a backup") ?>">
                                 <i class="fa fa-upload" aria-hidden="true"></i>
                                 </button>
                             </form>
                           <?php if (!empty($backupsList)) : ?>
-                            <form id="eb" action="admin/export-backup" method="post">
+                            <form id="eb" action="admin/backup/export-backup" method="post">
                                 <input type="hidden" id="ebhidden" name="backup">
                                 <button type="submit" form="eb" class="btn btn-secondary mr-2" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Export a backup") ?>">
                                 <i class="fa fa-download" aria-hidden="true"></i>
                                 </button>
                             </form>
                           <?php endif ?>
-                            <a href="admin/save-backup" class="btn btn-success mb-2 mr-2 text-light" role="button" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Save backup") ?>">
+                            <a href="admin/backup/save-backup" class="btn btn-success mb-2 mr-2 text-light" role="button" data-toggle="tooltip" data-placement="bottom" title="<?= $t->trans("Save backup") ?>">
                               <i class="fa fa-floppy-o" aria-hidden="true"></i>
                             </a>
                         </div>

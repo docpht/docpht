@@ -60,20 +60,20 @@ if (isset($_SESSION['Active'])) {
             // /admin/backup
             $this->get_post('/backup', 'DocPHT\Controller\AdminController@backup');
             
-            // /admin/save-backup
-            $this->get_post('/save-backup', 'DocPHT\Controller\AdminController@saveBackup');
+            // /admin/backup/save-backup
+            $this->get_post('/backup/save-backup', 'DocPHT\Controller\AdminController@saveBackup');
             
-            // /admin/export-backup
-            $this->get_post('/export-backup', 'DocPHT\Controller\AdminController@exportBackup');
+            // /admin/backup/export-backup
+            $this->get_post('/backup/export-backup', 'DocPHT\Controller\AdminController@exportBackup');
             
-            // /admin/delete-backup
-            $this->get_post('/delete-backup', 'DocPHT\Controller\AdminController@deleteBackup');
+            // /admin/backup/delete-backup
+            $this->get_post('/backup/delete-backup', 'DocPHT\Controller\AdminController@deleteBackup');
             
-            // /admin/import-backup
-            $this->get_post('/import-backup', 'DocPHT\Controller\AdminController@importBackup');
+            // /admin/backup/import-backup
+            $this->get_post('/backup/import-backup', 'DocPHT\Controller\AdminController@importBackup');
             
-            // /admin/restore-options
-            $this->get_post('/restore-options', 'DocPHT\Controller\AdminController@restoreOptions');
+            // /admin/backup/restore-options
+            $this->get_post('/backup/restore-options', 'DocPHT\Controller\AdminController@restoreOptions');
 
             // /admin/upload-logo
             $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
