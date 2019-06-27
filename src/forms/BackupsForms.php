@@ -24,8 +24,7 @@ class BackupsForms extends MakeupForm
     public function restoreOptions()
     {
         if (isset($_POST['backup'])){ 
-            error_log($_POST['backup'],0);
-            $tmp = 'temp/o1o1';
+            $tmp = 'temp/o1o1'; //because post data goes bye bye after submit, should solve for this later
             file_put_contents($tmp,$_POST['backup']);
         }
         
@@ -51,7 +50,7 @@ class BackupsForms extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
             $option = $values['restore_option'];
-            $backup = file_get_contents('temp/o1o1');
+            $backup = file_get_contents('temp/o1o1'); //because post data goes bye bye after submit, should solve for this later
             unlink('temp/o1o1');
             
             switch ($option) {
