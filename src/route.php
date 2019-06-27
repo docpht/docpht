@@ -61,19 +61,19 @@ if (isset($_SESSION['Active'])) {
             $this->get_post('/backup', 'DocPHT\Controller\AdminController@backup');
             
             // /admin/backup/save-backup
-            $this->get_post('/backup/save-backup', 'DocPHT\Controller\AdminController@saveBackup');
+            $this->get_post('/backup/save', 'DocPHT\Controller\AdminController@saveBackup');
             
             // /admin/backup/export-backup
-            $this->get_post('/backup/export-backup', 'DocPHT\Controller\AdminController@exportBackup');
+            $this->get_post('/backup/export', 'DocPHT\Controller\AdminController@exportBackup');
             
             // /admin/backup/delete-backup
-            $this->get_post('/backup/delete-backup', 'DocPHT\Controller\AdminController@deleteBackup');
+            $this->get_post('/backup/delete', 'DocPHT\Controller\AdminController@deleteBackup');
             
             // /admin/backup/import-backup
-            $this->get_post('/backup/import-backup', 'DocPHT\Controller\AdminController@importBackup');
+            $this->get_post('/backup/import', 'DocPHT\Controller\AdminController@importBackup');
             
             // /admin/backup/restore-options
-            $this->get_post('/backup/restore-options', 'DocPHT\Controller\AdminController@restoreOptions');
+            $this->get_post('/backup/restore', 'DocPHT\Controller\AdminController@restoreOptions');
 
             // /admin/upload-logo
             $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
