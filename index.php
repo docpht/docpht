@@ -39,7 +39,10 @@ if (file_exists($configurationFile) && file_exists($installFolder)) {
     sleep(1);
     if (file_exists($installFolder.'/partial') && file_exists($installFolder)) {
         include 'install/error.php';
-    } 
+    } else {
+        require $configurationFile;
+        header('Location:'.BASE_URL.'login');
+    }
 } elseif (!file_exists($configurationFile) && !file_exists($installFolder)) {
     mkdir($installFolder, 0755, true);
     mkdir($installFolder.'/partial', 0755, true);
