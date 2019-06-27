@@ -234,7 +234,7 @@ class BackupsForms extends MakeupForm
             if(is_dir($file)) { 
                 $this->recursiveRemoveDirectory($file);
             } else {
-                if(strpos($file, 'data/DocPHT_Backup_') === false)unlink($file);
+                if(strpos($file, 'data/DocPHT_Backup_') === false && strpos($file, 'data/users.json') === false)unlink($file);
             }
         }
         if($directory !== 'data' && $directory !== 'pages')rmdir($directory);
