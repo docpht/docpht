@@ -154,7 +154,8 @@ if ($form->isSuccess()) {
 		if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
             $adminModel->create($values);
 		}
-        header('Location:'.$values['baseurl'].'login');
+		sleep(1);
+        header('Location:'.$values['baseurl']);
         exit;
     } else {
         $error = '<div class="alert alert-danger" role="alert">Sorry something didn\'t work!</div>';
