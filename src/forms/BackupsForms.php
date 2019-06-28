@@ -176,7 +176,7 @@ class BackupsForms extends MakeupForm
                 foreach ($files as $file) { if(file_exists($file))unlink($file); } 
                 for($i = 0; $i < $zipData->numFiles; $i++) {
                     $filename = $zipData->getNameIndex($i);
-                    copy("zip://".$zip_file."#".$filename, $filename);
+                    $zipData->extractTo('.', $filename);
                 }            
                 //$zipData->extractTo('.', $files);
                 $zipData->close();
@@ -201,7 +201,7 @@ class BackupsForms extends MakeupForm
                 $files = $this->filter($this->backupsModel->getZipList($zip_file));
                 for($i = 0; $i < $zipData->numFiles; $i++) {
                     $filename = $zipData->getNameIndex($i);
-                    copy("zip://".$zip_file."#".$filename, $filename);
+                    $zipData->extractTo('.', $filename);
                 }  
                 $zipData->extractTo('.');
                 $zipData->close();
