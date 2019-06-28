@@ -178,7 +178,6 @@ class BackupsForms extends MakeupForm
                     $filename = $zipData->getNameIndex($i);
                     $zipData->extractTo('.', $filename);
                 }            
-                //$zipData->extractTo('.', $files);
                 $zipData->close();
                 $this->pageModel->disconnect(PageModel::DB, $join);
                 
@@ -203,7 +202,6 @@ class BackupsForms extends MakeupForm
                     $filename = $zipData->getNameIndex($i);
                     $zipData->extractTo('.', $filename);
                 }  
-                $zipData->extractTo('.');
                 $zipData->close();
                 
                 return true;
