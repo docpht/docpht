@@ -36,6 +36,9 @@ class UpdatePasswordForm extends MakeupForm
 			->setAttribute('onmousemove',"this.type='password'")
 			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
 			->setRequired(T::trans('Enter password'));
+
+		$form->addGroup(T::trans('Randomized password'))
+            ->setOption('description', Html::el('p')->setText($this->adminModel->randomPassword()));
 			
 		$form->addPassword('newpassword', T::trans('Enter new password:'))
 			->setHtmlAttribute('placeholder', T::trans('Enter new password'))
