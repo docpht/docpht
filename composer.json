@@ -1,7 +1,7 @@
 {
-    "name": "kenlog/doc-pht",
+    "name": "kenlog/docpht",
     "type": "project",
-    "description": "Clipboard generator for code snippets",
+    "description": "With DocPHT you can take notes and quickly document anything!",
     "license": "MIT",
     "authors": [
         {

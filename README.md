@@ -6,6 +6,7 @@ the use of any database. You don't believe it, try it!
 
 ## Getting Started
 
+Download the latest version of the package and upload it to the server, unzip it to the location you prefer. Open the browser and enter the address to start the installation wizard, it will take less than a minute.
 
 ### Prerequisites
 
@@ -23,15 +24,15 @@ That is all you need to get started. Boom!
 ## Contributing
 Clone the repository: 
 ```console 
-git clone https://github.com/kenlog/doc-pht.git
+git clone https://github.com/kenlog/docpht.git
 ```
 :bug: Reporting Issues
 ------------
-Please [create an issue](https://github.com/kenlog/doc-pht/issues) for any bugs you've found.
+Please [create an issue](https://github.com/kenlog/docpht/issues) for any bugs you've found.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kenlog/doc-pht/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kenlog/docpht/tags). 
 
 ## Authors
 
