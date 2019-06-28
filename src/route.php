@@ -62,19 +62,19 @@ if (isset($_SESSION['Active'])) {
             // /admin/backup
             $this->get_post('/backup', 'DocPHT\Controller\AdminController@backup');
             
-            // /admin/backup/save-backup
+            // /admin/backup/save
             $this->get_post('/backup/save', 'DocPHT\Controller\AdminController@saveBackup');
             
-            // /admin/backup/export-backup
+            // /admin/backup/export
             $this->get_post('/backup/export', 'DocPHT\Controller\AdminController@exportBackup');
             
-            // /admin/backup/delete-backup
+            // /admin/backup/delete
             $this->get_post('/backup/delete', 'DocPHT\Controller\AdminController@deleteBackup');
             
-            // /admin/backup/import-backup
+            // /admin/backup/import
             $this->get_post('/backup/import', 'DocPHT\Controller\AdminController@importBackup');
             
-            // /admin/backup/restore-options
+            // /admin/backup/restore
             $this->get_post('/backup/restore', 'DocPHT\Controller\AdminController@restoreOptions');
 
             // /admin/upload-logo
