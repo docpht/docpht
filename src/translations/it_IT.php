@@ -91,7 +91,7 @@
         'Update email' => 'Aggiorna email',
         'New email:' => 'Nuova email',
         'Enter new email' => 'Inserire nuova email',
-        'Hi admin, update your email in the config.php file.' => 'Ciao amministratore, aggiorna la tua email nel file config.php.',
+        'This email %newemail% is in use!' => 'Questa email %newemail% è in uso!',
         'Email updated successfully.' => 'Email aggiornata correttamente.',
         'Settings' => 'Impostazioni',
         'Remove User' => 'Rimuovi Utente',
