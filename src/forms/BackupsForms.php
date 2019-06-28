@@ -166,7 +166,6 @@ class BackupsForms extends MakeupForm
                 $newIds = $this->pageModel->getAllFromDataKey($new, 'id');
                 
                 foreach($newIds as $id) {
-                    $pos = array_search($id, $oldIds);
                     $this->pageModel->remove($id);
                 }
                 

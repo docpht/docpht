@@ -36,7 +36,6 @@ if (file_exists($configurationFile) && file_exists($installFolder)) {
         if (is_dir_empty($installFolder)) 
          rmdir($installFolder);
     }
-    sleep(1);
     if (file_exists($installFolder.'/partial') && file_exists($installFolder)) {
         include 'install/error.php';
     } else {
