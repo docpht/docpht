@@ -213,4 +213,5 @@
         'Remove favicon' => 'Rimuovi favicon',
         'Add administrator privileges?' => 'Aggiungere privilegi amministratore?',
         'User successfully deleted' => 'Utente eliminato con successo',
+        'Randomized password' => 'Password casuale',
     ], 'it_IT');   

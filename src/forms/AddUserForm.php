@@ -32,7 +32,10 @@ class AddUserForm extends MakeupForm
             ->setHtmlAttribute('placeholder', T::trans('Enter email'))
             ->setHtmlAttribute('autocomplete','off')
             ->setRequired(T::trans('Enter email'));
-            
+        
+        $form->addGroup(T::trans('Randomized password'))
+            ->setOption('description', Html::el('p')->setText($this->adminModel->randomPassword()));
+
         $form->addPassword('password', T::trans('Enter password:'))
             ->setHtmlAttribute('placeholder', T::trans('Enter password'))
             ->setHtmlAttribute('autocomplete','off')
