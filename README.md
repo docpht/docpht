@@ -1,7 +1,7 @@
 # DocPHT
 
 With DocPHT you can take notes and quickly document anything! You can also manage users, save versions of your pages and run and restore backups. Complete with interface that can be customized, all with maximum portability and without
-the use of any database. You don't believe it, try it!
+the use of any database. You won't believe it, until you try it!
 
 
 ## Getting Started
