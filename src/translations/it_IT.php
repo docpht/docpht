@@ -211,4 +211,6 @@
         'Remove logo' => 'Rimuovi logo',
         'Add favicon' => 'Aggiungi favicon',
         'Remove favicon' => 'Rimuovi favicon',
+        'Add administrator privileges?' => 'Aggiungere privilegi amministratore?',
+        'User successfully deleted' => 'Utente eliminato con successo',
     ], 'it_IT');   

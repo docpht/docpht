@@ -34,6 +34,7 @@ class View
 	public function __construct()
 	{
 		$this->pageModel = new PageModel();
+		$this->adminModel = new AdminModel();
 		$this->backupsModel = new BackupsModel();
 		$this->homePageModel = new HomePageModel();
 		$this->version = new VersionSelectForm();
@@ -43,7 +44,7 @@ class View
 	public function show($file, $data = null)
 	{
 		if (isset($_SESSION['Active'])) {
-			$adminModel = new AdminModel();
+			$adminModel = $this->adminModel;
             $userLanguage = $adminModel->getUserTrans($_SESSION['Username']);
 
 			if (isset($userLanguage)) {
@@ -70,6 +71,7 @@ class View
 		}
 		$this->pageModel;
 		$this->msg;
+		$this->adminModel;
 		include 'src/views/'.$file;
 	}
 }

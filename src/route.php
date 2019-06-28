@@ -3,6 +3,7 @@
 use DocPHT\Controller\FormPageController;
 use DocPHT\Controller\ErrorPageController;
 use DocPHT\Controller\LoginController;
+use DocPHT\Model\AdminModel;
 
 /**
  * This file is part of the DocPHT project.
@@ -46,8 +47,9 @@ if (isset($_SESSION['Active'])) {
 
         // /admin/update-password
         $this->get_post('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
-
-        if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) {
+        
+        $adminModel = new AdminModel(); 
+        if (isset($_SESSION['Active']) && $adminModel->checkUserIsAdmin($_SESSION['Username']) == true ) {
              // /admin/remove-user
             $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 

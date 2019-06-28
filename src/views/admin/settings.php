@@ -15,6 +15,8 @@
 
     <?php include 'src/views/partial/sidebar_button.php'; ?>
 
+    <?php $admin = $this->adminModel->checkUserIsAdmin($_SESSION['Username']); ?>
+
     <div class="card">
         <div class="card-body">
 
@@ -70,7 +72,7 @@
                     </div>
                 </div>
 
-                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $admin == true): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/remove-user" class="text-white">
@@ -88,7 +90,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $admin == true): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/add-user" class="text-white">
@@ -106,7 +108,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php if (file_exists('data/doc-pht/home.json') && isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (file_exists('data/doc-pht/home.json') && isset($_SESSION['Active']) && $admin == true): ?>
                     <div class="col-md-4 grid-margin mb-4">
                         <div class="card bg-docpht d-flex align-items-left">
                             <a href="admin/create-home" class="text-white">
@@ -156,7 +158,7 @@
                     </div>
                 </div>
 
-                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $admin == true): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/backup" class="text-white">
@@ -174,7 +176,7 @@
                 </div>
                 <?php endif ?>
 
-                <?php if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN): ?>
+                <?php if (isset($_SESSION['Active']) && $admin == true): ?>
                 <div class="col-md-4 grid-margin mb-4">
                     <div class="card bg-docpht d-flex align-items-left">
                         <a href="admin/upload-logo" class="text-white">

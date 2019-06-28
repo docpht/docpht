@@ -47,7 +47,8 @@ class AdminModel
             'Username' => $values['username'],
             'Password' => password_hash($values['password'], PASSWORD_DEFAULT),
             'Language' => $values['translations'],
-            'Token'    => ''
+            'Token'    => '',
+            'Admin'    => $values['admin']
             );
             
         return $this->disconnect(self::USERS, $data);
@@ -195,6 +196,21 @@ class AdminModel
         $usernames = array_column($data, 'Username');
         
         return $usernames;
+    }
+
+    /**
+     * checkUserIsAdmin
+     *
+     * @param  string $username
+     *
+     * @return boolean
+     */
+    public function checkUserIsAdmin($username)
+    {
+        $data = $this->connect();
+        $key = array_search($username, array_column($data, 'Username'));
+        
+        return $data[$key]['Admin'];
     }
 
     /**

@@ -52,6 +52,8 @@ class AddUserForm extends MakeupForm
             ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
             ->addRule($form::EQUAL, T::trans('Passwords do not match!'), $form['password'])
             ->setRequired(T::trans('Confirm password'));
+        
+        $form->addCheckbox('admin', T::trans('Add administrator privileges?'));
 
         $translations = json_decode(file_get_contents(realpath('src/translations/code-translations.json')), true);
         asort($translations);
@@ -65,9 +67,7 @@ class AddUserForm extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
             if (in_array($values['username'], $this->adminModel->getUsernames())) {
-                $bad = T::trans('This username %username% is in use!', ['%username%' => $values['username']]);
-                header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit;
+                $this->msg->error(T::trans('This username %username% is in use!', ['%username%' => $values['username']]),BASE_URL.'admin');
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
                 $this->adminModel->create($values);
                 $this->msg->success(T::trans('User created successfully.'),BASE_URL.'admin');

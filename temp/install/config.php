@@ -130,7 +130,6 @@ if ($form->isSuccess()) {
         $data = "<?php\n\n"
             .'define("DOCPHT_VERSION", "1.0.0");'."\n"
             .'define("TITLE", "'.rtrim($values['apptitle']).'");'."\n"
-            .'define("ADMIN", "'.rtrim($values['email']).'");'."\n"
             .'define("DS", DIRECTORY_SEPARATOR);'."\n"
             .'define("BASE_PATH", __DIR__ . DS);'."\n"
             .'define("SUBTITLE", "");'."\n"
@@ -151,6 +150,7 @@ if ($form->isSuccess()) {
         $file = 'src/config/config.php';
         file_put_contents($file, $data);
         $values['username'] = $values['email'];
+        $values['admin'] = true;
 		if (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
             $adminModel->create($values);
 		}
