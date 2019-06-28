@@ -174,7 +174,11 @@ class BackupsForms extends MakeupForm
 
                 $files = $this->filter($this->backupsModel->getZipList($zip_file));
                 foreach ($files as $file) { if(file_exists($file))unlink($file); } 
-                $zipData->extractTo('.', $files);
+                for($i = 0; $i < $zipData->numFiles; $i++) {
+                    $filename = $zipData->getNameIndex($i);
+                    copy("zip://".$zip_file."#".$filename, $filename);
+                }            
+                //$zipData->extractTo('.', $files);
                 $zipData->close();
                 $this->pageModel->disconnect(PageModel::DB, $join);
                 
@@ -195,7 +199,11 @@ class BackupsForms extends MakeupForm
                 $this->recursiveRemoveDirectory('data');
                 $this->recursiveRemoveDirectory('pages');
                 $files = $this->filter($this->backupsModel->getZipList($zip_file));
-                $zipData->extractTo('.', $files);
+                for($i = 0; $i < $zipData->numFiles; $i++) {
+                    $filename = $zipData->getNameIndex($i);
+                    copy("zip://".$zip_file."#".$filename, $filename);
+                }  
+                $zipData->extractTo('.');
                 $zipData->close();
                 
                 return true;
