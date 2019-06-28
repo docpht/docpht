@@ -29,9 +29,6 @@
         "nette/mail": "^3.0",
         "latte/latte": "^2.5"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^8.1"
-    },
     "autoload": {
         "psr-4": {
           "":"src/"

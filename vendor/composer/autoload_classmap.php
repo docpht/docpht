@@ -29,6 +29,7 @@ return array(
     'DocPHT\\Form\\SearchForm' => $baseDir . '/src/forms/SearchForm.php',
     'DocPHT\\Form\\SortSectionForm' => $baseDir . '/src/forms/SortSectionForm.php',
     'DocPHT\\Form\\TranslationsForm' => $baseDir . '/src/forms/TranslationsForm.php',
+    'DocPHT\\Form\\UpdateEmailForm' => $baseDir . '/src/forms/UpdateEmailForm.php',
     'DocPHT\\Form\\UpdatePageForm' => $baseDir . '/src/forms/UpdatePageForm.php',
     'DocPHT\\Form\\UpdatePasswordForm' => $baseDir . '/src/forms/UpdatePasswordForm.php',
     'DocPHT\\Form\\UploadLogoForm' => $baseDir . '/src/forms/UploadLogoForm.php',

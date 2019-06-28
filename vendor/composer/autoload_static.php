@@ -105,6 +105,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Form\\SearchForm' => __DIR__ . '/../..' . '/src/forms/SearchForm.php',
         'DocPHT\\Form\\SortSectionForm' => __DIR__ . '/../..' . '/src/forms/SortSectionForm.php',
         'DocPHT\\Form\\TranslationsForm' => __DIR__ . '/../..' . '/src/forms/TranslationsForm.php',
+        'DocPHT\\Form\\UpdateEmailForm' => __DIR__ . '/../..' . '/src/forms/UpdateEmailForm.php',
         'DocPHT\\Form\\UpdatePageForm' => __DIR__ . '/../..' . '/src/forms/UpdatePageForm.php',
         'DocPHT\\Form\\UpdatePasswordForm' => __DIR__ . '/../..' . '/src/forms/UpdatePasswordForm.php',
         'DocPHT\\Form\\UploadLogoForm' => __DIR__ . '/../..' . '/src/forms/UploadLogoForm.php',
