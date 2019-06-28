@@ -17,7 +17,7 @@
 
     <?php $admin = $this->adminModel->checkUserIsAdmin($_SESSION['Username']); ?>
 
-    <div class="card">
+    <div class="card fade-in-fwd">
         <div class="card-body">
 
             <h3 class="mb-4"><?= $t->trans('Settings') ?></h3>

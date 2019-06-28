@@ -1,6 +1,6 @@
 <?php include 'src/views/partial/sidebar_button.php'; ?>
 
-<div class="card">
+<div class="card fade-in-fwd">
     <div class="card-body">
 
     <?php 
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="card mt-3">
+<div class="card fade-in-fwd mt-3">
     <div class="card-body">
 
     <?php 

@@ -19,7 +19,7 @@
     echo '<link type="text/css" rel="stylesheet" href="public/assets/css/doc-pht.'.$cssFile.'.css" />';
     ?>
     <link rel="stylesheet" href="public/assets/css/switch.css">
-    <!-- <link rel="stylesheet" href="public/assets/css/doc-pht.css"> -->
+    <link rel="stylesheet" href="public/assets/css/animation.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="public/assets/css/scrollbar.min.css">
     <!-- Lightweight, robust, elegant syntax highlighting -->

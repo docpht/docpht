@@ -18,7 +18,7 @@
 
             <?php $backupsList = $this->backupsModel->getBackups(); ?>
             
-                  <div class="card bg-light text-dark mb-4 mt-4">
+                  <div class="card fade-in-fwd bg-light text-dark mb-4 mt-4">
                     <div class="card-body text-center">
                     <p class="card-text"><?= $t->trans("Backup management") ?></p>
                     <form class="d-flex">
