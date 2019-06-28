@@ -47,7 +47,7 @@
             }
         ?>
         <label for="inputUsername" class="sr-only"><?= $t->trans('Username'); ?></label>
-        <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <input name="Username" type="email" id="inputUsername" class="form-control" placeholder="Email" required autofocus>
         <label for="inputPassword" class="sr-only"><?= $t->trans('Password'); ?></label>
         <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -56,6 +56,7 @@
             </label>
         </div>
         <button name="Submit" value="Login" class="btn btn-md btn-secondary btn-block" type="submit"><?= $t->trans('Login'); ?></button>
+        <a href="<?= BASE_URL ?>lost-password" class="text-muted"><?= $t->trans('I lost my password') ?></a>
     </form>
 </div>
 

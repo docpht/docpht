@@ -13,9 +13,12 @@
 
 namespace DocPHT\Form;
 
-use DocPHT\Core\Translator\T;
+use Latte\Engine;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use Nette\Mail\Message;
+use Nette\Mail\SmtpMailer;
+use DocPHT\Core\Translator\T;
 
 class AddUserForm extends MakeupForm
 {
@@ -26,13 +29,16 @@ class AddUserForm extends MakeupForm
         $form->onRender[] = [$this, 'bootstrap4'];
 
         $form->addGroup(T::trans('Add user'))
-            ->setOption('description', T::trans('Enter a new username and password for the account.'));
+            ->setOption('description', T::trans('Enter a new email and password for the account.'));
 
-        $form->addText('username', T::trans('Enter Username:'))
-            ->setHtmlAttribute('placeholder', T::trans('Enter username'))
+        $form->addEmail('username', T::trans('Enter email:'))
+            ->setHtmlAttribute('placeholder', T::trans('Enter email'))
             ->setHtmlAttribute('autocomplete','off')
-            ->setRequired(T::trans('Enter username'));
-            
+            ->setRequired(T::trans('Enter email'));
+        
+        $form->addGroup(T::trans('Randomized password'))
+            ->setOption('description', Html::el('p')->setText($this->adminModel->randomPassword()));
+
         $form->addPassword('password', T::trans('Enter password:'))
             ->setHtmlAttribute('placeholder', T::trans('Enter password'))
             ->setHtmlAttribute('autocomplete','off')
@@ -52,6 +58,8 @@ class AddUserForm extends MakeupForm
             ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
             ->addRule($form::EQUAL, T::trans('Passwords do not match!'), $form['password'])
             ->setRequired(T::trans('Confirm password'));
+        
+        $form->addCheckbox('admin', T::trans('Add administrator privileges?'));
 
         $translations = json_decode(file_get_contents(realpath('src/translations/code-translations.json')), true);
         asort($translations);
@@ -65,11 +73,36 @@ class AddUserForm extends MakeupForm
         if ($form->isSuccess()) {
             $values = $form->getValues();
             if (in_array($values['username'], $this->adminModel->getUsernames())) {
-                $bad = T::trans('This username %username% is in use!', ['%username%' => $values['username']]);
-                header('Location:'.BASE_URL.'admin/?bad='.utf8_encode(urlencode($bad)));
-				exit;
+                $this->msg->error(T::trans('This username %username% is in use!', ['%username%' => $values['username']]),BASE_URL.'admin');
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
                 $this->adminModel->create($values);
+
+                $latte = new \Latte\Engine;
+                    $params = [
+                        'BASE_URL' => BASE_URL,
+                        'title' => 'You now have a new account',
+                        'password' => $values['password'],
+                        'content' => 'Sign in now and start adding your content.'
+                    ]; 
+
+                    $mail = new Message;
+                    $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
+                        ->addTo($values['username'])
+                        ->setSubject('New account '.DOMAIN_NAME.' ')
+                        ->setHtmlBody($latte->renderToString('src/views/email/new_account.latte', $params));
+                    if (SMTPMAILER == true) {
+                        $mailer = new \Nette\Mail\SmtpMailer([
+                            'host' => SMTPHOST,
+                            'port' => SMTPPORT,
+                            'username' => SMTPUSERNAME,
+                            'password' => SMTPPASSWORD,
+                            'secure' => SMTPENCRYPT,
+                        ]);
+                        $mailer->send($mail);
+                    } else {
+                        $mailer = new SendmailMailer;
+                        $mailer->send($mail);
+                    }
                 $this->msg->success(T::trans('User created successfully.'),BASE_URL.'admin');
             } else {
                 $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');

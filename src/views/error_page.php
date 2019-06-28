@@ -13,7 +13,7 @@
 ?>
 
 
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center fade-in-fwd">
             <b>404</b>
             <h1><?= $t->trans('I\'m sorry, friend!'); ?></h1> 
             <p><?= $t->trans('I can\'t find this page anymore or the administrator doesn\'t want you to see it!'); ?></p> 

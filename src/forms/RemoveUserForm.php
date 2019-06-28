@@ -29,7 +29,7 @@ class RemoveUserForm extends MakeupForm
         	->setOption('description', T::trans('Select username for removal.'));
         
         $filterUsers = array_filter($this->adminModel->getUsernames(), function ($var) {
-            return (strpos($var, 'admin') === false);
+            return (strpos($var, $_SESSION['Username']) === false);
         });
 
         $form->addSelect('user',T::trans('Remove a user:'), $filterUsers)
@@ -38,8 +38,6 @@ class RemoveUserForm extends MakeupForm
         	->setRequired(T::trans('Select a user'));
         
         $form->addSubmit('submit', T::trans('Remove user'))->setAttribute('onclick','return confirmationRemoval()');
-        
-        $success = '';
         
         if ($form->isSuccess()) {
             $values = $form->getValues();

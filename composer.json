@@ -1,7 +1,7 @@
 {
-    "name": "kenlog/doc-pht",
+    "name": "kenlog/docpht",
     "type": "project",
-    "description": "Clipboard generator for code snippets",
+    "description": "With DocPHT you can take notes and quickly document anything!",
     "license": "MIT",
     "authors": [
         {
@@ -25,7 +25,9 @@
         "tracy/tracy": "^2.6",
         "nette/robot-loader": "^3.2",
         "plasticbrain/php-flash-messages": "^1.0",
-        "leblanc-simon/parsedown-checkbox": "^0.0.4"
+        "leblanc-simon/parsedown-checkbox": "^0.0.4",
+        "nette/mail": "^3.0",
+        "latte/latte": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.1"

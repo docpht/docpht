@@ -36,6 +36,9 @@ class UpdatePasswordForm extends MakeupForm
 			->setAttribute('onmousemove',"this.type='password'")
 			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
 			->setRequired(T::trans('Enter password'));
+
+		$form->addGroup(T::trans('Randomized password'))
+            ->setOption('description', Html::el('p')->setText($this->adminModel->randomPassword()));
 			
 		$form->addPassword('newpassword', T::trans('Enter new password:'))
 			->setHtmlAttribute('placeholder', T::trans('Enter new password'))
@@ -62,7 +65,7 @@ class UpdatePasswordForm extends MakeupForm
 		if ($form->isSuccess()) {
 			$values = $form->getValues();
 			if (isset($_SESSION['Username']) && isset($values['newpassword']) && $values['newpassword'] == $values['confirmpassword'] && $this->adminModel->verifyPassword($_SESSION['Username'], $values['oldpassword'])) {
-				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);;
+				$this->adminModel->updatePassword($_SESSION['Username'], $values['newpassword']);
 				$this->msg->success(T::trans('User password updated successfully.'),BASE_URL.'admin');
 			} else {
 				$this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');

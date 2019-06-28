@@ -3,6 +3,7 @@
 use DocPHT\Controller\FormPageController;
 use DocPHT\Controller\ErrorPageController;
 use DocPHT\Controller\LoginController;
+use DocPHT\Model\AdminModel;
 
 /**
  * This file is part of the DocPHT project.
@@ -19,6 +20,20 @@ $route->get('/', 'DocPHT\Controller\HomeController@index');
 
 $route->get('/switch-theme', 'Instant\Core\Controller\BaseController@switchTheme');
 
+if (!isset($_SESSION['Active'])) {
+    $route->get_post('/lost-password', 'DocPHT\Controller\LoginController@lostPassword');
+}
+
+$route->get_post('/recovery/?', function($token){
+    if (isset($token)) {
+        $page = new LoginController();
+        $page->recoveryPassword($token);
+    } else {
+        $error = new ErrorPageController();
+        $error->getPage();
+    }
+});
+
 $route->get_post('/login', 'DocPHT\Controller\LoginController@login');
 
 if (isset($_SESSION['Active'])) {
@@ -32,8 +47,9 @@ if (isset($_SESSION['Active'])) {
 
         // /admin/update-password
         $this->get_post('/update-password', 'DocPHT\Controller\AdminController@updatePassword');
-
-        if (isset($_SESSION['Active']) && $_SESSION['Username'] == ADMIN) {
+        
+        $adminModel = new AdminModel(); 
+        if (isset($_SESSION['Active']) && $adminModel->checkUserIsAdmin($_SESSION['Username']) == true ) {
              // /admin/remove-user
             $this->get_post('/remove-user', 'DocPHT\Controller\AdminController@removeUser');
 
@@ -46,23 +62,20 @@ if (isset($_SESSION['Active'])) {
             // /admin/backup
             $this->get_post('/backup', 'DocPHT\Controller\AdminController@backup');
             
-            // /admin/save-backup
-            $this->get_post('/save-backup', 'DocPHT\Controller\AdminController@saveBackup');
+            // /admin/backup/save
+            $this->get_post('/backup/save', 'DocPHT\Controller\AdminController@saveBackup');
             
-            // /admin/export-backup
-            $this->get_post('/export-backup', 'DocPHT\Controller\AdminController@exportBackup');
+            // /admin/backup/export
+            $this->get_post('/backup/export', 'DocPHT\Controller\AdminController@exportBackup');
             
-            // /admin/delete-backup
-            $this->get_post('/delete-backup', 'DocPHT\Controller\AdminController@deleteBackup');
+            // /admin/backup/delete
+            $this->get_post('/backup/delete', 'DocPHT\Controller\AdminController@deleteBackup');
             
-            // /admin/import-backup
-            $this->get_post('/import-backup', 'DocPHT\Controller\AdminController@importBackup');
+            // /admin/backup/import
+            $this->get_post('/backup/import', 'DocPHT\Controller\AdminController@importBackup');
             
-            // /admin/crestore-backup
-            $this->get_post('/crestore-backup', 'DocPHT\Controller\AdminController@clearRestoreBackup');
-            
-            // /admin/mrestore-backup
-            $this->get_post('/mrestore-backup', 'DocPHT\Controller\AdminController@mergeRestoreBackup');
+            // /admin/backup/restore
+            $this->get_post('/backup/restore', 'DocPHT\Controller\AdminController@restoreOptions');
 
             // /admin/upload-logo
             $this->get_post('/upload-logo', 'DocPHT\Controller\AdminController@uploadLogo');
@@ -75,6 +88,8 @@ if (isset($_SESSION['Active'])) {
 
         }
         
+        $this->get_post('/update-email','DocPHT\Controller\AdminController@updateEmail');
+
         // /admin/translations
         $this->get_post('/translations', 'DocPHT\Controller\AdminController@translations');
 
