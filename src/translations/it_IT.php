@@ -87,6 +87,7 @@
         'Enter new password:' => 'Inserire una nuova password:',
         'Enter new password' => 'Inserire una nuova password',
         'Confirm new password:' => 'Conferma la nuova password:',
+        'Enter a new email and password for the account.' => 'Inserisci una nuova email e una password per l\'account.',
         'Update user password' => 'Aggiorna password utente',
         'Update email' => 'Aggiorna email',
         'New email:' => 'Nuova email',
