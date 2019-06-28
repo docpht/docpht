@@ -13,9 +13,12 @@
 
 namespace DocPHT\Form;
 
-use DocPHT\Core\Translator\T;
+use Latte\Engine;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use Nette\Mail\Message;
+use Nette\Mail\SmtpMailer;
+use DocPHT\Core\Translator\T;
 
 class AddUserForm extends MakeupForm
 {
@@ -73,6 +76,33 @@ class AddUserForm extends MakeupForm
                 $this->msg->error(T::trans('This username %username% is in use!', ['%username%' => $values['username']]),BASE_URL.'admin');
             } elseif (isset($values['username']) && isset($values['password']) && $values['password'] == $values['confirmpassword']) {
                 $this->adminModel->create($values);
+
+                $latte = new \Latte\Engine;
+                    $params = [
+                        'BASE_URL' => BASE_URL,
+                        'title' => 'You now have a new account',
+                        'password' => $values['password'],
+                        'content' => 'Sign in now and start adding your content.'
+                    ]; 
+
+                    $mail = new Message;
+                    $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
+                        ->addTo($values['username'])
+                        ->setSubject('New account '.DOMAIN_NAME.' ')
+                        ->setHtmlBody($latte->renderToString('src/views/email/new_account.latte', $params));
+                    if (SMTPMAILER == true) {
+                        $mailer = new \Nette\Mail\SmtpMailer([
+                            'host' => SMTPHOST,
+                            'port' => SMTPPORT,
+                            'username' => SMTPUSERNAME,
+                            'password' => SMTPPASSWORD,
+                            'secure' => SMTPENCRYPT,
+                        ]);
+                        $mailer->send($mail);
+                    } else {
+                        $mailer = new SendmailMailer;
+                        $mailer->send($mail);
+                    }
                 $this->msg->success(T::trans('User created successfully.'),BASE_URL.'admin');
             } else {
                 $this->msg->error(T::trans('Sorry something didn\'t work!'),BASE_URL.'admin');
