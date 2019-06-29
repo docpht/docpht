@@ -56,3 +56,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 Copyright © 2019 - This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details 
+
+## Dedicated to everyone :heartpulse:
+![hearts](https://user-images.githubusercontent.com/11728231/60382009-241c9600-9a5d-11e9-8bd5-c3396e57e5cf.gif)
