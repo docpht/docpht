@@ -18,11 +18,13 @@ PHP >= 7.1 The latest version of PHP is recommended.
 ## Wrapping Up
 That is all you need to get started. Boom! 
 
-## Collaborators Wanted :boy: :information_desk_person: :older_man: :angel: :dancer: :alien:
+## Welcome to the new collaborators :boy: :information_desk_person: :older_man: :angel: :dancer: :alien:
 Clone the repository: 
 ```console 
 git clone https://github.com/kenlog/docpht.git
 ```
+We look forward to seeing your pull requests!
+
 ## Contributor Covenant Code of Conduct :scroll:
 ## Our Pledge
 
@@ -31,7 +33,7 @@ contributors and maintainers pledge to making participation in our project and
 our community a harassment-free experience for everyone, regardless of age, body
 size, disability, ethnicity, gender identity and expression, level of experience,
 nationality, personal appearance, race, religion, or sexual identity and
-orientation. :earth_africa: 
+orientation. :earth_africa: Always strive to collaborate with mutual respect.
 
 Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
 
