@@ -15,9 +15,6 @@ Apache 2.0+ with mod_rewrite and "AllowOverride All" set.
 PHP >= 7.1 The latest version of PHP is recommended.
 ```
 
-### Installing
-
-
 ## Wrapping Up
 That is all you need to get started. Boom! 
 
@@ -26,9 +23,24 @@ Clone the repository:
 ```console 
 git clone https://github.com/kenlog/docpht.git
 ```
-:bug: Reporting Issues
+## Contributor Covenant Code of Conduct :scroll:
+## Our Pledge
+
+In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, gender identity and expression, level of experience,
+nationality, personal appearance, race, religion, or sexual identity and
+orientation. :earth_africa: 
+
+Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+
+:grey_exclamation: Reporting Issues or feature requests :grey_question: 
 ------------
-Please [create an issue](https://github.com/kenlog/docpht/issues) for any bugs you've found.
+Please [create an issue](https://github.com/kenlog/docpht/issues)
+
+## :bug: Where should I report security issues?
+In order to give the community time to respond and upgrade we strongly urge you report all security issues privately. Email us directly at `securitybugreport@docpht.org` with details and repro steps. Security issues always take precedence over bug fixes and feature work. We can and do mark releases as "urgent" if they contain serious security fixes.
 
 ## Versioning
 
