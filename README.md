@@ -21,7 +21,7 @@ docker pull docpht/docpht:v1.0.0
 docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.0.0
 ```
 
-### Prerequisites :electric_plug:
+## Prerequisites :electric_plug:
 
 ```
 Apache 2.0+ with mod_rewrite and "AllowOverride All" set.
