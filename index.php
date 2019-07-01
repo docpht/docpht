@@ -68,7 +68,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 require $configurationFile;
 
-Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
+// Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
 
 $loader = new Nette\Loaders\RobotLoader;
 $loader->addDirectory(__DIR__ . '/src');
