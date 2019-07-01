@@ -13,6 +13,13 @@ the use of any database. You won't believe it, until you try it! :gem:
 
 [Download](https://github.com/docpht/docpht/releases/latest) the latest version of the package and upload it to the server, unzip it to the location you prefer. Open the browser and enter the address to start the installation wizard, it will take less than a minute. :rocket:
 
+## Docker
+```docker pull docpht/docpht```
+
+Tags:
+- latest
+- v1.0.0
+
 ### Prerequisites :electric_plug:
 
 ```
