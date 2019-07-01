@@ -1,6 +1,8 @@
 FROM alpine:3.9
 
-VOLUME /var/www/app
+VOLUME /var/www/app/src/config
+VOLUME /var/www/app/data
+VOLUME /var/www/app/pages
 VOLUME /etc/nginx/ssl
 
 EXPOSE 80 443
