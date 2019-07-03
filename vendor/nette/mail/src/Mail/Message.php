@@ -143,9 +143,10 @@ class Message extends MimePart
 	{
 		if (!$name && preg_match('#^(.+) +<(.*)>\z#', $email, $matches)) {
 			[, $name, $email] = $matches;
+			$name = stripslashes($name);
 			$tmp = substr($name, 1, -1);
 			if ($name === '"' . $tmp . '"') {
-				$name = stripslashes($tmp);
+				$name = $tmp;
 			}
 		}
 		return [$email => $name];
@@ -334,7 +335,7 @@ class Message extends MimePart
 	 * Builds email. Does not modify itself, but returns a new object.
 	 * @return static
 	 */
-	protected function build()
+	public function build()
 	{
 		$mail = clone $this;
 		$mail->setHeader('Message-ID', $this->getRandomId());

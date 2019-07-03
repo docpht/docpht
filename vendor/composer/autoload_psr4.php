@@ -13,5 +13,5 @@ return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Plasticbrain\\FlashMessages\\' => array($vendorDir . '/plasticbrain/php-flash-messages/src'),
     'Emojione\\' => array($vendorDir . '/emojione/emojione/lib/php/src'),
-    '' => array($baseDir . '/src'),
+    '' => array($baseDir . '/src', $baseDir . '/tests'),
 );

@@ -15,9 +15,12 @@ use Nette;
 /**
  * Sends emails via the SMTP server.
  */
-class SmtpMailer implements IMailer
+class SmtpMailer implements Mailer
 {
 	use Nette\SmartObject;
+
+	/** @var Signer|null */
+	private $signer;
 
 	/** @var resource */
 	private $connection;
@@ -79,6 +82,16 @@ class SmtpMailer implements IMailer
 
 
 	/**
+	 * @return static
+	 */
+	public function setSigner(Signer $signer): self
+	{
+		$this->signer = $signer;
+		return $this;
+	}
+
+
+	/**
 	 * Sends email.
 	 * @throws SmtpException
 	 */
@@ -86,7 +99,10 @@ class SmtpMailer implements IMailer
 	{
 		$tmp = clone $mail;
 		$tmp->setHeader('Bcc', null);
-		$data = $tmp->generateMessage();
+
+		$data = $this->signer
+			? $this->signer->generateSignedMessage($tmp)
+			: $tmp->generateMessage();
 
 		try {
 			if (!$this->connection) {

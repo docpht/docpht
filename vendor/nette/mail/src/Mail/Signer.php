@@ -11,14 +11,12 @@ namespace Nette\Mail;
 
 
 /**
- * Mailer interface.
+ * Signer interface.
  */
-interface IMailer
+interface Signer
 {
-
 	/**
-	 * Sends email.
-	 * @throws SendException
+	 * @throws SignException
 	 */
-	function send(Message $mail): void;
+	public function generateSignedMessage(Message $message): string;
 }

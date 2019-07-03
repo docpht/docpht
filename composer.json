@@ -1,7 +1,14 @@
 {
     "name": "kenlog/docpht",
     "type": "project",
-    "description": "With DocPHT you can take notes and quickly document anything!",
+    "description": "With DocPHT you can take notes and quickly document anything and without the use of any database.",
+    "homepage": "https://docpht.org",
+    "keywords": [
+        "Docpht",
+        "Note-taking",
+        "Documentation",
+        "Markdown"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -40,6 +47,5 @@
     "config": {
     	"optimize-autoloader": true
     },
-    "prefer-stable": true,
-    "minimum-stability": "dev"
+    "prefer-stable": true
 }

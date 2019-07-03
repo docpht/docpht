@@ -10,6 +10,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         '19a7e2c3b1d506dcdc1b60aab8e102e4' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/shortcuts.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5e187b582b2b3bb26276f0085ef51bb1' => __DIR__ . '/..' . '/leblanc-simon/parsedown-checkbox/ParsedownCheckbox.php',
+        'afdda9f94b76f77a7518e02eee753cc9' => __DIR__ . '/..' . '/nette/mail/src/compatibility.php',
         '6195ccae414b7a82ab47247beb894d66' => __DIR__ . '/..' . '/nezamy/route/system/function.php',
     );
 
@@ -65,6 +66,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
 
     public static $fallbackDirsPsr4 = array (
         0 => __DIR__ . '/../..' . '/src',
+        1 => __DIR__ . '/../..' . '/tests',
     );
 
     public static $prefixesPsr0 = array (
@@ -226,13 +228,16 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Nette\\Iterators\\Mapper' => __DIR__ . '/..' . '/nette/utils/src/Iterators/Mapper.php',
         'Nette\\Loaders\\RobotLoader' => __DIR__ . '/..' . '/nette/robot-loader/src/RobotLoader/RobotLoader.php',
         'Nette\\Localization\\ITranslator' => __DIR__ . '/..' . '/nette/utils/src/Utils/ITranslator.php',
+        'Nette\\Mail\\DkimSigner' => __DIR__ . '/..' . '/nette/mail/src/Mail/DkimSigner.php',
         'Nette\\Mail\\FallbackMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/FallbackMailer.php',
         'Nette\\Mail\\FallbackMailerException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
-        'Nette\\Mail\\IMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/IMailer.php',
+        'Nette\\Mail\\Mailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/Mailer.php',
         'Nette\\Mail\\Message' => __DIR__ . '/..' . '/nette/mail/src/Mail/Message.php',
         'Nette\\Mail\\MimePart' => __DIR__ . '/..' . '/nette/mail/src/Mail/MimePart.php',
         'Nette\\Mail\\SendException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
         'Nette\\Mail\\SendmailMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/SendmailMailer.php',
+        'Nette\\Mail\\SignException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
+        'Nette\\Mail\\Signer' => __DIR__ . '/..' . '/nette/mail/src/Mail/Signer.php',
         'Nette\\Mail\\SmtpException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
         'Nette\\Mail\\SmtpMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/SmtpMailer.php',
         'Nette\\MemberAccessException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
