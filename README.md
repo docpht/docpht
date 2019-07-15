@@ -10,6 +10,10 @@ the use of any database. You won't believe it, until you try it! :gem:
 
 [Demo](https://demo.docpht.org/)
 
+![create-new-page](https://user-images.githubusercontent.com/11728231/61236340-0ecf8900-a738-11e9-8b2a-81b0752fb384.gif)
+![edit-version-published](https://user-images.githubusercontent.com/11728231/61236343-10994c80-a738-11e9-88a5-424e72b5fd9f.gif)
+![switch-theme](https://user-images.githubusercontent.com/11728231/61236350-12631000-a738-11e9-8259-eb7539d6ca6f.gif)
+
 ## Getting Started
 
 [Download](https://github.com/docpht/docpht/releases/latest) the latest version of the package and upload it to the server, unzip it to the location you prefer. Open the browser and enter the address to start the installation wizard, it will take less than a minute. :rocket:
