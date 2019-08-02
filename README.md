@@ -22,6 +22,7 @@ the use of any database. You won't believe it, until you try it! :gem:
 
 ```
 Apache 2.0+ with mod_rewrite and "AllowOverride All" set.
+Enable mod headers module
 PHP >= 7.1 The latest version of PHP is recommended.
 ```
 
