@@ -1,3 +1,5 @@
+Header set X-XSS-Protection "1; mode=block"
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
