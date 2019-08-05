@@ -11,7 +11,7 @@
 With DocPHT you can take notes and quickly document anything! You can also manage users, save versions of your pages and run and restore backups. Complete with interface that can be customized, all with maximum portability and without
 the use of any database. You won't believe it, until you try it! :gem:
 
-[Demo](https://demo.docpht.org/)
+[![Demo](https://img.shields.io/static/v1?label=Demo&message=TRY%20DEMO%20VERSION&color=4caf50)](https://demo.docpht.org)
 
 ![create-new-page](https://user-images.githubusercontent.com/11728231/61236340-0ecf8900-a738-11e9-8b2a-81b0752fb384.gif)
 ![edit-version-published](https://user-images.githubusercontent.com/11728231/61236343-10994c80-a738-11e9-88a5-424e72b5fd9f.gif)
