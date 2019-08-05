@@ -1,7 +1,9 @@
-[![Latest release](https://img.shields.io/github/release/docpht/docpht.svg)](https://github.com/docpht/docpht/releases)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/docpht/docpht/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/docpht/docpht/graphs/contributors)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)]()
+![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/docpht/docpht?style=for-the-badge)
+![Maintenance](https://img.shields.io/maintenance/yes/2019?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/docpht/docpht?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=for-the-badge)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/kenlog/docpht?style=for-the-badge)
 
 # DocPHT :bookmark_tabs:
 
