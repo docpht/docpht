@@ -1,9 +1,10 @@
-![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/docpht/docpht?style=for-the-badge)
-![Maintenance](https://img.shields.io/maintenance/yes/2019?style=for-the-badge)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/docpht/docpht?style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=for-the-badge)
-![PHP from Packagist](https://img.shields.io/packagist/php-v/kenlog/docpht?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/docpht/docpht?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2019?style=flat-square)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/kenlog/docpht?style=flat-square)
+![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/docpht/docpht?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/docpht/docpht?style=flat-square)
 
 # DocPHT :bookmark_tabs:
 
