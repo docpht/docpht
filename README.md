@@ -4,7 +4,7 @@
 ![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=flat-square)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/docpht/docpht?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=flat-square)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/docpht/docpht?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/docpht/docpht?style=flat-square)
 
 # DocPHT :bookmark_tabs:
 
