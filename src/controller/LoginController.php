@@ -34,11 +34,14 @@ class LoginController extends BaseController
 
             foreach ($users as $user) {
 
-                    $result = password_verify($_POST['Password'], $user['Password']);
+                    $username = filter_input(INPUT_POST, 'Username', FILTER_SANITIZE_EMAIL);
+                    $password = filter_input(INPUT_POST, 'Password', FILTER_SANITIZE_STRING);
 
-                if( ($_POST['Username'] == $user['Username']) && ($result === true) ) {
+                    $result = password_verify($password, $user['Password']);
 
-                        $_SESSION['Username'] = $user['Username'];
+                if( ($username == $user['Username']) && ($result === true) ) {
+
+                        $_SESSION['Username'] = $username;
 
                         $_SESSION['Active'] = true;
 
