@@ -1,10 +1,10 @@
-![GitHub](https://img.shields.io/github/license/docpht/docpht?style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2019?style=flat-square)
-![PHP from Packagist](https://img.shields.io/packagist/php-v/kenlog/docpht?style=flat-square)
-![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=flat-square)
-![GitHub All Releases](https://img.shields.io/github/downloads/docpht/docpht/total?style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/docpht/docpht?style=flat-square)
+[![GitHub](https://img.shields.io/github/license/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/maintenance/yes/2019?style=flat-square)](https://github.com/docpht/docpht/graphs/contributors)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/kenlog/docpht?style=flat-square)](https://packagist.org/packages/kenlog/docpht)
+[![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/docpht/docpht/total?style=flat-square)](https://github.com/docpht/docpht/releases)
+[![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/commits/master)
 
 # DocPHT :bookmark_tabs:
 
