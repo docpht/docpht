@@ -4,6 +4,8 @@
 [![GitHub release](https://img.shields.io/github/release/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/releases/latest)
 [![GitHub All Releases](https://img.shields.io/github/downloads/docpht/docpht/total?style=flat-square)](https://github.com/docpht/docpht/releases)
 [![GitHub repo size](https://img.shields.io/github/repo-size/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/releases)
+[![Packagist](https://img.shields.io/packagist/dt/kenlog/docpht?label=composer%20create-project&style=flat-square)](https://packagist.org/packages/kenlog/docpht)
+[![Docker Pulls](https://img.shields.io/docker/pulls/docpht/docpht?style=flat-square)](https://hub.docker.com/r/docpht/docpht)
 [![GitHub last commit](https://img.shields.io/github/last-commit/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/commits/master)
 
 # DocPHT :bookmark_tabs:
