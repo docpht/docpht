@@ -135,17 +135,17 @@ class AdminController extends BaseController
 	}
 
 	public function removeLogo()
-    {
+	{
 		unlink('data/logo.png');
 		header('Location:'.BASE_URL.'admin');
-        exit;
+		exit;
 	}
 
 	public function removeFav()
-    {
+	{
 		unlink('data/favicon.png');
 		header('Location:'.BASE_URL.'admin');
-        exit;
+		exit;
 	}
 
 	public function lastLogin()
@@ -156,6 +156,5 @@ class AdminController extends BaseController
 		$this->view->show('admin/last_login.php', ['userList' => $userList]);
 		$this->view->show('partial/footer.php');
 	}
-
 
 }
