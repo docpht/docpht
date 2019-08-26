@@ -292,4 +292,5 @@ return array(
     'Tracy\\ILogger' => $vendorDir . '/tracy/tracy/src/Tracy/Logger/ILogger.php',
     'Tracy\\Logger' => $vendorDir . '/tracy/tracy/src/Tracy/Logger/Logger.php',
     'Tracy\\OutputDebugger' => $vendorDir . '/tracy/tracy/src/Tracy/OutputDebugger/OutputDebugger.php',
+    'geertw\\IpAnonymizer\\IpAnonymizer' => $vendorDir . '/geertw/ip-anonymizer/src/IpAnonymizer.php',
 );

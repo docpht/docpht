@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'geertw\\IpAnonymizer\\' => array($vendorDir . '/geertw/ip-anonymizer/src'),
     'System\\Support\\' => array($vendorDir . '/nezamy/support'),
     'System\\' => array($vendorDir . '/nezamy/route/system'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

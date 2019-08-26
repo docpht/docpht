@@ -139,6 +139,41 @@
         ]
     },
     {
+        "name": "geertw/ip-anonymizer",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/geertw/php-ip-anonymizer.git",
+            "reference": "6610b85b119de3bb505fd9a484bac67066e4a62f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/geertw/php-ip-anonymizer/zipball/6610b85b119de3bb505fd9a484bac67066e4a62f",
+            "reference": "6610b85b119de3bb505fd9a484bac67066e4a62f",
+            "shasum": ""
+        },
+        "time": "2017-06-24T13:15:14+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "geertw\\IpAnonymizer\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Geert Wirken",
+                "email": "geert@gwirken.nl"
+            }
+        ],
+        "description": "IPv4 and IPv6 address anonymizer"
+    },
+    {
         "name": "latte/latte",
         "version": "v2.5.1",
         "version_normalized": "2.5.1.0",

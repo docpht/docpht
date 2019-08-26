@@ -34,7 +34,8 @@
         "plasticbrain/php-flash-messages": "^1.0",
         "leblanc-simon/parsedown-checkbox": "^0.0.4",
         "nette/mail": "^3.0",
-        "latte/latte": "^2.5"
+        "latte/latte": "^2.5",
+        "geertw/ip-anonymizer": "^1.1"
     },
     "autoload": {
         "psr-4": {

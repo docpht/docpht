@@ -15,6 +15,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
     );
 
     public static $prefixLengthsPsr4 = array (
+        'g' => 
+        array (
+            'geertw\\IpAnonymizer\\' => 20,
+        ),
         'S' => 
         array (
             'System\\Support\\' => 15,
@@ -34,6 +38,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
     );
 
     public static $prefixDirsPsr4 = array (
+        'geertw\\IpAnonymizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geertw/ip-anonymizer/src',
+        ),
         'System\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/nezamy/support',
@@ -370,6 +378,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Tracy\\ILogger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/ILogger.php',
         'Tracy\\Logger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/Logger.php',
         'Tracy\\OutputDebugger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/OutputDebugger/OutputDebugger.php',
+        'geertw\\IpAnonymizer\\IpAnonymizer' => __DIR__ . '/..' . '/geertw/ip-anonymizer/src/IpAnonymizer.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
