@@ -1,5 +1,58 @@
 [
     {
+        "name": "cbschuld/browser.php",
+        "version": "1.9.4",
+        "version_normalized": "1.9.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cbschuld/Browser.php.git",
+            "reference": "3d0f74bd975c51fd07b02d68dbfb5b3fc9d93c72"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cbschuld/Browser.php/zipball/3d0f74bd975c51fd07b02d68dbfb5b3fc9d93c72",
+            "reference": "3d0f74bd975c51fd07b02d68dbfb5b3fc9d93c72",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^8"
+        },
+        "time": "2019-07-09T23:55:12+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.9.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "lib/Browser.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Chris Schuld",
+                "email": "chris@chrisschuld.com",
+                "homepage": "http://chrisschuld.com"
+            }
+        ],
+        "description": "A PHP Class to detect a user's Browser",
+        "homepage": "https://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/",
+        "keywords": [
+            "browser",
+            "detection",
+            "user agent"
+        ]
+    },
+    {
         "name": "emojione/emojione",
         "version": "4.5.0",
         "version_normalized": "4.5.0.0",

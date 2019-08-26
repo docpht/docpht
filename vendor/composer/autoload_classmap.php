@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Browser' => $vendorDir . '/cbschuld/browser.php/lib/Browser.php',
     'DocPHT\\Controller\\AdminController' => $baseDir . '/src/controller/AdminController.php',
     'DocPHT\\Controller\\ErrorPageController' => $baseDir . '/src/controller/ErrorPageController.php',
     'DocPHT\\Controller\\FormPageController' => $baseDir . '/src/controller/FormPageController.php',
@@ -37,6 +38,7 @@ return array(
     'DocPHT\\Form\\VersionSelectForm' => $baseDir . '/src/forms/VersionSelectForm.php',
     'DocPHT\\Lib\\DocBuilder' => $baseDir . '/src/lib/DocBuilder.php',
     'DocPHT\\Lib\\DocPHT' => $baseDir . '/src/lib/DocPHT.php',
+    'DocPHT\\Model\\AccessLogModel' => $baseDir . '/src/model/AccessLogModel.php',
     'DocPHT\\Model\\AdminModel' => $baseDir . '/src/model/AdminModel.php',
     'DocPHT\\Model\\BackupsModel' => $baseDir . '/src/model/BackupsModel.php',
     'DocPHT\\Model\\HomePageModel' => $baseDir . '/src/model/HomePageModel.php',

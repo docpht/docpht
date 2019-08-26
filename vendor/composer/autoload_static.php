@@ -92,6 +92,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
     );
 
     public static $classMap = array (
+        'Browser' => __DIR__ . '/..' . '/cbschuld/browser.php/lib/Browser.php',
         'DocPHT\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/controller/AdminController.php',
         'DocPHT\\Controller\\ErrorPageController' => __DIR__ . '/../..' . '/src/controller/ErrorPageController.php',
         'DocPHT\\Controller\\FormPageController' => __DIR__ . '/../..' . '/src/controller/FormPageController.php',
@@ -123,6 +124,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Form\\VersionSelectForm' => __DIR__ . '/../..' . '/src/forms/VersionSelectForm.php',
         'DocPHT\\Lib\\DocBuilder' => __DIR__ . '/../..' . '/src/lib/DocBuilder.php',
         'DocPHT\\Lib\\DocPHT' => __DIR__ . '/../..' . '/src/lib/DocPHT.php',
+        'DocPHT\\Model\\AccessLogModel' => __DIR__ . '/../..' . '/src/model/AccessLogModel.php',
         'DocPHT\\Model\\AdminModel' => __DIR__ . '/../..' . '/src/model/AdminModel.php',
         'DocPHT\\Model\\BackupsModel' => __DIR__ . '/../..' . '/src/model/BackupsModel.php',
         'DocPHT\\Model\\HomePageModel' => __DIR__ . '/../..' . '/src/model/HomePageModel.php',

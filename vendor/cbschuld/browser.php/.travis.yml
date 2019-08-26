@@ -1,0 +1,12 @@
+language: php
+
+dist: precise
+
+php:
+  - 7.3
+  - 7.2
+
+install: composer install
+
+script: phpunit --configuration phpunit.xml.dist
+

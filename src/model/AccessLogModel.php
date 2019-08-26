@@ -13,6 +13,7 @@
 
 namespace DocPHT\Model;
 
+use Browser;
 use DocPHT\Core\Translator\T;
 use geertw\IpAnonymizer\IpAnonymizer;
 
@@ -48,7 +49,7 @@ class AccessLogModel
                 'Username' => $_SESSION['Username'],
                 'IP_address' => $this->ipAnonymizer($this->getClientIP()),
                 'Access_date' => date(DATAFORMAT, time()),
-                'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
+                'User_agent' => $this->getUserAgent(),
                 'Severity' => T::trans('Authorized access'),
                 'Alert' => false
             );
@@ -57,13 +58,24 @@ class AccessLogModel
                 'Username' => $username,
                 'IP_address' => $this->getClientIP(),
                 'Access_date' => date(DATAFORMAT, time()),
-                'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
+                'User_agent' => $this->getUserAgent(),
                 'Severity' => T::trans('Attempt to access'),
                 'Alert' => true
             );
         }
             
         return $this->disconnect(self::ACCESSLOG, $data);
+    }
+
+    /**
+     * getUserAgent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        $userAgent = new Browser();
+        return $userAgent->getBrowser() .'/'. $userAgent->getVersion() .'/'. $userAgent->getPlatform();
     }
 
     /**
