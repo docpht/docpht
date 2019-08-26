@@ -215,7 +215,7 @@
         'Add administrator privileges?' => 'Aggiungere privilegi amministratore?',
         'User successfully deleted' => 'Utente eliminato con successo',
         'Randomized password' => 'Password casuale',
-        'Last login' => 'Ultimo accesso',
+        'Last logins' => 'Ultimi accessi',
         'Access date' => 'Data di accesso',
         'IP addresses are anonymized due to privacy' => 'Gli indirizzi IP sono resi anonimi a causa della privacy',
     ], 'it_IT');   

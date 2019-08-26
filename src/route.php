@@ -87,7 +87,7 @@ if (isset($_SESSION['Active'])) {
             $this->get_post('/remove-fav', 'DocPHT\Controller\AdminController@removeFav');
 
             // /admin/lastlogin
-            $this->get_post('/lastlogin', 'DocPHT\Controller\AdminController@lastLogin');
+            $this->get_post('/lastlogins', 'DocPHT\Controller\AdminController@lastLogin');
 
         }
         

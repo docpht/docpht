@@ -2,7 +2,7 @@
 
     <div class="card fade-in-fwd">
         <div class="card-body">
-        <h3 class="mb-4"><?= $t->trans('Last login'); ?></h3>
+        <h3 class="mb-4"><?= $t->trans('Last logins'); ?></h3>
             <div class="table-responsive">
                 <table class="table table-sm table-hover table-bordered table-dark">
                     <thead>

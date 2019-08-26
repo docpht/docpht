@@ -152,7 +152,7 @@ class AdminController extends BaseController
 	{
 		$userList = $this->accessLogModel->getUserList();
 
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Last login')]);
+		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Last logins')]);
 		$this->view->show('admin/last_login.php', ['userList' => $userList]);
 		$this->view->show('partial/footer.php');
 	}
