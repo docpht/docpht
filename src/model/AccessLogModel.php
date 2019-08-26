@@ -28,12 +28,12 @@ class AccessLogModel
      */
     public function connect()
     {
-		if(!file_exists(self::ACCESSLOG))
-		{
-		    file_put_contents(self::ACCESSLOG,[]);
-		} 
-		
-		return json_decode(file_get_contents(self::ACCESSLOG),true);
+	if(!file_exists(self::ACCESSLOG))
+	{
+		file_put_contents(self::ACCESSLOG,[]);
+	}
+
+	return json_decode(file_get_contents(self::ACCESSLOG),true);
     }
 
     /**
