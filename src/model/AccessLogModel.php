@@ -13,6 +13,7 @@
 
 namespace DocPHT\Model;
 
+use DocPHT\Core\Translator\T;
 use geertw\IpAnonymizer\IpAnonymizer;
 
 class AccessLogModel
@@ -39,15 +40,28 @@ class AccessLogModel
      *
      * @return array
      */
-    public function create()
+    public function create($username)
     {
         $data = $this->connect();
-        $data[] = array(
-            'Username' => $_SESSION['Username'],
-            'IP_address' => $this->ipAnonymizer($_SERVER['REMOTE_ADDR']),
-            'Access_date' => date(DATAFORMAT, time()),
-            'User_agent' => $_SERVER ['HTTP_USER_AGENT']
+        if (isset($_SESSION['Username'])) {
+            $data[] = array(
+                'Username' => $_SESSION['Username'],
+                'IP_address' => $this->ipAnonymizer($_SERVER['REMOTE_ADDR']),
+                'Access_date' => date(DATAFORMAT, time()),
+                'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
+                'Severity' => T::trans('Authorized access'),
+                'Alert' => false
             );
+        } else {
+            $data[] = array(
+                'Username' => $username,
+                'IP_address' => $_SERVER['REMOTE_ADDR'],
+                'Access_date' => date(DATAFORMAT, time()),
+                'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
+                'Severity' => T::trans('Attempt to access'),
+                'Alert' => true
+            );
+        }
             
         return $this->disconnect(self::ACCESSLOG, $data);
     }

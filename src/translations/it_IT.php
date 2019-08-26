@@ -218,4 +218,7 @@
         'Last logins' => 'Ultimi accessi',
         'Access date' => 'Data di accesso',
         'IP addresses are anonymized due to privacy' => 'Gli indirizzi IP sono resi anonimi a causa della privacy',
-    ], 'it_IT');   
+        'Severity' => 'Gravità',
+        'Authorized access' => 'Accesso autorizzato',
+        'Attempt to access' => 'Tentativo di accesso', 
+    ], 'it_IT');

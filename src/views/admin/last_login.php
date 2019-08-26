@@ -8,6 +8,7 @@
                     <thead>
                         <tr>
                         <th scope="col"><?= $t->trans('Access date'); ?></th>
+                        <th scope="col"><?= $t->trans('Severity'); ?></th>
                         <th scope="col"><?= $t->trans('IP'); ?></th>
                         <th scope="col"><?= $t->trans('Username'); ?></th>
                         <th scope="col"><?= $t->trans('User agent'); ?></th>
@@ -21,6 +22,11 @@
                                 foreach ($userList as $key => $value) {
                                     echo '<tr>';
                                     echo '<th><small>' . $value['Access_date'] . '</small></th>';
+                                    if ($value['Alert'] === true) {
+                                        echo '<th><small class="text-danger font-weight-bold">' . $value['Severity'] . '</small></th>';
+                                    } else {
+                                        echo '<th><small class="text-success font-weight-bold">' . $value['Severity'] . '</small></th>';
+                                    }
                                     echo '<th><small>' . $value['IP_address'] . '</small></th>';
                                     echo '<th><small>' . $value['Username'] . '</small></th>';
                                     echo '<th><small>' . $value['User_agent'] . '</small></th>';
