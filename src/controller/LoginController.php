@@ -45,6 +45,8 @@ class LoginController extends BaseController
 
                         $_SESSION['Active'] = true;
 
+                        $accesslog = $this->accessLogModel->create();
+
                         if (isset($_SERVER['HTTP_REFERER'])) {
                             header("Location:".$_SERVER['HTTP_REFERER']);
                             exit;
