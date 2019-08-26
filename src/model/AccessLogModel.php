@@ -44,7 +44,7 @@ class AccessLogModel
         $data = $this->connect();
         $data[] = array(
             'Username' => $_SESSION['Username'],
-            'IP_address' => $this->ipAnonymizer($_SERVER['SERVER_ADDR']),
+            'IP_address' => $this->ipAnonymizer($_SERVER['REMOTE_ADDR']),
             'Access_date' => date(DATAFORMAT, time()),
             'User_agent' => $_SERVER ['HTTP_USER_AGENT']
             );
