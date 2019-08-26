@@ -4,7 +4,7 @@
         <div class="card-body">
         <h3 class="mb-4"><?= $t->trans('Last login'); ?></h3>
             <div class="table-responsive">
-                <table class="table table-hover table-dark">
+                <table class="table table-sm table-hover table-bordered table-dark">
                     <thead>
                         <tr>
                         <th scope="col"><?= $t->trans('Access date'); ?></th>
@@ -20,10 +20,10 @@
                                 $userList = array_reverse($list,true);
                                 foreach ($userList as $key => $value) {
                                     echo '<tr>';
-                                    echo '<th>' . $value['Access_date'] . '</th>';
-                                    echo '<th>' . $value['IP_address'] . '</th>';
-                                    echo '<th>' . $value['Username'] . '</th>';
-                                    echo '<th>' . $value['User_agent'] . '</th>';
+                                    echo '<th><small>' . $value['Access_date'] . '</small></th>';
+                                    echo '<th><small>' . $value['IP_address'] . '</small></th>';
+                                    echo '<th><small>' . $value['Username'] . '</small></th>';
+                                    echo '<th><small>' . $value['User_agent'] . '</small></th>';
                                     echo '</tr>';
                                 }
                             }
