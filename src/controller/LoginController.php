@@ -21,11 +21,11 @@ class LoginController extends BaseController
     
 	public function login()
 	{
-        $users = $this->adminModel->getUsers();
+        	$users = $this->adminModel->getUsers();
 
-        if (isset($_SESSION['Username'])) {
-            header("Location:".BASE_URL);
-            exit;
+		if (isset($_SESSION['Username'])) {
+		    header("Location:".BASE_URL);
+		    exit;
         }
 
         $this->view->show('login.php');
@@ -65,7 +65,7 @@ class LoginController extends BaseController
             
             echo $error;
         } 
-	}
+    }
 
     public function logout()
     { 
@@ -76,20 +76,20 @@ class LoginController extends BaseController
     }
 
     public function lostPassword()
-	{
+    {
         $form = $this->lostPassword->sendEmail();
         
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Lost password')]);
-		$this->view->show('lost_password.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+	$this->view->show('partial/head.php', ['PageTitle' => T::trans('Lost password')]);
+	$this->view->show('lost_password.php', ['form' => $form]);
+	$this->view->show('partial/footer.php');
     }
     
     public function recoveryPassword($token)
-	{
+    {
         $form = $this->recoveryPassword->create($token);
         
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Recovery password')]);
-		$this->view->show('lost_password.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
-	}
+	$this->view->show('partial/head.php', ['PageTitle' => T::trans('Recovery password')]);
+	$this->view->show('lost_password.php', ['form' => $form]);
+	$this->view->show('partial/footer.php');
+    }
 }
