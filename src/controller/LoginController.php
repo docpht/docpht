@@ -19,13 +19,13 @@ use Instant\Core\Controller\BaseController;
 class LoginController extends BaseController
 {
     
-	public function login()
-	{
+    public function login()
+    {
         $users = $this->adminModel->getUsers();
-
-		if (isset($_SESSION['Username'])) {
-		    header("Location:".BASE_URL);
-		    exit;
+        
+        if (isset($_SESSION['Username'])) {
+        header("Location:".BASE_URL);
+        exit;
     }
 
         $this->view->show('login.php');
