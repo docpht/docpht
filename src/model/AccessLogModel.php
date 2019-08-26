@@ -46,7 +46,7 @@ class AccessLogModel
         if (isset($_SESSION['Username'])) {
             $data[] = array(
                 'Username' => $_SESSION['Username'],
-                'IP_address' => $this->ipAnonymizer($_SERVER['REMOTE_ADDR']),
+                'IP_address' => $this->ipAnonymizer($this->getClientIP()),
                 'Access_date' => date(DATAFORMAT, time()),
                 'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
                 'Severity' => T::trans('Authorized access'),
@@ -55,7 +55,7 @@ class AccessLogModel
         } else {
             $data[] = array(
                 'Username' => $username,
-                'IP_address' => $_SERVER['REMOTE_ADDR'],
+                'IP_address' => $this->getClientIP(),
                 'Access_date' => date(DATAFORMAT, time()),
                 'User_agent' => $_SERVER ['HTTP_USER_AGENT'],
                 'Severity' => T::trans('Attempt to access'),
@@ -64,6 +64,32 @@ class AccessLogModel
         }
             
         return $this->disconnect(self::ACCESSLOG, $data);
+    }
+
+    /**
+     * getClientIP
+     *
+     *
+     * @return string
+     */
+    public function getClientIP()
+    {
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $clientIP = $_SERVER['HTTP_CLIENT_IP'];
+        } else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if(isset($_SERVER['HTTP_X_FORWARDED'])) {
+            $clientIP = $_SERVER['HTTP_X_FORWARDED'];
+        } else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $clientIP = $_SERVER['HTTP_FORWARDED_FOR'];
+        } else if(isset($_SERVER['HTTP_FORWARDED'])) {
+            $clientIP = $_SERVER['HTTP_FORWARDED'];
+        } else if(isset($_SERVER['REMOTE_ADDR'])) {
+            $clientIP = $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $clientIP;
     }
 
     /**
