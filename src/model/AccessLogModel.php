@@ -50,7 +50,7 @@ class AccessLogModel
                 'IP_address' => $this->ipAnonymizer($this->getClientIP()),
                 'Access_date' => date(DATAFORMAT, time()),
                 'User_agent' => $this->getUserAgent(),
-                'Severity' => T::trans('Authorized access'),
+                'Severity' => 'Authorized access',
                 'Alert' => false
             );
         } else {
@@ -59,7 +59,7 @@ class AccessLogModel
                 'IP_address' => $this->getClientIP(),
                 'Access_date' => date(DATAFORMAT, time()),
                 'User_agent' => $this->getUserAgent(),
-                'Severity' => T::trans('Attempt to access'),
+                'Severity' => 'Attempt to access',
                 'Alert' => true
             );
         }
