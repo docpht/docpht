@@ -36,6 +36,7 @@ use DocPHT\Model\HomePageModel;
 use DocPHT\Form\PublishPageForm;
 use DocPHT\Form\SortSectionForm;
 use DocPHT\Form\UpdateEmailForm;
+use DocPHT\Model\AccessLogModel;
 use DocPHT\Form\LostPasswordForm;
 use DocPHT\Form\TranslationsForm;
 use DocPHT\Form\InsertSectionForm;
@@ -78,6 +79,7 @@ class BaseController
 	protected $lostPassword;
 	protected $recoveryPassword;
 	protected $updateEmailForm;
+	protected $accessLogModel;
 
 	public function __construct()
 	{
@@ -111,6 +113,7 @@ class BaseController
 		$this->lostPassword = new LostPasswordForm();
 		$this->recoveryPassword = new RecoveryPasswordForm();
 		$this->updateEmailForm = new UpdateEmailForm();
+		$this->accessLogModel = new AccessLogModel();
 	}
 
 	public function search()
