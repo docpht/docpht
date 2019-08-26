@@ -23,9 +23,9 @@
                                     echo '<tr>';
                                     echo '<th><small>' . $value['Access_date'] . '</small></th>';
                                     if ($value['Alert'] === true) {
-                                        echo '<th><small class="text-danger font-weight-bold">' . $value['Severity'] . '</small></th>';
+                                        echo '<th><small class="text-danger font-weight-bold">' . $t->trans($value['Severity']) . '</small></th>';
                                     } else {
-                                        echo '<th><small class="text-success font-weight-bold">' . $value['Severity'] . '</small></th>';
+                                        echo '<th><small class="text-success font-weight-bold">' . $t->trans($value['Severity']) . '</small></th>';
                                     }
                                     echo '<th><small>' . $value['IP_address'] . '</small></th>';
                                     echo '<th><small>' . $value['Username'] . '</small></th>';
