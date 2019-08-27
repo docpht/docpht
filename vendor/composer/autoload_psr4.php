@@ -13,6 +13,7 @@ return array(
     'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Plasticbrain\\FlashMessages\\' => array($vendorDir . '/plasticbrain/php-flash-messages/src'),
+    'PHPSecureSession\\' => array($vendorDir . '/ezimuel/php-secure-session/src'),
     'Emojione\\' => array($vendorDir . '/emojione/emojione/lib/php/src'),
     '' => array($baseDir . '/src', $baseDir . '/tests'),
 );

@@ -8,7 +8,9 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
 {
     public static $files = array (
         '19a7e2c3b1d506dcdc1b60aab8e102e4' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/shortcuts.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'c7a1089ba35f8274cf630debb7de059c' => __DIR__ . '/..' . '/ezimuel/php-secure-session/bin/register_secure_session.php',
         '5e187b582b2b3bb26276f0085ef51bb1' => __DIR__ . '/..' . '/leblanc-simon/parsedown-checkbox/ParsedownCheckbox.php',
         'afdda9f94b76f77a7518e02eee753cc9' => __DIR__ . '/..' . '/nette/mail/src/compatibility.php',
         '6195ccae414b7a82ab47247beb894d66' => __DIR__ . '/..' . '/nezamy/route/system/function.php',
@@ -30,6 +32,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'P' => 
         array (
             'Plasticbrain\\FlashMessages\\' => 27,
+            'PHPSecureSession\\' => 17,
         ),
         'E' => 
         array (
@@ -65,6 +68,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Plasticbrain\\FlashMessages\\' => 
         array (
             0 => __DIR__ . '/..' . '/plasticbrain/php-flash-messages/src',
+        ),
+        'PHPSecureSession\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ezimuel/php-secure-session/src',
         ),
         'Emojione\\' => 
         array (
@@ -280,6 +287,8 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'PHPSecureSession\\Exception\\AuthenticationFailedException' => __DIR__ . '/..' . '/ezimuel/php-secure-session/src/Exception/AuthenticationFailedException.php',
+        'PHPSecureSession\\SecureHandler' => __DIR__ . '/..' . '/ezimuel/php-secure-session/src/SecureHandler.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
         'ParsedownExtra' => __DIR__ . '/..' . '/erusev/parsedown-extra/ParsedownExtra.php',
         'ParsedownExtraTest' => __DIR__ . '/..' . '/erusev/parsedown-extra/test/ParsedownExtraTest.php',

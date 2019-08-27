@@ -192,6 +192,53 @@
         ]
     },
     {
+        "name": "ezimuel/php-secure-session",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ezimuel/PHP-Secure-Session.git",
+            "reference": "da686a3cff815a30c90202d90b9a43c5b491731a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ezimuel/PHP-Secure-Session/zipball/da686a3cff815a30c90202d90b9a43c5b491731a",
+            "reference": "da686a3cff815a30c90202d90b9a43c5b491731a",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "ext-openssl": "*",
+            "paragonie/random_compat": "^2.0.2",
+            "php": "^5.6 || ^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5.7.27"
+        },
+        "time": "2018-02-01T13:38:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PHPSecureSession\\": "src/"
+            },
+            "files": [
+                "bin/register_secure_session.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Encrypt and authenticate PHP session data using AES-256 and HMAC-SHA256",
+        "homepage": "https://github.com/ezimuel/PHP-Secure-Session",
+        "keywords": [
+            "Authentication",
+            "encrypt",
+            "session"
+        ]
+    },
+    {
         "name": "geertw/ip-anonymizer",
         "version": "v1.1.0",
         "version_normalized": "1.1.0.0",
@@ -927,6 +974,57 @@
             "justframework",
             "micro",
             "support"
+        ]
+    },
+    {
+        "name": "paragonie/random_compat",
+        "version": "v2.0.18",
+        "version_normalized": "2.0.18.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/paragonie/random_compat.git",
+            "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+            "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "suggest": {
+            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+        },
+        "time": "2019-01-03T20:59:08+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/random.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paragon Initiative Enterprises",
+                "email": "security@paragonie.com",
+                "homepage": "https://paragonie.com"
+            }
+        ],
+        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+        "keywords": [
+            "csprng",
+            "polyfill",
+            "pseudorandom",
+            "random"
         ]
     },
     {

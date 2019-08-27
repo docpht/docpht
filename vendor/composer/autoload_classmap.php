@@ -194,6 +194,8 @@ return array(
     'Nette\\Utils\\Strings' => $vendorDir . '/nette/utils/src/Utils/Strings.php',
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
+    'PHPSecureSession\\Exception\\AuthenticationFailedException' => $vendorDir . '/ezimuel/php-secure-session/src/Exception/AuthenticationFailedException.php',
+    'PHPSecureSession\\SecureHandler' => $vendorDir . '/ezimuel/php-secure-session/src/SecureHandler.php',
     'Parsedown' => $vendorDir . '/erusev/parsedown/Parsedown.php',
     'ParsedownExtra' => $vendorDir . '/erusev/parsedown-extra/ParsedownExtra.php',
     'ParsedownExtraTest' => $vendorDir . '/erusev/parsedown-extra/test/ParsedownExtraTest.php',

@@ -7,7 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '19a7e2c3b1d506dcdc1b60aab8e102e4' => $vendorDir . '/tracy/tracy/src/Tracy/shortcuts.php',
+    '5255c38a0faeba867671b61dfda6d864' => $vendorDir . '/paragonie/random_compat/lib/random.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
+    'c7a1089ba35f8274cf630debb7de059c' => $vendorDir . '/ezimuel/php-secure-session/bin/register_secure_session.php',
     '5e187b582b2b3bb26276f0085ef51bb1' => $vendorDir . '/leblanc-simon/parsedown-checkbox/ParsedownCheckbox.php',
     'afdda9f94b76f77a7518e02eee753cc9' => $vendorDir . '/nette/mail/src/compatibility.php',
     '6195ccae414b7a82ab47247beb894d66' => $vendorDir . '/nezamy/route/system/function.php',

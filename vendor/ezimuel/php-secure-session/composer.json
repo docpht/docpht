@@ -1,0 +1,38 @@
+{
+  "name": "ezimuel/php-secure-session",
+  "description": "Encrypt and authenticate PHP session data using AES-256 and HMAC-SHA256",
+  "license": "BSD-3-Clause",
+  "keywords": [
+      "session",
+      "encrypt",
+      "authentication"
+  ],
+  "homepage": "https://github.com/ezimuel/PHP-Secure-Session",
+  "require": {
+      "php": "^5.6 || ^7.0",
+      "ext-openssl": "*",
+      "ext-mbstring": "*",
+      "paragonie/random_compat": "^2.0.2"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+      "psr-4": {
+          "PHPSecureSession\\": "src/"
+      },
+      "files": ["bin/register_secure_session.php"]
+  },
+  "autoload-dev": {
+      "files": ["test/autoload.php"],
+      "psr-4": {
+          "PHPSecureSessionTest\\": "test/"
+      }
+  },
+  "require-dev": {
+      "phpunit/PHPUnit": "^5.7.27"
+  },
+  "scripts": {
+        "test": "phpunit --colors=always --stderr",
+        "test-coverage": "phpunit --colors=always --stderr --coverage-clover clover.xml"
+  }
+}

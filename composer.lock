@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3521b2b138e1316600d39cbf4f9c6bcf",
+    "content-hash": "d9db962361f8532906f8f16ed53b4b63",
     "packages": [
         {
             "name": "cbschuld/browser.php",
@@ -189,6 +189,51 @@
                 "parser"
             ],
             "time": "2015-11-01T10:19:22+00:00"
+        },
+        {
+            "name": "ezimuel/php-secure-session",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezimuel/PHP-Secure-Session.git",
+                "reference": "da686a3cff815a30c90202d90b9a43c5b491731a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezimuel/PHP-Secure-Session/zipball/da686a3cff815a30c90202d90b9a43c5b491731a",
+                "reference": "da686a3cff815a30c90202d90b9a43c5b491731a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "paragonie/random_compat": "^2.0.2",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7.27"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPSecureSession\\": "src/"
+                },
+                "files": [
+                    "bin/register_secure_session.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Encrypt and authenticate PHP session data using AES-256 and HMAC-SHA256",
+            "homepage": "https://github.com/ezimuel/PHP-Secure-Session",
+            "keywords": [
+                "Authentication",
+                "encrypt",
+                "session"
+            ],
+            "time": "2018-02-01T13:38:40+00:00"
         },
         {
             "name": "geertw/ip-anonymizer",
@@ -903,6 +948,55 @@
                 "support"
             ],
             "time": "2018-06-04T14:53:46+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v2.0.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2019-01-03T20:59:08+00:00"
         },
         {
             "name": "plasticbrain/php-flash-messages",
