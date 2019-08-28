@@ -66,6 +66,22 @@ require $autoload;
 
 if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 
+$expireAfter = 30;
+
+if(isset($_SESSION['last_action'])){
+
+    $secondsInactive = time() - $_SESSION['last_action'];
+    
+    $expireAfterSeconds = $expireAfter * 60;
+    
+    if($secondsInactive >= $expireAfterSeconds){
+        session_unset();
+        session_destroy();
+    }
+}
+ 
+$_SESSION['last_action'] = time();
+
 require $configurationFile;
 
 // Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production
