@@ -28,33 +28,33 @@ class LoginForm extends MakeupForm
 
 		$form->addEmail('Username', T::trans('Email'))
 			->setHtmlAttribute('placeholder', T::trans('Email'))
-            ->setRequired(T::trans('Enter email'));
+            		->setRequired(T::trans('Enter email'));
             
-        $form->addPassword('Password', T::trans('Password'))
-            ->setHtmlAttribute('placeholder', T::trans('Password'))
-            ->setHtmlAttribute('autocomplete','off')
-            ->setAttribute('onmousedown',"this.type='text'")
-            ->setAttribute('onmouseup',"this.type='password'")
-            ->setAttribute('onmousemove',"this.type='password'")
-            ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
-            ->setRequired(T::trans('Enter password'));
+		$form->addPassword('Password', T::trans('Password'))
+		    ->setHtmlAttribute('placeholder', T::trans('Password'))
+		    ->setHtmlAttribute('autocomplete','off')
+		    ->setAttribute('onmousedown',"this.type='text'")
+		    ->setAttribute('onmouseup',"this.type='password'")
+		    ->setAttribute('onmousemove',"this.type='password'")
+		    ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
+		    ->setRequired(T::trans('Enter password'));
         
-        //$form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        	//$form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
 		$form->addSubmit('submit',T::trans('Login'));
 
 		if ($form->isSuccess()) {
-            $values = $form->getValues();
+		    $values = $form->getValues();
 
-            $login = new LoginController();
-            $validateLogin = $login->checkLogin($values['Username'],$values['Password']);
-            
-            if ($validateLogin === true) {
-                header("Location:".BASE_URL);
-                exit;
-            } else {
-                $this->msg->error(T::trans('Warning! The data entered is incorrect.'),BASE_URL.'login');
-            }
+		    $login = new LoginController();
+		    $validateLogin = $login->checkLogin($values['Username'],$values['Password']);
+
+		    if ($validateLogin === true) {
+			header("Location:".BASE_URL);
+			exit;
+		    } else {
+			$this->msg->error(T::trans('Warning! The data entered is incorrect.'),BASE_URL.'login');
+		    }
 		}
 		
 		return $form;
