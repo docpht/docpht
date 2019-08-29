@@ -36,7 +36,7 @@ class Session
 	private $regenerated = false;
 
 	/** @var bool  has been session started by Nette? */
-	private $started = false;
+	private $started = true;
 
 	/** @var array default configuration */
 	private $options = [
