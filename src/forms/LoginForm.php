@@ -39,7 +39,7 @@ class LoginForm extends MakeupForm
 		    ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
 		    ->setRequired(T::trans('Enter password'));
         
-        	//$form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
 		$form->addSubmit('submit',T::trans('Login'));
 

@@ -113,6 +113,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Form\\DeletePageForm' => __DIR__ . '/../..' . '/src/forms/DeletePageForm.php',
         'DocPHT\\Form\\HomePageForm' => __DIR__ . '/../..' . '/src/forms/HomePageForm.php',
         'DocPHT\\Form\\InsertSectionForm' => __DIR__ . '/../..' . '/src/forms/InsertSectionForm.php',
+        'DocPHT\\Form\\LoginForm' => __DIR__ . '/../..' . '/src/forms/LoginForm.php',
         'DocPHT\\Form\\LostPasswordForm' => __DIR__ . '/../..' . '/src/forms/LostPasswordForm.php',
         'DocPHT\\Form\\MakeupForm' => __DIR__ . '/../..' . '/src/forms/MakeupForm.php',
         'DocPHT\\Form\\ModifySectionForm' => __DIR__ . '/../..' . '/src/forms/ModifySectionForm.php',

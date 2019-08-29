@@ -17,7 +17,7 @@ use ErrorException;
  */
 class Debugger
 {
-	public const VERSION = '2.6.3';
+	public const VERSION = '2.6.4';
 
 	/** server modes for Debugger::enable() */
 	public const
@@ -568,9 +568,9 @@ class Debugger
 	 * @param  mixed  $message
 	 * @return mixed
 	 */
-	public static function log($message, string $priority = ILogger::INFO)
+	public static function log($message, string $level = ILogger::INFO)
 	{
-		return self::getLogger()->log($message, $priority);
+		return self::getLogger()->log($message, $level);
 	}
 
 

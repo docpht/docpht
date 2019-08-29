@@ -20,6 +20,7 @@ return array(
     'DocPHT\\Form\\DeletePageForm' => $baseDir . '/src/forms/DeletePageForm.php',
     'DocPHT\\Form\\HomePageForm' => $baseDir . '/src/forms/HomePageForm.php',
     'DocPHT\\Form\\InsertSectionForm' => $baseDir . '/src/forms/InsertSectionForm.php',
+    'DocPHT\\Form\\LoginForm' => $baseDir . '/src/forms/LoginForm.php',
     'DocPHT\\Form\\LostPasswordForm' => $baseDir . '/src/forms/LostPasswordForm.php',
     'DocPHT\\Form\\MakeupForm' => $baseDir . '/src/forms/MakeupForm.php',
     'DocPHT\\Form\\ModifySectionForm' => $baseDir . '/src/forms/ModifySectionForm.php',

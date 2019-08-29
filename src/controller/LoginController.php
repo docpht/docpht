@@ -25,7 +25,9 @@ class LoginController extends BaseController
             header("Location:".BASE_URL);
             exit;
         }
-        
+
+        session_abort();
+
         $form = $this->loginForm->create();
         $this->view->show('login.php', ['form' => $form]);
     }

@@ -65,6 +65,7 @@ class RequestFactory
 		$url = new Url;
 		$this->getServer($url);
 		$this->getPathAndQuery($url);
+		$this->getUserAndPassword($url);
 		[$post, $cookies] = $this->getGetPostCookie($url);
 		[$remoteAddr, $remoteHost] = $this->getClient($url);
 
@@ -113,6 +114,13 @@ class RequestFactory
 		$path = Strings::fixEncoding(Strings::replace($path, $this->urlFilters['path']));
 		$url->setPath($path);
 		$url->setQuery($tmp[1] ?? '');
+	}
+
+
+	private function getUserAndPassword(Url $url): void
+	{
+		$url->setUser($_SERVER['PHP_AUTH_USER'] ?? '');
+		$url->setPassword($_SERVER['PHP_AUTH_PW'] ?? '');
 	}
 
 
@@ -288,12 +296,14 @@ class RequestFactory
 			if ($startingDelimiterPosition === false) { //IPv4
 				$remoteHostArr = explode(':', $host);
 				$remoteHost = $remoteHostArr[0];
+				$url->setHost($remoteHost);
 				if (isset($remoteHostArr[1])) {
 					$url->setPort((int) $remoteHostArr[1]);
 				}
 			} else { //IPv6
 				$endingDelimiterPosition = strpos($host, ']');
 				$remoteHost = substr($host, strpos($host, '[') + 1, $endingDelimiterPosition - 1);
+				$url->setHost($remoteHost);
 				$remoteHostArr = explode(':', substr($host, $endingDelimiterPosition));
 				if (isset($remoteHostArr[1])) {
 					$url->setPort((int) $remoteHostArr[1]);
@@ -331,6 +341,7 @@ class RequestFactory
 			$xForwardedHost = explode(',', $_SERVER['HTTP_X_FORWARDED_HOST']);
 			if (isset($xForwardedHost[$xForwardedForRealIpKey])) {
 				$remoteHost = trim($xForwardedHost[$xForwardedForRealIpKey]);
+				$url->setHost($remoteHost);
 			}
 		}
 	}

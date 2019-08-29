@@ -17,7 +17,7 @@ class Engine
 {
 	use Strict;
 
-	public const VERSION = '2.5.1';
+	public const VERSION = '2.5.2';
 
 	/** Content types */
 	public const
@@ -50,7 +50,7 @@ class Engine
 	/** @var string */
 	private $contentType = self::CONTENT_HTML;
 
-	/** @var string */
+	/** @var string|null */
 	private $tempDirectory;
 
 	/** @var bool */
@@ -158,7 +158,7 @@ class Engine
 	{
 		if (!$this->tempDirectory) {
 			$code = $this->compile($name);
-			if (@eval('?>' . $code) === false) { // @ is escalated to exception
+			if (@eval(substr($code, 5)) === false) { // @ is escalated to exception, substr removes <?php
 				throw (new CompileException('Error in template: ' . error_get_last()['message']))
 					->setSource($code, error_get_last()['line'], "$name (compiled)");
 			}
@@ -211,7 +211,7 @@ class Engine
 	public function getCacheFile(string $name): string
 	{
 		$hash = substr($this->getTemplateClass($name), 8);
-		$base = preg_match('#([/\\\\][\w@.-]{3,35}){1,3}\z#', $name, $m)
+		$base = preg_match('#([/\\\\][\w@.-]{3,35}){1,3}$#D', $name, $m)
 			? preg_replace('#[^\w@.-]+#', '-', substr($m[0], 1)) . '--'
 			: '';
 		return "$this->tempDirectory/$base$hash.php";
@@ -301,7 +301,7 @@ class Engine
 	 * Sets path to temporary directory.
 	 * @return static
 	 */
-	public function setTempDirectory(string $path)
+	public function setTempDirectory(?string $path)
 	{
 		$this->tempDirectory = $path;
 		return $this;
