@@ -64,8 +64,6 @@ if (file_exists($configurationFile) && file_exists($installFolder)) {
 } elseif (file_exists($autoload)) {
 require $autoload;
 
-if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-
 $expireAfter = 30;
 
 if(isset($_SESSION['last_action'])){
@@ -79,8 +77,12 @@ if(isset($_SESSION['last_action'])){
         session_destroy();
     }
 }
- 
-$_SESSION['last_action'] = time();
+
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+    $_SESSION['last_action'] = time();
+}
+
 
 require $configurationFile;
 

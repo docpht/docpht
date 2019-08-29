@@ -14,6 +14,7 @@
 
 namespace Instant\Core\Controller;
 
+use DocPHT\Form\LoginForm;
 use DocPHT\Form\SearchForm;
 use DocPHT\Model\PageModel;
 use DocPHT\Form\AddUserForm;
@@ -80,6 +81,7 @@ class BaseController
 	protected $recoveryPassword;
 	protected $updateEmailForm;
 	protected $accessLogModel;
+	protected $loginForm;
 
 	public function __construct()
 	{
@@ -114,6 +116,7 @@ class BaseController
 		$this->recoveryPassword = new RecoveryPasswordForm();
 		$this->updateEmailForm = new UpdateEmailForm();
 		$this->accessLogModel = new AccessLogModel();
+		$this->loginForm = new LoginForm();
 	}
 
 	public function search()
