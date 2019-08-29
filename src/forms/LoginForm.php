@@ -27,8 +27,8 @@ class LoginForm extends MakeupForm
 		$form->onRender[] = [$this, 'bootstrap4'];
 
 		$form->addEmail('Username', T::trans('Email'))
-            ->setHtmlAttribute('placeholder', T::trans('Email'))
-            ->setRequired(T::trans('Enter email'));
+			->setHtmlAttribute('placeholder', T::trans('Email'))
+			->setRequired(T::trans('Enter email'));
             
 		$form->addPassword('Password', T::trans('Password'))
 		    ->setHtmlAttribute('placeholder', T::trans('Password'))
@@ -50,10 +50,10 @@ class LoginForm extends MakeupForm
 		    $validateLogin = $login->checkLogin($values['Username'],$values['Password']);
 
 		    if ($validateLogin === true) {
-                header("Location:".BASE_URL);
-                exit;
+			    header("Location:".BASE_URL);
+			    exit;
 		    } else {
-                $this->msg->error(T::trans('Warning! The data entered is incorrect.'),BASE_URL.'login');
+			    $this->msg->error(T::trans('Warning! The data entered is incorrect.'),BASE_URL.'login');
 		    }
 		}
 		
