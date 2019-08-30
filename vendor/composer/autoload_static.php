@@ -34,6 +34,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
             'Plasticbrain\\FlashMessages\\' => 27,
             'PHPSecureSession\\' => 17,
         ),
+        'N' => 
+        array (
+            'Nette\\Http\\Session\\' => 19,
+        ),
         'E' => 
         array (
             'Emojione\\' => 9,
@@ -72,6 +76,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'PHPSecureSession\\' => 
         array (
             0 => __DIR__ . '/..' . '/ezimuel/php-secure-session/src',
+        ),
+        'Nette\\Http\\Session\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/override/vendor/nette/http/src/Http/Session.php',
         ),
         'Emojione\\' => 
         array (
@@ -233,7 +241,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Nette\\Http\\Request' => __DIR__ . '/..' . '/nette/http/src/Http/Request.php',
         'Nette\\Http\\RequestFactory' => __DIR__ . '/..' . '/nette/http/src/Http/RequestFactory.php',
         'Nette\\Http\\Response' => __DIR__ . '/..' . '/nette/http/src/Http/Response.php',
-        'Nette\\Http\\Session' => __DIR__ . '/..' . '/nette/http/src/Http/Session.php',
+        'Nette\\Http\\Session' => __DIR__ . '/../..' . '/src/override/vendor/nette/http/src/Http/Session.php',
         'Nette\\Http\\SessionSection' => __DIR__ . '/..' . '/nette/http/src/Http/SessionSection.php',
         'Nette\\Http\\Url' => __DIR__ . '/..' . '/nette/http/src/Http/Url.php',
         'Nette\\Http\\UrlImmutable' => __DIR__ . '/..' . '/nette/http/src/Http/UrlImmutable.php',
