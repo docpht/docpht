@@ -41,6 +41,8 @@ class LoginController extends BaseController
             $users = $this->adminModel->getUsers();
             foreach ($users as $user) {
                 if ($username === $user['Username'] && password_verify($password, $user['Password'])) {
+                    session_regenerate_id();
+                    $_SESSION['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
                     $_SESSION['Username'] = $username;
                     $_SESSION['Active'] = true;
                     $accesslog = $this->accessLogModel->create($username);

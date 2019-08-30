@@ -12,6 +12,7 @@ return array(
     'DocPHT\\Controller\\FormPageController' => $baseDir . '/src/controller/FormPageController.php',
     'DocPHT\\Controller\\HomeController' => $baseDir . '/src/controller/HomeController.php',
     'DocPHT\\Controller\\LoginController' => $baseDir . '/src/controller/LoginController.php',
+    'DocPHT\\Core\\Session\\Session' => $baseDir . '/src/core/Http/Session.php',
     'DocPHT\\Core\\Translator\\T' => $baseDir . '/src/core/translations/T.php',
     'DocPHT\\Form\\AddSectionForm' => $baseDir . '/src/forms/AddSectionForm.php',
     'DocPHT\\Form\\AddUserForm' => $baseDir . '/src/forms/AddUserForm.php',

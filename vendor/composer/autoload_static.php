@@ -113,6 +113,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Controller\\FormPageController' => __DIR__ . '/../..' . '/src/controller/FormPageController.php',
         'DocPHT\\Controller\\HomeController' => __DIR__ . '/../..' . '/src/controller/HomeController.php',
         'DocPHT\\Controller\\LoginController' => __DIR__ . '/../..' . '/src/controller/LoginController.php',
+        'DocPHT\\Core\\Session\\Session' => __DIR__ . '/../..' . '/src/core/Http/Session.php',
         'DocPHT\\Core\\Translator\\T' => __DIR__ . '/../..' . '/src/core/translations/T.php',
         'DocPHT\\Form\\AddSectionForm' => __DIR__ . '/../..' . '/src/forms/AddSectionForm.php',
         'DocPHT\\Form\\AddUserForm' => __DIR__ . '/../..' . '/src/forms/AddUserForm.php',
