@@ -67,7 +67,9 @@ class AddUserForm extends MakeupForm
             ->setPrompt(T::trans('Select an option'))
             ->setHtmlAttribute('data-live-search','true')
             ->setRequired(T::trans('Select an option'));
-
+        
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        
         $form->addSubmit('submit',T::trans('Add new user'));
 
         if ($form->isSuccess()) {

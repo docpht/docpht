@@ -36,6 +36,8 @@ class TranslationsForm extends MakeupForm
         	->setRequired(T::trans('Select an option'));
             error_log($this->adminModel->getUserTrans($_SESSION['Username']),0);
         
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        
         $form->addSubmit('submit', T::trans('Update user translation'));
         
         if ($form->isSuccess()) {

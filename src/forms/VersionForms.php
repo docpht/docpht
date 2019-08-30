@@ -35,6 +35,8 @@ class VersionForms extends MakeupForm
             ->addRule(Form::MIME_TYPE, 'Not an zip file.', ['application/zip', 'application/x-compressed', 'application/x-zip-compressed','multipart/x-zip'])
             ->addRule(Form::MAX_FILE_SIZE, 'Maximum file size is 20 mb.', 20000 * 1024 /* size in Bytes */);
         
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        
         $form->addSubmit('submit', T::trans('Import'));
         
         

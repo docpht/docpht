@@ -37,6 +37,8 @@ class RemoveUserForm extends MakeupForm
         	->setHtmlAttribute('data-live-search','true')
         	->setRequired(T::trans('Select a user'));
         
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+        
         $form->addSubmit('submit', T::trans('Remove user'))->setAttribute('onclick','return confirmationRemoval()');
         
         if ($form->isSuccess()) {

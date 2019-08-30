@@ -97,6 +97,8 @@ class ModifySectionForm extends MakeupForm
         	
         } 
 
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+      
         $form->addSubmit('submit', T::trans('Modify'));
 
         if ($form->isSuccess()) {

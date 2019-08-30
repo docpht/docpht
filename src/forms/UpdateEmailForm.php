@@ -30,7 +30,9 @@ class UpdateEmailForm extends MakeupForm
 		$form->addEmail('newemail', T::trans('New email:'))
 			->setHtmlAttribute('placeholder', T::trans('Enter new email'))
 			->setRequired(T::trans('Enter new email'));
-
+			
+		$form->addProtection(T::trans('Security token has expired, please submit the form again'));
+		
 		$form->addSubmit('submit',T::trans('Update email'));
 
 		if ($form->isSuccess()) {

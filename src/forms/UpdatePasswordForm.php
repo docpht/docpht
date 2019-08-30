@@ -59,7 +59,9 @@ class UpdatePasswordForm extends MakeupForm
 			->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
 			->addRule($form::EQUAL, T::trans('Passwords do not match!'), $form['newpassword'])
 			->setRequired(T::trans('Confirm password'));
-
+		
+		$form->addProtection(T::trans('Security token has expired, please submit the form again'));
+		
 		$form->addSubmit('submit',T::trans('Update user password'));
 
 		if ($form->isSuccess()) {
