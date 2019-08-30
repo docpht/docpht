@@ -26,7 +26,7 @@ class LoginController extends BaseController
             exit;
         }
 
-        session_abort();
+        //session_abort();
 
         $form = $this->loginForm->create();
         $this->view->show('login.php', ['form' => $form]);
@@ -59,7 +59,7 @@ class LoginController extends BaseController
     {
         $username = trim($username);
         $username = stripslashes($username);
-        $username = htmlspecialchars($username);
+        $username = strip_tags($username);
         $username = filter_var($username, FILTER_SANITIZE_EMAIL);
         $username = filter_var($username, FILTER_VALIDATE_EMAIL);
         return $username;
@@ -69,7 +69,7 @@ class LoginController extends BaseController
     {
         $password = trim($password);
         $password = stripslashes($password);
-        $password = htmlspecialchars($password);
+        $password = strip_tags($password);
         $password = filter_var($password, FILTER_SANITIZE_STRING);
         return $password;
     }
