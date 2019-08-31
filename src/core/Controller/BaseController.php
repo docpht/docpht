@@ -34,6 +34,7 @@ use DocPHT\Form\RemoveUserForm;
 use DocPHT\Form\UpdatePageForm;
 use DocPHT\Form\UploadLogoForm;
 use DocPHT\Model\HomePageModel;
+use DocPHT\Core\Session\Session;
 use DocPHT\Form\PublishPageForm;
 use DocPHT\Form\SortSectionForm;
 use DocPHT\Form\UpdateEmailForm;
@@ -82,6 +83,7 @@ class BaseController
 	protected $updateEmailForm;
 	protected $accessLogModel;
 	protected $loginForm;
+	protected $session;
 
 	public function __construct()
 	{
@@ -117,6 +119,7 @@ class BaseController
 		$this->updateEmailForm = new UpdateEmailForm();
 		$this->accessLogModel = new AccessLogModel();
 		$this->loginForm = new LoginForm();
+		$this->session = new Session();
 	}
 
 	public function search()
