@@ -585,6 +585,10 @@ table.sortable tr.placeholder:before {
     max-width: 23em;
     width: 100%;
   }
+
+.form-error {
+    color: red
+}
   
 /* ---------------------------------------------------
     SEARCH FORM
