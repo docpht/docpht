@@ -20,6 +20,10 @@ class Session
         if(session_status() === PHP_SESSION_NONE) {
             ini_set('session.cookie_httponly', 1); // XSS attack protection
             ini_set('session.use_strict_mode', 1); // Prevents an attack that forces users to use a known session ID
+            // Set an additional entropy
+            ini_set('session.entropy_file', '/dev/urandom');
+            ini_set('session.entropy_length', '256');
+            session_name('DOCPHT_SID');
             session_start();
         }
     }
