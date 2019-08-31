@@ -27,7 +27,9 @@ class LoginController extends BaseController
         }
 
         $form = $this->loginForm->create();
-        $this->view->show('login.php', ['form' => $form]);
+        $this->view->show('login/partial/head.php', ['PageTitle' => T::trans('Login')]);
+        $this->view->show('login/login.php', ['form' => $form]);
+        $this->view->show('login/partial/footer.php');
     }
 
     public function checkLogin(string $username, string $password)
@@ -88,17 +90,16 @@ class LoginController extends BaseController
     {
         $form = $this->lostPassword->sendEmail();
         
-        $this->view->show('partial/head.php', ['PageTitle' => T::trans('Lost password')]);
-        $this->view->show('lost_password.php', ['form' => $form]);
-        $this->view->show('partial/footer.php');
+        $this->view->show('login/partial/head.php', ['PageTitle' => T::trans('Lost password')]);
+        $this->view->show('login/lost_password.php', ['form' => $form]);
+        $this->view->show('login/partial/footer.php');
     }
     
     public function recoveryPassword($token)
     {
         $form = $this->recoveryPassword->create($token);
-        
-        $this->view->show('partial/head.php', ['PageTitle' => T::trans('Recovery password')]);
-        $this->view->show('lost_password.php', ['form' => $form]);
-        $this->view->show('partial/footer.php');
+        $this->view->show('login/partial/head.php', ['PageTitle' => T::trans('Recovery password')]);
+        $this->view->show('login/lost_password.php', ['form' => $form]);
+        $this->view->show('login/partial/footer.php');
     }
 }
