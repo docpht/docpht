@@ -1,1 +1,1 @@
-<h1>Home page</h1>
+<h1>Welcome to DocPHT</h1>
