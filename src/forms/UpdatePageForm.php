@@ -100,6 +100,8 @@ class UpdatePageForm extends MakeupForm
         	
         }
         
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
+      
         $form->addSubmit('submit', T::trans('Update'));
         
         if ($form->isSuccess()) {

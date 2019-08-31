@@ -41,7 +41,8 @@
     },
     "autoload": {
         "psr-4": {
-          "":"src/"
+          "":"src/",
+          "Nette\\Http\\Session\\": "src/override/vendor/nette/http/src/Http/Session.php"
         }
     },
     "autoload-dev": {

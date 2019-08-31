@@ -1,6 +1,7 @@
 <?php ini_set('display_errors', 1);
 
 use Tracy\Debugger;
+use DocPHT\Core\Session\Session;
 
 /**
  * This file is part of the DocPHT project.
@@ -64,23 +65,9 @@ if (file_exists($configurationFile) && file_exists($installFolder)) {
 } elseif (file_exists($autoload)) {
 require $autoload;
 
-if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-
-$expireAfter = 30;
-
-if(isset($_SESSION['last_action'])){
-
-    $secondsInactive = time() - $_SESSION['last_action'];
-    
-    $expireAfterSeconds = $expireAfter * 60;
-    
-    if($secondsInactive >= $expireAfterSeconds){
-        session_unset();
-        session_destroy();
-    }
-}
- 
-$_SESSION['last_action'] = time();
+$session = new Session();
+$session->sessionExpiration();
+$session->preventStealingSession();
 
 require $configurationFile;
 

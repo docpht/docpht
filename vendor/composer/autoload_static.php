@@ -34,6 +34,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
             'Plasticbrain\\FlashMessages\\' => 27,
             'PHPSecureSession\\' => 17,
         ),
+        'N' => 
+        array (
+            'Nette\\Http\\Session\\' => 19,
+        ),
         'E' => 
         array (
             'Emojione\\' => 9,
@@ -73,6 +77,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         array (
             0 => __DIR__ . '/..' . '/ezimuel/php-secure-session/src',
         ),
+        'Nette\\Http\\Session\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/override/vendor/nette/http/src/Http/Session.php',
+        ),
         'Emojione\\' => 
         array (
             0 => __DIR__ . '/..' . '/emojione/emojione/lib/php/src',
@@ -105,6 +113,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Controller\\FormPageController' => __DIR__ . '/../..' . '/src/controller/FormPageController.php',
         'DocPHT\\Controller\\HomeController' => __DIR__ . '/../..' . '/src/controller/HomeController.php',
         'DocPHT\\Controller\\LoginController' => __DIR__ . '/../..' . '/src/controller/LoginController.php',
+        'DocPHT\\Core\\Session\\Session' => __DIR__ . '/../..' . '/src/core/Http/Session.php',
         'DocPHT\\Core\\Translator\\T' => __DIR__ . '/../..' . '/src/core/translations/T.php',
         'DocPHT\\Form\\AddSectionForm' => __DIR__ . '/../..' . '/src/forms/AddSectionForm.php',
         'DocPHT\\Form\\AddUserForm' => __DIR__ . '/../..' . '/src/forms/AddUserForm.php',
@@ -113,6 +122,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'DocPHT\\Form\\DeletePageForm' => __DIR__ . '/../..' . '/src/forms/DeletePageForm.php',
         'DocPHT\\Form\\HomePageForm' => __DIR__ . '/../..' . '/src/forms/HomePageForm.php',
         'DocPHT\\Form\\InsertSectionForm' => __DIR__ . '/../..' . '/src/forms/InsertSectionForm.php',
+        'DocPHT\\Form\\LoginForm' => __DIR__ . '/../..' . '/src/forms/LoginForm.php',
         'DocPHT\\Form\\LostPasswordForm' => __DIR__ . '/../..' . '/src/forms/LostPasswordForm.php',
         'DocPHT\\Form\\MakeupForm' => __DIR__ . '/../..' . '/src/forms/MakeupForm.php',
         'DocPHT\\Form\\ModifySectionForm' => __DIR__ . '/../..' . '/src/forms/ModifySectionForm.php',
@@ -232,7 +242,7 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         'Nette\\Http\\Request' => __DIR__ . '/..' . '/nette/http/src/Http/Request.php',
         'Nette\\Http\\RequestFactory' => __DIR__ . '/..' . '/nette/http/src/Http/RequestFactory.php',
         'Nette\\Http\\Response' => __DIR__ . '/..' . '/nette/http/src/Http/Response.php',
-        'Nette\\Http\\Session' => __DIR__ . '/..' . '/nette/http/src/Http/Session.php',
+        'Nette\\Http\\Session' => __DIR__ . '/../..' . '/src/override/vendor/nette/http/src/Http/Session.php',
         'Nette\\Http\\SessionSection' => __DIR__ . '/..' . '/nette/http/src/Http/SessionSection.php',
         'Nette\\Http\\Url' => __DIR__ . '/..' . '/nette/http/src/Http/Url.php',
         'Nette\\Http\\UrlImmutable' => __DIR__ . '/..' . '/nette/http/src/Http/UrlImmutable.php',

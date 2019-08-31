@@ -33,6 +33,8 @@ class LostPasswordForm extends MakeupForm
         $form->addEmail('email', 'Email:') 
             ->setHtmlAttribute('placeholder', 'Email')
             ->setRequired('Required');
+        
+        $form->addProtection(T::trans('Security token has expired, please submit the form again'));
 
         $form->addSubmit('submit',T::trans('Send me the email to reset the password'));
         

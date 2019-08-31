@@ -14,6 +14,7 @@ return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Plasticbrain\\FlashMessages\\' => array($vendorDir . '/plasticbrain/php-flash-messages/src'),
     'PHPSecureSession\\' => array($vendorDir . '/ezimuel/php-secure-session/src'),
+    'Nette\\Http\\Session\\' => array($baseDir . '/src/override/vendor/nette/http/src/Http/Session.php'),
     'Emojione\\' => array($vendorDir . '/emojione/emojione/lib/php/src'),
     '' => array($baseDir . '/src', $baseDir . '/tests'),
 );

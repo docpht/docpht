@@ -99,6 +99,12 @@ $(document).ready(function () {
         document.getElementById("scrollindicator").style.width = scrolled + "%";
     }
     
+    $("#last-logins-search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#last-logins-table tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
 
 });
 

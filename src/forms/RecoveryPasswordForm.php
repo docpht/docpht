@@ -48,6 +48,8 @@ class RecoveryPasswordForm extends MakeupForm
 			->addRule($form::EQUAL, T::trans('Passwords do not match!'), $form['newpassword'])
 			->setRequired(T::trans('Confirm password'));
 
+		$form->addProtection(T::trans('Security token has expired, please submit the form again'));
+		
 		$form->addSubmit('submit',T::trans('Update user password'));
 
         $username = $this->adminModel->getUsernameFromToken($token);

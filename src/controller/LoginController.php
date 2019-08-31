@@ -21,51 +21,57 @@ class LoginController extends BaseController
     
     public function login()
     {
-        $users = $this->adminModel->getUsers();
-        
-        if (isset($_SESSION['Username'])) {
-        header("Location:".BASE_URL);
-        exit;
+        if (isset($_SESSION['Active'])) {
+            header("Location:".BASE_URL);
+            exit;
+        }
+
+        $form = $this->loginForm->create();
+        $this->view->show('login.php', ['form' => $form]);
     }
 
-        $this->view->show('login.php');
-        
-        if(isset($_POST['Submit'])){
+    public function checkLogin(string $username, string $password)
+    {
+        $userExists = $this->adminModel->userExists($username);
 
+        if ($userExists) {
+            $username = $this->usernameFilter($username);
+            $password = $this->passwordFilter($password);
+
+            $users = $this->adminModel->getUsers();
             foreach ($users as $user) {
-
-                    $username = filter_input(INPUT_POST, 'Username', FILTER_SANITIZE_EMAIL);
-                    $password = filter_input(INPUT_POST, 'Password', FILTER_SANITIZE_STRING);
-
-                    $result = password_verify($password, $user['Password']);
-
-                if( ($username == $user['Username']) && ($result === true) ) {
-
-                        $_SESSION['Username'] = $username;
-
-                        $_SESSION['Active'] = true;
-
-                        $accesslog = $this->accessLogModel->create($username);
-
-                        if (isset($_SERVER['HTTP_REFERER'])) {
-                            header("Location:".$_SERVER['HTTP_REFERER']);
-                            exit;
-                        } else {
-                            header("Location:".BASE_URL);
-                            exit;
-                        }
-                        exit;
-                }  else {
+                if ($username === $user['Username'] && password_verify($password, $user['Password'])) {
+                    session_regenerate_id();
+                    $_SESSION['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
+                    $_SESSION['Username'] = $username;
+                    $_SESSION['Active'] = true;
                     $accesslog = $this->accessLogModel->create($username);
-                    $error = '<div class="container"><div class="alert alert-danger alert-dismissible mt-4" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    '.T::trans('Warning! The data entered is incorrect.').'
-                             </div></div>';
+                    return true;
+                } else {
+                    $accesslog = $this->accessLogModel->create($username);
+                    return false;
                 }
             }
-            
-            echo $error;
-        } 
+        }
+    }
+
+    public function usernameFilter($username) 
+    {
+        $username = trim($username);
+        $username = stripslashes($username);
+        $username = strip_tags($username);
+        $username = filter_var($username, FILTER_SANITIZE_EMAIL);
+        $username = filter_var($username, FILTER_VALIDATE_EMAIL);
+        return $username;
+    }
+
+    public function passwordFilter($password) 
+    {
+        $password = trim($password);
+        $password = stripslashes($password);
+        $password = strip_tags($password);
+        $password = filter_var($password, FILTER_SANITIZE_STRING);
+        return $password;
     }
 
     public function logout()
