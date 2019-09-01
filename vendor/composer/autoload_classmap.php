@@ -141,7 +141,7 @@ return array(
     'Nette\\Http\\Request' => $vendorDir . '/nette/http/src/Http/Request.php',
     'Nette\\Http\\RequestFactory' => $vendorDir . '/nette/http/src/Http/RequestFactory.php',
     'Nette\\Http\\Response' => $vendorDir . '/nette/http/src/Http/Response.php',
-    'Nette\\Http\\Session' => $baseDir . '/src/override/vendor/nette/http/src/Http/Session.php',
+    'Nette\\Http\\Session' => $vendorDir . '/nette/http/src/Http/Session.php',
     'Nette\\Http\\SessionSection' => $vendorDir . '/nette/http/src/Http/SessionSection.php',
     'Nette\\Http\\Url' => $vendorDir . '/nette/http/src/Http/Url.php',
     'Nette\\Http\\UrlImmutable' => $vendorDir . '/nette/http/src/Http/UrlImmutable.php',
