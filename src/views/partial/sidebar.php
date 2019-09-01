@@ -13,7 +13,7 @@
             <hr>
             <?php 
                 if (isset($_SESSION['Active'])) {
-                    echo '<small><i class="fa fa-user" aria-hidden="true"></i> '.$t->trans('Welcome&nbsp;').strstr($_SESSION['Username'], '@', true).'</small>';
+                    echo '<small><i class="fa fa-user" aria-hidden="true"></i> '.$t->trans('Welcome&nbsp;').strstr(ucfirst($_SESSION['Username']), '@', true).'</small>';
                 }
             ?>    
             </div>
