@@ -67,19 +67,21 @@ class Session
 
     public function getClientMac()
     {
-        $macAddr = false;
-        $arp =`arp -n`;
-        $lines = explode("\n", $arp);
-    
-        foreach($lines as $line){
-            $cols = preg_split('/\s+/', trim($line));
-    
-            if ($cols[0] == $this->getClientIP()){
-                $macAddr = $cols[2];
+        if(function_exists('shell_exec')) {
+            $macAddr = false;
+            $arp =`arp -n`;
+            $lines = explode("\n", $arp);
+        
+            foreach($lines as $line){
+                $cols = preg_split('/\s+/', trim($line));
+        
+                if ($cols[0] == $this->getClientIP()){
+                    $macAddr = $cols[2];
+                }
             }
+        
+            return $macAddr;
         }
-    
-        return $macAddr;
     }
 
     public function getClientIP()
