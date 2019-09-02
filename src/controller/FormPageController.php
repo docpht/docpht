@@ -30,24 +30,24 @@ class FormPageController extends BaseController
 		$page = require_once('pages/'.$topic.'/'.$filename.'.php');
 
 		$pages = $this->pageModel->connect();
-        $id = $_SESSION['page_id'];
-        foreach ($pages as $value) {
-            if ($value['pages']['id'] === $id) {
-                $published = $value['pages']['published'];
-            }
-        }
-
-        if ($published === 1) {
-			$this->view->show('page/page.php', ['values' => $values]);
-        } elseif($published === 0 && isset($_SESSION['Active'])) {
-            $this->view->show('page/page.php', ['values' => $values]);
-        } else {
-			header('Location:'.BASE_URL.'login');
-        	exit;
+		$id = $_SESSION['page_id'];
+		foreach ($pages as $value) {
+		    if ($value['pages']['id'] === $id) {
+			$published = $value['pages']['published'];
+		    }
 		}
 
-		$this->view->show('partial/footer.php');
-	}
+		if ($published === 1) {
+			$this->view->show('page/page.php', ['values' => $values]);
+		} elseif($published === 0 && isset($_SESSION['Active'])) {
+		    $this->view->show('page/page.php', ['values' => $values]);
+		} else {
+			header('Location:'.BASE_URL.'login');
+			exit;
+		}
+
+			$this->view->show('partial/footer.php');
+		}
 
 	public function getAddSectionForm()
 	{
