@@ -127,23 +127,21 @@ class BaseController
 	    $this->searchModel->feed();
 		$results = $this->search->create();
 		if (isset($results)) {
-			$this->view->show('partial/head.php', ['PageTitle' => T::trans('Search')]);
-			$this->view->show('search_results.php', ['results' => $results]);
-			$this->view->show('partial/footer.php');
+			$this->view->load('Search','search_results.php', ['results' => $results]);
 		} else {
 			$this->msg->info(T::trans('Search term did not produce results'),$_SERVER['HTTP_REFERER']);
 		}
 	}
 
 	public function switchTheme()
-    {
+	{
 		if (isset($_COOKIE["theme"]) && $_COOKIE["theme"] == 'dark') {
 			setcookie("theme", "light");			
 		} else {
 			setcookie("theme", "dark");
 		}
-        header('Location:'.$_SERVER['HTTP_REFERER']);
-        exit;
-    }
+			header('Location:'.$_SERVER['HTTP_REFERER']);
+			exit;
+	}
 
 }
