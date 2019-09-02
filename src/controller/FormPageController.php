@@ -13,7 +13,6 @@
 
 namespace DocPHT\Controller;
 
-use DocPHT\Core\Translator\T;
 use Instant\Core\Controller\BaseController;
 
 class FormPageController extends BaseController
@@ -22,10 +21,7 @@ class FormPageController extends BaseController
 	public function getCreatePageForm()
 	{
 		$form = $this->createPageForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create new page')]);
-		$this->view->show('form-page/create_page.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Create new page','form-page/create_page.php', ['form' => $form]);
 	}
 
 	public function getPage($topic, $filename)
@@ -56,37 +52,25 @@ class FormPageController extends BaseController
 	public function getAddSectionForm()
 	{
 		$form = $this->addSectionPageForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add section')]);
-		$this->view->show('form-page/add_section.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Add section','form-page/add_section.php', ['form' => $form]);
 	}
 
 	public function getUpdatePageForm()
 	{
 		$form = $this->updatePageForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update page')]);
-		$this->view->show('form-page/update_page.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Update page','form-page/update_page.php', ['form' => $form]);
 	}
 	
 	public function getInsertSectionForm()
 	{
 		$form = $this->insertSectionForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Insert section')]);
-		$this->view->show('form-page/insert_section.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Insert section','form-page/insert_section.php', ['form' => $form]);
 	}
 	
 	public function getModifySectionForm()
 	{
 		$form = $this->modifySectionForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Modify section')]);
-		$this->view->show('form-page/modify_section.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Modify section','form-page/modify_section.php', ['form' => $form]);
 	}
 	
 	public function getRemoveSectionForm()
@@ -107,10 +91,7 @@ class FormPageController extends BaseController
 	public function getImportVersionForm()
 	{
 		$form = $this->versionForms->import();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Import version')]);
-		$this->view->show('form-page/import_version.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Import version','form-page/import_version.php', ['form' => $form]);
 	}
 	
 	public function getExportVersionForm()

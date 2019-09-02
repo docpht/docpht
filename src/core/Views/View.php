@@ -16,6 +16,7 @@ namespace Instant\Core\Views;
 
 use DocPHT\Model\PageModel;
 use DocPHT\Model\AdminModel;
+use DocPHT\Core\Translator\T;
 use DocPHT\Model\BackupsModel;
 use DocPHT\Model\HomePageModel;
 use DocPHT\Form\VersionSelectForm;
@@ -73,5 +74,13 @@ class View
 		$this->msg;
 		$this->adminModel;
 		include 'src/views/'.$file;
+	}
+
+	public function load(string $title, string $path, array $viewdata = null)
+	{
+		$data = ['PageTitle' => T::trans($title)];
+		$this->show('partial/head.php',$data);
+		$this->show($path, $viewdata);
+		$this->show('partial/footer.php');
 	}
 }

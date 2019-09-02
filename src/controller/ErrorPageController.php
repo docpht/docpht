@@ -21,9 +21,7 @@ class ErrorPageController extends BaseController
 	
 	public function getPage()
 	{
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Page not found')]);
-		$this->view->show('error_page.php');
-		$this->view->show('partial/footer.php');
+		$this->view->load('Page not found','error_page.php');
 	}
 
 }

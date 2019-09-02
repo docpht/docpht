@@ -13,69 +13,43 @@
 
 namespace DocPHT\Controller;
 
-
-use DocPHT\Core\Translator\T;
 use Instant\Core\Controller\BaseController;
-
 
 class AdminController extends BaseController
 {
 
 	public function settings()
 	{
-		$this->view->show('partial/head.php',['PageTitle' => T::trans('Admin')]);
-		$this->view->show('admin/settings.php');
-		$this->view->show('partial/footer.php');
+		$this->view->load('Admin','admin/settings.php');
 	}
 
 	public function updatePassword()
 	{
 		$form = $this->updatePasswordForm->create();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update Password')]);
-		$this->view->show('admin/update_password.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Update Password','admin/update_password.php', ['form' => $form]);
 	}
 
 	public function updateEmail()
 	{
 		$form = $this->updateEmailForm->create();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Update Email')]);
-		$this->view->show('admin/update_email.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Update Email','admin/update_email.php', ['form' => $form]);
 	}
 
 	public function removeUser()
 	{
 		$form = $this->removeUserForm->create();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Remove User')]);
-		$this->view->show('admin/remove_user.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Remove User','admin/remove_user.php', ['form' => $form]);
 	}
 		
 	public function addUser()
 	{
 		$form = $this->addUserForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add user')]);
-		$this->view->show('admin/add_user.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
-	}
-
-	public function createHome()
-	{
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Create Home')]);
-		$this->view->show('admin/create_home.php');
-		$this->view->show('partial/footer.php');
+		$this->view->load('Add user','admin/add_user.php', ['form' => $form]);
 	}
 
 	public function backup()
 	{
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Backups')]);
-		$this->view->show('admin/backups.php');
-		$this->view->show('partial/footer.php');
+		$this->view->load('Backups','admin/backups.php');
 	}
 
 	public function saveBackup()
@@ -86,20 +60,14 @@ class AdminController extends BaseController
 	public function restoreOptions()
 	{
 		$form = $this->backupsForms->restoreOptions();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Restore options')]);
-		$this->view->show('admin/restore_options.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Restore options','admin/restore_options.php', ['form' => $form]);
 
 	}
 
 	public function importBackup()
 	{
 		$form = $this->backupsForms->import();
-		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Import a backup')]);
-		$this->view->show('admin/import_backup.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Import a backup','admin/import_backup.php', ['form' => $form]);
 	}
 
 	public function exportBackup()
@@ -115,10 +83,7 @@ class AdminController extends BaseController
 	public function translations()
 	{
 		$form = $this->translationsForm->create();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Translations')]);
-		$this->view->show('admin/translations.php', ['form' => $form]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Translations','admin/translations.php', ['form' => $form]);
 	}
 
 	public function uploadLogo()
@@ -126,12 +91,10 @@ class AdminController extends BaseController
 		$logoForm = $this->uploadlogo->logo();
 		$favForm = $this->uploadlogo->favicon();
 		
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Add logo')]);
-		$this->view->show('admin/upload_logo.php', [
+		$this->view->load('Add logo','admin/upload_logo.php', [
 			'logoForm' => $logoForm,
 			'favForm' =>  $favForm
 		]);
-		$this->view->show('partial/footer.php');
 	}
 
 	public function removeLogo()
@@ -151,10 +114,7 @@ class AdminController extends BaseController
 	public function lastLogin()
 	{
 		$userList = $this->accessLogModel->getUserList();
-
-		$this->view->show('partial/head.php', ['PageTitle' => T::trans('Last logins')]);
-		$this->view->show('admin/last_login.php', ['userList' => $userList]);
-		$this->view->show('partial/footer.php');
+		$this->view->load('Last logins','admin/last_login.php', ['userList' => $userList]);
 	}
 
 }
