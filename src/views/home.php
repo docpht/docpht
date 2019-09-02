@@ -1,1 +1,1 @@
-<h1>Welcome to DocPHT</h1>
+<h1><?= $t->trans('Welcome to DocPHT'); ?></h1>

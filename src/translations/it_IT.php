@@ -1,6 +1,7 @@
 <?php
 
     $t->addResource('array', [
+        'Welcome to DocPHT' => 'Benvenuto in DocPHT',
         'Create new' => 'Crea nuovo',
         'Update' => 'Aggiorna',
         'Delete' => 'Elimina',
