@@ -34,10 +34,6 @@ class LoginForm extends MakeupForm
 		$form->addPassword('Password', T::trans('Password'))
 		    ->setHtmlAttribute('placeholder', T::trans('Password'))
 		    ->setHtmlAttribute('autocomplete','off')
-		    ->setAttribute('onmousedown',"this.type='text'")
-		    ->setAttribute('onmouseup',"this.type='password'")
-		    ->setAttribute('onmousemove',"this.type='password'")
-		    ->setOption('description', Html::el('small')->setAttribute('class','text-muted')->setText(T::trans('Click on the asterisks to show the password')))
 		    ->setRequired(T::trans('Enter password'));
         
         $form->addProtection(T::trans('Security token has expired, please submit the form again'));
