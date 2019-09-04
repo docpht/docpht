@@ -34,23 +34,27 @@ class LoginController extends BaseController
 
     public function checkLogin(string $username, string $password)
     {
+        $username = $this->usernameFilter($username);
+        $password = $this->passwordFilter($password);
+        
         $userExists = $this->adminModel->userExists($username);
-
+        
         if ($userExists) {
-            $username = $this->usernameFilter($username);
-            $password = $this->passwordFilter($password);
 
             $users = $this->adminModel->getUsers();
             foreach ($users as $user) {
-                if ($username === $user['Username'] && password_verify($password, $user['Password'])) {
-                    session_regenerate_id();
-                    $_SESSION['MAC'] = $this->session->getClientMac();
-                    $_SESSION['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
+
+                $checkUser = $username === $user['Username'];
+                $checkPassowrd = password_verify($password, $user['Password']);
+
+                if ($checkUser && $checkPassowrd === true) {
+                    $_SESSION['PREV_USERAGENT'] = $_SERVER['HTTP_USER_AGENT'];
                     $_SESSION['Username'] = $username;
                     $_SESSION['Active'] = true;
                     $accesslog = $this->accessLogModel->create($username);
+                    session_regenerate_id(true);
                     return true;
-                } else {
+                } elseif($checkUser && $checkPassowrd === false) {
                     $accesslog = $this->accessLogModel->create($username);
                     return false;
                 }

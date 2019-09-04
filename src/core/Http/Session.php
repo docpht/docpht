@@ -23,7 +23,7 @@ class Session
             // Set an additional entropy
             ini_set('session.entropy_file', '/dev/urandom');
             ini_set('session.entropy_length', '256');
-            session_name('DOCPHT_SID'); 
+            session_name('ID'); 
             session_start();
         }
     }
@@ -51,57 +51,11 @@ class Session
     {
         // Interesting stuff 
         // Prevent malicious users from stealing sessions
-        if (isset($_SESSION['MAC'])) {
-            if ($_SESSION['MAC'] !== $this->getClientMac()) {
-                session_unset();
-                session_destroy();
-            }
-        } elseif (isset($_SERVER['HTTP_USER_AGENT']) && isset($_SESSION['UserAgent'])) {
-            if ($_SERVER['HTTP_USER_AGENT'] !== $_SESSION['UserAgent']) {
+        if (isset($_SESSION['PREV_USERAGENT'])) {
+            if ($_SERVER['HTTP_USER_AGENT'] != $_SESSION['PREV_USERAGENT']) {
                 session_unset();
                 session_destroy();
             }
         }
-        
     }
-
-    public function getClientMac()
-    {
-        if(function_exists('shell_exec')) {
-            $macAddr = false;
-            $arp =`arp -n`;
-            $lines = explode("\n", $arp);
-        
-            foreach($lines as $line){
-                $cols = preg_split('/\s+/', trim($line));
-        
-                if ($cols[0] == $this->getClientIP()){
-                    $macAddr = $cols[2];
-                }
-            }
-        
-            return $macAddr;
-        }
-    }
-
-    public function getClientIP()
-    {
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-        {
-            $clientIP = $_SERVER['HTTP_CLIENT_IP'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_X_FORWARDED'])) {
-            $clientIP = $_SERVER['HTTP_X_FORWARDED'];
-        } else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
-            $clientIP = $_SERVER['HTTP_FORWARDED_FOR'];
-        } else if(isset($_SERVER['HTTP_FORWARDED'])) {
-            $clientIP = $_SERVER['HTTP_FORWARDED'];
-        } else if(isset($_SERVER['REMOTE_ADDR'])) {
-            $clientIP = $_SERVER['REMOTE_ADDR'];
-        }
-
-        return $clientIP;
-    }
-    
 }
