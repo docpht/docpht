@@ -48,11 +48,11 @@ class LoginController extends BaseController
                 $checkPassowrd = password_verify($password, $user['Password']);
 
                 if ($checkUser && $checkPassowrd === true) {
+                    session_regenerate_id(true);
                     $_SESSION['PREV_USERAGENT'] = $_SERVER['HTTP_USER_AGENT'];
                     $_SESSION['Username'] = $username;
                     $_SESSION['Active'] = true;
                     $accesslog = $this->accessLogModel->create($username);
-                    session_regenerate_id(true);
                     return true;
                 } elseif($checkUser && $checkPassowrd === false) {
                     $accesslog = $this->accessLogModel->create($username);
