@@ -37,7 +37,8 @@
         "latte/latte": "^2.5",
         "geertw/ip-anonymizer": "^1.1",
         "cbschuld/browser.php": "^1.9",
-        "ezimuel/php-secure-session": "^1.1"
+        "ezimuel/php-secure-session": "^1.1",
+        "php-curl-class/php-curl-class": "^8.6"
     },
     "autoload": {
         "psr-4": {

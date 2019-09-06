@@ -21,22 +21,6 @@
         <div class="card-body">
 
             <h3 class="mb-4"><?= $t->trans('Settings') ?></h3>
-            
-            <?php if (isset($_GET['good'])): ?>
-               <div class="alert alert-success alert-dismissible">
-                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <a href="admin" class="close" role="button">&times;</a>
-                    <?= $_GET['good'];  ?>
-                </div>
-            <?php elseif (isset($_GET['bad'])): ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                    <a href="admin" class="close" role="button">&times;</a>
-                    <?= $_GET['bad'];  ?>
-                </div>
-            <?php else: ?>
-                <!--  -->
-            <?php endif ?>
 
             <div class="row">
 
@@ -213,7 +197,11 @@
                 <?php endif ?>
                 
             </div>
-
+            <?php if (isset($_SESSION['Active']) && $admin == true && $newAppVersion === true): ?>
+                <div class="text-center">
+                    <a class="btn btn-outline-success" href="https://github.com/docpht/docpht/releases/latest" target="_blank" role="button"><?= $t->trans('New version of <b>DocPHT</b> available'); ?> <i class="fa fa-download" aria-hidden="true"></i></a>
+                </div>
+            <?php endif ?>
         </div>
     </div>
     <!-- Modal keyboard shortcuts -->

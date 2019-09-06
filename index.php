@@ -16,6 +16,8 @@ use DocPHT\Core\Session\Session;
 
 $autoload = 'vendor/autoload.php';
 
+$constants = 'src/core/constants.php';
+
 $configurationFile = 'src/config/config.php';
 
 $installFolder = 'install';
@@ -69,6 +71,7 @@ $session = new Session();
 $session->sessionExpiration();
 $session->preventStealingSession();
 
+require $constants;
 require $configurationFile;
 
 // Debugger::enable(Debugger::DEVELOPMENT); // IMPORTANT not to use in production

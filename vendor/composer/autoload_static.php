@@ -38,6 +38,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         array (
             'Emojione\\' => 9,
         ),
+        'C' => 
+        array (
+            'Curl\\' => 5,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -77,6 +81,10 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
         array (
             0 => __DIR__ . '/..' . '/emojione/emojione/lib/php/src',
         ),
+        'Curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl',
+        ),
     );
 
     public static $fallbackDirsPsr4 = array (
@@ -100,6 +108,14 @@ class ComposerStaticInitf9327150735d8287c144dc69d98037e0
 
     public static $classMap = array (
         'Browser' => __DIR__ . '/..' . '/cbschuld/browser.php/lib/Browser.php',
+        'Curl\\ArrayUtil' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/ArrayUtil.php',
+        'Curl\\CaseInsensitiveArray' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/CaseInsensitiveArray.php',
+        'Curl\\Curl' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/Curl.php',
+        'Curl\\Decoder' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/Decoder.php',
+        'Curl\\Encoder' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/Encoder.php',
+        'Curl\\MultiCurl' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/MultiCurl.php',
+        'Curl\\StringUtil' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/StringUtil.php',
+        'Curl\\Url' => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl/Url.php',
         'DocPHT\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/controller/AdminController.php',
         'DocPHT\\Controller\\ErrorPageController' => __DIR__ . '/../..' . '/src/controller/ErrorPageController.php',
         'DocPHT\\Controller\\FormPageController' => __DIR__ . '/../..' . '/src/controller/FormPageController.php',

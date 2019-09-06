@@ -128,7 +128,6 @@ if ($form->isSuccess()) {
     
     if (isset($values)) {
         $data = "<?php\n\n"
-            .'define("DOCPHT_VERSION", "1.0.0");'."\n"
             .'define("TITLE", "'.rtrim($values['apptitle']).'");'."\n"
             .'define("DS", DIRECTORY_SEPARATOR);'."\n"
             .'define("BASE_PATH", __DIR__ . DS);'."\n"

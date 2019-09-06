@@ -20,7 +20,8 @@ class AdminController extends BaseController
 
 	public function settings()
 	{
-		$this->view->load('Admin','admin/settings.php');
+		$newAppVersion = $this->newAppVersion->check();
+		$this->view->load('Admin','admin/settings.php', ['newAppVersion' => $newAppVersion]);
 	}
 
 	public function updatePassword()

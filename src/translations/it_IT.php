@@ -222,4 +222,5 @@
         'Severity' => 'Gravità',
         'Authorized access' => 'Accesso autorizzato',
         'Attempt to access' => 'Tentativo di accesso', 
+        'New version of <b>DocPHT</b> available' => 'Nuova versione di <b>DocPHT</b> disponibile',
     ], 'it_IT');

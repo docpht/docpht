@@ -15,5 +15,6 @@ return array(
     'Plasticbrain\\FlashMessages\\' => array($vendorDir . '/plasticbrain/php-flash-messages/src'),
     'PHPSecureSession\\' => array($vendorDir . '/ezimuel/php-secure-session/src'),
     'Emojione\\' => array($vendorDir . '/emojione/emojione/lib/php/src'),
+    'Curl\\' => array($vendorDir . '/php-curl-class/php-curl-class/src/Curl'),
     '' => array($baseDir . '/src', $baseDir . '/tests'),
 );

@@ -7,6 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Browser' => $vendorDir . '/cbschuld/browser.php/lib/Browser.php',
+    'Curl\\ArrayUtil' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/ArrayUtil.php',
+    'Curl\\CaseInsensitiveArray' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/CaseInsensitiveArray.php',
+    'Curl\\Curl' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/Curl.php',
+    'Curl\\Decoder' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/Decoder.php',
+    'Curl\\Encoder' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/Encoder.php',
+    'Curl\\MultiCurl' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/MultiCurl.php',
+    'Curl\\StringUtil' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/StringUtil.php',
+    'Curl\\Url' => $vendorDir . '/php-curl-class/php-curl-class/src/Curl/Url.php',
     'DocPHT\\Controller\\AdminController' => $baseDir . '/src/controller/AdminController.php',
     'DocPHT\\Controller\\ErrorPageController' => $baseDir . '/src/controller/ErrorPageController.php',
     'DocPHT\\Controller\\FormPageController' => $baseDir . '/src/controller/FormPageController.php',

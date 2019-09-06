@@ -25,6 +25,7 @@ use DocPHT\Form\BackupsForms;
 use DocPHT\Form\HomePageForm;
 use DocPHT\Form\VersionForms;
 use DocPHT\Model\SearchModel;
+use DocPHT\Core\NewAppVersion;
 use DocPHT\Model\BackupsModel;
 use DocPHT\Model\VersionModel;
 use DocPHT\Form\AddSectionForm;
@@ -84,6 +85,7 @@ class BaseController
 	protected $accessLogModel;
 	protected $loginForm;
 	protected $session;
+	protected $newAppVersion;
 
 	public function __construct()
 	{
@@ -120,6 +122,7 @@ class BaseController
 		$this->accessLogModel = new AccessLogModel();
 		$this->loginForm = new LoginForm();
 		$this->session = new Session();
+		$this->newAppVersion = new NewAppVersion();
 	}
 
 	public function search()
