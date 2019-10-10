@@ -22,6 +22,6 @@ ADD . /var/www/app
 ADD docker/ /
 
 RUN rm -rf /var/www/app/docker && echo $VERSION > /version.txt
-
+WORKDIR /var/www/app/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD []
