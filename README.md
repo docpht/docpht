@@ -44,11 +44,12 @@ composer create-project kenlog/docpht
 **Basic Usage:**
 ```
 docker pull docpht/docpht:v1.0.0
-docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.0.0
+docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.0.0 --volume ./data:/var/www/app/data ./pages:/var/www/app/pages
 ```
 
 ## Wrapping Up
-That is all you need to get started. Boom! 
+That is all you need to get started. Boom!
+The command belowe just spins up a container for you, with backup folders from `data/` and `pages/` which contains your saved notes.
 
 ## Welcome to the new collaborators :boy: :information_desk_person: :older_man: :angel: :dancer: :alien:
 Clone the repository: 
