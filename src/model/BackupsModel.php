@@ -132,7 +132,7 @@ class BackupsModel extends PageModel
         if(file_exists('data/accesslog.json'))array_push($assets, 'data/accesslog.json');
         
         $this->doc = new DocBuilder;
-        $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '_'.uniqid().'.zip';
+        $filename = 'data/DocPHT_Backup_' . str_replace(":", "-", $this->doc->datetimeNow()) . '_'.uniqid().'.zip';
         
         if (is_array($pages) && count($pages) > 0) {
             foreach($pages as $page) {
