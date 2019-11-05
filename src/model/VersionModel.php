@@ -66,7 +66,11 @@ class VersionModel extends PageModel
         $versionList = array();
         foreach (glob($zippedVersionPath . $filePattern) as $file) {
             $addFile = $this->checkVersion($file, $id);
-            if($addFile) array_push($versionList, ['path' => $file, 'date' => filemtime($file)]);
+
+            $filenameChunks = explode('_', $file);
+            $versionTimestamp = substr(end($filenameChunks),0,-4);
+
+            if($addFile) array_push($versionList, ['path' => $file, 'date' => $versionTimestamp]);
         }
         
         return $this->sortVersions($versionList);
@@ -105,7 +109,7 @@ class VersionModel extends PageModel
         $this->doc = new DocBuilder;
         $path = $this->getPhpPath($id);
         if (isset($id)) {
-        	$zippedVersionPath = 'data/' . $this->getSlug($id) . '_' . $this->doc->datetimeNow() . '.zip';
+        	$zippedVersionPath = 'data/' . $this->getSlug($id) . '_' . str_replace(":", "-", $this->doc->datetimeNow()) . '_' . time() . '.zip';
         } else {
             die;
         }

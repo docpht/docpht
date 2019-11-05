@@ -35,7 +35,7 @@ class BackupsModel extends PageModel
 
             (is_bool($zipData->locateName('data/pages.json')) === TRUE) ? $check = FALSE : $check = TRUE; 
             if ($check) {
-                $backupPages = json_decode(file_get_contents("zip://".$file_path."#data/pages.json"),true);
+                $backupPages = json_decode(file_get_contents("zip://".realpath($file_path)."#data/pages.json"),true);
                 foreach ($backupPages as $pages) {
                     (is_bool($zipData->locateName($pages['pages']['phppath'])) === TRUE || is_bool($zipData->locateName($pages['pages']['jsonpath'])) === TRUE) ? $check = FALSE : $check = TRUE; 
                 }
@@ -132,7 +132,7 @@ class BackupsModel extends PageModel
         if(file_exists('data/accesslog.json'))array_push($assets, 'data/accesslog.json');
         
         $this->doc = new DocBuilder;
-        $filename = 'data/DocPHT_Backup_' . $this->doc->datetimeNow() . '_'.uniqid().'.zip';
+        $filename = 'data/DocPHT_Backup_' . str_replace(":", "-", $this->doc->datetimeNow()) . '_'.uniqid().'.zip';
         
         if (is_array($pages) && count($pages) > 0) {
             foreach($pages as $page) {
