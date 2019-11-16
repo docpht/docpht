@@ -1,4 +1,4 @@
-<?php ini_set('display_errors', 1);
+<?php // ini_set('display_errors', 1); // IMPORTANT not to use in production
 
 use Tracy\Debugger;
 use DocPHT\Core\Session\Session;
