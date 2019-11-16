@@ -109,7 +109,7 @@ class VersionModel extends PageModel
         $this->doc = new DocBuilder;
         $path = $this->getPhpPath($id);
         if (isset($id)) {
-        	$zippedVersionPath = 'data/' . $this->getSlug($id) . '_' . str_replace(":", "-", $this->doc->datetimeNow()) . '_' . time() . '.zip';
+        	$zippedVersionPath = 'data/' . $this->getSlug($id) . '_' . $this->doc->datetimeNow() . '.zip';
         } else {
             die;
         }
