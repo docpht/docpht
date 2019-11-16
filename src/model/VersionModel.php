@@ -66,11 +66,7 @@ class VersionModel extends PageModel
         $versionList = array();
         foreach (glob($zippedVersionPath . $filePattern) as $file) {
             $addFile = $this->checkVersion($file, $id);
-
-            $filenameChunks = explode('_', $file);
-            $versionTimestamp = substr(end($filenameChunks),0,-4);
-
-            if($addFile) array_push($versionList, ['path' => $file, 'date' => $versionTimestamp]);
+            if($addFile) array_push($versionList, ['path' => $file, 'date' => filemtime($file)]);
         }
         
         return $this->sortVersions($versionList);

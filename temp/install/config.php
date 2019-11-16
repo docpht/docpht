@@ -78,7 +78,7 @@ $date = [
     'd-m-Y H:i' => date('d-m-Y H:i'),
     'Y-m-d H:i' => date('Y-m-d H:i')
 ];
-$form->addRadioList('dataformat', 'Date format', $date)->setRequired('Required');
+$form->addRadioList('dataformat', 'Data format', $date)->setRequired('Required');
 
 $actualPath = (isSecure() ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 if (substr($actualPath, -1) != '/') {
