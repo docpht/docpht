@@ -178,7 +178,7 @@ class DocBuilder
 		    $vals = $vals;
             $values[] = $this->jsonSwitch($vals);
     			if ($vals['key'] == "title") {
-    			    $anchors[] = "'".$vals['v1']."'";
+    			    $anchors[] = "'".htmlspecialchars((string) $vals['v1'], ENT_QUOTES, 'UTF-8')."'";
     			}
 		}
 			
@@ -390,8 +390,10 @@ class DocBuilder
      */
     public function title($val,$anch)
     {
-       $out = '$html->title'."('{$val}','{$anch}'), \n";
-       return $out; 
+    	$val = htmlspecialchars((string) $val, ENT_QUOTES, 'UTF-8');
+        $anch = htmlspecialchars((string) $anch, ENT_QUOTES, 'UTF-8');
+        $out = '$html->title'."('{$val}','{$anch}'), \n";
+        return $out;
     }
     
     /**
