@@ -15,6 +15,7 @@ namespace DocPHT\Lib;
 
 use DocPHT\Model\PageModel;
 use DocPHT\Core\Translator\T;
+use Instant\Core\Helper\TextHelper;
 use Plasticbrain\FlashMessages\FlashMessages;
 
 class DocBuilder 
@@ -178,7 +179,7 @@ class DocBuilder
 		    $vals = $vals;
             $values[] = $this->jsonSwitch($vals);
     			if ($vals['key'] == "title") {
-    			    $anchors[] = "'".htmlspecialchars((string) $vals['v1'], ENT_QUOTES, 'UTF-8')."'";
+    			    $anchors[] = "'".TextHelper::e($vals['v1'])."'";
     			}
 		}
 			
@@ -390,8 +391,8 @@ class DocBuilder
      */
     public function title($val,$anch)
     {
-    	$val = htmlspecialchars((string) $val, ENT_QUOTES, 'UTF-8');
-        $anch = htmlspecialchars((string) $anch, ENT_QUOTES, 'UTF-8');
+    	$val = TextHelper::e($val);
+        $anch = TextHelper::e($anch);
         $out = '$html->title'."('{$val}','{$anch}'), \n";
         return $out;
     }
@@ -405,9 +406,9 @@ class DocBuilder
      */
     public function description($val)
     {
-       $val = htmlspecialchars((string) $val, ENT_QUOTES, 'UTF-8');
-       $out = '$html->description'."('{$val}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $out = '$html->description'."('{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -420,8 +421,10 @@ class DocBuilder
      */
     public function path($val,$ext)
     {
-       $out = '$html->path'."('pages/{$val}.{$ext}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $ext = TextHelper::e($ext);
+        $out = '$html->path'."('pages/{$val}.{$ext}'), \n";
+        return $out; 
     }
 
     /**
@@ -434,8 +437,10 @@ class DocBuilder
      */
     public function pathHome($val,$ext)
     {
-       $out = '$html->path'."('data/{$val}.{$ext}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $ext = TextHelper::e($ext);
+        $out = '$html->path'."('data/{$val}.{$ext}'), \n";
+        return $out; 
     }
     
     /**
@@ -447,8 +452,9 @@ class DocBuilder
      */
     public function pathAdd($val)
     {
-       $out = '$html->path'."('{$val}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $out = '$html->path'."('{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -461,9 +467,9 @@ class DocBuilder
      */
     public function codeInline($val,$lan)
     {
-       $val = addcslashes($val,"\'");
-       $out = '$html->codeInline'."('{$lan}','{$val}'), \n";
-       return $out; 
+        $val = addcslashes($val,"\'");
+        $out = '$html->codeInline'."('{$lan}','{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -495,9 +501,9 @@ class DocBuilder
      */
     public function blockquote($val)
     {
-       $val = htmlspecialchars((string) $val, ENT_QUOTES,'UTF-8');
-       $out = '$html->blockquote'."('{$val}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $out = '$html->blockquote'."('{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -510,8 +516,10 @@ class DocBuilder
      */
     public function image($src,$val)
     {
-       $out = '$html->image'."('{$src}','{$val}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $src = TextHelper::e($src);
+        $out = '$html->image'."('{$src}','{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -524,8 +532,10 @@ class DocBuilder
      */
     public function imageURL($src,$val)
     {
-       $out = '$html->imageURL'."('{$src}','{$val}'), \n";
-       return $out; 
+        $val = TextHelper::e($val);
+        $src = TextHelper::e($src);
+        $out = '$html->imageURL'."('{$src}','{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -537,9 +547,9 @@ class DocBuilder
      */
     public function markdown($val)
     {
-       $val = addcslashes($val,"\'");
-       $out = '$html->markdown'."('{$val}'), \n";
-       return $out; 
+        $val = addcslashes($val,"\'");
+        $out = '$html->markdown'."('{$val}'), \n";
+        return $out; 
     }
     
     /**
@@ -572,8 +582,10 @@ class DocBuilder
      */
     public function linkButton($src,$val,$trg)
     {
-       $out = '$html->linkButton'."('{$src}','{$val}','{$trg}'), \n";
-       return $out;
+        $val = TextHelper::e($val);
+        $src = TextHelper::e($src);
+        $out = '$html->linkButton'."('{$src}','{$val}','{$trg}'), \n";
+        return $out;
     }
     
     /**
