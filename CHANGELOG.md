@@ -1,6 +1,6 @@
 # Changelog      
       
-## [Unreleased] 
+## [1.3.0] - 2019-12-28 
 ### Added
 -  Php secure session library
 -  User access log
