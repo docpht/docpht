@@ -43,8 +43,8 @@ composer create-project kenlog/docpht
 
 **Basic Usage:**
 ```
-docker pull docpht/docpht:v1.0.0
-docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.0.0
+docker pull docpht/docpht:v1.3.0
+docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.3.0
 ```
 
 ## Wrapping Up
