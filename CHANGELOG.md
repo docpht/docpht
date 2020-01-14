@@ -1,12 +1,12 @@
 # Changelog      
 
-## [Unreleased]
+## [1.3.1] - 2020-01-14
 
 ### Security
-FIX #13 Potentially exposed files and folders 
+-  FIX #13 Potentially exposed files and folders 
 
 ### Changed
-Update dependencies
+-  Update dependencies
       
 ## [1.3.0] - 2019-12-28 
 ### Added
