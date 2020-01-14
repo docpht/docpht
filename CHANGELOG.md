@@ -1,4 +1,9 @@
-# Changelog      
+# Changelog    
+
+## [1.3.2] - 2020-01-14
+
+### Fixed
+- Fix allowed the reading of the images in data folder
 
 ## [1.3.1] - 2020-01-14
 
