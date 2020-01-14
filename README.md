@@ -26,7 +26,7 @@ the use of any database. You won't believe it, until you try it! :gem:
 ## Prerequisites :electric_plug:
 
 ```
-Apache 2.0+ with mod_rewrite and "AllowOverride All" set.
+Apache 2.2+ with mod_rewrite and "AllowOverride All" set.
 Enable mod headers module
 PHP >= 7.2 The latest version of PHP is recommended.
 ```
