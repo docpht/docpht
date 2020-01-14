@@ -1,4 +1,12 @@
 # Changelog      
+
+## [Unreleased]
+
+### Security
+FIX #13 Potentially exposed files and folders 
+
+### Changed
+Update dependencies
       
 ## [1.3.0] - 2019-12-28 
 ### Added
