@@ -30,7 +30,7 @@
 	min-height: initial;
 }
 
-#tracy-debug *:not(svg):not(img) {
+#tracy-debug *:not(svg):not(img):not(table) {
 	width: initial;
 	height: initial;
 }
@@ -261,6 +261,18 @@ body#tracy-debug .tracy-panel { /* in popup window */
 
 #tracy-debug .tracy-panel .tracy-icons {
 	display: none;
+}
+
+#tracy-debug .tracy-panel-ajax > h1::after,
+#tracy-debug .tracy-panel-redirect > h1::after {
+	content: 'ajax';
+	float: right;
+	font-size: 65%;
+	margin: 0 .3em;
+}
+
+#tracy-debug .tracy-panel-redirect h1::after {
+	content: 'redirect';
 }
 
 #tracy-debug .tracy-mode-peek,

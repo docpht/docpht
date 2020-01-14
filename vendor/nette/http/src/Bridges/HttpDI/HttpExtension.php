@@ -32,7 +32,7 @@ class HttpExtension extends Nette\DI\CompilerExtension
 	public function getConfigSchema(): Nette\Schema\Schema
 	{
 		return Expect::structure([
-			'proxy' => Expect::arrayOf('string')->dynamic(),
+			'proxy' => Expect::anyOf(Expect::arrayOf('string'), Expect::string()->castTo('array'))->default([])->dynamic(),
 			'headers' => Expect::arrayOf('scalar|null')->default([
 				'X-Powered-By' => 'Nette Framework 3',
 				'Content-Type' => 'text/html; charset=utf-8',
@@ -56,7 +56,7 @@ class HttpExtension extends Nette\DI\CompilerExtension
 			->addSetup('setProxy', [$config->proxy]);
 
 		$builder->addDefinition($this->prefix('request'))
-			->setFactory('@Nette\Http\RequestFactory::createHttpRequest');
+			->setFactory('@Nette\Http\RequestFactory::fromGlobals');
 
 		$response = $builder->addDefinition($this->prefix('response'))
 			->setFactory(Nette\Http\Response::class);
@@ -140,7 +140,10 @@ class HttpExtension extends Nette\DI\CompilerExtension
 			$policy = $policy === true ? [] : (array) $policy;
 			$value .= $type;
 			foreach ($policy as $item) {
-				$value .= !isset($nonQuoted[$type]) && preg_match('#^[a-z-]+\z#', $item) ? " '$item'" : " $item";
+				if (is_array($item)) {
+					$item = key($item) . ':';
+				}
+				$value .= !isset($nonQuoted[$type]) && preg_match('#^[a-z-]+$#D', $item) ? " '$item'" : " $item";
 			}
 			$value .= '; ';
 		}

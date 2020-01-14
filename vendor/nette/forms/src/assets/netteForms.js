@@ -29,6 +29,8 @@
 	'use strict';
 
 	var Nette = {};
+	var preventFiltering = {};
+	var formToggles = {};
 
 	Nette.formErrors = [];
 	Nette.version = '3.0';
@@ -119,10 +121,12 @@
 				val = '';
 			}
 		}
-		if (filter) {
+		if (filter && preventFiltering[elem.name] === undefined) {
+			preventFiltering[elem.name] = true;
 			var ref = {value: val};
 			Nette.validateControl(elem, null, true, ref);
 			val = ref.value;
+			delete preventFiltering[elem.name];
 		}
 		return val;
 	};
@@ -296,8 +300,6 @@
 	};
 
 
-	var preventFiltering = false;
-
 	/**
 	 * Validates single rule.
 	 */
@@ -311,16 +313,13 @@
 		op = op.replace(/\\/g, '');
 
 		var arr = Array.isArray(arg) ? arg.slice(0) : [arg];
-		if (!preventFiltering) {
-			preventFiltering = true;
-			for (var i = 0, len = arr.length; i < len; i++) {
-				if (arr[i] && arr[i].control) {
-					var control = elem.form.elements.namedItem(arr[i].control);
-					arr[i] = control === elem ? value.value : Nette.getEffectiveValue(control, true);
-				}
+		for (var i = 0, len = arr.length; i < len; i++) {
+			if (arr[i] && arr[i].control) {
+				var control = elem.form.elements.namedItem(arr[i].control);
+				arr[i] = control === elem ? value.value : Nette.getEffectiveValue(control, true);
 			}
-			preventFiltering = false;
 		}
+
 		return Nette.validators[op]
 			? Nette.validators[op](elem, Array.isArray(arg) ? arr : arr[0], value.value, value)
 			: null;
@@ -560,15 +559,15 @@
 	 */
 	Nette.toggleForm = function(form, elem) {
 		var i;
-		Nette.toggles = {};
+		formToggles = {};
 		for (i = 0; i < form.elements.length; i++) {
 			if (form.elements[i].tagName.toLowerCase() in {input: 1, select: 1, textarea: 1, button: 1}) {
 				Nette.toggleControl(form.elements[i], null, null, !elem);
 			}
 		}
 
-		for (i in Nette.toggles) {
-			Nette.toggle(i, Nette.toggles[i], elem);
+		for (i in formToggles) {
+			Nette.toggle(i, formToggles[i], elem);
 		}
 	};
 
@@ -627,7 +626,7 @@
 				}
 				for (var id2 in rule.toggle || []) {
 					if (Object.prototype.hasOwnProperty.call(rule.toggle, id2)) {
-						Nette.toggles[id2] = Nette.toggles[id2] || (rule.toggle[id2] ? curSuccess : !curSuccess);
+						formToggles[id2] = formToggles[id2] || (rule.toggle[id2] ? curSuccess : !curSuccess);
 					}
 				}
 			}

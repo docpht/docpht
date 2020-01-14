@@ -62,19 +62,23 @@ use Nette;
  * @method void flip(int $mode)
  * @method array ftText($size, $angle, $x, $y, $col, string $fontFile, string $text, array $extrainfo = null)
  * @method void gammaCorrect(float $inputgamma, float $outputgamma)
+ * @method array getClip()
  * @method int interlace($interlace = null)
  * @method bool isTrueColor()
  * @method void layerEffect($effect)
  * @method void line($x1, $y1, $x2, $y2, $color)
+ * @method void openPolygon(array $points, int $num_points, int $color)
  * @method void paletteCopy(Image $source)
  * @method void paletteToTrueColor()
  * @method void polygon(array $points, $numPoints, $color)
  * @method array psText(string $text, $font, $size, $color, $backgroundColor, $x, $y, $space = null, $tightness = null, float $angle = null, $antialiasSteps = null)
  * @method void rectangle($x1, $y1, $x2, $y2, $col)
+ * @method mixed resolution(int $res_x = null, int $res_y = null)
  * @method Image rotate(float $angle, $backgroundColor)
  * @method void saveAlpha(bool $saveflag)
  * @method Image scale(int $newWidth, int $newHeight = -1, int $mode = IMG_BILINEAR_FIXED)
  * @method void setBrush(Image $brush)
+ * @method void setClip(int $x1, int $y1, int $x2, int $y2)
  * @method void setPixel($x, $y, $color)
  * @method void setStyle(array $style)
  * @method void setThickness($thickness)
@@ -111,11 +115,12 @@ class Image
 		JPEG = IMAGETYPE_JPEG,
 		PNG = IMAGETYPE_PNG,
 		GIF = IMAGETYPE_GIF,
-		WEBP = 18; // IMAGETYPE_WEBP is available as of PHP 7.1
+		WEBP = IMAGETYPE_WEBP,
+		BMP = IMAGETYPE_BMP;
 
 	public const EMPTY_GIF = "GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;";
 
-	private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp'];
+	private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
 
 	/** @var resource */
 	private $image;
@@ -262,8 +267,8 @@ class Image
 
 	/**
 	 * Resizes image.
-	 * @param  int|string  $width in pixels or percent
-	 * @param  int|string  $height in pixels or percent
+	 * @param  int|string|null  $width in pixels or percent
+	 * @param  int|string|null  $height in pixels or percent
 	 * @return static
 	 */
 	public function resize($width, $height, int $flags = self::FIT)
@@ -293,20 +298,20 @@ class Image
 
 	/**
 	 * Calculates dimensions of resized image.
-	 * @param  int|string  $newWidth in pixels or percent
-	 * @param  int|string  $newHeight in pixels or percent
+	 * @param  int|string|null  $newWidth in pixels or percent
+	 * @param  int|string|null  $newHeight in pixels or percent
 	 */
 	public static function calculateSize(int $srcWidth, int $srcHeight, $newWidth, $newHeight, int $flags = self::FIT): array
 	{
 		if (is_string($newWidth) && substr($newWidth, -1) === '%') {
-			$newWidth = (int) round($srcWidth / 100 * abs(substr($newWidth, 0, -1)));
+			$newWidth = (int) round($srcWidth / 100 * abs((int) substr($newWidth, 0, -1)));
 			$percents = true;
 		} else {
 			$newWidth = (int) abs($newWidth);
 		}
 
 		if (is_string($newHeight) && substr($newHeight, -1) === '%') {
-			$newHeight = (int) round($srcHeight / 100 * abs(substr($newHeight, 0, -1)));
+			$newHeight = (int) round($srcHeight / 100 * abs((int) substr($newHeight, 0, -1)));
 			$flags |= empty($percents) ? 0 : self::STRETCH;
 		} else {
 			$newHeight = (int) abs($newHeight);
@@ -366,6 +371,7 @@ class Image
 		[$r['x'], $r['y'], $r['width'], $r['height']]
 			= static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
 		$this->image = imagecrop($this->image, $r);
+		imagesavealpha($this->image, true);
 		return $this;
 	}
 
@@ -380,16 +386,16 @@ class Image
 	public static function calculateCutout(int $srcWidth, int $srcHeight, $left, $top, $newWidth, $newHeight): array
 	{
 		if (is_string($newWidth) && substr($newWidth, -1) === '%') {
-			$newWidth = (int) round($srcWidth / 100 * substr($newWidth, 0, -1));
+			$newWidth = (int) round($srcWidth / 100 * (int) substr($newWidth, 0, -1));
 		}
 		if (is_string($newHeight) && substr($newHeight, -1) === '%') {
-			$newHeight = (int) round($srcHeight / 100 * substr($newHeight, 0, -1));
+			$newHeight = (int) round($srcHeight / 100 * (int) substr($newHeight, 0, -1));
 		}
 		if (is_string($left) && substr($left, -1) === '%') {
-			$left = (int) round(($srcWidth - $newWidth) / 100 * substr($left, 0, -1));
+			$left = (int) round(($srcWidth - $newWidth) / 100 * (int) substr($left, 0, -1));
 		}
 		if (is_string($top) && substr($top, -1) === '%') {
-			$top = (int) round(($srcHeight - $newHeight) / 100 * substr($top, 0, -1));
+			$top = (int) round(($srcHeight - $newHeight) / 100 * (int) substr($top, 0, -1));
 		}
 		if ($left < 0) {
 			$newWidth += $left;
@@ -438,11 +444,11 @@ class Image
 		$height = $image->getHeight();
 
 		if (is_string($left) && substr($left, -1) === '%') {
-			$left = (int) round(($this->getWidth() - $width) / 100 * substr($left, 0, -1));
+			$left = (int) round(($this->getWidth() - $width) / 100 * (int) substr($left, 0, -1));
 		}
 
 		if (is_string($top) && substr($top, -1) === '%') {
-			$top = (int) round(($this->getHeight() - $height) / 100 * substr($top, 0, -1));
+			$top = (int) round(($this->getHeight() - $height) / 100 * (int) substr($top, 0, -1));
 		}
 
 		$output = $input = $image->image;
@@ -501,9 +507,9 @@ class Image
 	 */
 	public function toString(int $type = self::JPEG, int $quality = null): string
 	{
-		ob_start(function () {});
-		$this->output($type, $quality);
-		return ob_get_clean();
+		return Helpers::capture(function () use ($type, $quality) {
+			$this->output($type, $quality);
+		});
 	}
 
 
@@ -515,10 +521,11 @@ class Image
 		try {
 			return $this->toString();
 		} catch (\Throwable $e) {
-			if (func_num_args()) {
+			if (func_num_args() || PHP_VERSION_ID >= 70400) {
 				throw $e;
 			}
 			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
+			return '';
 		}
 	}
 
@@ -546,28 +553,32 @@ class Image
 		switch ($type) {
 			case self::JPEG:
 				$quality = $quality === null ? 85 : max(0, min(100, $quality));
-				$success = imagejpeg($this->image, $file, $quality);
+				$success = @imagejpeg($this->image, $file, $quality); // @ is escalated to exception
 				break;
 
 			case self::PNG:
 				$quality = $quality === null ? 9 : max(0, min(9, $quality));
-				$success = imagepng($this->image, $file, $quality);
+				$success = @imagepng($this->image, $file, $quality); // @ is escalated to exception
 				break;
 
 			case self::GIF:
-				$success = imagegif($this->image, $file);
+				$success = @imagegif($this->image, $file); // @ is escalated to exception
 				break;
 
 			case self::WEBP:
 				$quality = $quality === null ? 80 : max(0, min(100, $quality));
-				$success = imagewebp($this->image, $file, $quality);
+				$success = @imagewebp($this->image, $file, $quality); // @ is escalated to exception
+				break;
+
+			case self::BMP:
+				$success = @imagebmp($this->image, $file); // @ is escalated to exception
 				break;
 
 			default:
 				throw new Nette\InvalidArgumentException("Unsupported image type '$type'.");
 		}
 		if (!$success) {
-			throw new ImageException(error_get_last()['message'] ?: 'Unknown error');
+			throw new ImageException(Helpers::getLastError() ?: 'Unknown error');
 		}
 	}
 
@@ -614,7 +625,7 @@ class Image
 	/**
 	 * Prevents serialization.
 	 */
-	public function __sleep()
+	public function __sleep(): array
 	{
 		throw new Nette\NotSupportedException('You cannot serialize or unserialize ' . self::class . ' instances.');
 	}

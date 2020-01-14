@@ -38,7 +38,7 @@ class FilterExecutor
 		'escapexml' => [[Filters::class, 'escapeXml'], false],
 		'firstupper' => [[Filters::class, 'firstUpper'], false],
 		'checkurl' => [[Filters::class, 'safeUrl'], false],
-		'implode' => ['implode', false],
+		'implode' => [[Filters::class, 'implode'], false],
 		'indent' => [[Filters::class, 'indent'], true],
 		'length' => [[Filters::class, 'length'], false],
 		'lower' => [[Filters::class, 'lower'], false],
@@ -178,7 +178,8 @@ class FilterExecutor
 				? new \ReflectionMethod($callback[0], $callback[1])
 				: new \ReflectionFunction($callback);
 			$this->_static[$name][1] = ($tmp = $ref->getParameters())
-				&& (string) $tmp[0]->getType() === FilterInfo::class;
+				&& $tmp[0]->getType() !== null
+				&& $tmp[0]->getType()->getName() === FilterInfo::class;
 		}
 		return $this->_static[$name];
 	}

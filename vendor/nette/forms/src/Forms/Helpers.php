@@ -152,7 +152,7 @@ class Helpers
 			$res .= ($res === '' && $wrapperEnd === '' ? '' : $wrapper)
 				. $labelTag . $label->attributes() . '>'
 				. $inputTag . $input->attributes() . (Html::$xhtml ? ' />' : '>')
-				. ($caption instanceof Nette\Utils\IHtmlString ? $caption : htmlspecialchars($caption, ENT_NOQUOTES, 'UTF-8'))
+				. ($caption instanceof Nette\Utils\IHtmlString ? $caption : htmlspecialchars((string) $caption, ENT_NOQUOTES, 'UTF-8'))
 				. '</label>'
 				. $wrapperEnd;
 		}
@@ -216,5 +216,16 @@ class Helpers
 			}
 		}
 		return [$dynamic, '<' . $name . Html::el(null, $attrs)->attributes()];
+	}
+
+
+	/** @internal */
+	public static function iniGetSize(string $name): int
+	{
+		$value = ini_get($name);
+		$units = ['k' => 10, 'm' => 20, 'g' => 30];
+		return isset($units[$ch = strtolower(substr($value, -1))])
+			? (int) $value << $units[$ch]
+			: (int) $value;
 	}
 }

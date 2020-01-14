@@ -26,11 +26,15 @@ class PhpWriter
 	/** @var array|null */
 	private $context;
 
+	/** @var array */
+	private $functions = [];
 
-	public static function using(MacroNode $node): self
+
+	public static function using(MacroNode $node, Compiler $compiler = null): self
 	{
 		$me = new static($node->tokenizer, null, $node->context);
 		$me->modifiers = &$node->modifiers;
+		$me->functions = $compiler ? $compiler->getFunctions() : [];
 		return $me;
 	}
 
@@ -159,6 +163,8 @@ class PhpWriter
 		$tokens = $tokens === null ? $this->tokens : $tokens;
 		$this->validateTokens($tokens);
 		$tokens = $this->removeCommentsPass($tokens);
+		$tokens = $this->replaceFunctionsPass($tokens);
+		$tokens = $this->optionalChainingPass($tokens);
 		$tokens = $this->shortTernaryPass($tokens);
 		$tokens = $this->inlineModifierPass($tokens);
 		$tokens = $this->inOperatorPass($tokens);
@@ -216,29 +222,132 @@ class PhpWriter
 
 
 	/**
+	 * Replace global functions with custom ones.
+	 */
+	public function replaceFunctionsPass(MacroTokens $tokens): MacroTokens
+	{
+		$res = new MacroTokens;
+		while ($tokens->nextToken()) {
+			$name = $tokens->currentValue();
+			if (
+				$tokens->isCurrent($tokens::T_SYMBOL)
+				&& ($orig = $this->functions[strtolower($name)] ?? null)
+				&& $tokens->isNext('(')
+				&& !$tokens->isPrev('::', '->', '\\')
+			) {
+				if ($name !== $orig) {
+					trigger_error("Case mismatch on function name '$name', correct name is '$orig'.", E_USER_WARNING);
+				}
+				$res->append('($this->global->_fn' . strtolower($name) . ')');
+			} else {
+				$res->append($tokens->currentToken());
+			}
+		}
+		return $res;
+	}
+
+
+	/**
 	 * Simplified ternary expressions without third part.
 	 */
 	public function shortTernaryPass(MacroTokens $tokens): MacroTokens
 	{
 		$res = new MacroTokens;
-		$inTernary = [];
+		$inTernary = $tmp = [];
+		$errors = 0;
 		while ($tokens->nextToken()) {
-			if ($tokens->isCurrent('?')) {
+			if ($tokens->isCurrent('?') && $tokens->isNext() && !$tokens->isNext(':', ',', ')', ']', '|')) {
 				$inTernary[] = $tokens->depth;
+				$tmp[] = $tokens->isNext('[');
 
 			} elseif ($tokens->isCurrent(':')) {
 				array_pop($inTernary);
+				array_pop($tmp);
 
 			} elseif ($tokens->isCurrent(',', ')', ']', '|') && end($inTernary) === $tokens->depth + $tokens->isCurrent(')', ']')) {
 				$res->append(' : null');
 				array_pop($inTernary);
+				$errors += array_pop($tmp);
 			}
 			$res->append($tokens->currentToken());
 		}
 
 		if ($inTernary) {
+			$errors += array_pop($tmp);
 			$res->append(' : null');
 		}
+		if ($errors) {
+			$tokens->reset();
+			trigger_error('Short ternary operator requires braces around array: ' . $tokens->joinAll(), E_USER_DEPRECATED);
+		}
+		return $res;
+	}
+
+
+	/**
+	 * Optional Chaining $var?->prop?->elem[1]?->call()?->item
+	 */
+	public function optionalChainingPass(MacroTokens $tokens): MacroTokens
+	{
+		$startDepth = $tokens->depth;
+		$res = new MacroTokens;
+
+		while ($tokens->depth >= $startDepth && $tokens->nextToken()) {
+			if (!$tokens->isCurrent($tokens::T_VARIABLE)) {
+				$res->append($tokens->currentToken());
+				continue;
+			}
+
+			$addBraces = '';
+			$expr = new MacroTokens([$tokens->currentToken()]);
+			$rescue = null;
+
+			do {
+				if ($tokens->nextToken('?')) {
+					if ($tokens->isNext() && (!$tokens->isNext($tokens::T_CHAR) || $tokens->isNext('(', '[', '{', ':', '!', '@'))) {  // is it ternary operator?
+						$expr->append($addBraces . ' ?');
+						break;
+					}
+
+					$rescue = [$res->tokens, $expr->tokens, $tokens->position, $addBraces];
+
+					if (!$tokens->isNext('->')) {
+						$expr->prepend('(');
+						$expr->append(' ?? null)' . $addBraces);
+						break;
+					}
+
+					$expr->prepend('(($_tmp = ');
+					$expr->append(' ?? null) === null ? null : ');
+					$res->tokens = array_merge($res->tokens, $expr->tokens);
+					$expr = new MacroTokens('$_tmp');
+					$addBraces .= ')';
+
+				} elseif ($tokens->nextToken('->')) {
+					$expr->append($tokens->currentToken());
+					if (!$tokens->nextToken($tokens::T_SYMBOL)) {
+						$expr->append($addBraces);
+						break;
+					}
+					$expr->append($tokens->currentToken());
+
+				} elseif ($tokens->nextToken('[', '(')) {
+					$expr->tokens = array_merge($expr->tokens, [$tokens->currentToken()], $this->optionalChainingPass($tokens)->tokens);
+					if ($rescue && $tokens->isNext(':')) { // it was ternary operator
+						[$res->tokens, $expr->tokens, $tokens->position, $addBraces] = $rescue;
+						$expr->append($addBraces . ' ?');
+						break;
+					}
+
+				} else {
+					$expr->append($addBraces);
+					break;
+				}
+			} while (true);
+
+			$res->tokens = array_merge($res->tokens, $expr->tokens);
+		}
+
 		return $res;
 	}
 
@@ -400,11 +509,11 @@ class PhpWriter
 				$res->append(' ');
 
 			} elseif ($inside) {
-				if ($tokens->isCurrent(':', ',')) {
+				if ($tokens->isCurrent(':', ',') && !$tokens->depth) {
 					$res->append(', ');
 					$tokens->nextAll($tokens::T_WHITESPACE);
 
-				} elseif ($tokens->isCurrent('|')) {
+				} elseif ($tokens->isCurrent('|') && !$tokens->depth) {
 					$res->append(')');
 					$inside = false;
 

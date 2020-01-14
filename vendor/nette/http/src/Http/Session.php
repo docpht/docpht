@@ -85,7 +85,7 @@ class Session
 
 		if (!session_id()) { // session is started for first time
 			$id = $this->request->getCookie(session_name());
-			$id = is_string($id) && preg_match('#^[0-9a-zA-Z,-]{22,256}\z#i', $id)
+			$id = is_string($id) && preg_match('#^[0-9a-zA-Z,-]{22,256}$#Di', $id)
 				? $id
 				: session_create_id();
 			session_id($id); // causes resend of a cookie
@@ -235,7 +235,7 @@ class Session
 	 */
 	public function setName(string $name)
 	{
-		if (!preg_match('#[^0-9.][^.]*\z#A', $name)) {
+		if (!preg_match('#[^0-9.][^.]*$#DA', $name)) {
 			throw new Nette\InvalidArgumentException('Session name cannot contain dot.');
 		}
 
@@ -401,9 +401,9 @@ class Session
 
 		if ($cookie !== $origCookie) {
 			if (PHP_VERSION_ID >= 70300) {
-				session_set_cookie_params($cookie);
+				@session_set_cookie_params($cookie); // @ may trigger warning when session is active since PHP 7.2
 			} else {
-				session_set_cookie_params(
+				@session_set_cookie_params( // @ may trigger warning when session is active since PHP 7.2
 					$cookie['lifetime'],
 					$cookie['path'] . (isset($cookie['samesite']) ? '; SameSite=' . $cookie['samesite'] : ''),
 					$cookie['domain'],

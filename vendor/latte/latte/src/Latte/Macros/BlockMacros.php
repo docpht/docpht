@@ -22,13 +22,16 @@ use Latte\Runtime\SnippetDriver;
  */
 class BlockMacros extends MacroSet
 {
+	/** @var string */
+	public $snippetAttribute = 'id';
+
 	/** @var array */
 	private $namedBlocks = [];
 
 	/** @var array */
 	private $blockTypes = [];
 
-	/** @var bool */
+	/** @var string|bool|null */
 	private $extends;
 
 	/** @var string[] */
@@ -226,6 +229,10 @@ class BlockMacros extends MacroSet
 
 		} elseif (strpos($name, '$') !== false) { // dynamic block/snippet
 			if ($node->name === 'snippet') {
+				if ($node->prefix && isset($node->htmlNode->attrs[$this->snippetAttribute])) {
+					throw new CompileException("Cannot combine HTML attribute $this->snippetAttribute with n:snippet.");
+				}
+
 				for (
 					$parent = $node->parentNode;
 					$parent && !($parent->name === 'snippet' || $parent->name === 'snippetArea');
@@ -240,12 +247,12 @@ class BlockMacros extends MacroSet
 				$enterCode = '$this->global->snippetDriver->enter(' . $writer->formatWord($name) . ', "' . SnippetDriver::TYPE_DYNAMIC . '");';
 
 				if ($node->prefix) {
-					$node->attrCode = $writer->write("<?php echo ' id=\"' . htmlSpecialChars(\$this->global->snippetDriver->getHtmlId({$writer->formatWord($name)})) . '\"' ?>");
+					$node->attrCode = $writer->write("<?php echo ' $this->snippetAttribute=\"' . htmlSpecialChars(\$this->global->snippetDriver->getHtmlId({$writer->formatWord($name)})) . '\"' ?>");
 					return $writer->write($enterCode);
 				}
 				$node->closingCode .= "\n</div>";
 				$this->checkExtraArgs($node);
-				return $writer->write("?>\n<div id=\"<?php echo htmlSpecialChars(\$this->global->snippetDriver->getHtmlId({$writer->formatWord($name)})) ?>\"><?php " . $enterCode);
+				return $writer->write("?>\n<div $this->snippetAttribute=\"<?php echo htmlSpecialChars(\$this->global->snippetDriver->getHtmlId({$writer->formatWord($name)})) ?>\"><?php " . $enterCode);
 
 			} else {
 				$node->data->leave = true;
@@ -268,12 +275,15 @@ class BlockMacros extends MacroSet
 				return "\$this->checkBlockContentType($blockType, $fname);"
 					. "\$this->blockQueue[$fname][] = [\$this, '{$node->data->func}'];";
 			}
+
+		} elseif ($name[0] === '_') {
+			throw new CompileException("Block name '$name' must not start with an underscore.");
 		}
 
 		// static snippet/snippetArea
 		if ($node->name === 'snippet' || $node->name === 'snippetArea') {
-			if ($node->prefix && isset($node->htmlNode->attrs['id'])) {
-				throw new CompileException('Cannot combine HTML attribute id with n:snippet.');
+			if ($node->prefix && isset($node->htmlNode->attrs[$this->snippetAttribute])) {
+				throw new CompileException("Cannot combine HTML attribute $this->snippetAttribute with n:snippet.");
 			}
 			$node->data->name = $name = '_' . $name;
 		}
@@ -303,11 +313,11 @@ class BlockMacros extends MacroSet
 				if (isset($node->htmlNode->macroAttrs['foreach'])) {
 					trigger_error('Combination of n:snippet with n:foreach is invalid, use n:inner-foreach.', E_USER_WARNING);
 				}
-				$node->attrCode = $writer->write('<?php echo \' id="\' . htmlSpecialChars($this->global->snippetDriver->getHtmlId(%var)) . \'"\' ?>', (string) substr($name, 1));
+				$node->attrCode = $writer->write("<?php echo ' $this->snippetAttribute=\"' . htmlSpecialChars(\$this->global->snippetDriver->getHtmlId(%var)) . '\"' ?>", (string) substr($name, 1));
 				return $writer->write($include, $name);
 			}
 			$this->checkExtraArgs($node);
-			return $writer->write("?>\n<div id=\"<?php echo htmlSpecialChars(\$this->global->snippetDriver->getHtmlId(%var)) ?>\"><?php $include ?>\n</div><?php ",
+			return $writer->write("?>\n<div $this->snippetAttribute=\"<?php echo htmlSpecialChars(\$this->global->snippetDriver->getHtmlId(%var)) ?>\"><?php $include ?>\n</div><?php ",
 				(string) substr($name, 1), $name
 			);
 
@@ -315,13 +325,14 @@ class BlockMacros extends MacroSet
 			$tokens = $node->tokenizer;
 			$args = [];
 			while ($tokens->isNext()) {
-				$arg = $tokens->consumeValue($tokens::T_VARIABLE);
-				$args[] = $arg . ' = $_args[' . count($args) . '] ?? ' . $arg . ' ?? null;';
+				$args[] = $tokens->consumeValue($tokens::T_VARIABLE);
 				if ($tokens->isNext()) {
 					$tokens->consumeValue(',');
 				}
 			}
-			$node->data->args = implode('', $args);
+			if ($args) {
+				$node->data->args = 'list(' . implode(', ', $args) . ') = $_args + [' . str_repeat('NULL, ', count($args)) . '];';
+			}
 			return $extendsCheck;
 
 		} else { // block, snippetArea
@@ -353,7 +364,8 @@ class BlockMacros extends MacroSet
 			}
 			if (empty($node->data->leave)) {
 				if (preg_match('#\$|n:#', $node->content)) {
-					$node->content = '<?php extract($_args);' . ($node->data->args ?? '') . ' ?>' . $node->content;
+					$node->content = '<?php ' . (isset($node->data->args) ? 'extract($this->params); ' . $node->data->args : 'extract($_args);') . ' ?>'
+						. $node->content;
 				}
 				$this->namedBlocks[$node->data->name] = $tmp = preg_replace('#^\n+|(?<=\n)[ \t]+$#D', '', $node->content);
 				$node->content = substr_replace($node->content, $node->openingCode . "\n", strspn($node->content, "\n"), strlen($tmp));

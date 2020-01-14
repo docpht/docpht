@@ -69,7 +69,7 @@ class Strings
 	 */
 	public static function endsWith(string $haystack, string $needle): bool
 	{
-		return strlen($needle) === 0 || substr($haystack, -strlen($needle)) === $needle;
+		return $needle === '' || substr($haystack, -strlen($needle)) === $needle;
 	}
 
 
@@ -104,17 +104,17 @@ class Strings
 	public static function normalize(string $s): string
 	{
 		// convert to compressed normal form (NFC)
-		if (class_exists('Normalizer', false)) {
-			$s = \Normalizer::normalize($s, \Normalizer::FORM_C);
+		if (class_exists('Normalizer', false) && ($n = \Normalizer::normalize($s, \Normalizer::FORM_C)) !== false) {
+			$s = $n;
 		}
 
 		$s = self::normalizeNewLines($s);
 
 		// remove control characters; leave \t + \n
-		$s = preg_replace('#[\x00-\x08\x0B-\x1F\x7F-\x9F]+#u', '', $s);
+		$s = self::pcre('preg_replace', ['#[\x00-\x08\x0B-\x1F\x7F-\x9F]+#u', '', $s]);
 
 		// right trim
-		$s = preg_replace('#[\t ]+$#m', '', $s);
+		$s = self::pcre('preg_replace', ['#[\t ]+$#m', '', $s]);
 
 		// leading and trailing blank lines
 		$s = trim($s, "\n");
@@ -142,20 +142,27 @@ class Strings
 			$transliterator = \Transliterator::create('Any-Latin; Latin-ASCII');
 		}
 
-		$s = preg_replace('#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{2FF}\x{370}-\x{10FFFF}]#u', '', $s);
-		$s = strtr($s, '`\'"^~?', "\x01\x02\x03\x04\x05\x06");
+		// remove control characters and check UTF-8 validity
+		$s = self::pcre('preg_replace', ['#[^\x09\x0A\x0D\x20-\x7E\xA0-\x{2FF}\x{370}-\x{10FFFF}]#u', '', $s]);
+		// transliteration (by Transliterator and iconv) is not optimal, replace some characters directly
 		$s = str_replace(
-			["\u{201E}", "\u{201C}", "\u{201D}", "\u{201A}", "\u{2018}", "\u{2019}", "\u{B0}"],
-			["\x03", "\x03", "\x03", "\x02", "\x02", "\x02", "\x04"], $s
+			["\u{201E}", "\u{201C}", "\u{201D}", "\u{201A}", "\u{2018}", "\u{2019}", "\u{B0}", "\u{42F}", "\u{44F}", "\u{42E}", "\u{44E}"], // „ “ ” ‚ ‘ ’ ° Я я Ю ю
+			['"', '"', '"', "'", "'", "'", '^', 'Ya', 'ya', 'Yu', 'yu'],
+			$s
 		);
+		// temporarily hide these characters to distinguish them from the garbage that iconv creates
+		$s = strtr($s, '`\'"^~?', "\x01\x02\x03\x04\x05\x06");
 		if ($transliterator !== null) {
 			$s = $transliterator->transliterate($s);
 		}
 		if (ICONV_IMPL === 'glibc') {
+			// glibc implementation is very limited. replace some characters directly
 			$s = str_replace(
-				["\u{BB}", "\u{AB}", "\u{2026}", "\u{2122}", "\u{A9}", "\u{AE}"],
-				['>>', '<<', '...', 'TM', '(c)', '(R)'], $s
+				["\u{BB}", "\u{AB}", "\u{2026}", "\u{2122}", "\u{A9}", "\u{AE}"], // » « … ™ © ®
+				['>>', '<<', '...', 'TM', '(c)', '(R)'],
+				$s
 			);
+			// transliterate the rest into Windows-1250 and then into ASCII, so most Eastern European characters are preserved
 			$s = iconv('UTF-8', 'WINDOWS-1250//TRANSLIT//IGNORE', $s);
 			$s = strtr($s, "\xa5\xa3\xbc\x8c\xa7\x8a\xaa\x8d\x8f\x8e\xaf\xb9\xb3\xbe\x9c\x9a\xba\x9d\x9f\x9e"
 				. "\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3"
@@ -163,12 +170,15 @@ class Strings
 				. "\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf8\xf9\xfa\xfb\xfc\xfd\xfe"
 				. "\x96\xa0\x8b\x97\x9b\xa6\xad\xb7",
 				'ALLSSSSTZZZallssstzzzRAAAALCCCEEEEIIDDNNOOOOxRUUUUYTsraaaalccceeeeiiddnnooooruuuuyt- <->|-.');
-			$s = preg_replace('#[^\x00-\x7F]++#', '', $s);
+			$s = self::pcre('preg_replace', ['#[^\x00-\x7F]++#', '', $s]);
 		} else {
 			$s = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s);
 		}
+		// remove garbage that iconv creates during transliteration (eg Ý -> Y')
 		$s = str_replace(['`', "'", '"', '^', '~', '?'], '', $s);
-		return strtr($s, "\x01\x02\x03\x04\x05\x06", '`\'"^~?');
+		// restore temporarily hidden characters
+		$s = strtr($s, "\x01\x02\x03\x04\x05\x06", '`\'"^~?');
+		return $s;
 	}
 
 
@@ -181,7 +191,7 @@ class Strings
 		if ($lower) {
 			$s = strtolower($s);
 		}
-		$s = preg_replace('#[^a-z0-9' . ($charlist !== null ? preg_quote($charlist, '#') : '') . ']+#i', '-', $s);
+		$s = self::pcre('preg_replace', ['#[^a-z0-9' . ($charlist !== null ? preg_quote($charlist, '#') : '') . ']+#i', '-', $s]);
 		$s = trim($s, '-');
 		return $s;
 	}
@@ -193,7 +203,7 @@ class Strings
 	public static function truncate(string $s, int $maxLen, string $append = "\u{2026}"): string
 	{
 		if (self::length($s) > $maxLen) {
-			$maxLen = $maxLen - self::length($append);
+			$maxLen -= self::length($append);
 			if ($maxLen < 1) {
 				return $append;
 
@@ -323,7 +333,7 @@ class Strings
 	public static function trim(string $s, string $charlist = self::TRIM_CHARACTERS): string
 	{
 		$charlist = preg_quote($charlist, '#');
-		return self::replace($s, '#^[' . $charlist . ']+|[' . $charlist . ']+\z#u', '');
+		return self::replace($s, '#^[' . $charlist . ']+|[' . $charlist . ']+$#Du', '');
 	}
 
 
@@ -406,7 +416,7 @@ class Strings
 		if (!$nth) {
 			return null;
 		} elseif ($nth > 0) {
-			if (strlen($needle) === 0) {
+			if ($needle === '') {
 				return 0;
 			}
 			$pos = 0;
@@ -415,7 +425,7 @@ class Strings
 			}
 		} else {
 			$len = strlen($haystack);
-			if (strlen($needle) === 0) {
+			if ($needle === '') {
 				return $len;
 			}
 			$pos = $len - 1;
@@ -423,7 +433,7 @@ class Strings
 				$pos--;
 			}
 		}
-		return $pos === false ? null : $pos;
+		return Helpers::falseToNull($pos);
 	}
 
 

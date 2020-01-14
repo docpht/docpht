@@ -21,7 +21,9 @@
 	},
 	"require-dev": {
 		"nette/tester": "~2.0",
-		"tracy/tracy": "^2.3"
+		"tracy/tracy": "^2.3",
+		"nette/utils": "^3.0",
+		"phpstan/phpstan": "^0.12"
 	},
 	"suggest": {
 		"ext-mbstring": "to use filters like lower, upper, capitalize, ...",
@@ -35,9 +37,13 @@
 		"classmap": ["src/"]
 	},
 	"minimum-stability": "dev",
+	"scripts": {
+		"phpstan": "phpstan analyse --level 5 src",
+		"tester": "tester tests -s"
+	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.5-dev"
+			"dev-master": "2.6-dev"
 		}
 	}
 }

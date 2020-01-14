@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Nette\Utils;
 
 use Nette;
-use function is_array, is_int, is_object;
+use function is_array, is_int, is_object, count;
 
 
 /**
@@ -83,7 +83,7 @@ class Arrays
 	public static function searchKey(array $arr, $key): ?int
 	{
 		$foo = [$key => null];
-		return ($tmp = array_search(key($foo), array_keys($arr), true)) === false ? null : $tmp;
+		return Helpers::falseToNull(array_search(key($foo), array_keys($arr), true));
 	}
 
 
@@ -164,7 +164,7 @@ class Arrays
 			? $path
 			: preg_split('#(\[\]|->|=|\|)#', $path, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 
-		if (!$parts || $parts[0] === '=' || $parts[0] === '|' || $parts === ['->']) {
+		if (!$parts || $parts === ['->'] || $parts[0] === '=' || $parts[0] === '|') {
 			throw new Nette\InvalidArgumentException("Invalid path '$path'.");
 		}
 
@@ -187,6 +187,9 @@ class Arrays
 
 				} elseif ($part === '->') {
 					if (isset($parts[++$i])) {
+						if ($x === null) {
+							$x = new \stdClass;
+						}
 						$x = &$x->{$row[$parts[$i]]};
 					} else {
 						$row = is_object($rowOrig) ? $rowOrig : (object) $row;

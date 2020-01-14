@@ -19,7 +19,8 @@
 	},
 	"require-dev": {
 		"nette/tester": "~2.0",
-		"tracy/tracy": "^2.3"
+		"tracy/tracy": "^2.3",
+		"phpstan/phpstan": "^0.12"
 	},
 	"suggest": {
 		"ext-iconv": "to use Strings::webalize() and toAscii()",
@@ -27,15 +28,20 @@
 		"ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
 		"ext-mbstring": "to use Strings::lower() etc...",
 		"ext-xml": "to use Strings::length() etc. when mbstring is not available",
-		"ext-gd": "to use Image"
+		"ext-gd": "to use Image",
+		"ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
 	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
 	"minimum-stability": "dev",
+	"scripts": {
+		"phpstan": "phpstan analyse --level 5 --configuration tests/phpstan.neon src",
+		"tester": "tester tests -s"
+	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.0-dev"
+			"dev-master": "3.1-dev"
 		}
 	}
 }

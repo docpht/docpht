@@ -38,11 +38,12 @@ The recommended way to is via Composer:
 composer require tracy/tracy
 ```
 
-Alternatively, you can download the whole package or [tracy.phar](https://github.com/nette/tester/releases) file.
+Alternatively, you can download the whole package or [tracy.phar](https://github.com/nette/tracy/releases) file.
 
 | Tracy | PHP | compatible with browsers
 |-----------|---------------|----------
-| Tracy 2.6 | PHP 7.1 – 7.3 | Chrome 49+, Firefox 45+, MS Edge 14+, Safari 10+ and iOS Safari 10.2+
+| Tracy 2.7 | PHP 7.1 – 7.4 | Chrome 49+, Firefox 45+, MS Edge 14+, Safari 10+ and iOS Safari 10.2+
+| Tracy 2.6 | PHP 7.1 – 7.4 | Chrome 49+, Firefox 45+, MS Edge 14+, Safari 10+ and iOS Safari 10.2+
 | Tracy 2.5 | PHP 5.4.4 – 7.3 | Chrome 49+, Firefox 45+, MS Edge 12+, Safari 10+ and iOS Safari 10.2+
 | Tracy 2.4 | PHP 5.4.4 – 7.2 | Chrome 29+, Firefox 28+, IE 11+ (except AJAX), MS Edge 12+, Safari 9+ and iOS Safari 9.2+
 
@@ -116,7 +117,8 @@ Errors like a typo in a variable name or an attempt to open a nonexistent file g
 Or they may be displayed like errors:
 
 ```php
-Debugger::$strictMode = true;
+Debugger::$strictMode = true; // display all errors
+Debugger::$strictMode = E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED; // all errors except deprecated notices
 ```
 
 [![Notice rendered by Tracy](https://nette.github.io/tracy/images/tracy-notice.png)](https://nette.github.io/tracy/tracy-notice.html)
@@ -192,7 +194,7 @@ The output mode is set by the first parameter of `Debugger::enable()`. You can s
 
 If it is not specified, the default value `Debugger::DETECT` is used. In this case the system detects a server by IP address. The production mode is chosen if an application is accessed via public IP address. A local IP address leads to development mode. It is not necessary to set the mode in most cases. The mode is correctly recognized when you are launching the application on your local server or in production.
 
-In the production mode, Tracy automatically captures all errors and exceptions into a text log. Unless you specify otherwise, it will be stored in log/error.log. This error logging is extremely useful. Imagine, that all users of your application are actually betatesters. They are doing cutting-edge work for free when hunting bugs and you would be silly if you threw away their valuable reports to a recycle bin unnoticed.
+When it is in production mode and a log directory is provided, Tracy automatically captures all errors and exceptions into a text log. This error logging is extremely useful. Imagine, that all users of your application are actually betatesters. They are doing cutting-edge work for free when hunting bugs and you would be silly if you threw away their valuable reports to a recycle bin unnoticed.
 
 If you need to log your own messages or caught exceptions, use the method `log()`:
 

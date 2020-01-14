@@ -164,7 +164,7 @@ class Finder implements \IteratorAggregate, \Countable
 			$pattern[] = $prefix . strtr(preg_quote($mask, '#'),
 				['\*\*' => '.*', '\*' => '[^/]*', '\?' => '[^/]', '\[\!' => '[^', '\[' => '[', '\]' => ']', '\-' => '-']);
 		}
-		return $pattern ? '#/(' . implode('|', $pattern) . ')\z#i' : null;
+		return $pattern ? '#/(' . implode('|', $pattern) . ')$#Di' : null;
 	}
 
 
@@ -299,7 +299,7 @@ class Finder implements \IteratorAggregate, \Countable
 	public function size(string $operator, int $size = null): self
 	{
 		if (func_num_args() === 1) { // in $operator is predicate
-			if (!preg_match('#^(?:([=<>!]=?|<>)\s*)?((?:\d*\.)?\d+)\s*(K|M|G|)B?\z#i', $operator, $matches)) {
+			if (!preg_match('#^(?:([=<>!]=?|<>)\s*)?((?:\d*\.)?\d+)\s*(K|M|G|)B?$#Di', $operator, $matches)) {
 				throw new Nette\InvalidArgumentException('Invalid size predicate format.');
 			}
 			[, $operator, $size, $unit] = $matches;
@@ -322,7 +322,7 @@ class Finder implements \IteratorAggregate, \Countable
 	public function date(string $operator, $date = null): self
 	{
 		if (func_num_args() === 1) { // in $operator is predicate
-			if (!preg_match('#^(?:([=<>!]=?|<>)\s*)?(.+)\z#i', $operator, $matches)) {
+			if (!preg_match('#^(?:([=<>!]=?|<>)\s*)?(.+)$#Di', $operator, $matches)) {
 				throw new Nette\InvalidArgumentException('Invalid date predicate format.');
 			}
 			[, $operator, $date] = $matches;
@@ -369,7 +369,7 @@ class Finder implements \IteratorAggregate, \Countable
 	{
 		return isset(self::$extMethods[$name])
 			? (self::$extMethods[$name])($this, ...$args)
-			: parent::__call($name, $args);
+			: Nette\Utils\ObjectHelpers::strictCall(get_class($this), $name, array_keys(self::$extMethods));
 	}
 
 

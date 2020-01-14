@@ -30,10 +30,10 @@ class RobotLoader
 
 	private const RETRY_LIMIT = 3;
 
-	/** @var array */
+	/** @var string[] */
 	public $ignoreDirs = ['.*', '*.old', '*.bak', '*.tmp', 'temp'];
 
-	/** @var array */
+	/** @var string[] */
 	public $acceptFiles = ['*.php'];
 
 	/** @var bool */
@@ -42,10 +42,10 @@ class RobotLoader
 	/** @var bool */
 	private $reportParseErrors = true;
 
-	/** @var array */
+	/** @var string[] */
 	private $scanPaths = [];
 
-	/** @var array */
+	/** @var string[] */
 	private $excludeDirs = [];
 
 	/** @var array of class => [file, time] */
@@ -111,7 +111,7 @@ class RobotLoader
 		}
 
 		if ($info) {
-			(function ($file) { require $file; })($info['file']);
+			(static function ($file) { require $file; })($info['file']);
 		}
 	}
 
@@ -122,7 +122,7 @@ class RobotLoader
 	 */
 	public function addDirectory(...$paths): self
 	{
-		if (is_array($paths[0])) {
+		if (is_array($paths[0] ?? null)) {
 			trigger_error(__METHOD__ . '() use variadics ...$paths to add an array of paths.', E_USER_WARNING);
 			$paths = $paths[0];
 		}
@@ -133,7 +133,7 @@ class RobotLoader
 
 	public function reportParseErrors(bool $on = true): self
 	{
-		$this->reportParseErrors = (bool) $on;
+		$this->reportParseErrors = $on;
 		return $this;
 	}
 
@@ -144,7 +144,7 @@ class RobotLoader
 	 */
 	public function excludeDirectory(...$paths): self
 	{
-		if (is_array($paths[0])) {
+		if (is_array($paths[0] ?? null)) {
 			trigger_error(__METHOD__ . '() use variadics ...$paths to add an array of paths.', E_USER_WARNING);
 			$paths = $paths[0];
 		}
@@ -239,7 +239,7 @@ class RobotLoader
 			throw new Nette\IOException("File or directory '$dir' not found.");
 		}
 
-		if (!is_array($ignoreDirs = $this->ignoreDirs)) {
+		if (is_string($ignoreDirs = $this->ignoreDirs)) {
 			trigger_error(__CLASS__ . ': $ignoreDirs must be an array.', E_USER_WARNING);
 			$ignoreDirs = preg_split('#[,\s]+#', $ignoreDirs);
 		}
@@ -250,7 +250,7 @@ class RobotLoader
 			}
 		}
 
-		if (!is_array($acceptFiles = $this->acceptFiles)) {
+		if (is_string($acceptFiles = $this->acceptFiles)) {
 			trigger_error(__CLASS__ . ': $acceptFiles must be an array.', E_USER_WARNING);
 			$acceptFiles = preg_split('#[,\s]+#', $acceptFiles);
 		}
@@ -309,17 +309,9 @@ class RobotLoader
 	{
 		$code = file_get_contents($file);
 		$expected = false;
-		$namespace = '';
+		$namespace = $name = '';
 		$level = $minLevel = 0;
 		$classes = [];
-
-		if (preg_match('#//nette' . 'loader=(\S*)#', $code, $matches)) {
-			foreach (explode(',', $matches[1]) as $name) {
-				$classes[] = $name;
-			}
-			return $classes;
-		}
-
 
 		try {
 			$tokens = token_get_all($code, TOKEN_PARSE);
@@ -397,7 +389,7 @@ class RobotLoader
 	 */
 	public function setAutoRefresh(bool $on = true): self
 	{
-		$this->autoRebuild = (bool) $on;
+		$this->autoRebuild = $on;
 		return $this;
 	}
 
@@ -424,7 +416,7 @@ class RobotLoader
 			return;
 		}
 
-		$handle = fopen("$file.lock", 'c+');
+		$handle = fopen("$file.lock", 'cb+');
 		if (!$handle || !flock($handle, LOCK_EX)) {
 			throw new \RuntimeException("Unable to create or acquire exclusive lock on file '$file.lock'.");
 		}
