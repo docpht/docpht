@@ -45,7 +45,7 @@
         <div class="progress-bar" id="scrollindicator"></div>
     </div>
 
-    <?php include 'sidebar.php'; ?>
+
 
     <!-- Page Content  -->
     <div id="content">

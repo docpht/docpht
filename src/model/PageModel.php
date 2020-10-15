@@ -105,7 +105,7 @@ class PageModel
         $id = uniqid();
         $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
 		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
-        $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($id))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($id)));
 
         if (!is_null($data)) {
             
@@ -369,7 +369,7 @@ class PageModel
     public function getId($path)
     {
         $data = $this->connect();
-        $key = array_search($path, array_column($data, 'phppath'));
+        $key = $this->findKeyFromPath($data, $path);
         
         return $data[$key]['pages']['id'];
     }
@@ -566,6 +566,26 @@ class PageModel
         if (isset($data)) {
             foreach ($data as $array) {
                 if ($array['pages']['id'] == $search) $key = $x;
+                $x++;
+            }
+            
+            return isset($key) ? $key : false;
+        }
+    }
+    
+    /**
+     * findKeyFromPath
+     *
+     * @param  string $id
+     *
+     * @return int|bool
+     */
+    public function findKeyFromPath($data, $search)
+    {
+        $x = 0;
+        if (isset($data)) {
+            foreach ($data as $array) {
+                if ($array['pages']['phppath'] == $search) $key = $x;
                 $x++;
             }
             

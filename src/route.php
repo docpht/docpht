@@ -3,6 +3,7 @@
 use DocPHT\Controller\FormPageController;
 use DocPHT\Controller\ErrorPageController;
 use DocPHT\Controller\LoginController;
+use DocPHT\Model\PageModel;
 use DocPHT\Model\AdminModel;
 
 /**

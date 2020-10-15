@@ -81,7 +81,7 @@ class InsertSectionForm extends MakeupForm
         	    if(isset($id)) {
             	    $this->pageModel->insertPageData($id, $rowIndex, $b_or_a, $this->doc->valuesToArray($values, $file_path));
             	    $this->doc->buildPhpPage($id);
-                    header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+                    header('Location:'.$this->pageModel->getSlug($id));
         			exit;
         	    } else {
     				$this->msg->error(T::trans('Sorry something didn\'t work!'));

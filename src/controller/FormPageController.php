@@ -26,7 +26,8 @@ class FormPageController extends BaseController
 
 	public function getPage($topic, $filename)
 	{	
-		$this->view->show('partial/head.php', ['PageTitle' => $topic .' '. $filename]);
+	    $newId = $this->pageModel->getId('pages/'.$topic.'/'.$filename.'.php');
+		$this->view->show('partial/head.php', ['PageTitle' => $this->pageModel->getTopic($newId) .' '. $this->pageModel->getFilename($newId)]);
 		$page = require_once('pages/'.$topic.'/'.$filename.'.php');
 
 		$pages = $this->pageModel->connect();

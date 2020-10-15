@@ -138,7 +138,7 @@ class UpdatePageForm extends MakeupForm
                 	    $this->doc->buildPhpPage($id);
             	    }
             }
-            header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+            header('Location:'.$this->pageModel->getSlug($id));
             exit;
         } elseif (!isset($id)) {
             $this->msg->error(T::trans('Sorry something didn\'t work!'));

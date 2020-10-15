@@ -65,12 +65,8 @@
 
 
         (isset($_SESSION['Active'])) ? $topics = $this->pageModel->getUniqTopics() : $topics = $this->pageModel->getUniqPublishedTopics();
-                
-        $url = "$_SERVER[REQUEST_URI]";
-        $parse = parse_url($url)['path'];
-        $explode = explode('/', $parse);
-        $filenameURL = array_reverse($explode)[0];
-        $topicURL = array_reverse($explode)[1];
+        (isset($_SESSION['page_id'])) ? $filenameURL = $this->pageModel->getFilename($_SESSION['page_id']) : $filenameURL = "";
+        (isset($_SESSION['page_id'])) ? $topicURL = $this->pageModel->getTopic($_SESSION['page_id']) : $topicURL = "";
 
         if (!is_null($topics)) {
             if (!empty($topics)) {

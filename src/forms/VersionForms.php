@@ -130,7 +130,7 @@ class VersionForms extends MakeupForm
     {
         $id = $_SESSION['page_id'];
         if ($this->versionModel->saveVersion($id)) {
-        	$this->msg->success(T::trans('Version saved successfully.'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+        	$this->msg->success(T::trans('Version saved successfully.'),BASE_URL.'page/'.$this->pageModel->getSlug($id));
         } else {
             $this->msg->error(T::trans('Invalid procedure!'),BASE_URL.'page/'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
         }

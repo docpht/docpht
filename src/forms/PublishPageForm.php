@@ -48,7 +48,7 @@ class PublishPageForm extends MakeupForm
         }
     
         
-        header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+        header('Location:'.$this->pageModel->getSlug($id));
         exit;
     }
 }

@@ -21,7 +21,7 @@ class HomePageForm extends MakeupForm
     {
         $id = $_SESSION['page_id'];
         $this->homePageModel->set($id);
-        header('Location:'.$this->pageModel->getTopic($id).'/'.$this->pageModel->getFilename($id));
+        header('Location:'.$this->pageModel->getSlug($id));
         exit;
     }
 }

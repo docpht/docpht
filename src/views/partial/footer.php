@@ -57,6 +57,7 @@
         anchors.options.placement = 'left';
         anchors.add('h2');
     </script>
+        <?php include 'sidebar.php'; ?>
 </body>
 
 </html>

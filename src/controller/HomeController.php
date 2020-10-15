@@ -21,6 +21,7 @@ class HomeController extends BaseController
     
 	public function index()
 	{
+	    unset($_SESSION['page_id']);
 	    $home_page = $this->homePageModel->get();
 	    
 		$this->view->show('partial/head.php', ['PageTitle' => TITLE]);
