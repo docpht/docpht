@@ -13,6 +13,8 @@
  * connect()
  * connectPageData($id)
  * create($topic, $filename)
+ * unaccent($string)
+ * accentConversion($string)
  * getPagesByTopic($topic)
  * getPublishedPagesByTopic($topic)
  * getUniqTopics()
@@ -103,8 +105,8 @@ class PageModel
     {
         $data = $this->connect();
         $id = uniqid();
-        $topic = strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME) ));
-		$filename = strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME)));
+        $topic = $this->accentConversion(strtolower(str_replace(' ', '-', pathinfo($topic, PATHINFO_FILENAME))));
+		$filename = $this->accentConversion(strtolower(str_replace(' ', '-', pathinfo($filename, PATHINFO_FILENAME))));
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($topic))) .'/'. preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($filename)));
 
         if (!is_null($data)) {
@@ -142,6 +144,38 @@ class PageModel
         $this->disconnect(self::DB, $data);
         
 		return $id;
+    }
+
+    /**
+     * unaccent
+     *
+     * @param  string $string
+     *
+     * @return string
+     */
+    function unaccent($string)
+    {
+        if (strpos($string = htmlentities($string, ENT_QUOTES, 'UTF-8'), '&') !== false) {
+            $string = html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i', '$1', $string), ENT_QUOTES, 'UTF-8');
+        }
+        return $string;
+    }
+
+    /**
+     * accentConversion
+     *
+     * @param  string $string
+     *
+     * @return string
+     */
+    public function accentConversion($string) 
+    {
+        $string = $this->unaccent($string);
+        $string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+        $string = str_replace('&', 'and', $string);
+        $string = preg_replace('#[^A-Za-z0-9\\.\\_]#', '', $string);
+
+        return $string;
     }
 
     /**
