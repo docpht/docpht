@@ -63,7 +63,7 @@
         'or' => 'ou',
         'Warning! The data entered is incorrect.' => 'Attention ! Les données saisies sont incorrectes.',
         'Creates a password hash' => 'Créé un hash de mot de passe',
-        'Welcome&nbsp;' => 'Bievenue&nbsp;',
+        'Welcome&nbsp;' => 'Bienvenue&nbsp;',
         'Add user' => 'Créer un utilisateur',
         'Enter a new username and password for the account.' => 'Saisissez un nouveau nom d\'utilisateur et un mot de passe pour ce compte.',
         'Enter Username:' => 'Saisissez le nom d\'utilisateur :',
