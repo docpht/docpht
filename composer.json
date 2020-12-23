@@ -43,9 +43,6 @@
     "autoload": {
 	"classmap": ["src/"]
     },
-    "autoload-dev": {
-	"classmap": ["tests/"]
-    },
     "config": {
     	"optimize-autoloader": true
     },
