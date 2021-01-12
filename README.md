@@ -47,6 +47,17 @@ docker pull docpht/docpht:v1.3.2
 docker run -d --name docpht -p 80:80 -t docpht/docpht:v1.3.2
 ```
 
+**Advanced Usage (Persistence data):**
+```
+docker pull docpht/docpht:v1.3.2
+docker run -d --name docpht -p 80:80 -p 443:443 -t 
+-v /var/www/app/src/config:/var/www/app/src/config
+-v /var/www/app/data:/var/www/app/data
+-v /var/www/app/pages:/var/www/app/pages
+-v /etc/nginx/ssl:/etc/nginx/ssl
+docpht/docpht:v1.3.2
+```
+
 ## Wrapping Up
 That is all you need to get started. Boom! 
 
