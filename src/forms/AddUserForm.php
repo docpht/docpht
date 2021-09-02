@@ -88,7 +88,7 @@ class AddUserForm extends MakeupForm
                     ]; 
 
                     $mail = new Message;
-                    $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
+                    $mail->setFrom(SMTPFROM)
                         ->addTo($values['username'])
                         ->setSubject('New account '.DOMAIN_NAME.' ')
                         ->setHtmlBody($latte->renderToString('src/views/email/new_account.latte', $params));

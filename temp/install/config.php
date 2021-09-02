@@ -143,6 +143,7 @@ if ($form->isSuccess()) {
             .'define("SMTPHOST","");'."\n"
             .'define("SMTPPORT","");'."\n"
             .'define("SMTPENCRYPT","");'."\n"
+            .'define("SMTPFROM","no-reply@".DOMAIN_NAME);'."\n"
             .'define("SMTPUSERNAME","");'."\n"
             .'define("SMTPPASSWORD","");'."\n"
         ;

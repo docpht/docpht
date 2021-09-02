@@ -55,7 +55,7 @@ class LostPasswordForm extends MakeupForm
                     ]; 
 
                     $mail = new Message;
-                    $mail->setFrom('no-reply@'.DOMAIN_NAME.'')
+                    $mail->setFrom(SMTPFROM)
                         ->addTo($values['email'])
                         ->setSubject('Reset password '.DOMAIN_NAME.' ')
                         ->setHtmlBody($latte->renderToString('src/views/email/recovery_password.latte', $params));
