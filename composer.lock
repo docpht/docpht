@@ -270,27 +270,28 @@
         },
         {
             "name": "latte/latte",
-            "version": "v2.6.0",
+            "version": "v2.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "6e3185d8e00f0f212733360a6590e3ffb46fcb5c"
+                "reference": "8a9bd8af76557fc35abae639ab7b966af706fec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/6e3185d8e00f0f212733360a6590e3ffb46fcb5c",
-                "reference": "6e3185d8e00f0f212733360a6590e3ffb46fcb5c",
+                "url": "https://api.github.com/repos/nette/latte/zipball/8a9bd8af76557fc35abae639ab7b966af706fec9",
+                "reference": "8a9bd8af76557fc35abae639ab7b966af706fec9",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-tokenizer": "*",
-                "php": ">=7.1"
+                "php": ">=7.1 <8.2"
             },
             "conflict": {
                 "nette/application": "<2.4.1"
             },
             "require-dev": {
+                "nette/php-generator": "^3.3.4",
                 "nette/tester": "~2.0",
                 "nette/utils": "^3.0",
                 "phpstan/phpstan": "^0.12",
@@ -298,13 +299,18 @@
             },
             "suggest": {
                 "ext-fileinfo": "to use filter |datastream",
+                "ext-iconv": "to use filters |reverse, |substring",
                 "ext-mbstring": "to use filters like lower, upper, capitalize, ...",
+                "nette/php-generator": "to use tag {templatePrint}",
                 "nette/utils": "to use filter |webalize"
             },
+            "bin": [
+                "bin/latte-lint"
+            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.10-dev"
                 }
             },
             "autoload": {
@@ -315,8 +321,8 @@
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
+                "GPL-2.0-only",
+                "GPL-3.0-only"
             ],
             "authors": [
                 {
@@ -340,7 +346,11 @@
                 "template",
                 "twig"
             ],
-            "time": "2020-01-03T22:37:05+00:00"
+            "support": {
+                "issues": "https://github.com/nette/latte/issues",
+                "source": "https://github.com/nette/latte/tree/v2.10.6"
+            },
+            "time": "2021-11-26T22:56:21+00:00"
         },
         {
             "name": "leblanc-simon/parsedown-checkbox",
@@ -1387,5 +1397,6 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
