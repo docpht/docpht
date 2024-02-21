@@ -8,6 +8,17 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/docpht/docpht?style=flat-square)](https://hub.docker.com/r/docpht/docpht)
 [![GitHub last commit](https://img.shields.io/github/last-commit/docpht/docpht?style=flat-square)](https://github.com/docpht/docpht/commits/master)
 
+## Contribute to DocPHT
+
+Our project grows and thrives thanks to the help of volunteers like you! We are currently looking for contributors who can assist us in various areas, including development, documentation, and testing.
+
+If you are interested in contributing, please read our [call for contributors](https://github.com/docpht/docpht/issues/34) where we provide details on how you can help. Even the smallest contribution is valuable, and together we can continue to improve DocPHT for everyone.
+
+### How to Get Started
+- Feel free to join the discussion on the issue to propose your ideas or ask for clarifications.
+
+We appreciate every contribution and are excited to see how our community can help DocPHT grow and improve. Thank you for your support!
+
 # DocPHT :bookmark_tabs:
 
 With DocPHT you can take notes and quickly document anything! You can also manage users, save versions of your pages and run and restore backups. Complete with interface that can be customized, all with maximum portability and without
