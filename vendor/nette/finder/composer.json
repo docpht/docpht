@@ -3,7 +3,7 @@
 	"description": "🔍 Nette Finder: find files and directories with an intuitive API.",
 	"keywords": ["nette", "filesystem", "iterator", "glob"],
 	"homepage": "https://nette.org",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -31,12 +31,12 @@
 	},
 	"minimum-stability": "dev",
 	"scripts": {
-		"phpstan": "phpstan analyse --level 5 src",
+		"phpstan": "phpstan analyse",
 		"tester": "tester tests -s"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.5-dev"
+			"dev-master": "2.6-dev"
 		}
 	}
 }

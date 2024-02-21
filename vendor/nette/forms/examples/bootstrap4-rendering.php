@@ -23,12 +23,12 @@ function makeBootstrap4(Form $form): void
 	$renderer = $form->getRenderer();
 	$renderer->wrappers['controls']['container'] = null;
 	$renderer->wrappers['pair']['container'] = 'div class="form-group row"';
-	$renderer->wrappers['pair']['.error'] = 'has-danger';
-	$renderer->wrappers['control']['container'] = 'div class=col-sm-9';
 	$renderer->wrappers['label']['container'] = 'div class="col-sm-3 col-form-label"';
+	$renderer->wrappers['control']['container'] = 'div class=col-sm-9';
 	$renderer->wrappers['control']['description'] = 'span class=form-text';
-	$renderer->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
+	$renderer->wrappers['control']['errorcontainer'] = 'span class=invalid-feedback';
 	$renderer->wrappers['control']['.error'] = 'is-invalid';
+	$renderer->wrappers['error']['container'] = 'div class="alert alert-danger"';
 
 	foreach ($form->getControls() as $control) {
 		$type = $control->getOption('type');
@@ -36,7 +36,7 @@ function makeBootstrap4(Form $form): void
 			$control->getControlPrototype()->addClass(empty($usedPrimary) ? 'btn btn-primary' : 'btn btn-secondary');
 			$usedPrimary = true;
 
-		} elseif (in_array($type, ['text', 'textarea', 'select'], true)) {
+		} elseif (in_array($type, ['text', 'textarea', 'select', 'datetime'], true)) {
 			$control->getControlPrototype()->addClass('form-control');
 
 		} elseif ($type === 'file') {
@@ -49,7 +49,7 @@ function makeBootstrap4(Form $form): void
 				$control->getItemLabelPrototype()->addClass('form-check-label');
 			}
 			$control->getControlPrototype()->addClass('form-check-input');
-			$control->getSeparatorPrototype()->setName('div')->addClass('form-check');
+			$control->getContainerPrototype()->setName('div')->addClass('form-check');
 		}
 	}
 }
@@ -98,10 +98,10 @@ if ($form->isSuccess()) {
 <meta charset="utf-8">
 <title>Nette Forms & Bootstrap v4 rendering example</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 <div class="container">
 	<h1>Nette Forms & Bootstrap v4 rendering example</h1>
 
-	<?php echo $form ?>
+	<?php $form->render() ?>
 </div>

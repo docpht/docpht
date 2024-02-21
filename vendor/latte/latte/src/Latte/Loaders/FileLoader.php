@@ -15,15 +15,15 @@ use Latte;
 /**
  * Template loader.
  */
-class FileLoader implements Latte\ILoader
+class FileLoader implements Latte\Loader
 {
 	use Latte\Strict;
 
 	/** @var string|null */
-	private $baseDir;
+	protected $baseDir;
 
 
-	public function __construct($baseDir = null)
+	public function __construct(?string $baseDir = null)
 	{
 		$this->baseDir = $baseDir ? $this->normalizePath("$baseDir/") : null;
 	}
@@ -36,16 +36,17 @@ class FileLoader implements Latte\ILoader
 	{
 		$file = $this->baseDir . $fileName;
 		if ($this->baseDir && !Latte\Helpers::startsWith($this->normalizePath($file), $this->baseDir)) {
-			throw new \RuntimeException("Template '$file' is not within the allowed path '$this->baseDir'.");
+			throw new Latte\RuntimeException("Template '$file' is not within the allowed path '{$this->baseDir}'.");
 
 		} elseif (!is_file($file)) {
-			throw new \RuntimeException("Missing template file '$file'.");
+			throw new Latte\RuntimeException("Missing template file '$file'.");
 
 		} elseif ($this->isExpired($fileName, time())) {
 			if (@touch($file) === false) {
 				trigger_error("File's modification time is in the future. Cannot update it: " . error_get_last()['message'], E_USER_WARNING);
 			}
 		}
+
 		return file_get_contents($file);
 	}
 
@@ -65,6 +66,7 @@ class FileLoader implements Latte\ILoader
 		if ($this->baseDir || !preg_match('#/|\\\\|[a-z][a-z0-9+.-]*:#iA', $file)) {
 			$file = $this->normalizePath($referringFile . '/../' . $file);
 		}
+
 		return $file;
 	}
 
@@ -78,7 +80,7 @@ class FileLoader implements Latte\ILoader
 	}
 
 
-	private static function normalizePath(string $path): string
+	protected static function normalizePath(string $path): string
 	{
 		$res = [];
 		foreach (explode('/', strtr($path, '\\', '/')) as $part) {
@@ -88,6 +90,7 @@ class FileLoader implements Latte\ILoader
 				$res[] = $part;
 			}
 		}
+
 		return implode(DIRECTORY_SEPARATOR, $res);
 	}
 }

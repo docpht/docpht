@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "nezamy/route": "^1.2",
         "symfony/translation": "^4.3",
         "nette/forms": "^3.0",

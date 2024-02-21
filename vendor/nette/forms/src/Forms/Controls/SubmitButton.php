@@ -17,13 +17,16 @@ use Nette;
  *
  * @property-read bool $submittedBy
  */
-class SubmitButton extends Button implements Nette\Forms\ISubmitterControl
+class SubmitButton extends Button implements Nette\Forms\SubmitterControl
 {
-	/** @var callable[]&(callable(SubmitButton): void)[]; Occurs when the button is clicked and form is successfully validated */
-	public $onClick;
+	/**
+	 * Occurs when the button is clicked and form is successfully validated
+	 * @var array<callable(self, array|object): void|callable(Nette\Forms\Form, array|object): void|callable(array|object): void>
+	 */
+	public $onClick = [];
 
-	/** @var callable[]&(callable(SubmitButton): void)[]; Occurs when the button is clicked and form is not validated */
-	public $onInvalidClick;
+	/** @var array<callable(self): void>  Occurs when the button is clicked and form is not validated */
+	public $onInvalidClick = [];
 
 	/** @var array|null */
 	private $validationScope;
@@ -40,9 +43,6 @@ class SubmitButton extends Button implements Nette\Forms\ISubmitterControl
 	}
 
 
-	/**
-	 * Loads HTTP data.
-	 */
 	public function loadHttpData(): void
 	{
 		parent::loadHttpData();
@@ -72,12 +72,14 @@ class SubmitButton extends Button implements Nette\Forms\ISubmitterControl
 		} else {
 			$this->validationScope = [];
 			foreach ($scope ?: [] as $control) {
-				if (!$control instanceof Nette\Forms\Container && !$control instanceof Nette\Forms\IControl) {
-					throw new Nette\InvalidArgumentException('Validation scope accepts only Nette\Forms\Container or Nette\Forms\IControl instances.');
+				if (!$control instanceof Nette\Forms\Container && !$control instanceof Nette\Forms\Control) {
+					throw new Nette\InvalidArgumentException('Validation scope accepts only Nette\Forms\Container or Nette\Forms\Control instances.');
 				}
+
 				$this->validationScope[] = $control;
 			}
 		}
+
 		return $this;
 	}
 
@@ -96,20 +98,17 @@ class SubmitButton extends Button implements Nette\Forms\ISubmitterControl
 	 */
 	public function click(): void
 	{
-		$this->onClick($this);
+		Nette\Utils\Arrays::invoke($this->onClick, $this);
 	}
 
 
-	/**
-	 * Generates control's HTML element.
-	 * @param  string|object  $caption
-	 */
 	public function getControl($caption = null): Nette\Utils\Html
 	{
 		$scope = [];
 		foreach ((array) $this->validationScope as $control) {
 			$scope[] = $control->lookupPath(Nette\Forms\Form::class);
 		}
+
 		return parent::getControl($caption)->addAttributes([
 			'formnovalidate' => $this->validationScope !== null,
 			'data-nette-validation-scope' => $scope ?: null,

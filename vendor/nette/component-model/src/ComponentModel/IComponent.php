@@ -16,7 +16,10 @@ namespace Nette\ComponentModel;
 interface IComponent
 {
 	/** Separator for component names in path concatenation. */
-	public const NAME_SEPARATOR = '-';
+	public const NameSeparator = '-';
+
+	/** @deprecated use IComponent::NameSeparator */
+	public const NAME_SEPARATOR = self::NameSeparator;
 
 	function getName(): ?string;
 
@@ -29,5 +32,5 @@ interface IComponent
 	 * Sets the parent of this component.
 	 * @return static
 	 */
-	function setParent(?IContainer $parent, string $name = null);
+	function setParent(?IContainer $parent, ?string $name = null);
 }

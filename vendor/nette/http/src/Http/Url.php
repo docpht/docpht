@@ -16,13 +16,13 @@ use Nette;
  * Mutable representation of a URL.
  *
  * <pre>
- * scheme  user  password  host  port  basePath   relativeUrl
- *   |      |      |        |      |    |             |
- * /--\   /--\ /------\ /-------\ /--\/--\/----------------------------\
+ * scheme  user  password  host  port      path        query    fragment
+ *   |      |      |        |      |        |            |         |
+ * /--\   /--\ /------\ /-------\ /--\/------------\ /--------\ /------\
  * http://john:x0y17575@nette.org:8042/en/manual.php?name=param#fragment  <-- absoluteUrl
- *        \__________________________/\____________/^\________/^\______/
- *                     |                     |           |         |
- *                 authority               path        query    fragment
+ * \______\__________________________/
+ *     |               |
+ *  hostUrl        authority
  * </pre>
  *
  * @property   string $scheme
@@ -107,9 +107,7 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setScheme(string $scheme)
 	{
 		$this->scheme = $scheme;
@@ -123,9 +121,7 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setUser(string $user)
 	{
 		$this->user = $user;
@@ -139,9 +135,7 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setPassword(string $password)
 	{
 		$this->password = $password;
@@ -155,9 +149,7 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setHost(string $host)
 	{
 		$this->host = $host;
@@ -177,15 +169,17 @@ class Url implements \JsonSerializable
 	 */
 	public function getDomain(int $level = 2): string
 	{
-		$parts = ip2long($this->host) ? [$this->host] : explode('.', $this->host);
-		$parts = $level >= 0 ? array_slice($parts, -$level) : array_slice($parts, 0, $level);
+		$parts = ip2long($this->host)
+			? [$this->host]
+			: explode('.', $this->host);
+		$parts = $level >= 0
+			? array_slice($parts, -$level)
+			: array_slice($parts, 0, $level);
 		return implode('.', $parts);
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setPort(int $port)
 	{
 		$this->port = $port;
@@ -195,19 +189,24 @@ class Url implements \JsonSerializable
 
 	public function getPort(): ?int
 	{
-		return $this->port ?: (self::$defaultPorts[$this->scheme] ?? null);
+		return $this->port ?: $this->getDefaultPort();
 	}
 
 
-	/**
-	 * @return static
-	 */
+	public function getDefaultPort(): ?int
+	{
+		return self::$defaultPorts[$this->scheme] ?? null;
+	}
+
+
+	/** @return static */
 	public function setPath(string $path)
 	{
 		$this->path = $path;
 		if ($this->host && substr($this->path, 0, 1) !== '/') {
 			$this->path = '/' . $this->path;
 		}
+
 		return $this;
 	}
 
@@ -254,14 +253,13 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return mixed
-	 */
+	/** @return mixed */
 	public function getQueryParameter(string $name)
 	{
 		if (func_num_args() > 1) {
 			trigger_error(__METHOD__ . '() parameter $default is deprecated, use operator ??', E_USER_DEPRECATED);
 		}
+
 		return $this->query[$name] ?? null;
 	}
 
@@ -277,9 +275,7 @@ class Url implements \JsonSerializable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setFragment(string $fragment)
 	{
 		$this->fragment = $fragment;
@@ -312,7 +308,7 @@ class Url implements \JsonSerializable
 				? rawurlencode($this->user) . ($this->password === '' ? '' : ':' . rawurlencode($this->password)) . '@'
 				: '')
 			. $this->host
-			. ($this->port && (!isset(self::$defaultPorts[$this->scheme]) || $this->port !== self::$defaultPorts[$this->scheme])
+			. ($this->port && $this->port !== $this->getDefaultPort()
 				? ':' . $this->port
 				: '');
 	}
@@ -328,6 +324,7 @@ class Url implements \JsonSerializable
 	}
 
 
+	/** @deprecated use UrlScript::getBasePath() instead */
 	public function getBasePath(): string
 	{
 		$pos = strrpos($this->path, '/');
@@ -335,12 +332,14 @@ class Url implements \JsonSerializable
 	}
 
 
+	/** @deprecated use UrlScript::getBaseUrl() instead */
 	public function getBaseUrl(): string
 	{
 		return $this->getHostUrl() . $this->getBasePath();
 	}
 
 
+	/** @deprecated use UrlScript::getRelativeUrl() instead */
 	public function getRelativeUrl(): string
 	{
 		return substr($this->getAbsoluteUrl(), strlen($this->getBaseUrl()));
@@ -358,8 +357,11 @@ class Url implements \JsonSerializable
 		ksort($query);
 		$query2 = $this->query;
 		ksort($query2);
+		$host = rtrim($url->host, '.');
+		$host2 = rtrim($this->host, '.');
 		return $url->scheme === $this->scheme
-			&& !strcasecmp($url->host, $this->host)
+			&& (!strcasecmp($host, $host2)
+				|| self::idnHostToUnicode($host) === self::idnHostToUnicode($host2))
 			&& $url->getPort() === $this->getPort()
 			&& $url->user === $this->user
 			&& $url->password === $this->password
@@ -372,6 +374,7 @@ class Url implements \JsonSerializable
 	/**
 	 * Transforms URL to canonical form.
 	 * @return static
+	 * @deprecated
 	 */
 	public function canonicalize()
 	{
@@ -380,7 +383,8 @@ class Url implements \JsonSerializable
 			function (array $m): string { return rawurlencode($m[0]); },
 			self::unescape($this->path, '%/')
 		);
-		$this->host = strtolower($this->host);
+		$this->host = rtrim($this->host, '.');
+		$this->host = self::idnHostToUnicode(strtolower($this->host));
 		return $this;
 	}
 
@@ -405,6 +409,23 @@ class Url implements \JsonSerializable
 
 
 	/**
+	 * Converts IDN ASCII host to UTF-8.
+	 */
+	private static function idnHostToUnicode(string $host): string
+	{
+		if (strpos($host, '--') === false) { // host does not contain IDN
+			return $host;
+		}
+
+		if (function_exists('idn_to_utf8') && defined('INTL_IDNA_VARIANT_UTS46')) {
+			return idn_to_utf8($host, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46) ?: $host;
+		}
+
+		trigger_error('PHP extension intl is not loaded or is too old', E_USER_WARNING);
+	}
+
+
+	/**
 	 * Similar to rawurldecode, but preserves reserved chars encoded.
 	 */
 	public static function unescape(string $s, string $reserved = '%;/?:@&=+$,'): string
@@ -419,17 +440,19 @@ class Url implements \JsonSerializable
 				$s
 			);
 		}
+
 		return rawurldecode($s);
 	}
 
 
 	/**
-	 * Parses query string.
+	 * Parses query string. Is affected by directive arg_separator.input.
 	 */
 	public static function parseQuery(string $s): array
 	{
 		$s = str_replace(['%5B', '%5b'], '[', $s);
-		$s = preg_replace('#([&;])([^[&;=]+)([^&;]*)#', '&0[$2]$3', '&' . $s);
+		$sep = preg_quote(ini_get('arg_separator.input'));
+		$s = preg_replace("#([$sep])([^[$sep=]+)([^$sep]*)#", '&0[$2]$3', '&' . $s);
 		parse_str($s, $res);
 		return $res[0] ?? [];
 	}

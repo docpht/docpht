@@ -26,7 +26,8 @@ class MailExtension extends Nette\DI\CompilerExtension
 			'port' => Expect::int()->dynamic(),
 			'username' => Expect::string()->dynamic(),
 			'password' => Expect::string()->dynamic(),
-			'secure' => Expect::anyOf(null, 'ssl', 'tls')->dynamic(),
+			'secure' => Expect::anyOf(null, 'ssl', 'tls')->dynamic(), // deprecated
+			'encryption' => Expect::anyOf(null, 'ssl', 'tls')->dynamic(),
 			'timeout' => Expect::int()->dynamic(),
 			'context' => Expect::arrayOf('array')->dynamic(),
 			'clientHost' => Expect::string()->dynamic(),
@@ -36,9 +37,8 @@ class MailExtension extends Nette\DI\CompilerExtension
 				Expect::structure([
 					'domain' => Expect::string()->dynamic(),
 					'selector' => Expect::string()->dynamic(),
-					'privateKey' => Expect::string()->dynamic()->required(),
+					'privateKey' => Expect::string()->required(),
 					'passPhrase' => Expect::string()->dynamic(),
-					'testMode' => Expect::bool(false)->dynamic(),
 				])->castTo('array')
 			),
 		])->castTo('array');
@@ -54,7 +54,7 @@ class MailExtension extends Nette\DI\CompilerExtension
 
 		if ($this->config['dkim']) {
 			$dkim = $this->config['dkim'];
-			$dkim['privateKey'] = file_get_contents($dkim['privateKey']);
+			$dkim['privateKey'] = Nette\Utils\FileSystem::read($dkim['privateKey']);
 			unset($this->config['dkim']);
 
 			$signer = $builder->addDefinition($this->prefix('signer'))
@@ -65,6 +65,7 @@ class MailExtension extends Nette\DI\CompilerExtension
 		}
 
 		if ($this->config['smtp']) {
+			$this->config['secure'] = $this->config['encryption'] ?? $this->config['secure'];
 			$mailer->setFactory(Nette\Mail\SmtpMailer::class, [$this->config]);
 		} else {
 			$mailer->setFactory(Nette\Mail\SendmailMailer::class);

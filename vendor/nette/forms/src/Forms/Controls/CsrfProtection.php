@@ -18,9 +18,10 @@ use Nette\Application\UI\Presenter;
  */
 class CsrfProtection extends HiddenField
 {
-	public const PROTECTION = 'Nette\Forms\Controls\CsrfProtection::validateCsrf';
+	public const Protection = 'Nette\Forms\Controls\CsrfProtection::validateCsrf';
+	public const PROTECTION = self::Protection;
 
-	/** @var Nette\Http\Session */
+	/** @var Nette\Http\Session|null */
 	public $session;
 
 
@@ -32,11 +33,19 @@ class CsrfProtection extends HiddenField
 		parent::__construct();
 		$this->setOmitted()
 			->setRequired()
-			->addRule(self::PROTECTION, $errorMessage);
+			->addRule(self::Protection, $errorMessage);
 
 		$this->monitor(Presenter::class, function (Presenter $presenter): void {
 			if (!$this->session) {
 				$this->session = $presenter->getSession();
+				$this->session->start();
+			}
+		});
+
+		$this->monitor(Nette\Forms\Form::class, function (Nette\Forms\Form $form): void {
+			if (!$this->session && !$form instanceof Nette\Application\UI\Form) {
+				$this->session = new Nette\Http\Session($form->httpRequest, new Nette\Http\Response);
+				$this->session->start();
 			}
 		});
 	}
@@ -52,61 +61,47 @@ class CsrfProtection extends HiddenField
 	}
 
 
-	/**
-	 * Loads HTTP data.
-	 */
 	public function loadHttpData(): void
 	{
-		$this->value = $this->getHttpData(Nette\Forms\Form::DATA_TEXT);
+		$this->value = $this->getHttpData(Nette\Forms\Form::DataText);
 	}
 
 
 	public function getToken(): string
 	{
-		$session = $this->getSession()->getSection(__CLASS__);
+		if (!$this->session) {
+			throw new Nette\InvalidStateException('Session initialization error');
+		}
+
+		$session = $this->session->getSection(self::class);
 		if (!isset($session->token)) {
 			$session->token = Nette\Utils\Random::generate();
 		}
-		return $session->token ^ $this->getSession()->getId();
+
+		return $session->token ^ $this->session->getId();
 	}
 
 
-	private function generateToken(string $random = null): string
+	private function generateToken(?string $random = null): string
 	{
 		if ($random === null) {
 			$random = Nette\Utils\Random::generate(10);
 		}
+
 		return $random . base64_encode(sha1($this->getToken() . $random, true));
 	}
 
 
-	/**
-	 * Generates control's HTML element.
-	 */
 	public function getControl(): Nette\Utils\Html
 	{
 		return parent::getControl()->value($this->generateToken());
 	}
 
 
-	/**
-	 * @internal
-	 */
+	/** @internal */
 	public static function validateCsrf(self $control): bool
 	{
 		$value = (string) $control->getValue();
 		return $control->generateToken(substr($value, 0, 10)) === $value;
-	}
-
-
-	/********************* backend ****************d*g**/
-
-
-	private function getSession(): Nette\Http\Session
-	{
-		if (!$this->session) {
-			$this->session = new Nette\Http\Session($this->getForm()->httpRequest, new Nette\Http\Response);
-		}
-		return $this->session;
 	}
 }

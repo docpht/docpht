@@ -16,7 +16,7 @@ class DkimSigner implements Signer
 {
 	use Nette\SmartObject;
 
-	private const DEFAULT_SIGN_HEADERS = [
+	private const DefaultSignHeaders = [
 		'From',
 		'To',
 		'Date',
@@ -26,7 +26,7 @@ class DkimSigner implements Signer
 		'Content-Type',
 	];
 
-	private const DKIM_SIGNATURE = 'DKIM-Signature';
+	private const DkimSignature = 'DKIM-Signature';
 
 	/** @var string */
 	private $domain;
@@ -43,30 +43,25 @@ class DkimSigner implements Signer
 	/** @var string */
 	private $passPhrase;
 
-	/** @var bool */
-	private $testMode;
 
-
-	/**
-	 * @throws Nette\NotSupportedException
-	 */
-	public function __construct(array $options, array $signHeaders = self::DEFAULT_SIGN_HEADERS)
+	/** @throws Nette\NotSupportedException */
+	public function __construct(array $options, array $signHeaders = self::DefaultSignHeaders)
 	{
 		if (!extension_loaded('openssl')) {
 			throw new Nette\NotSupportedException('DkimSigner requires PHP extension openssl which is not loaded.');
 		}
+
 		$this->domain = $options['domain'] ?? '';
 		$this->selector = $options['selector'] ?? '';
 		$this->privateKey = $options['privateKey'] ?? '';
 		$this->passPhrase = $options['passPhrase'] ?? '';
-		$this->testMode = (bool) ($options['testMode'] ?? false);
-		$this->signHeaders = count($signHeaders) > 0 ? $signHeaders : self::DEFAULT_SIGN_HEADERS;
+		$this->signHeaders = count($signHeaders) > 0
+			? $signHeaders
+			: self::DefaultSignHeaders;
 	}
 
 
-	/**
-	 * @throws SignException
-	 */
+	/** @throws SignException */
 	public function generateSignedMessage(Message $message): string
 	{
 		$message = $message->build();
@@ -76,6 +71,7 @@ class DkimSigner implements Signer
 
 			return rtrim($header, "\r\n") . "\r\n" . $this->getSignature($message, $header, $this->normalizeNewLines($body)) . "\r\n\r\n" . $body;
 		}
+
 		throw new SignException('Malformed email');
 	}
 
@@ -90,7 +86,7 @@ class DkimSigner implements Signer
 				'q' => 'dns/txt',
 				'l' => strlen($body),
 				's' => $this->selector,
-				't' => $this->testMode ? 0 : time(),
+				't' => $this->getTime(),
 				'c' => 'relaxed/simple',
 				'h' => implode(':', $this->getSignedHeaders($message)),
 				'd' => $this->domain,
@@ -101,13 +97,13 @@ class DkimSigner implements Signer
 			$parts[] = $key . '=' . $value;
 		}
 
-		return $this->computeSignature($header, self::DKIM_SIGNATURE . ': ' . implode('; ', $parts));
+		return $this->computeSignature($header, self::DkimSignature . ': ' . implode('; ', $parts));
 	}
 
 
 	protected function computeSignature(string $rawHeader, string $signature): string
 	{
-		$selectedHeaders = array_merge($this->signHeaders, [self::DKIM_SIGNATURE]);
+		$selectedHeaders = array_merge($this->signHeaders, [self::DkimSignature]);
 
 		$rawHeader = preg_replace("/\r\n[ \t]+/", ' ', rtrim($rawHeader, "\r\n") . "\r\n" . $signature);
 
@@ -130,9 +126,7 @@ class DkimSigner implements Signer
 	}
 
 
-	/**
-	 * @throws SignException
-	 */
+	/** @throws SignException */
 	protected function sign(string $value): string
 	{
 		$privateKey = openssl_pkey_get_private($this->privateKey, $this->passPhrase);
@@ -141,10 +135,18 @@ class DkimSigner implements Signer
 		}
 
 		if (openssl_sign($value, $signature, $privateKey, 'sha256WithRSAEncryption')) {
-			openssl_pkey_free($privateKey);
+			if (PHP_VERSION_ID < 80000) {
+				openssl_pkey_free($privateKey);
+			}
+
 			return base64_encode($signature);
 		}
-		openssl_pkey_free($privateKey);
+
+		if (PHP_VERSION_ID < 80000) {
+			openssl_pkey_free($privateKey);
+		}
+
+		return '';
 	}
 
 
@@ -172,5 +174,11 @@ class DkimSigner implements Signer
 		return array_filter($this->signHeaders, function ($name) use ($message) {
 			return $message->getHeader($name) !== null;
 		});
+	}
+
+
+	protected function getTime(): int
+	{
+		return time();
 	}
 }

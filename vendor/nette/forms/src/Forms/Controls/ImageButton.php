@@ -15,12 +15,11 @@ namespace Nette\Forms\Controls;
  */
 class ImageButton extends SubmitButton
 {
-
 	/**
 	 * @param  string  $src  URI of the image
 	 * @param  string  $alt  alternate text for the image
 	 */
-	public function __construct(string $src = null, string $alt = null)
+	public function __construct(?string $src = null, ?string $alt = null)
 	{
 		parent::__construct();
 		$this->control->type = 'image';
@@ -29,9 +28,6 @@ class ImageButton extends SubmitButton
 	}
 
 
-	/**
-	 * Loads HTTP data.
-	 */
 	public function loadHttpData(): void
 	{
 		parent::loadHttpData();
@@ -41,9 +37,6 @@ class ImageButton extends SubmitButton
 	}
 
 
-	/**
-	 * Returns HTML name of control.
-	 */
 	public function getHtmlName(): string
 	{
 		return parent::getHtmlName() . '[]';

@@ -18,19 +18,20 @@ use Nette;
 class SelectBox extends ChoiceControl
 {
 	/** validation rule */
-	public const VALID = ':selectBoxValid';
+	public const Valid = ':selectBoxValid';
+	public const VALID = self::Valid;
 
 	/** @var array of option / optgroup */
 	private $options = [];
 
-	/** @var mixed */
+	/** @var string|object|false */
 	private $prompt = false;
 
 	/** @var array */
 	private $optionAttributes = [];
 
 
-	public function __construct($label = null, array $items = null)
+	public function __construct($label = null, ?array $items = null)
 	{
 		parent::__construct($label, $items);
 		$this->setOption('type', 'select');
@@ -38,13 +39,13 @@ class SelectBox extends ChoiceControl
 			return $this->prompt === false
 				&& $this->options
 				&& $this->control->size < 2;
-		})->addRule(Nette\Forms\Form::FILLED, Nette\Forms\Validator::$messages[self::VALID]);
+		})->addRule(Nette\Forms\Form::Filled, Nette\Forms\Validator::$messages[self::Valid]);
 	}
 
 
 	/**
 	 * Sets first prompt item in select box.
-	 * @param  string|object  $prompt
+	 * @param  string|object|false  $prompt
 	 * @return static
 	 */
 	public function setPrompt($prompt)
@@ -56,7 +57,7 @@ class SelectBox extends ChoiceControl
 
 	/**
 	 * Returns first prompt item?
-	 * @return mixed
+	 * @return string|object|false
 	 */
 	public function getPrompt()
 	{
@@ -82,16 +83,15 @@ class SelectBox extends ChoiceControl
 					$res[(string) $value] = $value;
 				}
 			}
+
 			$items = $res;
 		}
+
 		$this->options = $items;
 		return parent::setItems(Nette\Utils\Arrays::flatten($items, true));
 	}
 
 
-	/**
-	 * Generates control's HTML element.
-	 */
 	public function getControl(): Nette\Utils\Html
 	{
 		$items = $this->prompt === false ? [] : ['' => $this->translate($this->prompt)];
@@ -109,12 +109,18 @@ class SelectBox extends ChoiceControl
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function addOptionAttributes(array $attributes)
 	{
 		$this->optionAttributes = $attributes + $this->optionAttributes;
+		return $this;
+	}
+
+
+	/** @return static */
+	public function setOptionAttribute(string $name, $value = true)
+	{
+		$this->optionAttributes[$name] = $value;
 		return $this;
 	}
 

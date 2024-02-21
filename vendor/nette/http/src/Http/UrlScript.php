@@ -49,14 +49,13 @@ class UrlScript extends UrlImmutable
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function withPath(string $path, string $scriptPath = '')
 	{
 		$dolly = clone $this;
 		$dolly->scriptPath = $scriptPath;
-		return call_user_func([$dolly, 'parent::withPath'], $path);
+		$parent = \Closure::fromCallable([UrlImmutable::class, 'withPath'])->bindTo($dolly);
+		return $parent($path);
 	}
 
 
@@ -108,6 +107,7 @@ class UrlScript extends UrlImmutable
 		if ($pos === false || strncmp($this->scriptPath, $path, $pos + 1)) {
 			throw new Nette\InvalidArgumentException("ScriptPath '$this->scriptPath' doesn't match path '$path'");
 		}
+
 		$this->basePath = substr($this->scriptPath, 0, $pos + 1);
 	}
 }

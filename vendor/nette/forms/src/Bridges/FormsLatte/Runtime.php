@@ -15,28 +15,34 @@ use Nette\Utils\Html;
 
 
 /**
- * Runtime helpers for Latte.
+ * Runtime helpers for Latte v2 & v3.
  * @internal
  */
 class Runtime
 {
 	use Nette\StaticClass;
 
-	/**
-	 * Renders form begin.
-	 */
-	public static function renderFormBegin(Form $form, array $attrs, bool $withTags = true): string
+	public static function initializeForm(Form $form): void
 	{
 		$form->fireRenderEvents();
 		foreach ($form->getControls() as $control) {
 			$control->setOption('rendered', false);
 		}
+	}
+
+
+	/**
+	 * Renders form begin.
+	 */
+	public static function renderFormBegin(Form $form, array $attrs, bool $withTags = true): string
+	{
 		$el = $form->getElementPrototype();
 		$el->action = (string) $el->action;
 		$el = clone $el;
 		if ($form->isMethod('get')) {
 			$el->action = preg_replace('~\?[^#]*~', '', $el->action, 1);
 		}
+
 		$el->addAttributes($attrs);
 		return $withTags ? $el->startTag() : $el->attributes();
 	}
@@ -65,10 +71,19 @@ class Runtime
 			}
 		}
 
-		if (iterator_count($form->getComponents(true, Nette\Forms\Controls\TextInput::class)) < 2) {
-			$s .= "<!--[if IE]><input type=IEbug disabled style=\"display:none\"><![endif]-->\n";
-		}
-
 		return $s . ($withTags ? $form->getElementPrototype()->endTag() . "\n" : '');
+	}
+
+
+	public static function item($item, $global): object
+	{
+		if (is_object($item)) {
+			return $item;
+		}
+		$form = end($global->formsStack);
+		if (!$form) {
+			throw new \LogicException('Form declaration is missing, did you use {form} or <form n:name> tag?');
+		}
+		return $form[$item];
 	}
 }

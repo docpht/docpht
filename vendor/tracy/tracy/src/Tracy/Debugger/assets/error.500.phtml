@@ -2,13 +2,15 @@
 
 /**
  * Default error page.
- * @param  bool $logged
  */
 
 declare(strict_types=1);
 
 namespace Tracy;
 
+/**
+ * @var bool $logged
+ */
 ?>
 <!DOCTYPE html><!-- "' --></textarea></script></style></pre></xmp></a></audio></button></canvas></datalist></details></dialog></iframe></listing></meter></noembed></noframes></noscript></optgroup></option></progress></rp></select></table></template></title></video>
 <meta charset="utf-8">
@@ -32,7 +34,7 @@ namespace Tracy;
 		<p>We're sorry! The server encountered an internal error and
 		was unable to complete your request. Please try again later.</p>
 
-		<p><small>error 500 <span> | <?php echo @date('j. n. Y H:i') ?></span><?php if (!$logged): ?><br>Tracy is unable to log error.<?php endif ?></small></p>
+		<p><small>error 500 <span> | <?php echo date('j. n. Y H:i') ?></span><?php if (!$logged): ?><br>Tracy is unable to log error.<?php endif ?></small></p>
 	</div>
 </div>
 

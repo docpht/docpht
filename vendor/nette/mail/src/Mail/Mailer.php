@@ -15,10 +15,18 @@ namespace Nette\Mail;
  */
 interface Mailer
 {
-
 	/**
 	 * Sends email.
 	 * @throws SendException
 	 */
 	function send(Message $mail): void;
+}
+
+
+class_alias(Mailer::class, IMailer::class);
+if (false) {
+	/** @deprecated use Nette\Mail\Mailer */
+	interface IMailer extends Mailer
+	{
+	}
 }

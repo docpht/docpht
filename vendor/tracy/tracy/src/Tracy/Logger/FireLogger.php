@@ -98,16 +98,20 @@ class FireLogger implements ILogger
 			$item['exc_frames'][] = $frame['args'];
 		}
 
-		if (isset($args[0]) && in_array($args[0], [self::DEBUG, self::INFO, self::WARNING, self::ERROR, self::CRITICAL], true)) {
+		if (
+			isset($args[0])
+			&& in_array($args[0], [self::DEBUG, self::INFO, self::WARNING, self::ERROR, self::CRITICAL], true)
+		) {
 			$item['level'] = array_shift($args);
 		}
 
 		$item['args'] = $args;
 
 		$this->payload['logs'][] = $this->jsonDump($item, -1);
-		foreach (str_split(base64_encode(json_encode($this->payload)), 4990) as $k => $v) {
+		foreach (str_split(base64_encode(json_encode($this->payload, JSON_INVALID_UTF8_SUBSTITUTE)), 4990) as $k => $v) {
 			header("FireLogger-de11e-$k: $v");
 		}
+
 		return true;
 	}
 
@@ -115,7 +119,7 @@ class FireLogger implements ILogger
 	/**
 	 * Dump implementation for JSON.
 	 * @param  mixed  $var
-	 * @return array|null|int|float|bool|string
+	 * @return array|int|float|bool|string|null
 	 */
 	private function jsonDump(&$var, int $level = 0)
 	{
@@ -123,13 +127,15 @@ class FireLogger implements ILogger
 			return $var;
 
 		} elseif (is_string($var)) {
-			return Dumper::encodeString($var, $this->maxLength);
+			$var = Helpers::encodeString($var, $this->maxLength);
+			return htmlspecialchars_decode(strip_tags($var));
 
 		} elseif (is_array($var)) {
 			static $marker;
 			if ($marker === null) {
 				$marker = uniqid("\x00", true);
 			}
+
 			if (isset($var[$marker])) {
 				return "\xE2\x80\xA6RECURSION\xE2\x80\xA6";
 
@@ -141,13 +147,13 @@ class FireLogger implements ILogger
 						$res[$this->jsonDump($k)] = $this->jsonDump($v, $level + 1);
 					}
 				}
+
 				unset($var[$marker]);
 				return $res;
 
 			} else {
 				return " \xE2\x80\xA6 ";
 			}
-
 		} elseif (is_object($var)) {
 			$arr = (array) $var;
 			static $list = [];
@@ -161,15 +167,16 @@ class FireLogger implements ILogger
 					if (isset($k[0]) && $k[0] === "\x00") {
 						$k = substr($k, strrpos($k, "\x00") + 1);
 					}
+
 					$res[$this->jsonDump($k)] = $this->jsonDump($v, $level + 1);
 				}
+
 				array_pop($list);
 				return $res;
 
 			} else {
 				return " \xE2\x80\xA6 ";
 			}
-
 		} elseif (is_resource($var)) {
 			return 'resource ' . get_resource_type($var);
 

@@ -38,7 +38,7 @@ class RadioList extends ChoiceControl
 	/**
 	 * @param  string|object  $label
 	 */
-	public function __construct($label = null, array $items = null)
+	public function __construct($label = null, ?array $items = null)
 	{
 		parent::__construct($label, $items);
 		$this->control->type = 'radio';
@@ -49,9 +49,6 @@ class RadioList extends ChoiceControl
 	}
 
 
-	/**
-	 * Generates control's HTML element.
-	 */
 	public function getControl(): Html
 	{
 		$input = parent::getControl();
@@ -79,10 +76,6 @@ class RadioList extends ChoiceControl
 	}
 
 
-	/**
-	 * Generates label's HTML element.
-	 * @param  string|object  $caption
-	 */
 	public function getLabel($caption = null): Html
 	{
 		return parent::getLabel($caption)->for(null);

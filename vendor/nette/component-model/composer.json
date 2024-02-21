@@ -3,7 +3,7 @@
 	"description": "⚛ Nette Component Model",
 	"keywords": ["nette", "components"],
 	"homepage": "https://nette.org",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -16,20 +16,21 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"nette/utils": "^2.5 || ^3.0"
+		"nette/utils": "^2.5 || ^3.0 || ~4.0.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",
-		"tracy/tracy": "^2.3"
-	},
-	"conflict": {
-		"nette/nette": "<2.2",
-		"nette/application": "<2.4"
+		"tracy/tracy": "^2.3",
+		"phpstan/phpstan": "^0.12"
 	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
 	"minimum-stability": "dev",
+	"scripts": {
+		"phpstan": "phpstan analyse",
+		"tester": "tester tests -s"
+	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "3.0-dev"

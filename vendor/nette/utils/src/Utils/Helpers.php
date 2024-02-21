@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Nette\Utils;
 
+use Nette;
+
 
 class Helpers
 {
 	/**
-	 * Captures PHP output into a string.
+	 * Executes a callback and returns the captured output as a string.
 	 */
 	public static function capture(callable $func): string
 	{
@@ -29,7 +31,8 @@ class Helpers
 
 
 	/**
-	 * Returns the last PHP error as plain string.
+	 * Returns the last occurred PHP error or an empty string if no error occurred. Unlike error_get_last(),
+	 * it is nit affected by the PHP directive html_errors and always returns text, not HTML.
 	 */
 	public static function getLastError(): string
 	{
@@ -41,16 +44,35 @@ class Helpers
 
 
 	/**
-	 * Converts false to null.
+	 * Converts false to null, does not change other values.
+	 * @param  mixed  $value
+	 * @return mixed
 	 */
-	public static function falseToNull($val)
+	public static function falseToNull($value)
 	{
-		return $val === false ? null : $val;
+		return $value === false ? null : $value;
 	}
 
 
 	/**
-	 * Finds the best suggestion (for 8-bit encoding).
+	 * Returns value clamped to the inclusive range of min and max.
+	 * @param  int|float  $value
+	 * @param  int|float  $min
+	 * @param  int|float  $max
+	 * @return int|float
+	 */
+	public static function clamp($value, $min, $max)
+	{
+		if ($min > $max) {
+			throw new Nette\InvalidArgumentException("Minimum ($min) is not less than maximum ($max).");
+		}
+
+		return min(max($value, $min), $max);
+	}
+
+
+	/**
+	 * Looks for a string from possibilities that is most similar to value, but not the same (for 8-bit encoding).
 	 * @param  string[]  $possibilities
 	 */
 	public static function getSuggestion(array $possibilities, string $value): ?string
@@ -63,6 +85,7 @@ class Helpers
 				$best = $item;
 			}
 		}
+
 		return $best;
 	}
 }

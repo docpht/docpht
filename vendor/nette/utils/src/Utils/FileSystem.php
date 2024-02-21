@@ -20,131 +20,210 @@ final class FileSystem
 	use Nette\StaticClass;
 
 	/**
-	 * Creates a directory.
-	 * @throws Nette\IOException
+	 * Creates a directory if it does not exist, including parent directories.
+	 * @throws Nette\IOException  on error occurred
 	 */
 	public static function createDir(string $dir, int $mode = 0777): void
 	{
 		if (!is_dir($dir) && !@mkdir($dir, $mode, true) && !is_dir($dir)) { // @ - dir may already exist
-			throw new Nette\IOException("Unable to create directory '$dir'. " . Helpers::getLastError());
+			throw new Nette\IOException(sprintf(
+				"Unable to create directory '%s' with mode %s. %s",
+				self::normalizePath($dir),
+				decoct($mode),
+				Helpers::getLastError()
+			));
 		}
 	}
 
 
 	/**
-	 * Copies a file or directory.
-	 * @throws Nette\IOException
+	 * Copies a file or an entire directory. Overwrites existing files and directories by default.
+	 * @throws Nette\IOException  on error occurred
+	 * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
 	 */
-	public static function copy(string $source, string $dest, bool $overwrite = true): void
+	public static function copy(string $origin, string $target, bool $overwrite = true): void
 	{
-		if (stream_is_local($source) && !file_exists($source)) {
-			throw new Nette\IOException("File or directory '$source' not found.");
+		if (stream_is_local($origin) && !file_exists($origin)) {
+			throw new Nette\IOException(sprintf("File or directory '%s' not found.", self::normalizePath($origin)));
 
-		} elseif (!$overwrite && file_exists($dest)) {
-			throw new Nette\InvalidStateException("File or directory '$dest' already exists.");
+		} elseif (!$overwrite && file_exists($target)) {
+			throw new Nette\InvalidStateException(sprintf("File or directory '%s' already exists.", self::normalizePath($target)));
 
-		} elseif (is_dir($source)) {
-			static::createDir($dest);
-			foreach (new \FilesystemIterator($dest) as $item) {
+		} elseif (is_dir($origin)) {
+			static::createDir($target);
+			foreach (new \FilesystemIterator($target) as $item) {
 				static::delete($item->getPathname());
 			}
-			foreach ($iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $item) {
+
+			foreach ($iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($origin, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $item) {
 				if ($item->isDir()) {
-					static::createDir($dest . '/' . $iterator->getSubPathName());
+					static::createDir($target . '/' . $iterator->getSubPathName());
 				} else {
-					static::copy($item->getPathname(), $dest . '/' . $iterator->getSubPathName());
+					static::copy($item->getPathname(), $target . '/' . $iterator->getSubPathName());
 				}
 			}
-
 		} else {
-			static::createDir(dirname($dest));
-			if (($s = @fopen($source, 'rb')) && ($d = @fopen($dest, 'wb')) && @stream_copy_to_stream($s, $d) === false) { // @ is escalated to exception
-				throw new Nette\IOException("Unable to copy file '$source' to '$dest'. " . Helpers::getLastError());
+			static::createDir(dirname($target));
+			if (
+				($s = @fopen($origin, 'rb'))
+				&& ($d = @fopen($target, 'wb'))
+				&& @stream_copy_to_stream($s, $d) === false
+			) { // @ is escalated to exception
+				throw new Nette\IOException(sprintf(
+					"Unable to copy file '%s' to '%s'. %s",
+					self::normalizePath($origin),
+					self::normalizePath($target),
+					Helpers::getLastError()
+				));
 			}
 		}
 	}
 
 
 	/**
-	 * Deletes a file or directory.
-	 * @throws Nette\IOException
+	 * Deletes a file or an entire directory if exists. If the directory is not empty, it deletes its contents first.
+	 * @throws Nette\IOException  on error occurred
 	 */
 	public static function delete(string $path): void
 	{
 		if (is_file($path) || is_link($path)) {
 			$func = DIRECTORY_SEPARATOR === '\\' && is_dir($path) ? 'rmdir' : 'unlink';
 			if (!@$func($path)) { // @ is escalated to exception
-				throw new Nette\IOException("Unable to delete '$path'. " . Helpers::getLastError());
+				throw new Nette\IOException(sprintf(
+					"Unable to delete '%s'. %s",
+					self::normalizePath($path),
+					Helpers::getLastError()
+				));
 			}
-
 		} elseif (is_dir($path)) {
 			foreach (new \FilesystemIterator($path) as $item) {
 				static::delete($item->getPathname());
 			}
+
 			if (!@rmdir($path)) { // @ is escalated to exception
-				throw new Nette\IOException("Unable to delete directory '$path'. " . Helpers::getLastError());
+				throw new Nette\IOException(sprintf(
+					"Unable to delete directory '%s'. %s",
+					self::normalizePath($path),
+					Helpers::getLastError()
+				));
 			}
 		}
 	}
 
 
 	/**
-	 * Renames a file or directory.
-	 * @throws Nette\IOException
-	 * @throws Nette\InvalidStateException if the target file or directory already exist
+	 * Renames or moves a file or a directory. Overwrites existing files and directories by default.
+	 * @throws Nette\IOException  on error occurred
+	 * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
 	 */
-	public static function rename(string $name, string $newName, bool $overwrite = true): void
+	public static function rename(string $origin, string $target, bool $overwrite = true): void
 	{
-		if (!$overwrite && file_exists($newName)) {
-			throw new Nette\InvalidStateException("File or directory '$newName' already exists.");
+		if (!$overwrite && file_exists($target)) {
+			throw new Nette\InvalidStateException(sprintf("File or directory '%s' already exists.", self::normalizePath($target)));
 
-		} elseif (!file_exists($name)) {
-			throw new Nette\IOException("File or directory '$name' not found.");
+		} elseif (!file_exists($origin)) {
+			throw new Nette\IOException(sprintf("File or directory '%s' not found.", self::normalizePath($origin)));
 
 		} else {
-			static::createDir(dirname($newName));
-			if (realpath($name) !== realpath($newName)) {
-				static::delete($newName);
+			static::createDir(dirname($target));
+			if (realpath($origin) !== realpath($target)) {
+				static::delete($target);
 			}
-			if (!@rename($name, $newName)) { // @ is escalated to exception
-				throw new Nette\IOException("Unable to rename file or directory '$name' to '$newName'. " . Helpers::getLastError());
+
+			if (!@rename($origin, $target)) { // @ is escalated to exception
+				throw new Nette\IOException(sprintf(
+					"Unable to rename file or directory '%s' to '%s'. %s",
+					self::normalizePath($origin),
+					self::normalizePath($target),
+					Helpers::getLastError()
+				));
 			}
 		}
 	}
 
 
 	/**
-	 * Reads file content.
-	 * @throws Nette\IOException
+	 * Reads the content of a file.
+	 * @throws Nette\IOException  on error occurred
 	 */
 	public static function read(string $file): string
 	{
 		$content = @file_get_contents($file); // @ is escalated to exception
 		if ($content === false) {
-			throw new Nette\IOException("Unable to read file '$file'. " . Helpers::getLastError());
+			throw new Nette\IOException(sprintf(
+				"Unable to read file '%s'. %s",
+				self::normalizePath($file),
+				Helpers::getLastError()
+			));
 		}
+
 		return $content;
 	}
 
 
 	/**
-	 * Writes a string to a file.
-	 * @throws Nette\IOException
+	 * Writes the string to a file.
+	 * @throws Nette\IOException  on error occurred
 	 */
 	public static function write(string $file, string $content, ?int $mode = 0666): void
 	{
 		static::createDir(dirname($file));
 		if (@file_put_contents($file, $content) === false) { // @ is escalated to exception
-			throw new Nette\IOException("Unable to write file '$file'. " . Helpers::getLastError());
+			throw new Nette\IOException(sprintf(
+				"Unable to write file '%s'. %s",
+				self::normalizePath($file),
+				Helpers::getLastError()
+			));
 		}
+
 		if ($mode !== null && !@chmod($file, $mode)) { // @ is escalated to exception
-			throw new Nette\IOException("Unable to chmod file '$file'. " . Helpers::getLastError());
+			throw new Nette\IOException(sprintf(
+				"Unable to chmod file '%s' to mode %s. %s",
+				self::normalizePath($file),
+				decoct($mode),
+				Helpers::getLastError()
+			));
 		}
 	}
 
 
 	/**
-	 * Is path absolute?
+	 * Sets file permissions to `$fileMode` or directory permissions to `$dirMode`.
+	 * Recursively traverses and sets permissions on the entire contents of the directory as well.
+	 * @throws Nette\IOException  on error occurred
+	 */
+	public static function makeWritable(string $path, int $dirMode = 0777, int $fileMode = 0666): void
+	{
+		if (is_file($path)) {
+			if (!@chmod($path, $fileMode)) { // @ is escalated to exception
+				throw new Nette\IOException(sprintf(
+					"Unable to chmod file '%s' to mode %s. %s",
+					self::normalizePath($path),
+					decoct($fileMode),
+					Helpers::getLastError()
+				));
+			}
+		} elseif (is_dir($path)) {
+			foreach (new \FilesystemIterator($path) as $item) {
+				static::makeWritable($item->getPathname(), $dirMode, $fileMode);
+			}
+
+			if (!@chmod($path, $dirMode)) { // @ is escalated to exception
+				throw new Nette\IOException(sprintf(
+					"Unable to chmod directory '%s' to mode %s. %s",
+					self::normalizePath($path),
+					decoct($dirMode),
+					Helpers::getLastError()
+				));
+			}
+		} else {
+			throw new Nette\IOException(sprintf("File or directory '%s' not found.", self::normalizePath($path)));
+		}
+	}
+
+
+	/**
+	 * Determines if the path is absolute.
 	 */
 	public static function isAbsolute(string $path): bool
 	{
@@ -153,7 +232,7 @@ final class FileSystem
 
 
 	/**
-	 * Normalizes ../. and directory separators in path.
+	 * Normalizes `..` and `.` and directory separators in path.
 	 */
 	public static function normalizePath(string $path): string
 	{
@@ -166,6 +245,7 @@ final class FileSystem
 				$res[] = $part;
 			}
 		}
+
 		return $res === ['']
 			? DIRECTORY_SEPARATOR
 			: implode(DIRECTORY_SEPARATOR, $res);
@@ -173,7 +253,7 @@ final class FileSystem
 
 
 	/**
-	 * Joins all given path segments then normalizes the resulting path.
+	 * Joins all segments of the path and normalizes the result.
 	 */
 	public static function joinPaths(string ...$paths): string
 	{

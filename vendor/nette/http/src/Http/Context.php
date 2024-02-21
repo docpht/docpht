@@ -37,11 +37,12 @@ class Context
 	 * Attempts to cache the sent entity by its last modification date.
 	 * @param  string|int|\DateTimeInterface  $lastModified
 	 */
-	public function isModified($lastModified = null, string $etag = null): bool
+	public function isModified($lastModified = null, ?string $etag = null): bool
 	{
 		if ($lastModified) {
 			$this->response->setHeader('Last-Modified', Helpers::formatDate($lastModified));
 		}
+
 		if ($etag) {
 			$this->response->setHeader('ETag', '"' . addslashes($etag) . '"');
 		}
@@ -53,7 +54,7 @@ class Context
 		} elseif ($ifNoneMatch !== null) {
 			$etag = $this->response->getHeader('ETag');
 
-			if ($etag == null || strpos(' ' . strtr($ifNoneMatch, ",\t", '  '), ' ' . $etag) === false) {
+			if ($etag === null || strpos(' ' . strtr($ifNoneMatch, ",\t", '  '), ' ' . $etag) === false) {
 				return true;
 
 			} else {
@@ -64,7 +65,7 @@ class Context
 		$ifModifiedSince = $this->request->getHeader('If-Modified-Since');
 		if ($ifModifiedSince !== null) {
 			$lastModified = $this->response->getHeader('Last-Modified');
-			if ($lastModified != null && strtotime($lastModified) <= strtotime($ifModifiedSince)) {
+			if ($lastModified !== null && strtotime($lastModified) <= strtotime($ifModifiedSince)) {
 				$match = true;
 
 			} else {
@@ -76,7 +77,7 @@ class Context
 			return true;
 		}
 
-		$this->response->setCode(IResponse::S304_NOT_MODIFIED);
+		$this->response->setCode(IResponse::S304_NotModified);
 		return false;
 	}
 

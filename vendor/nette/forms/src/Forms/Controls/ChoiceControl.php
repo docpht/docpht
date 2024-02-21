@@ -27,7 +27,7 @@ abstract class ChoiceControl extends BaseControl
 	private $items = [];
 
 
-	public function __construct($label = null, array $items = null)
+	public function __construct($label = null, ?array $items = null)
 	{
 		parent::__construct($label);
 		if ($items !== null) {
@@ -36,34 +36,34 @@ abstract class ChoiceControl extends BaseControl
 	}
 
 
-	/**
-	 * Loads HTTP data.
-	 */
 	public function loadHttpData(): void
 	{
-		$this->value = $this->getHttpData(Nette\Forms\Form::DATA_TEXT);
+		$this->value = $this->getHttpData(Nette\Forms\Form::DataText);
 		if ($this->value !== null) {
-			if (is_array($this->disabled) && isset($this->disabled[$this->value])) {
-				$this->value = null;
-			} else {
-				$this->value = key([$this->value => null]);
-			}
+			$this->value = is_array($this->disabled) && isset($this->disabled[$this->value])
+				? null
+				: key([$this->value => null]);
 		}
 	}
 
 
 	/**
 	 * Sets selected item (by key).
-	 * @param  string|int  $value
+	 * @param  string|int|\BackedEnum|null  $value
 	 * @return static
 	 * @internal
 	 */
 	public function setValue($value)
 	{
+		if ($value instanceof \BackedEnum) {
+			$value = $value->value;
+		}
+
 		if ($this->checkDefaultValue && $value !== null && !array_key_exists((string) $value, $this->items)) {
 			$set = Nette\Utils\Strings::truncate(implode(', ', array_map(function ($s) { return var_export($s, true); }, array_keys($this->items))), 70, '...');
 			throw new Nette\InvalidArgumentException("Value '$value' is out of allowed set [$set] in field '{$this->name}'.");
 		}
+
 		$this->value = $value === null ? null : key([(string) $value => null]);
 		return $this;
 	}
@@ -71,11 +71,13 @@ abstract class ChoiceControl extends BaseControl
 
 	/**
 	 * Returns selected key.
-	 * @return string|int
+	 * @return string|int|null
 	 */
 	public function getValue()
 	{
-		return array_key_exists($this->value, $this->items) ? $this->value : null;
+		return array_key_exists($this->value, $this->items)
+			? $this->value
+			: null;
 	}
 
 
@@ -145,13 +147,12 @@ abstract class ChoiceControl extends BaseControl
 		if (isset($this->disabled[$this->value])) {
 			$this->value = null;
 		}
+
 		return $this;
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function checkDefaultValue(bool $value = true)
 	{
 		$this->checkDefaultValue = $value;

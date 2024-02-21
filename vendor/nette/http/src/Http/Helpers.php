@@ -20,6 +20,13 @@ final class Helpers
 {
 	use Nette\StaticClass;
 
+	/** @internal */
+	public const StrictCookieName = '_nss';
+
+	/** @deprecated */
+	public const STRICT_COOKIE_NAME = self::StrictCookieName;
+
+
 	/**
 	 * Returns HTTP valid date format.
 	 * @param  string|int|\DateTimeInterface  $time
@@ -44,6 +51,13 @@ final class Helpers
 		if (!$max || $max !== strlen($mask) || (int) $size < 0 || (int) $size > $max) {
 			return false;
 		}
+
 		return strncmp($ip, $mask, $size === '' ? $max : (int) $size) === 0;
+	}
+
+
+	public static function initCookie(IRequest $request, IResponse $response)
+	{
+		$response->setCookie(self::StrictCookieName, '1', 0, '/', null, null, true, IResponse::SameSiteStrict);
 	}
 }

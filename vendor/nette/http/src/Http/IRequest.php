@@ -19,13 +19,34 @@ interface IRequest
 {
 	/** HTTP request method */
 	public const
-		GET = 'GET',
-		POST = 'POST',
-		HEAD = 'HEAD',
-		PUT = 'PUT',
-		DELETE = 'DELETE',
-		PATCH = 'PATCH',
-		OPTIONS = 'OPTIONS';
+		Get = 'GET',
+		Post = 'POST',
+		Head = 'HEAD',
+		Put = 'PUT',
+		Delete = 'DELETE',
+		Patch = 'PATCH',
+		Options = 'OPTIONS';
+
+	/** @deprecated use IRequest::Get */
+	public const GET = self::Get;
+
+	/** @deprecated use IRequest::Post */
+	public const POST = self::Post;
+
+	/** @deprecated use IRequest::Head */
+	public const HEAD = self::Head;
+
+	/** @deprecated use IRequest::Put */
+	public const PUT = self::Put;
+
+	/** @deprecated use IRequest::Delete */
+	public const DELETE = self::Delete;
+
+	/** @deprecated use IRequest::Patch */
+	public const PATCH = self::Patch;
+
+	/** @deprecated use IRequest::Options */
+	public const OPTIONS = self::Options;
 
 	/**
 	 * Returns URL object.
@@ -39,14 +60,14 @@ interface IRequest
 	 * If no key is passed, returns the entire array.
 	 * @return mixed
 	 */
-	function getQuery(string $key = null);
+	function getQuery(?string $key = null);
 
 	/**
 	 * Returns variable provided to the script via POST method ($_POST).
 	 * If no key is passed, returns the entire array.
 	 * @return mixed
 	 */
-	function getPost(string $key = null);
+	function getPost(?string $key = null);
 
 	/**
 	 * Returns uploaded file.

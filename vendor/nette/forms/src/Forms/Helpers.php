@@ -21,7 +21,7 @@ class Helpers
 {
 	use Nette\StaticClass;
 
-	private const UNSAFE_NAMES = [
+	private const UnsafeNames = [
 		'attributes', 'children', 'elements', 'focus', 'length', 'reset', 'style', 'submit', 'onsubmit', 'form',
 		'presenter', 'action',
 	];
@@ -29,7 +29,7 @@ class Helpers
 
 	/**
 	 * Extracts and sanitizes submitted form data for single control.
-	 * @param  int  $type  type Form::DATA_TEXT, DATA_LINE, DATA_FILE, DATA_KEYS
+	 * @param  int  $type  type Form::DataText, DataLine, DataFile, DataKeys
 	 * @return string|string[]
 	 * @internal
 	 */
@@ -37,21 +37,24 @@ class Helpers
 	{
 		$name = explode('[', str_replace(['[]', ']', '.'], ['', '', '_'], $htmlName));
 		$data = Nette\Utils\Arrays::get($data, $name, null);
-		$itype = $type & ~Form::DATA_KEYS;
+		$itype = $type & ~Form::DataKeys;
 
 		if (substr($htmlName, -2) === '[]') {
 			if (!is_array($data)) {
 				return [];
 			}
+
 			foreach ($data as $k => $v) {
 				$data[$k] = $v = static::sanitize($itype, $v);
 				if ($v === null) {
 					unset($data[$k]);
 				}
 			}
-			if ($type & Form::DATA_KEYS) {
+
+			if ($type & Form::DataKeys) {
 				return $data;
 			}
+
 			return array_values($data);
 		} else {
 			return static::sanitize($itype, $data);
@@ -61,13 +64,17 @@ class Helpers
 
 	private static function sanitize(int $type, $value)
 	{
-		if ($type === Form::DATA_TEXT) {
-			return is_scalar($value) ? Strings::normalizeNewLines($value) : null;
+		if ($type === Form::DataText) {
+			return is_scalar($value)
+				? Strings::normalizeNewLines($value)
+				: null;
 
-		} elseif ($type === Form::DATA_LINE) {
-			return is_scalar($value) ? Strings::trim(strtr((string) $value, "\r\n", '  ')) : null;
+		} elseif ($type === Form::DataLine) {
+			return is_scalar($value)
+				? Strings::trim(strtr((string) $value, "\r\n", '  '))
+				: null;
 
-		} elseif ($type === Form::DATA_FILE) {
+		} elseif ($type === Form::DataFile) {
 			return $value instanceof Nette\Http\FileUpload ? $value : null;
 
 		} else {
@@ -85,9 +92,11 @@ class Helpers
 		if ($count) {
 			$name = substr_replace($name, '', strpos($name, ']'), 1) . ']';
 		}
-		if (is_numeric($name) || in_array($name, self::UNSAFE_NAMES, true)) {
+
+		if (is_numeric($name) || in_array($name, self::UnsafeNames, true)) {
 			$name = '_' . $name;
 		}
+
 		return $name;
 	}
 
@@ -96,12 +105,19 @@ class Helpers
 	{
 		$payload = [];
 		foreach ($rules as $rule) {
-			if (!is_string($op = $rule->validator)) {
-				if (!Nette\Utils\Callback::isStatic($op)) {
+			if (!$rule->canExport()) {
+				if ($rule->branch) {
 					continue;
 				}
+
+				break;
+			}
+
+			$op = $rule->validator;
+			if (!is_string($op)) {
 				$op = Nette\Utils\Callback::toString($op);
 			}
+
 			if ($rule->branch) {
 				$item = [
 					'op' => ($rule->isNegative ? '~' : '') . $op,
@@ -114,25 +130,48 @@ class Helpers
 					continue;
 				}
 			} else {
-				$item = ['op' => ($rule->isNegative ? '~' : '') . $op, 'msg' => Validator::formatMessage($rule, false)];
+				$msg = Validator::formatMessage($rule, false);
+				if ($msg instanceof Nette\HtmlStringable) {
+					$msg = html_entity_decode(strip_tags((string) $msg), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+				}
+
+				$item = ['op' => ($rule->isNegative ? '~' : '') . $op, 'msg' => $msg];
 			}
 
 			if (is_array($rule->arg)) {
 				$item['arg'] = [];
 				foreach ($rule->arg as $key => $value) {
-					$item['arg'][$key] = $value instanceof IControl ? ['control' => $value->getHtmlName()] : $value;
+					$item['arg'][$key] = self::exportArgument($value, $rule->control);
 				}
 			} elseif ($rule->arg !== null) {
-				$item['arg'] = $rule->arg instanceof IControl ? ['control' => $rule->arg->getHtmlName()] : $rule->arg;
+				$item['arg'] = self::exportArgument($rule->arg, $rule->control);
 			}
 
 			$payload[] = $item;
 		}
+
 		return $payload;
 	}
 
 
-	public static function createInputList(array $items, array $inputAttrs = null, array $labelAttrs = null, $wrapper = null): string
+	private static function exportArgument($value, Control $control)
+	{
+		if ($value instanceof Control) {
+			return ['control' => $value->getHtmlName()];
+		} elseif ($control instanceof Controls\DateTimeControl) {
+			return $control->formatHtmlValue($value);
+		} else {
+			return $value;
+		}
+	}
+
+
+	public static function createInputList(
+		array $items,
+		?array $inputAttrs = null,
+		?array $labelAttrs = null,
+		$wrapper = null
+	): string
 	{
 		[$inputAttrs, $inputTag] = self::prepareAttrs($inputAttrs, 'input');
 		[$labelAttrs, $labelTag] = self::prepareAttrs($labelAttrs, 'label');
@@ -145,26 +184,30 @@ class Helpers
 			foreach ($inputAttrs as $k => $v) {
 				$input->attrs[$k] = $v[$value] ?? null;
 			}
+
 			foreach ($labelAttrs as $k => $v) {
 				$label->attrs[$k] = $v[$value] ?? null;
 			}
+
 			$input->value = $value;
 			$res .= ($res === '' && $wrapperEnd === '' ? '' : $wrapper)
 				. $labelTag . $label->attributes() . '>'
-				. $inputTag . $input->attributes() . (Html::$xhtml ? ' />' : '>')
-				. ($caption instanceof Nette\Utils\IHtmlString ? $caption : htmlspecialchars((string) $caption, ENT_NOQUOTES, 'UTF-8'))
+				. $inputTag . $input->attributes() . (isset(Html::$xhtml) && Html::$xhtml ? ' />' : '>')
+				. ($caption instanceof Nette\HtmlStringable ? $caption : htmlspecialchars((string) $caption, ENT_NOQUOTES, 'UTF-8'))
 				. '</label>'
 				. $wrapperEnd;
 		}
+
 		return $res;
 	}
 
 
-	public static function createSelectBox(array $items, array $optionAttrs = null, $selected = null): Html
+	public static function createSelectBox(array $items, ?array $optionAttrs = null, $selected = null): Html
 	{
 		if ($selected !== null) {
 			$optionAttrs['selected?'] = $selected;
 		}
+
 		[$optionAttrs, $optionTag] = self::prepareAttrs($optionAttrs, 'option');
 		$option = Html::el();
 		$res = $tmp = '';
@@ -175,11 +218,13 @@ class Helpers
 			} else {
 				$subitems = [$group => $subitems];
 			}
+
 			foreach ($subitems as $value => $caption) {
 				$option->value = $value;
 				foreach ($optionAttrs as $k => $v) {
 					$option->attrs[$k] = $v[$value] ?? null;
 				}
+
 				if ($caption instanceof Html) {
 					$caption = clone $caption;
 					$res .= $caption->setName('option')->addAttributes($option->attrs);
@@ -188,13 +233,16 @@ class Helpers
 						. htmlspecialchars((string) $caption, ENT_NOQUOTES, 'UTF-8')
 						. '</option>';
 				}
+
 				if ($selected === $value) {
 					unset($optionAttrs['selected'], $option->attrs['selected']);
 				}
 			}
+
 			$res .= $tmp;
 			$tmp = '';
 		}
+
 		return Html::el('select')->setHtml($res);
 	}
 
@@ -203,18 +251,19 @@ class Helpers
 	{
 		$dynamic = [];
 		foreach ((array) $attrs as $k => $v) {
-			$p = str_split($k, strlen($k) - 1);
-			if ($p[1] === '?' || $p[1] === ':') {
-				unset($attrs[$k], $attrs[$p[0]]);
-				if ($p[1] === '?') {
-					$dynamic[$p[0]] = array_fill_keys((array) $v, true);
+			if ($k[-1] === '?' || $k[-1] === ':') {
+				$p = substr($k, 0, -1);
+				unset($attrs[$k], $attrs[$p]);
+				if ($k[-1] === '?') {
+					$dynamic[$p] = array_fill_keys((array) $v, true);
 				} elseif (is_array($v) && $v) {
-					$dynamic[$p[0]] = $v;
+					$dynamic[$p] = $v;
 				} else {
-					$attrs[$p[0]] = $v;
+					$attrs[$p] = $v;
 				}
 			}
 		}
+
 		return [$dynamic, '<' . $name . Html::el(null, $attrs)->attributes()];
 	}
 
@@ -227,5 +276,35 @@ class Helpers
 		return isset($units[$ch = strtolower(substr($value, -1))])
 			? (int) $value << $units[$ch]
 			: (int) $value;
+	}
+
+
+	/** @internal */
+	public static function getSingleType($reflection): ?string
+	{
+		$type = Nette\Utils\Type::fromReflection($reflection);
+		if (!$type) {
+			return null;
+		} elseif ($res = $type->getSingleName()) {
+			return $res;
+		} else {
+			throw new Nette\InvalidStateException(
+				Nette\Utils\Reflection::toString($reflection) . " has unsupported type '$type'."
+			);
+		}
+	}
+
+
+	/** @internal */
+	public static function getSupportedImages(): array
+	{
+		$flag = imagetypes();
+		return array_filter([
+			$flag & IMG_GIF ? 'image/gif' : null,
+			$flag & IMG_JPG ? 'image/jpeg' : null,
+			$flag & IMG_PNG ? 'image/png' : null,
+			$flag & IMG_WEBP ? 'image/webp' : null,
+			$flag & 256 ? 'image/avif' : null, // IMG_AVIF
+		]);
 	}
 }

@@ -22,7 +22,7 @@ class SmtpMailer implements Mailer
 	/** @var Signer|null */
 	private $signer;
 
-	/** @var resource */
+	/** @var resource|null */
 	private $connection;
 
 	/** @var string */
@@ -57,33 +57,39 @@ class SmtpMailer implements Mailer
 	{
 		if (isset($options['host'])) {
 			$this->host = $options['host'];
-			$this->port = isset($options['port']) ? (int) $options['port'] : null;
+			$this->port = isset($options['port'])
+				? (int) $options['port']
+				: null;
 		} else {
 			$this->host = ini_get('SMTP');
 			$this->port = (int) ini_get('smtp_port');
 		}
+
 		$this->username = $options['username'] ?? '';
 		$this->password = $options['password'] ?? '';
 		$this->secure = $options['secure'] ?? '';
-		$this->timeout = isset($options['timeout']) ? (int) $options['timeout'] : 20;
-		$this->context = isset($options['context']) ? stream_context_create($options['context']) : stream_context_get_default();
+		$this->timeout = isset($options['timeout'])
+			? (int) $options['timeout']
+			: 20;
+		$this->context = isset($options['context'])
+			? stream_context_create($options['context'])
+			: stream_context_get_default();
 		if (!$this->port) {
 			$this->port = $this->secure === 'ssl' ? 465 : 25;
 		}
+
 		$this->persistent = !empty($options['persistent']);
 		if (isset($options['clientHost'])) {
 			$this->clientHost = $options['clientHost'];
 		} else {
-			$this->clientHost = isset($_SERVER['HTTP_HOST']) && preg_match('#^[\w.-]+\z#', $_SERVER['HTTP_HOST'])
+			$this->clientHost = isset($_SERVER['HTTP_HOST']) && preg_match('#^[\w.-]+$#D', $_SERVER['HTTP_HOST'])
 				? $_SERVER['HTTP_HOST']
 				: 'localhost';
 		}
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function setSigner(Signer $signer): self
 	{
 		$this->signer = $signer;
@@ -111,7 +117,7 @@ class SmtpMailer implements Mailer
 
 			if (
 				($from = $mail->getHeader('Return-Path'))
-				|| ($from = array_keys((array) $mail->getHeader('From'))[0])
+				|| ($from = array_keys((array) $mail->getHeader('From'))[0] ?? null)
 			) {
 				$this->write("MAIL FROM:<$from>", 250);
 			}
@@ -137,6 +143,7 @@ class SmtpMailer implements Mailer
 			if ($this->connection) {
 				$this->disconnect();
 			}
+
 			throw $e;
 		}
 	}
@@ -149,21 +156,21 @@ class SmtpMailer implements Mailer
 	{
 		$this->connection = @stream_socket_client(// @ is escalated to exception
 			($this->secure === 'ssl' ? 'ssl://' : '') . $this->host . ':' . $this->port,
-			$errno, $error, $this->timeout, STREAM_CLIENT_CONNECT, $this->context
+			$errno,
+			$error,
+			$this->timeout,
+			STREAM_CLIENT_CONNECT,
+			$this->context
 		);
 		if (!$this->connection) {
 			throw new SmtpException($error ?: error_get_last()['message'], $errno);
 		}
+
 		stream_set_timeout($this->connection, $this->timeout, 0);
 		$this->read(); // greeting
 
-		$this->write("EHLO $this->clientHost");
-		$ehloResponse = $this->read();
-		if ((int) $ehloResponse !== 250) {
-			$this->write("HELO $this->clientHost", 250);
-		}
-
 		if ($this->secure === 'tls') {
+			$this->write("EHLO $this->clientHost", 250);
 			$this->write('STARTTLS', 220);
 			if (!stream_socket_enable_crypto(
 				$this->connection,
@@ -172,10 +179,21 @@ class SmtpMailer implements Mailer
 			)) {
 				throw new SmtpException('Unable to connect via TLS.');
 			}
-			$this->write("EHLO $this->clientHost", 250);
+
+			$this->write("EHLO $this->clientHost");
+			$ehloResponse = $this->read();
+			if ((int) $ehloResponse !== 250) {
+				throw new SmtpException('SMTP server did not accept EHLO with error: ' . trim($ehloResponse));
+			}
+		} else {
+			$this->write("EHLO $this->clientHost");
+			$ehloResponse = $this->read();
+			if ((int) $ehloResponse !== 250) {
+				$this->write("HELO $this->clientHost", 250);
+			}
 		}
 
-		if ($this->username != null && $this->password != null) {
+		if ($this->username !== '') {
 			$authMechanisms = [];
 			if (preg_match('~^250[ -]AUTH (.*)$~im', $ehloResponse, $matches)) {
 				$authMechanisms = explode(' ', trim($matches[1]));
@@ -187,7 +205,9 @@ class SmtpMailer implements Mailer
 			} else {
 				$this->write('AUTH LOGIN', 334);
 				$this->write(base64_encode($this->username), 334, 'username');
-				$this->write(base64_encode($this->password), 235, 'password');
+				if ($this->password !== '') {
+					$this->write(base64_encode($this->password), 235, 'password');
+				}
 			}
 		}
 	}
@@ -207,7 +227,7 @@ class SmtpMailer implements Mailer
 	 * Writes data to server and checks response against expected code if some provided.
 	 * @param  int|int[]  $expectedCode
 	 */
-	protected function write(string $line, $expectedCode = null, string $message = null): void
+	protected function write(string $line, $expectedCode = null, ?string $message = null): void
 	{
 		fwrite($this->connection, $line . Message::EOL);
 		if ($expectedCode) {
@@ -224,13 +244,26 @@ class SmtpMailer implements Mailer
 	 */
 	protected function read(): string
 	{
-		$s = '';
-		while (($line = fgets($this->connection, 1000)) != null) { // intentionally ==
-			$s .= $line;
-			if (substr($line, 3, 1) === ' ') {
+		$data = '';
+		$endtime = $this->timeout > 0 ? time() + $this->timeout : 0;
+
+		while (is_resource($this->connection) && !feof($this->connection)) {
+			$line = @fgets($this->connection); // @ is escalated to exception
+			if ($line === '' || $line === false) {
+				$info = stream_get_meta_data($this->connection);
+				if ($info['timed_out'] || ($endtime && time() > $endtime)) {
+					throw new SmtpException('Connection timed out.');
+				} elseif ($info['eof']) {
+					throw new SmtpException('Connection has been closed unexpectedly.');
+				}
+			}
+
+			$data .= $line;
+			if (preg_match('#^.{3}(?:[ \r\n]|$)#D', $line)) {
 				break;
 			}
 		}
-		return $s;
+
+		return $data;
 	}
 }

@@ -24,7 +24,7 @@ class MultiSelectBox extends MultiChoiceControl
 	private $optionAttributes = [];
 
 
-	public function __construct($label = null, array $items = null)
+	public function __construct($label = null, ?array $items = null)
 	{
 		parent::__construct($label, $items);
 		$this->setOption('type', 'select');
@@ -49,16 +49,15 @@ class MultiSelectBox extends MultiChoiceControl
 					$res[(string) $value] = $value;
 				}
 			}
+
 			$items = $res;
 		}
+
 		$this->options = $items;
 		return parent::setItems(Nette\Utils\Arrays::flatten($items, true));
 	}
 
 
-	/**
-	 * Generates control's HTML element.
-	 */
 	public function getControl(): Nette\Utils\Html
 	{
 		$items = [];
@@ -76,12 +75,18 @@ class MultiSelectBox extends MultiChoiceControl
 	}
 
 
-	/**
-	 * @return static
-	 */
+	/** @return static */
 	public function addOptionAttributes(array $attributes)
 	{
 		$this->optionAttributes = $attributes + $this->optionAttributes;
+		return $this;
+	}
+
+
+	/** @return static */
+	public function setOptionAttribute(string $name, $value = true)
+	{
+		$this->optionAttributes[$name] = $value;
 		return $this;
 	}
 

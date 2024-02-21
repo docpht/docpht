@@ -14,29 +14,33 @@ use Nette;
 
 /**
  * Provides objects to work as array.
+ * @template T
+ * @implements \RecursiveArrayIterator<array-key, T>
+ * @implements \ArrayAccess<array-key, T>
  */
 class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \IteratorAggregate
 {
-
 	/**
+	 * Transforms array to ArrayHash.
+	 * @param  array<T>  $array
 	 * @return static
 	 */
-	public static function from(array $arr, bool $recursive = true)
+	public static function from(array $array, bool $recursive = true)
 	{
 		$obj = new static;
-		foreach ($arr as $key => $value) {
-			if ($recursive && is_array($value)) {
-				$obj->$key = static::from($value, true);
-			} else {
-				$obj->$key = $value;
-			}
+		foreach ($array as $key => $value) {
+			$obj->$key = $recursive && is_array($value)
+				? static::from($value, true)
+				: $value;
 		}
+
 		return $obj;
 	}
 
 
 	/**
 	 * Returns an iterator over all items.
+	 * @return \RecursiveArrayIterator<array-key, T>
 	 */
 	public function getIterator(): \RecursiveArrayIterator
 	{
@@ -55,20 +59,25 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
 
 	/**
 	 * Replaces or appends a item.
+	 * @param  array-key  $key
+	 * @param  T  $value
 	 */
 	public function offsetSet($key, $value): void
 	{
 		if (!is_scalar($key)) { // prevents null
 			throw new Nette\InvalidArgumentException(sprintf('Key must be either a string or an integer, %s given.', gettype($key)));
 		}
+
 		$this->$key = $value;
 	}
 
 
 	/**
 	 * Returns a item.
-	 * @return mixed
+	 * @param  array-key  $key
+	 * @return T
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($key)
 	{
 		return $this->$key;
@@ -77,6 +86,7 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
 
 	/**
 	 * Determines whether a item exists.
+	 * @param  array-key  $key
 	 */
 	public function offsetExists($key): bool
 	{
@@ -86,6 +96,7 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
 
 	/**
 	 * Removes the element from this list.
+	 * @param  array-key  $key
 	 */
 	public function offsetUnset($key): void
 	{

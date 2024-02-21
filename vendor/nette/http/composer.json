@@ -3,7 +3,7 @@
 	"description": "🌐 Nette Http: abstraction for HTTP request, response and session. Provides careful data sanitization and utility for URL and cookies manipulation.",
 	"keywords": ["nette", "http", "request", "response", "session", "security", "url", "proxy", "cookies"],
 	"homepage": "https://nette.org",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -15,28 +15,37 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1",
-		"nette/utils": "^3.0"
+		"php": "7.2 - 8.3",
+		"nette/utils": "^3.2.1 || ~4.0.0"
 	},
 	"require-dev": {
 		"nette/di": "^3.0",
-		"nette/tester": "^2.0",
-		"tracy/tracy": "^2.4"
+		"nette/tester": "^2.4",
+		"nette/security": "^3.0",
+		"tracy/tracy": "^2.8",
+		"phpstan/phpstan": "^1.0"
 	},
 	"conflict": {
-		"nette/di": "<3.0.0-stable"
+		"nette/di": "<3.0.3",
+		"nette/schema": "<1.2"
 	},
 	"suggest": {
-		"ext-fileinfo": "to detect type of uploaded files",
-		"nette/security": "allows use Nette\\Http\\UserStorage"
+		"ext-fileinfo": "to detect MIME type of uploaded files by Nette\\Http\\FileUpload",
+		"ext-gd": "to use image function in Nette\\Http\\FileUpload",
+		"ext-session": "to use Nette\\Http\\Session",
+		"ext-intl": "to support punycode by Nette\\Http\\Url"
 	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
 	"minimum-stability": "dev",
+	"scripts": {
+		"phpstan": "phpstan analyse",
+		"tester": "tester tests -s"
+	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.0-dev"
+			"dev-master": "3.2-dev"
 		}
 	}
 }

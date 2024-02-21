@@ -19,7 +19,7 @@ use Tracy;
 class TracyToPsrLoggerAdapter extends Psr\Log\AbstractLogger
 {
 	/** PSR-3 log level to Tracy logger level mapping */
-	private const LEVEL_MAP = [
+	private const LevelMap = [
 		Psr\Log\LogLevel::EMERGENCY => Tracy\ILogger::CRITICAL,
 		Psr\Log\LogLevel::ALERT => Tracy\ILogger::CRITICAL,
 		Psr\Log\LogLevel::CRITICAL => Tracy\ILogger::CRITICAL,
@@ -40,9 +40,9 @@ class TracyToPsrLoggerAdapter extends Psr\Log\AbstractLogger
 	}
 
 
-	public function log($level, $message, array $context = [])
+	public function log($level, $message, array $context = []): void
 	{
-		$level = self::LEVEL_MAP[$level] ?? Tracy\ILogger::ERROR;
+		$level = self::LevelMap[$level] ?? Tracy\ILogger::ERROR;
 
 		if (isset($context['exception']) && $context['exception'] instanceof \Throwable) {
 			$this->tracyLogger->log($context['exception'], $level);

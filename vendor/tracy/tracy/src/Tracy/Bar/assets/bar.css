@@ -3,45 +3,6 @@
  */
 
 /* common styles */
-#tracy-debug,
-#tracy-debug * {
-	font: inherit;
-	line-height: inherit;
-	color: inherit;
-	background: transparent;
-	margin: 0;
-	padding: 0;
-	border: none;
-	text-align: inherit;
-	list-style: inherit;
-	opacity: 1;
-	border-radius: 0;
-	box-shadow: none;
-	text-shadow: none;
-	box-sizing: border-box;
-	text-decoration: none;
-	text-transform: inherit;
-	white-space: inherit;
-	float: none;
-	clear: none;
-	max-width: initial;
-	min-width: initial;
-	max-height: initial;
-	min-height: initial;
-}
-
-#tracy-debug *:not(svg):not(img):not(table) {
-	width: initial;
-	height: initial;
-}
-
-#tracy-debug:before,
-#tracy-debug:after,
-#tracy-debug *:before,
-#tracy-debug *:after {
-	all: unset;
-}
-
 #tracy-debug {
 	display: none;
 	direction: ltr;
@@ -55,20 +16,6 @@ body#tracy-debug { /* in popup window */
 	position: absolute;
 	left: 0;
 	top: 0;
-}
-
-#tracy-debug b,
-#tracy-debug strong {
-	font-weight: bold;
-}
-
-#tracy-debug small {
-	font-size: smaller;
-}
-
-#tracy-debug i,
-#tracy-debug em {
-	font-style: italic;
 }
 
 #tracy-debug a {
@@ -89,13 +36,12 @@ body#tracy-debug { /* in popup window */
 }
 
 #tracy-debug table {
-	border-collapse: collapse;
 	background: #FDF5CE;
 	width: 100%;
 }
 
 #tracy-debug tr:nth-child(2n) td {
-	background: #F7F0CB;
+	background: rgba(0, 0, 0, 0.02);
 }
 
 #tracy-debug td,
@@ -113,26 +59,9 @@ body#tracy-debug { /* in popup window */
 	font-weight: bold;
 }
 
-/* TableSort */
-#tracy-debug .tracy-sortable tr:first-child > * {
-	position: relative;
-}
-
-#tracy-debug .tracy-sortable tr:first-child > *:hover:before {
-	position: absolute;
-	right: .3em;
-	content: "\21C5";
-	opacity: .4;
-	font-weight: normal;
-}
-
 #tracy-debug pre,
 #tracy-debug code {
 	font: 9pt/1.5 Consolas, monospace;
-}
-
-#tracy-debug pre {
-	white-space: pre;
 }
 
 #tracy-debug table .tracy-right {
@@ -141,6 +70,11 @@ body#tracy-debug { /* in popup window */
 
 #tracy-debug svg {
 	display: inline;
+}
+
+#tracy-debug .tracy-dump {
+	margin: 0;
+	padding: 2px 5px;
 }
 
 
@@ -250,7 +184,7 @@ body#tracy-debug .tracy-panel { /* in popup window */
 	font: normal normal 23px/1.4 Tahoma, sans-serif;
 	color: #575753;
 	margin: -5px -5px 5px;
-	padding: 0 25px 0 5px;
+	padding: 0 5px 0 5px;
 	word-wrap: break-word;
 }
 
@@ -263,8 +197,8 @@ body#tracy-debug .tracy-panel { /* in popup window */
 	display: none;
 }
 
-#tracy-debug .tracy-panel-ajax > h1::after,
-#tracy-debug .tracy-panel-redirect > h1::after {
+#tracy-debug .tracy-panel-ajax h1::after,
+#tracy-debug .tracy-panel-redirect h1::after {
 	content: 'ajax';
 	float: right;
 	font-size: 65%;
@@ -321,6 +255,7 @@ body#tracy-debug .tracy-panel { /* in popup window */
 
 #tracy-debug .tracy-mode-float h1 {
 	cursor: move;
+	padding-right: 25px;
 }
 
 #tracy-debug .tracy-mode-float .tracy-icons {
@@ -348,69 +283,6 @@ body#tracy-debug .tracy-panel { /* in popup window */
 	min-width: 100%;
 	float: left;
 }
-
-
-/* dump */
-#tracy-debug pre.tracy-dump div {
-	padding-left: 3ex;
-}
-
-#tracy-debug pre.tracy-dump div div {
-	border-left: 1px solid rgba(0, 0, 0, .1);
-	margin-left: .5ex;
-}
-
-#tracy-debug pre.tracy-dump {
-	background: #FDF5CE;
-	padding: .4em .7em;
-	border: 1px dotted silver;
-	overflow: auto;
-}
-
-#tracy-debug table pre.tracy-dump {
-	padding: 0;
-	margin: 0;
-	border: none;
-}
-
-#tracy-debug .tracy-dump-array,
-#tracy-debug .tracy-dump-object {
-	color: #C22;
-}
-
-#tracy-debug .tracy-dump-string {
-	color: #35D;
-}
-
-#tracy-debug .tracy-dump-number {
-	color: #090;
-}
-
-#tracy-debug .tracy-dump-null,
-#tracy-debug .tracy-dump-bool {
-	color: #850;
-}
-
-#tracy-debug .tracy-dump-visibility,
-#tracy-debug .tracy-dump-hash {
-	font-size: 85%; color: #999;
-}
-
-#tracy-debug .tracy-dump-indent {
-	display: none;
-}
-
-
-/* toggle */
-#tracy-debug .tracy-toggle:after {
-	content: "\A0\25BC";
-	opacity: .4;
-}
-
-#tracy-debug .tracy-toggle.tracy-collapsed:after {
-	content: "\A0\25BA";
-}
-
 
 @media print {
 	#tracy-debug * {

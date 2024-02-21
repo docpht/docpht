@@ -2,7 +2,7 @@ Nette Forms: greatly facilitates web forms
 ==========================================
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/nette/forms.svg)](https://packagist.org/packages/nette/forms)
-[![Build Status](https://travis-ci.org/nette/forms.svg?branch=master)](https://travis-ci.org/nette/forms)
+[![Tests](https://github.com/nette/forms/workflows/Tests/badge.svg?branch=master)](https://github.com/nette/forms/actions)
 [![Coverage Status](https://coveralls.io/repos/github/nette/forms/badge.svg?branch=master)](https://coveralls.io/github/nette/forms?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/nette/forms/v/stable)](https://github.com/nette/forms/releases)
 [![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/forms/blob/master/license.md)
@@ -24,7 +24,15 @@ Nette Framework puts a great effort to be safe and since forms are the most comm
 
 Documentation can be found on the [website](https://doc.nette.org/forms).
 
-If you like Nette, **[please make a donation now](https://nette.org/donate)**. Thank you!
+
+[Support Me](https://github.com/sponsors/dg)
+--------------------------------------------
+
+Do you like Nette Forms? Are you looking forward to the new features?
+
+[![Buy me a coffee](https://files.nette.org/icons/donation-3.svg)](https://github.com/sponsors/dg)
+
+Thank you!
 
 
 Installation
@@ -36,7 +44,7 @@ The recommended way to install is via Composer:
 composer require nette/forms
 ```
 
-It requires PHP version 7.1 and supports PHP up to 7.4.
+It requires PHP version 7.2 and supports PHP up to 8.3.
 
 
 Client-side support can be installed with npm or yarn:

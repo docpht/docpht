@@ -10,14 +10,14 @@ declare(strict_types=1);
 namespace Nette\Forms\Rendering;
 
 use Nette;
+use Nette\HtmlStringable;
 use Nette\Utils\Html;
-use Nette\Utils\IHtmlString;
 
 
 /**
  * Converts a Form into the HTML output.
  */
-class DefaultFormRenderer implements Nette\Forms\IFormRenderer
+class DefaultFormRenderer implements Nette\Forms\FormRenderer
 {
 	use Nette\SmartObject;
 
@@ -46,7 +46,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	 *            .... label.requiredsuffix
 	 *          \---
 	 *
-	 *          /--- control.container [.odd]
+	 *          /--- control.container [.odd .multi]
 	 *            .... CONTROL [.required .error .text .password .file .submit .button]
 	 *            .... control.requiredsuffix
 	 *            .... control.description
@@ -88,6 +88,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 		'control' => [
 			'container' => 'td',
 			'.odd' => null,
+			'.multi' => null,
 
 			'description' => 'small',
 			'requiredsuffix' => '',
@@ -128,28 +129,30 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	 * Provides complete form rendering.
 	 * @param  string  $mode  'begin', 'errors', 'ownerrors', 'body', 'end' or empty to render all
 	 */
-	public function render(Nette\Forms\Form $form, string $mode = null): string
+	public function render(Nette\Forms\Form $form, ?string $mode = null): string
 	{
-		if ($this->form !== $form) {
-			$this->form = $form;
-		}
+		$this->form = $form;
 
 		$s = '';
 		if (!$mode || $mode === 'begin') {
 			$s .= $this->renderBegin();
 		}
+
 		if (!$mode || strtolower($mode) === 'ownerrors') {
 			$s .= $this->renderErrors();
 
 		} elseif ($mode === 'errors') {
 			$s .= $this->renderErrors(null, false);
 		}
+
 		if (!$mode || $mode === 'body') {
 			$s .= $this->renderBody();
 		}
+
 		if (!$mode || $mode === 'end') {
 			$s .= $this->renderEnd();
 		}
+
 		return $s;
 	}
 
@@ -179,6 +182,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 					$s .= Html::el('input', ['type' => 'hidden', 'name' => $name, 'value' => urldecode($parts[1])]);
 				}
 			}
+
 			return $el->startTag() . ($s ? "\n\t" . $this->getWrapper('hidden container')->setHtml($s) : '');
 
 		} else {
@@ -198,9 +202,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 				$s .= $control->getControl();
 			}
 		}
-		if (iterator_count($this->form->getComponents(true, Nette\Forms\Controls\TextInput::class)) < 2) {
-			$s .= '<!--[if IE]><input type=IEbug disabled style="display:none"><![endif]-->';
-		}
+
 		if ($s) {
 			$s = $this->getWrapper('hidden container')->setHtml($s) . "\n";
 		}
@@ -212,27 +214,38 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	/**
 	 * Renders validation errors (per form or per control).
 	 */
-	public function renderErrors(Nette\Forms\IControl $control = null, bool $own = true): string
+	public function renderErrors(?Nette\Forms\Control $control = null, bool $own = true): string
 	{
 		$errors = $control
 			? $control->getErrors()
 			: ($own ? $this->form->getOwnErrors() : $this->form->getErrors());
+		return $this->doRenderErrors($errors, (bool) $control);
+	}
+
+
+	private function doRenderErrors(array $errors, bool $control): string
+	{
 		if (!$errors) {
 			return '';
 		}
+
 		$container = $this->getWrapper($control ? 'control errorcontainer' : 'error container');
 		$item = $this->getWrapper($control ? 'control erroritem' : 'error item');
 
 		foreach ($errors as $error) {
 			$item = clone $item;
-			if ($error instanceof IHtmlString) {
+			if ($error instanceof HtmlStringable) {
 				$item->addHtml($error);
 			} else {
 				$item->setText($error);
 			}
+
 			$container->addHtml($item);
 		}
-		return "\n" . $container->render($control ? 1 : 0);
+
+		return $control
+			? "\n\t" . $container->render()
+			: "\n" . $container->render(0);
 	}
 
 
@@ -251,8 +264,10 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 				continue;
 			}
 
-			$container = $group->getOption('container', $defaultContainer);
-			$container = $container instanceof Html ? clone $container : Html::el($container);
+			$container = $group->getOption('container') ?? $defaultContainer;
+			$container = $container instanceof Html
+				? clone $container
+				: Html::el($container);
 
 			$id = $group->getOption('id');
 			if ($id) {
@@ -262,24 +277,26 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 			$s .= "\n" . $container->startTag();
 
 			$text = $group->getOption('label');
-			if ($text instanceof IHtmlString) {
+			if ($text instanceof HtmlStringable) {
 				$s .= $this->getWrapper('group label')->addHtml($text);
 
 			} elseif ($text != null) { // intentionally ==
 				if ($translator !== null) {
 					$text = $translator->translate($text);
 				}
+
 				$s .= "\n" . $this->getWrapper('group label')->setText($text) . "\n";
 			}
 
 			$text = $group->getOption('description');
-			if ($text instanceof IHtmlString) {
+			if ($text instanceof HtmlStringable) {
 				$s .= $text;
 
 			} elseif ($text != null) { // intentionally ==
 				if ($translator !== null) {
 					$text = $translator->translate($text);
 				}
+
 				$s .= $this->getWrapper('group description')->setText($text) . "\n";
 			}
 
@@ -314,7 +331,11 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 
 		$buttons = null;
 		foreach ($parent->getControls() as $control) {
-			if ($control->getOption('rendered') || $control->getOption('type') === 'hidden' || $control->getForm(false) !== $this->form) {
+			if (
+				$control->getOption('rendered')
+				|| $control->getOption('type') === 'hidden'
+				|| $control->getForm(false) !== $this->form
+			) {
 				// skip
 
 			} elseif ($control->getOption('type') === 'button') {
@@ -325,6 +346,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 					$container->addHtml($this->renderPairMulti($buttons));
 					$buttons = null;
 				}
+
 				$container->addHtml($this->renderPair($control));
 			}
 		}
@@ -345,7 +367,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	/**
 	 * Renders single visual row.
 	 */
-	public function renderPair(Nette\Forms\IControl $control): string
+	public function renderPair(Nette\Forms\Control $control): string
 	{
 		$pair = $this->getWrapper('pair container');
 		$pair->addHtml($this->renderLabel($control));
@@ -356,6 +378,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 		if (++$this->counter % 2) {
 			$pair->class($this->getValue('pair .odd'), true);
 		}
+
 		$pair->id = $control->getOption('id');
 		return $pair->render(0);
 	}
@@ -363,23 +386,25 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 
 	/**
 	 * Renders single visual row of multiple controls.
-	 * @param  Nette\Forms\IControl[]  $controls
+	 * @param  Nette\Forms\Control[]  $controls
 	 */
 	public function renderPairMulti(array $controls): string
 	{
 		$s = [];
 		foreach ($controls as $control) {
-			if (!$control instanceof Nette\Forms\IControl) {
-				throw new Nette\InvalidArgumentException('Argument must be array of Nette\Forms\IControl instances.');
+			if (!$control instanceof Nette\Forms\Control) {
+				throw new Nette\InvalidArgumentException('Argument must be array of Nette\Forms\Control instances.');
 			}
+
 			$description = $control->getOption('description');
-			if ($description instanceof IHtmlString) {
+			if ($description instanceof HtmlStringable) {
 				$description = ' ' . $description;
 
 			} elseif ($description != null) { // intentionally ==
 				if ($control instanceof Nette\Forms\Controls\BaseControl) {
 					$description = $control->translate($description);
 				}
+
 				$description = ' ' . $this->getWrapper('control description')->setText($description);
 
 			} else {
@@ -387,15 +412,18 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 			}
 
 			$control->setOption('rendered', true);
-			$el = $control->getControl();
+			$el = $this->renderControlElement($control);
 			if ($el instanceof Html) {
 				if ($el->getName() === 'input') {
 					$el->class($this->getValue("control .$el->type"), true);
 				}
+
 				$el->class($this->getValue('control .error'), $control->hasErrors());
 			}
+
 			$s[] = $el . $description;
 		}
+
 		$pair = $this->getWrapper('pair container');
 		$pair->addHtml($this->renderLabel($control));
 		$pair->addHtml($this->getWrapper('control container')->setHtml(implode(' ', $s)));
@@ -406,10 +434,10 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	/**
 	 * Renders 'label' part of visual row of controls.
 	 */
-	public function renderLabel(Nette\Forms\IControl $control): Html
+	public function renderLabel(Nette\Forms\Control $control): Html
 	{
 		$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
-		$label = $control->getLabel();
+		$label = $this->renderLabelElement($control);
 		if ($label instanceof Html) {
 			$label->addHtml($suffix);
 			if ($control->isRequired()) {
@@ -418,6 +446,7 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 		} elseif ($label != null) { // @intentionally ==
 			$label .= $suffix;
 		}
+
 		return $this->getWrapper('label container')->setHtml((string) $label);
 	}
 
@@ -425,21 +454,27 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 	/**
 	 * Renders 'control' part of visual row of controls.
 	 */
-	public function renderControl(Nette\Forms\IControl $control): Html
+	public function renderControl(Nette\Forms\Control $control): Html
 	{
 		$body = $this->getWrapper('control container');
 		if ($this->counter % 2) {
 			$body->class($this->getValue('control .odd'), true);
 		}
 
+		if (!$this->getWrapper('pair container')->getName()) {
+			$body->class($control->getOption('class'), true);
+			$body->id = $control->getOption('id');
+		}
+
 		$description = $control->getOption('description');
-		if ($description instanceof IHtmlString) {
+		if ($description instanceof HtmlStringable) {
 			$description = ' ' . $description;
 
 		} elseif ($description != null) { // intentionally ==
 			if ($control instanceof Nette\Forms\Controls\BaseControl) {
 				$description = $control->translate($description);
 			}
+
 			$description = ' ' . $this->getWrapper('control description')->setText($description);
 
 		} else {
@@ -450,28 +485,53 @@ class DefaultFormRenderer implements Nette\Forms\IFormRenderer
 			$description = $this->getValue('control requiredsuffix') . $description;
 		}
 
+		$els = $errors = [];
+		renderControl:
 		$control->setOption('rendered', true);
-		$el = $control->getControl();
+		$el = $this->renderControlElement($control);
 		if ($el instanceof Html) {
 			if ($el->getName() === 'input') {
 				$el->class($this->getValue("control .$el->type"), true);
 			}
+
 			$el->class($this->getValue('control .error'), $control->hasErrors());
 		}
-		return $body->setHtml($el . $description . $this->renderErrors($control));
+
+		$els[] = $el;
+		$errors = array_merge($errors, $control->getErrors());
+
+		if ($nextTo = $control->getOption('nextTo')) {
+			$control = $control->getForm()->getComponent($nextTo);
+			$body->class($this->getValue('control .multi'), true);
+			goto renderControl;
+		}
+
+		return $body->setHtml(implode('', $els) . $description . $this->doRenderErrors($errors, true));
 	}
 
 
-	protected function getWrapper(string $name): Html
+	/** @return string|Html|null */
+	protected function renderLabelElement(Nette\Forms\Control $control)
+	{
+		return $control->getLabel();
+	}
+
+
+	/** @return string|Html */
+	protected function renderControlElement(Nette\Forms\Control $control)
+	{
+		return $control->getControl();
+	}
+
+
+	public function getWrapper(string $name): Html
 	{
 		$data = $this->getValue($name);
 		return $data instanceof Html ? clone $data : Html::el($data);
 	}
 
 
-	/**
-	 * @return mixed
-	 */
+	/** @return mixed */
 	protected function getValue(string $name)
 	{
 		$name = explode(' ', $name);

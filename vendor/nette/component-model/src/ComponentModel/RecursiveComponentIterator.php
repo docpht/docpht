@@ -28,7 +28,7 @@ final class RecursiveComponentIterator extends \RecursiveArrayIterator implement
 	/**
 	 * The sub-iterator for the current element.
 	 */
-	public function getChildren(): \RecursiveIterator
+	public function getChildren(): self
 	{
 		return $this->current()->getComponents();
 	}

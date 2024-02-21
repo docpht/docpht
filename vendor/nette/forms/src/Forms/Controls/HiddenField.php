@@ -46,20 +46,20 @@ class HiddenField extends BaseControl
 	{
 		if ($value === null) {
 			$value = '';
-		} elseif (!is_scalar($value) && !method_exists($value, '__toString')) {
+		} elseif ($value instanceof \BackedEnum) {
+			$value = $value->value;
+		} elseif (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
 			throw new Nette\InvalidArgumentException(sprintf("Value must be scalar or null, %s given in field '%s'.", gettype($value), $this->name));
 		}
+
 		if (!$this->persistValue) {
 			$this->value = $value;
 		}
+
 		return $this;
 	}
 
 
-	/**
-	 * Returns control's value.
-	 * @return mixed
-	 */
 	public function getValue()
 	{
 		return $this->nullable && $this->value === '' ? null : $this->value;
@@ -77,20 +77,6 @@ class HiddenField extends BaseControl
 	}
 
 
-	/**
-	 * Appends input string filter callback.
-	 * @return static
-	 */
-	public function addFilter(callable $filter)
-	{
-		$this->getRules()->addFilter($filter);
-		return $this;
-	}
-
-
-	/**
-	 * Generates control's HTML element.
-	 */
 	public function getControl(): Nette\Utils\Html
 	{
 		$this->setOption('rendered', true);
@@ -105,10 +91,10 @@ class HiddenField extends BaseControl
 
 	/**
 	 * Bypasses label generation.
-	 * @param  string|object  $caption
 	 */
-	public function getLabel($caption = null): void
+	public function getLabel($caption = null)
 	{
+		return null;
 	}
 
 

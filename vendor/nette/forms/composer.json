@@ -1,9 +1,9 @@
 {
 	"name": "nette/forms",
-	"description": "?? Nette Forms: generating, validating and processing secure forms in PHP. Handy API, fully customizable, server & client side validation and mature design.",
+	"description": "📝 Nette Forms: generating, validating and processing secure forms in PHP. Handy API, fully customizable, server & client side validation and mature design.",
 	"keywords": ["nette", "forms", "validation", "csrf", "javascript", "bootstrap"],
 	"homepage": "https://nette.org",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -15,32 +15,36 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1",
+		"php": "7.2 - 8.3",
 		"nette/component-model": "^3.0",
-		"nette/http": "^3.0",
-		"nette/utils": "^3.0"
+		"nette/http": "^3.1",
+		"nette/utils": "^3.2.5 || ~4.0.0"
 	},
 	"require-dev": {
+		"nette/application": "^3.0",
 		"nette/di": "^3.0",
-		"nette/tester": "^2.0",
-		"latte/latte": "^2.4.1",
-		"tracy/tracy": "^2.4",
-		"phpstan/phpstan-nette": "^0.12"
+		"nette/tester": "^2.4",
+		"latte/latte": "^2.10.2 || ^3.0.12",
+		"tracy/tracy": "^2.9",
+		"phpstan/phpstan-nette": "^1"
 	},
 	"conflict": {
-		"nette/di": "<3.0-stable"
+		"latte/latte": ">=3.0.0 <3.0.12 || >=3.1"
+	},
+	"suggest": {
+		"ext-intl": "to use date/time controls"
 	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
 	"minimum-stability": "dev",
 	"scripts": {
-		"phpstan": "phpstan analyse --level 5 --configuration tests/phpstan.neon src",
+		"phpstan": "phpstan analyse",
 		"tester": "tester tests -s"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.0-dev"
+			"dev-master": "3.1-dev"
 		}
 	}
 }
