@@ -4,7 +4,7 @@
     <script src="public/assets/js/netteForms.js"></script>
     <script src="public/assets/js/netteFormValidate.js"></script>
     <!-- jQuery -->
-    <script src="public/assets/js/jquery-3.4.1.min.js"></script>
+    <script src="public/assets/js/jquery-3.7.1.min.js"></script>
     <!-- Popper.JS -->
     <script src="public/assets/js/popper.min.js"></script>
     <!-- Bootstrap JS -->
